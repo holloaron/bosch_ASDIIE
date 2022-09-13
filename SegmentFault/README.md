@@ -1,1 +1,1 @@
-SegmentFault's Packman
+SegmentFault's Pac-Man
