@@ -210,6 +210,7 @@ class PacMan:
 
     def timeout(self, timelimit):
         if self.Stopper.seconds_passed >= timelimit:
+            print(f"You have reached the:  {timelimit} s time limit")
             return True
         else:
             False
