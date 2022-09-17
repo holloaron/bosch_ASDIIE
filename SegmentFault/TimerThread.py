@@ -2,4 +2,11 @@ import time
 import threading
 
 class TimeCounter(threading.Thread):
-    pass
+
+    def __init__(self, *args, **kwargs):
+        super(TimeCounter, self).__init__(*args,**kwargs)
+        self._flag = threading.Event()  #flag to pause the thread
+        self._flag.set() #Set true
+        self._running = threading.Event() #stop thread identification
+        self._running.set() #set running to True
+        self._seconds_passed = 0 #value to track passed seconds
