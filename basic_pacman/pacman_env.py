@@ -26,7 +26,22 @@ class Pacman:
         This function resets the game session and returns a newly generated game state.
         :return: current state of the game (empty map with the pacman, ghosts and coins spawned)
         """
-        raise NotImplementedError
+        state = np.zeros((MAP_SIZE, MAP_SIZE))
+
+        self.step = 0
+        self.score = 0
+        self.orientation = np.random.randint(4)
+
+        self.ghosts = []
+        self.coins = []
+
+        self.pos_generator('self_pos', 1)
+        self.pos_generator('ghost', 4)
+        self.pos_generator('coin', 300)
+
+        self.update_map(state)
+
+        return state
 
     def step(self, a):
         """
