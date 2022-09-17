@@ -26,11 +26,15 @@ class PacMan:
 
 
     def step(self):
-        pass
+
+
+        return state, reward, done_, info
 
 
     def reset(self):
-        pass
+
+
+        return state
 
 
     def render(self):
@@ -56,4 +60,14 @@ if __name__ == "__main__":
 
     #play loop
     while not done_:
+        # here are declared the control keys
+        print("control assist TODO")
+
+        #add the next action
         action = int(input("Next action:\n"))
+
+        #gym compatible return of step
+        state, reward, done_, info = env.step(action=action)
+
+        #visualization of the game
+        env.render()
