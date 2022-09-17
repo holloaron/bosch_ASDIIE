@@ -1,4 +1,4 @@
-from basic_pacman.pacman_env import Pacman
+from pacman_env import Pacman
 
 if __name__ == "__main__":
     env = Pacman()
