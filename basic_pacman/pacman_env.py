@@ -33,3 +33,10 @@ class Pacman:
         :return: (state, reward, done, info)
         """
         raise NotImplementedError
+
+    def render(self):
+        """
+        This function creates a visualization window of the current state.
+        :return: None
+        """
+        raise NotImplementedError
