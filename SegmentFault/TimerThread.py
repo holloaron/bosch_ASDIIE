@@ -110,3 +110,7 @@ class TimeCounter(threading.Thread):
 
     def reset(self):
         self._seconds_passed = 0
+
+    @property
+    def seconds_passed(self):
+        return self._seconds_passed

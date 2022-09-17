@@ -209,7 +209,7 @@ class PacMan:
             self.objects.append(coords)
 
     def timeout(self, timelimit):
-        if self.Stopper >= timelimit:
+        if self.Stopper.seconds_passed >= timelimit:
             return True
         else:
             False
