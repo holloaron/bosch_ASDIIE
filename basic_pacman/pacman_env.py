@@ -25,3 +25,11 @@ class Pacman:
         :return: current state of the game (empty map with the pacman, ghosts and coins spawned)
         """
         raise NotImplementedError
+
+    def step(self, a):
+        """
+        This function realizes the change in the game state according to the chosen action.
+        :param a: chosen action (integer 0/1/2/3 corresponding to the directions in order up/right/down/left)
+        :return: (state, reward, done, info)
+        """
+        raise NotImplementedError
