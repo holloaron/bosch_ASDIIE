@@ -1,3 +1,6 @@
+import numpy as np
+np.seed(0)
+
 MAP_SIZE = 30
 
 class Pacman:
