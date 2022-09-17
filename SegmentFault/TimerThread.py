@@ -20,3 +20,6 @@ class TimeCounter(threading.Thread):
 
     def pause(self):
         self._flag.clear() #Set the flag false -> block the thread
+
+    def resume(self):
+        self._flag.set() #stop blocking of the thread
