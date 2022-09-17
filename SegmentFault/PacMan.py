@@ -149,7 +149,7 @@ class PacMan:
 
     def _create_observation(self):
         """
-        This funtion creates a grayscale observation (image) from the current state of the game.
+        This funtcion creates a grayscale observation (image) from the current state of the game.
         :return:
         """
         # init map
