@@ -17,3 +17,6 @@ class TimeCounter(threading.Thread):
             self._flag.wait()
             self._seconds_passed = self._seconds_passed + 1
             time.sleep(1)
+
+    def pause(self):
+        self._flag.clear() #Set the flag false -> block the thread
