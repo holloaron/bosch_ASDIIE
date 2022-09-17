@@ -6,5 +6,6 @@ if __name__ == "__main__":
     state = env.reset()
     while not done:
         action = int(input("Choose your action:\n"))
-        state, reward, done, info = env.step(action=action)
+        next_state, reward, done, info = env.step(action=action)
+        state = next_state
         env.render()
