@@ -3,6 +3,7 @@ np.random.seed(0)
 
 MAP_SIZE = 30
 
+
 class Pacman:
     """
 
@@ -12,6 +13,7 @@ class Pacman:
 
         self.coins = []
         self.ghosts = []
+        self.pos = []
 
         self.step = 0
         self.score = 0
