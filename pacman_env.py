@@ -3,7 +3,16 @@
 #Team : I_NEED_A
 
 class PacMan:
-    pass
+    def __init__(self):
+        pass
+
+
+    def step(self):
+        pass
+
+    
+    def reset(self):
+        pass
 
 if __name__ == "__main__":
     pass
