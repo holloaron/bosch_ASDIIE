@@ -57,3 +57,24 @@ class Pacman:
         :return: None
         """
         raise NotImplementedError
+
+    def pos_generator(self, obj, num_objects):
+        """
+        This function generates (x, y) coordinate pairs randomly in the available spots.
+        :param obj: name of the object to be generated across the map
+        :param num_objects: number of objects for coordinates
+        :return: None
+        """
+        for _ in range(num_objects):
+            pos = tuple(np.random.randint(MAP_SIZE, size=(2, 1)))
+            while pos in self.coins or pos in self.pos or pos in self.ghosts:
+                pos = tuple(np.random.randint(MAP_SIZE, size=(2, 1)))
+
+            if obj is 'ghost':
+                self.ghosts.append(pos)
+            elif obj is 'coin':
+                self.coins.append(pos)
+            elif obj is 'self_pos':
+                self.pos = pos
+            else:
+                raise ValueError
