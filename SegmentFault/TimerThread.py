@@ -27,3 +27,6 @@ class TimeCounter(threading.Thread):
     def stop(self):
         self._flag.set() #Resume the thread from the suspended state, it is already suspended
         self._running.clear() #Set false -> block the thread
+
+    def reset(self):
+        self._seconds_passed = 0
