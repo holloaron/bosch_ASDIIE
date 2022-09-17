@@ -10,3 +10,10 @@ class TimeCounter(threading.Thread):
         self._running = threading.Event() #stop thread identification
         self._running.set() #set running to True
         self._seconds_passed = 0 #value to track passed seconds
+
+
+    def run(self):
+        while self._running.isSet():
+            self._flag.wait()
+            self._seconds_passed = self._seconds_passed + 1
+            time.sleep(1)
