@@ -23,3 +23,7 @@ class TimeCounter(threading.Thread):
 
     def resume(self):
         self._flag.set() #stop blocking of the thread
+
+    def stop(self):
+        self._flag.set() #Resume the thread from the suspended state, it is already suspended
+        self._running.clear() #Set false -> block the thread
