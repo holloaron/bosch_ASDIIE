@@ -1,9 +1,12 @@
 import cv2
 import numpy as np
+from TimerThread import*
 
 
 class PacMan:
     def __init__(self, map_size):
+        self.Stopper = TimeCounter()
+        self.Stopper.start()
         self.map_size = map_size
         # lists for the map components
         self.body = []
@@ -205,6 +208,12 @@ class PacMan:
                 coords = tuple(np.random.randint(0, self.map_size, (2,)))
             self.objects.append(coords)
 
+    def timeout(self, timelimit):
+        if self.Stopper >= timelimit:
+            return True
+        else:
+            False
+
 
 if __name__ == "__main__":
     env = PacMan(map_size=50)
@@ -214,3 +223,4 @@ if __name__ == "__main__":
         a = int(input("Choose your next action:\n"))
         state, reward, done_, info = env.step(action=a)
         env.render()
+        done_ = env.timeout(60)
