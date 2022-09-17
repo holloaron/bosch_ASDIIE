@@ -39,7 +39,7 @@ class Pacman:
         self.pos_generator('ghost', 4)
         self.pos_generator('coin', 300)
 
-        self.update_map(state)
+        state = self.update_map(state)
 
         return state
 
@@ -78,3 +78,20 @@ class Pacman:
                 self.pos = pos
             else:
                 raise ValueError
+
+    def update_map(self, state):
+        """
+        This function updates the game state given as input according to the coordinates included in tuples and returns
+        the update-et array.
+        :param state: current game state given as a numpy array with size=(MAP_SIZE, MAP_SIZE)
+        :return: updated numpy array
+        """
+        for coin_pos in self.coins:
+            state[coin_pos[0], coin_pos[1]] = 0.25
+
+        for ghost_pos in self.ghosts:
+            state[ghost_pos[0], ghost_pos[1]] = 0.5
+
+        state[self.pos[0], self.pos[1]] = 1
+
+        return state
