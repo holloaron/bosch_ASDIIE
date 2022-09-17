@@ -38,7 +38,7 @@ class PacMan:
 
 
 def initialize_parameters():
-    global map_size , done
+    global map_size , done_
     map_size = 20
     done_ = False
 
@@ -53,3 +53,7 @@ if __name__ == "__main__":
 
     #starting state
     state = env.reset()
+
+    #play loop
+    while not done_:
+        action = int(input("Next action:\n"))
