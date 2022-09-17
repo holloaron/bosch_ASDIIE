@@ -13,11 +13,11 @@ class Pacman:
 
         self.coins = []
         self.ghosts = []
-        self.pos = []
+        self.pos = None
 
-        self.step = 0
-        self.score = 0
-        self.orientation = 0
+        self.step = None
+        self.score = None
+        self.orientation = None
 
         self.state = self.reset()
 
