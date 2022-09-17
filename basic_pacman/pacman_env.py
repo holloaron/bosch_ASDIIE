@@ -1,5 +1,5 @@
 import numpy as np
-np.seed(0)
+np.random.seed(0)
 
 MAP_SIZE = 30
 
