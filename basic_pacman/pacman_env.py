@@ -68,7 +68,7 @@ class Pacman:
         for _ in range(num_objects):
             pos = tuple(np.random.randint(MAP_SIZE, size=(2,)))
             while pos in self.coins or pos == self.pos or pos in self.ghosts:
-                pos = tuple(np.random.randint(MAP_SIZE, size=(2, 1)))
+                pos = tuple(np.random.randint(MAP_SIZE, size=(2,)))
 
             if obj == 'ghost':
                 self.ghosts.append(pos)
