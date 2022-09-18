@@ -1,23 +1,39 @@
+
 import cv2
 import numpy as np
 from TimerThread import*
+from MapData import*
 
 
 class PacMan:
-    def __init__(self, map_size):
+    def __init__(self):
         self.Stopper = TimeCounter()
         self.Stopper.start()
-        self.map_size = map_size
+
+        # map data
+        self.mapdata = MapData("Map.dat")
+        self.map_height = self.mapdata.height
+        self.map_width = self.mapdata.width
+        self.map_size = self.map_height
+        if self.map_height < self.map_width:
+            self.map_size = self.map_width
+
+        print(self.map_size)
         # lists for the map components
-        self.body = []
+        self.body = []        
         self.objects = []
+        self.walls = []
+
+        # set startup positions
+
         # initiate default values
         self.step_ = 0
         self.dir = 1
         self.size = 5
         self.last_obs = None
+
         # Variables for visualizing the current grid world
-        self.show_img_size = 300
+        self.show_img_size = (self.map_size * 10)
         self.show_img = np.zeros((self.show_img_size, self.show_img_size, 3))
         self.ratio = int(self.show_img_size / self.map_size)
         self.reset()
@@ -158,24 +174,32 @@ class PacMan:
         # add objects
         for obj in self.objects:
             obs_[obj[0], obj[1], 0] = 0.25
-        # add snake body
+        
+        # add pacman body
         for piece in self.body:
             obs_[piece[0], piece[1], 0] = 1
+
         # mark head
         head_coord = self.body[-1]
         obs_[head_coord[0], head_coord[1], 0] = 0.8
+
+        # walls
+        for obj in self.walls:
+            obs_[obj[0], obj[1], 0] = 0.45
+
         return obs_
 
     def reset(self):
         self.body = []
         self.objects = []
         self.dir = 1
-        self.size = 5
+        self.size = 1
         self.step_ = 0
         self.last_obs = None
 
         self._create_body()
         #self._create_objects(num=10)
+        self._create_walls()
         obs_ = self._create_observation()
         return obs_.flatten()
 
@@ -198,7 +222,8 @@ class PacMan:
             cv2.waitKey(50)
 
     def _create_body(self):
-        self.body.append((0, 0))
+        #print(self.mapdata.get_first_coord_of(MapElements.PacMan))
+        self.body.append(self.mapdata.get_first_coord_of(MapElements.PacMan))
         self.size = 1
 
     def _create_objects(self, num):
@@ -207,6 +232,10 @@ class PacMan:
             while coords in self.objects or coords in self.body:
                 coords = tuple(np.random.randint(0, self.map_size, (2,)))
             self.objects.append(coords)
+
+    def _create_walls(self):
+        for coords in self.mapdata.get_coords_of(MapElements.Wall):
+            self.walls.append(coords)
 
     def timeout(self, timelimit):
         if self.Stopper.seconds_passed >= timelimit:
@@ -217,7 +246,7 @@ class PacMan:
 
 
 if __name__ == "__main__":
-    env = PacMan(map_size=50)
+    env = PacMan()
     done_ = False
     state = env.reset()
     while not done_:
