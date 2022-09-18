@@ -1,6 +1,7 @@
 from pacman_env import Pacman
 
 if __name__ == "__main__":
+
     env = Pacman()
     done = False
     state = env.reset()

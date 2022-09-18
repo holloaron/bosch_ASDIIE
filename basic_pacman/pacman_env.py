@@ -13,9 +13,8 @@ class Pacman:
 
         self.coins = []
         self.ghosts = []
-        self.pos = tuple()
+        self.pos = [np.random.randint(10,MAP_SIZE-10),np.random.randint(10,MAP_SIZE-10)]
 
-        self.step = None
         self.score = None
         self.orientation = None
 
@@ -28,8 +27,8 @@ class Pacman:
         """
         state = np.zeros((MAP_SIZE, MAP_SIZE))
 
-        self.step = 0
         self.score = 0
+
         self.orientation = np.random.randint(4)
 
         self.ghosts = []
@@ -42,21 +41,52 @@ class Pacman:
         state = self.update_map(state)
 
         return state
-
-    def step(self, a):
+    def __move(self):
+        if self.orientation == 0:
+            self.pos[0] += 1
+        if self.orientation == 1:
+            self.pos[0] -= 1
+        if self.orientation == 2:
+            self.pos[1] += 1
+        if self.orientation == 3:
+            self.pos[1] -= 1
+        
+        return self.pos
+    def step(self, action):
         """
         This function realizes the change in the game state according to the chosen action.
-        :param a: chosen action (integer 0/1/2/3 corresponding to the directions in order up/right/down/left)
+        :param a: chosen action (integer 0/1/2/3 corresponding to the directions in order down/up/right/left)
         :return: (state, reward, done, info)
         """
-        raise NotImplementedError
+        done = False
+        reward = 0
+        if action == 0:
+            self.orientation = 0
+        if action == 1:
+            self.orientation = 1
+        if action == 2:
+            self.orientation = 2
+        if action == 3:
+            self.orientation = 3
+        self.pos = self.__move()
+        for x in range(len(self.ghosts)):
+            if self.pos == self.ghosts[x]:
+                done = True
+        for x in range(len(self.coins)):
+            if self.pos == self.coins[x]:
+                reward += 1
+
+        return self.pos,reward,done,None
+        #raise NotImplementedError
 
     def render(self):
         """
         This function creates a visualization window of the current state.
         :return: None
         """
-        raise NotImplementedError
+        print(self.state)
+        self.state[self.pos[0]][self.pos[1]] = 1
+        print(self.state)
 
     def pos_generator(self, obj, num_objects):
         """
@@ -66,9 +96,9 @@ class Pacman:
         :return: None
         """
         for _ in range(num_objects):
-            pos = tuple(np.random.randint(MAP_SIZE, size=(2,)))
+            pos = list(np.random.randint(MAP_SIZE, size=(2,)))
             while pos in self.coins or pos == self.pos or pos in self.ghosts:
-                pos = tuple(np.random.randint(MAP_SIZE, size=(2,)))
+                pos = list(np.random.randint(MAP_SIZE, size=(2,)))
 
             if obj == 'ghost':
                 self.ghosts.append(pos)
