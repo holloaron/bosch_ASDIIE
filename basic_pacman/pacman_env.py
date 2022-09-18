@@ -15,7 +15,7 @@ class Pacman:
         self.ghosts = []
         self.pos = tuple()
 
-        self.step = None
+        self.step_cnt = None
         self.score = None
         self.orientation = None
 
@@ -28,7 +28,7 @@ class Pacman:
         """
         state = np.zeros((MAP_SIZE, MAP_SIZE))
 
-        self.step = 0
+        self.step_cnt = 0
         self.score = 0
         self.orientation = np.random.randint(4)
 
