@@ -13,7 +13,7 @@ class Pacman:
 
         self.coins = []
         self.ghosts = []
-        self.pos = None
+        self.pos = tuple()
 
         self.step = None
         self.score = None
@@ -66,15 +66,15 @@ class Pacman:
         :return: None
         """
         for _ in range(num_objects):
-            pos = tuple(np.random.randint(MAP_SIZE, size=(2, 1)))
-            while pos in self.coins or pos in self.pos or pos in self.ghosts:
+            pos = tuple(np.random.randint(MAP_SIZE, size=(2,)))
+            while pos in self.coins or pos == self.pos or pos in self.ghosts:
                 pos = tuple(np.random.randint(MAP_SIZE, size=(2, 1)))
 
-            if obj is 'ghost':
+            if obj == 'ghost':
                 self.ghosts.append(pos)
-            elif obj is 'coin':
+            elif obj == 'coin':
                 self.coins.append(pos)
-            elif obj is 'self_pos':
+            elif obj == 'self_pos':
                 self.pos = pos
             else:
                 raise ValueError
