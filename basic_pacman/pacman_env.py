@@ -26,8 +26,6 @@ class Pacman:
         This function resets the game session and returns a newly generated game state.
         :return: current state of the game (empty map with the pacman, ghosts and coins spawned)
         """
-        state = np.zeros((MAP_SIZE, MAP_SIZE))
-
         self.step_cnt = 0
         self.score = 0
         self.orientation = np.random.randint(4)
@@ -39,7 +37,7 @@ class Pacman:
         self.pos_generator('ghost', 4)
         self.pos_generator('coin', 300)
 
-        state = self.update_map(state)
+        state = self.update_map()
 
         return state
 
@@ -111,13 +109,14 @@ class Pacman:
             else:
                 raise ValueError
 
-    def update_map(self, state):
+    def update_map(self):
         """
         This function updates the game state given as input according to the coordinates included in tuples and returns
         the update-et array.
-        :param state: current game state given as a numpy array with size=(MAP_SIZE, MAP_SIZE)
         :return: updated numpy array
         """
+        state = np.zeros((MAP_SIZE, MAP_SIZE))
+
         for coin_pos in self.coins:
             state[coin_pos[0], coin_pos[1]] = 0.25
 
