@@ -53,24 +53,43 @@ class PacMan:
         else:
             print("You lose")
             done = True
+            score= -1
 
 
 
         return state, reward, done_, info
 
     def right(self , x,y,action):
+
+        #only the x coordinate changes
+
+        x +=1
+        y = y
         return x,y
 
 
     def up(self, x,y,action):
+
+        #only the y coordinate changes
+        x=x
+        y +=1
         return x,y
 
 
     def left(self, x,y,action):
+
+        x -= 1
+        y = y
+
         return x,y
 
 
     def down(self, x,y,action):
+
+        # only the y coordinate changes
+        x = x
+        y -= 1
+
         return x,y
 
 
