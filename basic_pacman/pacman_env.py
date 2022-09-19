@@ -13,8 +13,9 @@ class Pacman:
 
         self.coins = []
         self.ghosts = []
-        self.pos = [np.random.randint(10,MAP_SIZE-10),np.random.randint(10,MAP_SIZE-10)]
+        self.pos = tuple()
 
+        self.step_cnt = None
         self.score = None
         self.orientation = None
 
@@ -27,8 +28,8 @@ class Pacman:
         """
         state = np.zeros((MAP_SIZE, MAP_SIZE))
 
+        self.step_cnt = 0
         self.score = 0
-
         self.orientation = np.random.randint(4)
 
         self.ghosts = []
@@ -50,12 +51,12 @@ class Pacman:
             self.pos[1] += 1
         if self.orientation == 3:
             self.pos[1] -= 1
-        
+
         return self.pos
     def step(self, action):
         """
         This function realizes the change in the game state according to the chosen action.
-        :param a: chosen action (integer 0/1/2/3 corresponding to the directions in order down/up/right/left)
+        :param a: chosen action (integer 0/1/2/3 corresponding to the directions in order up/right/down/left)
         :return: (state, reward, done, info)
         """
         done = False
