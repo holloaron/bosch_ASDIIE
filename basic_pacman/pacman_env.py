@@ -2,6 +2,7 @@ import numpy as np
 np.random.seed(0)
 
 MAP_SIZE = 30
+MAX_STEP = 100
 
 
 class Pacman:
@@ -26,8 +27,6 @@ class Pacman:
         This function resets the game session and returns a newly generated game state.
         :return: current state of the game (empty map with the pacman, ghosts and coins spawned)
         """
-        state = np.zeros((MAP_SIZE, MAP_SIZE))
-
         self.step_cnt = 0
         self.score = 0
         self.orientation = np.random.randint(4)
@@ -39,46 +38,71 @@ class Pacman:
         self.pos_generator('ghost', 4)
         self.pos_generator('coin', 300)
 
-        state = self.update_map(state)
+        state = self.update_map()
 
         return state
+
     def __move(self):
         if self.orientation == 0:
-            self.pos[0] += 1
-        if self.orientation == 1:
             self.pos[0] -= 1
-        if self.orientation == 2:
+        if self.orientation == 1:
             self.pos[1] += 1
+        if self.orientation == 2:
+            self.pos[0] += 1
         if self.orientation == 3:
             self.pos[1] -= 1
 
         return self.pos
+
     def step(self, action):
         """
         This function realizes the change in the game state according to the chosen action.
-        :param a: chosen action (integer 0/1/2/3 corresponding to the directions in order up/right/down/left)
+        :param action: chosen action (integer 0/1/2/3 corresponding to the directions in order up/right/down/left)
         :return: (state, reward, done, info)
         """
-        done = False
-        reward = 0
-        if action == 0:
-            self.orientation = 0
-        if action == 1:
-            self.orientation = 1
-        if action == 2:
-            self.orientation = 2
-        if action == 3:
-            self.orientation = 3
-        self.pos = self.__move()
-        for x in range(len(self.ghosts)):
-            if self.pos == self.ghosts[x]:
-                done = True
-        for x in range(len(self.coins)):
-            if self.pos == self.coins[x]:
-                reward += 1
+        if 0 <= action < 4:
+            self.orientation = action
+        else:
+            raise ValueError
 
-        return self.pos,reward,done,None
-        #raise NotImplementedError
+        self.pos = self.__move()
+        self.step_cnt += 1
+
+        reward = 0
+
+        done = self._check_done()
+
+        self._calculate_score()
+        info = "Points acquired: " + str(self.score)
+
+        self.state = self.update_map()
+
+        return self.state, reward, done, info
+
+    def _calculate_score(self):
+        """
+        This function calculates the scores which may have been acquired during the last step, and if so, removes the
+        coin from the map.
+        :return: None
+        """
+        for coin_pos in self.coins:
+            if self.pos == coin_pos:
+                self.score += 10
+                self.coins.remove(coin_pos)
+
+    def _check_done(self):
+        """
+        This function analyzes the game state and decides whether it's terminated or not.
+        :return: 'done' boolean value
+        """
+        if self.step_cnt > MAX_STEP:
+            return True
+
+        for ghost_pos in self.ghosts:
+            if self.pos == ghost_pos:
+                return True
+
+        return False
 
     def render(self):
         """
@@ -110,13 +134,14 @@ class Pacman:
             else:
                 raise ValueError
 
-    def update_map(self, state):
+    def update_map(self):
         """
         This function updates the game state given as input according to the coordinates included in tuples and returns
         the update-et array.
-        :param state: current game state given as a numpy array with size=(MAP_SIZE, MAP_SIZE)
         :return: updated numpy array
         """
+        state = np.zeros((MAP_SIZE, MAP_SIZE))
+
         for coin_pos in self.coins:
             state[coin_pos[0], coin_pos[1]] = 0.25
 
