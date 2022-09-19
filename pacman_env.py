@@ -25,6 +25,7 @@ class PacMan:
         self.show_img_size = 300
         self.show_img = np.zeros((self.show_img_size, self.show_img_size, 3))
         self.ratio = int(self.show_img_size / self.map_size)
+        self.score=0
         self.reset()
 
 
