@@ -55,7 +55,7 @@ class PacMan:
         else:
             print("You lose")
             done_ = True
-            score= -1
+            self.score= -1
 
         if (x, y) in self.objects:
 
@@ -74,7 +74,7 @@ class PacMan:
         if self.step_ == 0:
             done_ = True
 
-        return obs.flatten(), score, done_, info
+        return obs.flatten(), self.score, done_, info
 
     def right(self , x,y,action):
 
