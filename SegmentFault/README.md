@@ -25,6 +25,18 @@ The player controls the eponymous character through an enclosed maze. The object
 | Go Down | 2 |
 | Go Left | 3 |
 
+## :rocket: Development
+
+<details><summary><h3> Phase 1 </h3></summary>
+
+- [x] Empty map without walls
+- [x] Can move left, right, up, down
+- [ ] Step after some seconds
+- [ ] Collect points
+- [x] Game terminates after a given timesteps
+
+</details>
+
 ## :muscle: Collaborators
   
   - [**Amontobix**](https://github.com/Amontobix)
