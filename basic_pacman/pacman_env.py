@@ -60,14 +60,8 @@ class Pacman:
         :param action: chosen action (integer 0/1/2/3 corresponding to the directions in order up/right/down/left)
         :return: (state, reward, done, info)
         """
-        if action == 0:
-            self.orientation = 0
-        elif action == 1:
-            self.orientation = 1
-        elif action == 2:
-            self.orientation = 2
-        elif action == 3:
-            self.orientation = 3
+        if 0 <= action < 4:
+            self.orientation = action
         else:
             raise ValueError
 
