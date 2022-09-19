@@ -65,10 +65,10 @@ class PacMan:
             self.objects.remove((x, y))
 
             # create observation
-            obs = self._create_observation()
+        obs = self._create_observation()
 
-            # save observation
-            self.last_obs = obs
+        # save observation
+        self.last_obs = obs
 
         self.step_ -=1
         if self.step_ == 0:
@@ -108,10 +108,6 @@ class PacMan:
         y -= 1
 
         return x,y
-
-
-    def _create_observation(self):
-        pass
 
 
     def reset(self):
@@ -160,6 +156,8 @@ class PacMan:
     def _create_body(self):
         self.body.append((0, 0))
         self.size = 5
+
+
     def _create_observation(self):
         """
         This funtion creates a grayscale observation (image) from the current state of the game.
