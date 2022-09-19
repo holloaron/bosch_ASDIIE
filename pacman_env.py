@@ -26,14 +26,48 @@ class PacMan:
         self.reset()
 
 
-    def step(self):
+    def step(self , action):
+        # setting base reward
+        score = 0
+        # setting basic env status
+        is_dead = False
+        # getting the current head position (always the last body part)
+        pos_x, pos_y = self.body[-1]
 
-        self.time_step -= 1
+        #choose action
+        if action==0:
+            #going right
+            x,y = self.right(pos_x,pos_y,action)
+        if action == 1:
+            #going up
+            x, y = self.up(pos_x, pos_y, action)
 
-        if self.time_step == 0:
-            done_=True
+        if action == 2:
+            #going left
+            x, y = self.left(pos_x, pos_y, action)
+
+        if action == 3:
+            #going down
+            x, y = self.down(pos_x, pos_y, action)
+
+
 
         return state, reward, done_, info
+
+    def right(self , x,y,action):
+        return x,y
+
+
+    def up(self, x,y,action):
+        return x,y
+
+
+    def left(self, x,y,action):
+        return x,y
+
+
+    def down(self, x,y,action):
+        return x,y
 
 
     def reset(self):
