@@ -116,12 +116,6 @@ class PacMan:
 
     def reset(self):
 
-
-        return state
-
-
-    def render(self):
-
         self.body = []
         self.objects = []
         self.dir = 1
@@ -129,13 +123,39 @@ class PacMan:
         self.step_ = 0
         self.last_obs = None
 
-
         self._create_body()
         self._create_objects(num=10)
         obs_ = self._create_observation()
         return obs_.flatten()
 
         return obs_.flatten()
+
+    def render(self, mode="human"):
+        """
+        This function creates a cv2 plot from the current game state
+        :param mode: not used, legacy of gym environments
+        :return:
+        """
+
+        if self.last_obs is not None:
+            img = np.float32(self.last_obs)
+            img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+            # rescale original image from the grid world to visualize with OpenCv
+            for i in range(self.show_img_size):
+                for j in range(self.show_img_size):
+                    self.show_img[i][j] = img[i // self.ratio][j // self.ratio]
+            cv2.imshow("Snake Env", self.show_img)
+            # add wait to see the game
+            cv2.waitKey(50)
+
+    def _create_objects(self, num):
+        for _ in range(num):
+            coords = tuple(np.random.randint(0, self.map_size, (2,)))
+            while coords in self.objects or coords in self.body:
+                coords = tuple(np.random.randint(0, self.map_size, (2,)))
+            self.objects.append(coords)
+
+
 
     def _create_body(self):
         self.body.append((0, 0))
