@@ -63,12 +63,15 @@ class Pacman:
         reward = 0
         if action == 0:
             self.orientation = 0
-        if action == 1:
+        elif action == 1:
             self.orientation = 1
-        if action == 2:
+        elif action == 2:
             self.orientation = 2
-        if action == 3:
+        elif action == 3:
             self.orientation = 3
+        else:
+            raise ValueError
+
         self.pos = self.__move()
         for x in range(len(self.ghosts)):
             if self.pos == self.ghosts[x]:
