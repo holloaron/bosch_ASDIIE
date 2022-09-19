@@ -2,6 +2,7 @@ import numpy as np
 np.random.seed(0)
 
 MAP_SIZE = 30
+MAX_STEP = 100
 
 
 class Pacman:
