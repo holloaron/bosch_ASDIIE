@@ -59,8 +59,6 @@ class Pacman:
         :param action: chosen action (integer 0/1/2/3 corresponding to the directions in order up/right/down/left)
         :return: (state, reward, done, info)
         """
-        done = False
-        reward = 0
         if action == 0:
             self.orientation = 0
         elif action == 1:
@@ -73,14 +71,43 @@ class Pacman:
             raise ValueError
 
         self.pos = self.__move()
-        for x in range(len(self.ghosts)):
-            if self.pos == self.ghosts[x]:
-                done = True
-        for x in range(len(self.coins)):
-            if self.pos == self.coins[x]:
-                reward += 1
+        self.step_cnt += 1
 
-        return self.pos, reward, done, None
+        reward = 0
+
+        done = self._check_done()
+
+        self._calculate_score()
+        info = "Points acquired: " + str(self.score)
+
+        self.state = self.update_map()
+
+        return self.state, reward, done, info
+
+    def _calculate_score(self):
+        """
+        This function calculates the scores which may have been acquired during the last step, and if so, removes the
+        coin from the map.
+        :return: None
+        """
+        for coin_pos in self.coins:
+            if self.pos == coin_pos:
+                self.score += 10
+                self.coins.remove(coin_pos)
+
+    def _check_done(self):
+        """
+        This function analyzes the game state and decides whether it's terminated or not.
+        :return: 'done' boolean value
+        """
+        if self.step_cnt > MAX_STEP:
+            return True
+
+        for ghost_pos in self.ghosts:
+            if self.pos == ghost_pos:
+                return True
+
+        return False
 
     def render(self):
         """
