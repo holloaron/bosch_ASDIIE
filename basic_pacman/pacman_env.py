@@ -44,11 +44,11 @@ class Pacman:
 
     def __move(self):
         if self.orientation == 0:
-            self.pos[0] += 1
-        if self.orientation == 1:
             self.pos[0] -= 1
-        if self.orientation == 2:
+        if self.orientation == 1:
             self.pos[1] += 1
+        if self.orientation == 2:
+            self.pos[0] += 1
         if self.orientation == 3:
             self.pos[1] -= 1
 
