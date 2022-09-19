@@ -75,7 +75,7 @@ class PacMan:
         if self.step_ == 0:
             done_ = True
 
-            info= None
+        info= None
 
 
         return obs.flatten(), self.score, done_, info
