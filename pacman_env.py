@@ -14,10 +14,12 @@ class PacMan:
         self.body = []
         self.objects = []
         # initiate default values
-        self.step_ = 0
+        self.step_ = 100
         self.dir = 1
         self.size = 5
         self.last_obs = None
+        # placeholder for additional information
+        info = None
         self.time_step=40
         # Variables for visualizing the current grid world
         self.show_img_size = 300
@@ -30,7 +32,7 @@ class PacMan:
         # setting base reward
         score = 0
         # setting basic env status
-        is_dead = False
+        done_ = False
         # getting the current head position (always the last body part)
         pos_x, pos_y = self.body[-1]
 
@@ -52,12 +54,27 @@ class PacMan:
 
         else:
             print("You lose")
-            done = True
+            done_ = True
             score= -1
 
+        if (x, y) in self.objects:
 
+            #increment score by eating an object
+            self.score += 1
+            #if object reached  , remove
+            self.objects.remove((x, y))
 
-        return state, reward, done_, info
+            # create observation
+            obs = self._create_observation()
+
+            # save observation
+            self.last_obs = obs
+
+        self.step_ -=1
+        if self.step_ == 0:
+            done_ = True
+
+        return obs.flatten(), score, done_, info
 
     def right(self , x,y,action):
 
@@ -93,6 +110,10 @@ class PacMan:
         return x,y
 
 
+    def _create_observation(self):
+        pass
+
+
     def reset(self):
 
 
@@ -100,8 +121,32 @@ class PacMan:
 
 
     def render(self):
-        pass
 
+        self._create_body()
+        self._create_objects(num=10)
+        obs_ = self._create_observation()
+        return obs_.flatten()
+
+        return obs_.flatten()
+
+    def _create_observation(self):
+        """
+        This funtion creates a grayscale observation (image) from the current state of the game.
+        :return:
+        """
+        # init map
+        obs_ = np.zeros((self.map_size, self.map_size, 1))
+
+        # add objects
+        for obj in self.objects:
+            obs_[obj[0], obj[1], 0] = 0.25
+        # add snake body
+        for piece in self.body:
+            obs_[piece[0], piece[1], 0] = 1
+        # mark head
+        head_coord = self.body[-1]
+        obs_[head_coord[0], head_coord[1], 0] = 0.8
+        return obs_
 
 def initialize_parameters():
     global map_size , done_
@@ -137,6 +182,6 @@ if __name__ == "__main__":
 
 
 
-
+    print(f" Game over , your score is{env.score}")
 
 
