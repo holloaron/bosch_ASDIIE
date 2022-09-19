@@ -42,6 +42,7 @@ class Pacman:
         state = self.update_map(state)
 
         return state
+
     def __move(self):
         if self.orientation == 0:
             self.pos[0] += 1
@@ -53,10 +54,11 @@ class Pacman:
             self.pos[1] -= 1
 
         return self.pos
+
     def step(self, action):
         """
         This function realizes the change in the game state according to the chosen action.
-        :param a: chosen action (integer 0/1/2/3 corresponding to the directions in order up/right/down/left)
+        :param action: chosen action (integer 0/1/2/3 corresponding to the directions in order up/right/down/left)
         :return: (state, reward, done, info)
         """
         done = False
@@ -77,8 +79,7 @@ class Pacman:
             if self.pos == self.coins[x]:
                 reward += 1
 
-        return self.pos,reward,done,None
-        #raise NotImplementedError
+        return self.pos, reward, done, None
 
     def render(self):
         """
