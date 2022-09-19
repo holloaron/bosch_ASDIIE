@@ -122,6 +122,14 @@ class PacMan:
 
     def render(self):
 
+        self.body = []
+        self.objects = []
+        self.dir = 1
+        self.size = 5
+        self.step_ = 0
+        self.last_obs = None
+
+
         self._create_body()
         self._create_objects(num=10)
         obs_ = self._create_observation()
@@ -129,6 +137,9 @@ class PacMan:
 
         return obs_.flatten()
 
+    def _create_body(self):
+        self.body.append((0, 0))
+        self.size = 5
     def _create_observation(self):
         """
         This funtion creates a grayscale observation (image) from the current state of the game.
