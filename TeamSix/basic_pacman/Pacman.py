@@ -205,7 +205,7 @@ class Pacman:
             for i in range(self.show_img_size):
                 for j in range(self.show_img_size):
                     self.show_img[i][j] = img[i // self.ratio][j // self.ratio]
-            cv2.imshow("Snake Env", self.show_img)
+            cv2.imshow("Pacman Env", self.show_img)
             # add wait to see the game
             cv2.waitKey(50)
 
@@ -232,6 +232,7 @@ class Pacman:
                 self.dir = 2
         except:
             return
+
 
 if __name__ == "__main__":
     env = Pacman(map_size=10)
