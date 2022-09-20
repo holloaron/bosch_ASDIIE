@@ -219,7 +219,7 @@ class Pacman:
 
 
 if __name__ == "__main__":
-    env = Snake(map_size=10)
+    env = Pacman(map_size=10)
     done_ = False
     state = env.reset()
     while not done_:
