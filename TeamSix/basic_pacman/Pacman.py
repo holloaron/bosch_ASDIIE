@@ -240,7 +240,11 @@ if __name__ == "__main__":
     listener.start()
     done_ = False
     state = env.reset()
+    steps_done = 0
     while not done_:
         state, reward, done_, info = env.step(action=env.dir)
         env.render()
         time.sleep(1)
+        steps_done += 1
+        if steps_done > 100:
+            done_ = True
