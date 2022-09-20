@@ -91,9 +91,9 @@ class PacMan:
         else:
             raise NotImplementedError
 
-        # check if we go through the wall
-        x = self._check_walls(x)
-        y = self._check_walls(y)
+        # check if the player reached the end of the map
+        x = self._check_borders(x)
+        y = self._check_borders(y)
 
         self.body.append((x, y))
 
@@ -180,7 +180,7 @@ class PacMan:
             raise NotImplementedError
         return pos_x, pos_y
 
-    def _check_walls(self, coord):
+    def _check_borders(self, coord):
         # checking the limit at max
         if coord == self.map_size:
             return 0
