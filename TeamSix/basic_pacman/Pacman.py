@@ -17,7 +17,7 @@ class Pacman:
         # initiate default values
         self.step_ = 0
         self.dir = 1
-        self.size = 5
+        self.size = 1
         self.last_obs = None
         # Variables for visualizing the current grid world
         self.show_img_size = 300
@@ -28,6 +28,7 @@ class Pacman:
     def step(self, action):
         # setting base reward
         score = 0
+
         # setting basic env status
         is_dead = False
         # getting the current head position (always the last body part)
@@ -60,7 +61,7 @@ class Pacman:
         # checking for object to eat
         if (x, y) in self.objects:
             # increase size due to feeding
-            self.size += 1
+            # self.size += 1
             score = 1
             self.objects.remove((x, y))
             # self._create_objects(num=1) # use this line for generating new object if one is eaten
@@ -179,7 +180,7 @@ class Pacman:
         self.body = []
         self.objects = []
         self.dir = 1
-        self.size = 5
+        self.size = 1
         self.step_ = 0
         self.last_obs = None
 
@@ -208,7 +209,7 @@ class Pacman:
 
     def _create_body(self):
         self.body.append((0, 0))
-        self.size = 5
+        self.size = 1
 
     def _create_objects(self, num):
         for _ in range(num):
