@@ -105,11 +105,6 @@ class PacMan:
             self.objects.remove((x, y))
             # self._create_objects(num=1) # use this line for generating new object if one is eaten
 
-        # check the length
-        if len(self.body) > self.size:
-            # remove last body part if exceeds size
-            self.body.pop(0)
-
         # create observation
         obs = self._create_observation()
 
