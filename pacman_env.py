@@ -1,6 +1,6 @@
 # Pacman Environment
-# Author : Csorba Levente , Knáb István Gellért
-#Team : I_NEED_A
+# Author : Csorba Levente , Knáb István Gellért, Tóth Tibor Áron
+# Team : I_NEED_A
 
 
 #import the needed libraries
@@ -128,8 +128,6 @@ class PacMan:
         obs_ = self._create_observation()
         return obs_.flatten()
 
-        return obs_.flatten()
-
     def render(self, mode="human"):
         """
         This function creates a cv2 plot from the current game state
@@ -139,14 +137,18 @@ class PacMan:
 
         if self.last_obs is not None:
             img = np.float32(self.last_obs)
-            img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-            # rescale original image from the grid world to visualize with OpenCv
-            for i in range(self.show_img_size):
-                for j in range(self.show_img_size):
-                    self.show_img[i][j] = img[i // self.ratio][j // self.ratio]
-            cv2.imshow("Snake Env", self.show_img)
-            # add wait to see the game
-            cv2.waitKey(50)
+        else:
+            img = np.float32(self._create_observation())
+        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        # rescale original image from the grid world to visualize with OpenCv
+        for i in range(self.show_img_size):
+            for j in range(self.show_img_size):
+                self.show_img[i][j] = img[i // self.ratio][j // self.ratio]
+        cv2.imshow("PAC-MAN Env", self.show_img)
+        # add wait to see the game
+        cv2.waitKey(50)
+             
+
 
     def _create_objects(self, num):
         for _ in range(num):
@@ -199,6 +201,9 @@ if __name__ == "__main__":
     #starting state
     state = env.reset()
 
+    #render before first step
+    env.render()
+
     #play loop
     while not done_:
         # here are declared the control keys
@@ -213,8 +218,4 @@ if __name__ == "__main__":
         #visualization of the game
         env.render()
 
-
-
     print(f" Game over , your score is{env.score}")
-
-
