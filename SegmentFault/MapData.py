@@ -43,9 +43,10 @@ class MapData():
         
     """
     get_size method
-    Returns the mapsize as a tuple
+    :return: the mapsize as a tuple
         [0] - height
         [1] - width
+    @params self
     """
     def get_size(self):
         mapdata = open(self.data_path, 'r')
@@ -69,7 +70,8 @@ class MapData():
 
     """
     contains method
-    Returns true, if the mapdata contains the given MapElement
+    :return: True, if the mapdata contains the given MapElement
+    @params self, element
     """
     def contains(self, element):
         mapdata = open(self.data_path, 'r')
@@ -92,10 +94,11 @@ class MapData():
 
 
     """
-    get_coordinate
-    Returns the first coordinate as tuple of the given element
+    get_first_coord_of method
+    :return: The first coordinate as tuple of the given element
         [1] - pos_X
         [2] - pos_Y
+    @params self, element
     """
     def get_first_coord_of(self, element):
 
@@ -122,11 +125,11 @@ class MapData():
             x +=1
             
     """
-    get_coords
-    Returns a list of coordinates as tuple of the given MapElement
-
-    If the list id empty,
-    the Map does not contains the given MapElement
+    get_coords_of method
+    :return: A list of coordinates as tuple of the given MapElement
+             If the returned list id empty, the Map does not contains 
+             the given MapElement
+    @params self, element
     """
     def get_coords_of(self, element):
         mapdata = open(self.data_path, 'r')
