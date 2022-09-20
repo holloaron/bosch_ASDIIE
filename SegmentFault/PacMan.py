@@ -45,18 +45,18 @@ class PacMan:
 
     def ask(self):
         # get the command from the consol
-        global state, reward, done_, info
+        #global state, reward, done_, info
         while not self.stop:
             self.answer = int(input("Choose your next action:\n"))
-            time.sleep(0.001)
+            #time.sleep(0.001)
             self.old_answer = self.answer
-            state, reward, done_, info = self.step(action=self.old_answer)
-            self.render()
+            # state, reward, done_, info = self.step(action=self.old_answer)
+            # self.render()
 
     def auto_step(self):
         # step the point at a given intervals
         global state, reward, done_, info
-        time_limit = 2
+        time_limit = 0.5
         start_time = time.time()
         while not done_:
             time_taken = time.time() - start_time
@@ -282,11 +282,11 @@ if __name__ == "__main__":
     env = PacMan()
     done_ = False
     state = env.reset()
-    # env.auto_step()
-    # t1 = Thread(target=env.ask())
-    t2 = Thread(target=env.auto_step())
-    # t1.start()
+    t1 = Thread(target=env.ask)
+    t2 = Thread(target=env.auto_step)
+    t1.start()
     t2.start()
     t2.join()
+    env.stop = True
     print("program end")
-    env.stop=True
+
