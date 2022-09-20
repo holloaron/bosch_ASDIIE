@@ -29,6 +29,24 @@ class PacMan:
     def render(self):
         pass
 
+    def movement(self,action,x_pos,y_pos):
+        # going up
+        if action == 'w':
+            pos_x -= 1
+        # going left
+        elif action == 'a':
+            pos_y -= 1
+        # going down
+        elif action == 's':
+            pos_x += 1
+        # going right
+        elif action == 'd':
+
+        else:
+            raise NotImplementedError
+        return pos_x, pos_y
+
+
 
 if __name__ == "__main__":
     # Instantiating the environment
