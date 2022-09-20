@@ -7,7 +7,7 @@ from threading import Thread
 
 
 class PacMan:
-    answer = None
+    answer = 0
     stop=False
     old_answer = 0
 
@@ -64,7 +64,7 @@ class PacMan:
             # print(f"The answer is {answer} .")
 
             if time_taken > time_limit:
-                state, reward, done_, info = self.step(action=0)
+                state, reward, done_, info = self.step(action=self.old_answer)
                 self.render()
                 time.sleep(0.001)
                 start_time = time.time()
@@ -282,10 +282,11 @@ if __name__ == "__main__":
     env = PacMan()
     done_ = False
     state = env.reset()
-    env.auto_step()
+    # env.auto_step()
     # t1 = Thread(target=env.ask())
-    # t2 = Thread(target=env.auto_step())
+    t2 = Thread(target=env.auto_step())
     # t1.start()
-    # t2.start()
-    # t2.join()
+    t2.start()
+    t2.join()
+    print("program end")
     env.stop=True
