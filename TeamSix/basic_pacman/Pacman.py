@@ -6,6 +6,7 @@ modified by Dávid Czuri
 """
 import cv2
 import numpy as np
+from pynput import keyboard
 
 
 class Pacman:
@@ -218,9 +219,23 @@ class Pacman:
                 coords = tuple(np.random.randint(0, self.map_size, (2,)))
             self.objects.append(coords)
 
+    def keyboard_on_press(self, key):
+        try:
+            if key.name == 'up':
+                self.dir = 3
+            elif key.name == 'down':
+                self.dir = 1
+            elif key.name == 'right':
+                self.dir = 0
+            elif key.name == 'left':
+                self.dir = 2
+        except:
+            return
 
 if __name__ == "__main__":
     env = Pacman(map_size=10)
+    listener = keyboard.Listener(on_press=env.keyboard_on_press)
+    listener.start()
     done_ = False
     state = env.reset()
     while not done_:
