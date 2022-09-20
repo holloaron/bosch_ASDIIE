@@ -11,12 +11,12 @@ class PacMan:
     def __init__(self, map_size):
         self.map_size = map_size
         # lists for the map components
-        self.body = []
+        self.body = None
         self.objects = []
         # initiate default values
         self.step_ = 100
         self.dir = 1
-        self.size = 5
+
         self.last_obs = None
         # placeholder for additional information
         info = None
@@ -30,12 +30,11 @@ class PacMan:
 
 
     def step(self , action):
-        # setting base reward
-        score = 0
         # setting basic env status
         done_ = False
+        
         # getting the current head position (always the last body part)
-        pos_x, pos_y = self.body[-1]
+        pos_x, pos_y = self.body
 
         #choose action
         if action==0:
@@ -58,8 +57,10 @@ class PacMan:
             done_ = True
             self.score= -1
 
-        if (x, y) in self.objects:
+        if x != self.body[1] and y !=self.body[1]:
+            self.body = (x,y)
 
+        if (x, y) in self.objects:
             #increment score by eating an object
             self.score += 1
             #if object reached  , remove
@@ -116,10 +117,10 @@ class PacMan:
 
     def reset(self):
 
-        self.body = []
+        self.body = None
         self.objects = []
         self.dir = 1
-        self.size = 5
+
         self.step_ = 0
         self.last_obs = None
 
@@ -153,15 +154,12 @@ class PacMan:
     def _create_objects(self, num):
         for _ in range(num):
             coords = tuple(np.random.randint(0, self.map_size, (2,)))
-            while coords in self.objects or coords in self.body:
-                coords = tuple(np.random.randint(0, self.map_size, (2,)))
-            self.objects.append(coords)
-
+            if self.body[0] != coords[0] and self.body[1] != coords[1]:
+                self.objects.append(coords)
 
 
     def _create_body(self):
-        self.body.append((0, 0))
-        self.size = 5
+        self.body = (0,0)
 
 
     def _create_observation(self):
@@ -175,12 +173,10 @@ class PacMan:
         # add objects
         for obj in self.objects:
             obs_[obj[0], obj[1], 0] = 0.25
-        # add snake body
-        for piece in self.body:
-            obs_[piece[0], piece[1], 0] = 1
-        # mark head
-        head_coord = self.body[-1]
-        obs_[head_coord[0], head_coord[1], 0] = 0.8
+
+        # add pac-man
+        pac_man_coords = self.body
+        obs_[pac_man_coords[0], pac_man_coords[1], 0] = 0.8
         return obs_
 
 def initialize_parameters():
