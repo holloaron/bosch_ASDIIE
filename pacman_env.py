@@ -57,8 +57,9 @@ class PacMan:
             done_ = True
             self.score= -1
 
-        if x != self.body[1] and y !=self.body[1]:
-            self.body = (x,y)
+        self.body = (x,y)
+        self._wall_limit()
+
 
         if (x, y) in self.objects:
             #increment score by eating an object
@@ -85,7 +86,7 @@ class PacMan:
 
         #only the x coordinate changes
 
-        x +=1
+        x += 1
         y = y
         return x,y
 
@@ -93,7 +94,7 @@ class PacMan:
     def up(self, x,y,action):
 
         #only the y coordinate changes
-        x=x
+        x = x
         y +=1
         return x,y
 
@@ -178,6 +179,13 @@ class PacMan:
         pac_man_coords = self.body
         obs_[pac_man_coords[0], pac_man_coords[1], 0] = 0.8
         return obs_
+
+    def _wall_limit(self):
+        limited_x = max(0, min(self.body[0], self.map_size-1))
+        limited_y = max(0, min(self.body[1], self.map_size-1))
+        
+        self.body = (limited_x,limited_y)
+        
 
 def initialize_parameters():
     global map_size , done_
