@@ -1,11 +1,16 @@
-
 import cv2
 import numpy as np
-from TimerThread import*
-from MapData import*
+from TimerThread import *
+from MapData import *
+import time
+from threading import Thread
 
 
 class PacMan:
+    answer = None
+    stop=False
+    old_answer = 0
+
     def __init__(self):
         self.Stopper = TimeCounter()
         self.Stopper.start()
@@ -37,6 +42,34 @@ class PacMan:
         self.show_img = np.zeros((self.show_img_size, self.show_img_size, 3))
         self.ratio = int(self.show_img_size / self.map_size)
         self.reset()
+
+    def ask(self):
+        # get the command from the consol
+        global state, reward, done_, info
+        while not self.stop:
+            self.answer = int(input("Choose your next action:\n"))
+            time.sleep(0.001)
+            self.old_answer = self.answer
+            state, reward, done_, info = self.step(action=self.old_answer)
+            self.render()
+
+    def auto_step(self):
+        # step the point at a given intervals
+        global state, reward, done_, info
+        time_limit = 2
+        start_time = time.time()
+        while not done_:
+            time_taken = time.time() - start_time
+
+            # print(f"The answer is {answer} .")
+
+            if time_taken > time_limit:
+                state, reward, done_, info = self.step(action=0)
+                self.render()
+                time.sleep(0.001)
+                start_time = time.time()
+
+            done_ = self.timeout(60)
 
     def step(self, action):
         # setting base reward
@@ -199,7 +232,7 @@ class PacMan:
 
         self._create_body()
         #self._create_objects(num=10)
-        self._create_walls()
+        #self._create_walls()
         obs_ = self._create_observation()
         return obs_.flatten()
 
@@ -249,8 +282,10 @@ if __name__ == "__main__":
     env = PacMan()
     done_ = False
     state = env.reset()
-    while not done_:
-        a = int(input("Choose your next action:\n"))
-        state, reward, done_, info = env.step(action=a)
-        env.render()
-        done_ = env.timeout(60)
+    env.auto_step()
+    # t1 = Thread(target=env.ask())
+    # t2 = Thread(target=env.auto_step())
+    # t1.start()
+    # t2.start()
+    # t2.join()
+    env.stop=True
