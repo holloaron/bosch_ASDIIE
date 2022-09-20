@@ -31,7 +31,7 @@ The player controls the eponymous character through an enclosed maze. The object
 
 - [x] Empty map without walls
 - [x] Can move left, right, up, down
-- [ ] Step after some seconds
+- [x] Step after some seconds
 - [ ] Collect points
 - [x] Game terminates after a given timesteps
 
