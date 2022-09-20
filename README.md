@@ -1,5 +1,5 @@
 # bosch_ASDIIE TeamSix
-Team members:
+Team members:  
 Czuri Dávid,  
 Dankovics Ádám,  
 Holló Áron,  
