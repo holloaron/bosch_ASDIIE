@@ -4,6 +4,7 @@ laszlo.szoke@hu.bosch.com
 copied from https://github.com/bme-kjit/bosch_ASDIIE/blob/main/basic_version/snake.py
 modified by Dávid Czuri
 """
+import time
 import cv2
 import numpy as np
 from pynput import keyboard
@@ -239,6 +240,6 @@ if __name__ == "__main__":
     done_ = False
     state = env.reset()
     while not done_:
-        a = int(input("Choose your next action:\n"))
-        state, reward, done_, info = env.step(action=a)
+        state, reward, done_, info = env.step(action=env.dir)
         env.render()
+        time.sleep(1)
