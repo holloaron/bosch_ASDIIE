@@ -145,7 +145,7 @@ class Pacman:
         self.state[self.pos[0]][self.pos[1]] = 1
         print(self.state)
 
-    def pos_generator(self, obj, num_objects):
+    def _generate_pos(self, obj: str, num_objects: int) -> None:
         """
         This function generates (x, y) coordinate pairs randomly in the available spots.
         :param obj: name of the object to be generated across the map
