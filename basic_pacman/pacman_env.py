@@ -138,7 +138,7 @@ class Pacman:
 
     def render(self) -> None:
         """
-        This function creates a visualization window of the current state.
+        This function creates a visualization of the game state.
         :return: None
         """
         print(self.state)
