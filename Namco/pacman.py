@@ -29,22 +29,25 @@ class PacMan:
     def render(self):
         pass
 
-    def movement(self,action,x_pos,y_pos):
+    def movement(self,action,vel_x,vel_y):
         # going up
         if action == 'w':
-            pos_x -= 1
+            vel_x = -1
+            vel_y = 0
         # going left
         elif action == 'a':
-            pos_y -= 1
+            vel_x = 0
+            vel_y = -1
         # going down
         elif action == 's':
-            pos_x += 1
+            vel_x = 1
+            vel_y = 0
         # going right
         elif action == 'd':
+            vel_x = 0
+            vel_y = 1
 
-        else:
-            raise NotImplementedError
-        return pos_x, pos_y
+        return vel_x, vel_y
 
 
 
