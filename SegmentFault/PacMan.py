@@ -28,6 +28,7 @@ class PacMan:
         self.body = []        
         self.objects = []
         self.walls = []
+        self.points = []
 
         # set startup positions
 
@@ -214,6 +215,10 @@ class PacMan:
         # walls
         for obj in self.walls:
             obs_[obj[0], obj[1], 0] = 0.45
+        
+        # points
+        for obj in self.points:
+            obs_[obj[0], obj[1], 0] = 0.25
 
         return obs_
 
@@ -227,7 +232,9 @@ class PacMan:
 
         self._create_body()
         #self._create_objects(num=10)
-        #self._create_walls()
+        #self.walls = self.mapdata.get_coords_of(MapElements.Wall)
+        self.points = self.mapdata.get_coords_of(MapElements.Point)
+
         obs_ = self._create_observation()
         return obs_.flatten()
 
@@ -260,10 +267,6 @@ class PacMan:
             while coords in self.objects or coords in self.body:
                 coords = tuple(np.random.randint(0, self.map_size, (2,)))
             self.objects.append(coords)
-
-    def _create_walls(self):
-        for coords in self.mapdata.get_coords_of(MapElements.Wall):
-            self.walls.append(coords)
 
     def timeout(self, timelimit):
         if self.Stopper.seconds_passed >= timelimit:
