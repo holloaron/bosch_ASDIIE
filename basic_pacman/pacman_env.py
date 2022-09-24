@@ -87,8 +87,17 @@ class Pacman:
         done = self._check_done()
         info = self._get_info()
 
+        return next_state, reward, done, info
+
+    def _get_info(self) -> str:
+        """
+        This function creates an 'info' string which can be used as a feedback from the environment itself.
+        :return: information about the game's current state
+        """
         self._calculate_score()
-        info = "Points acquired: " + str(self.score)
+        info = "Points acquired: " + str(self.score) + "\nSteps: " + self.step_counter + "/" + MAX_STEP
+
+        return info
 
         self.state = self.update_map()
 
