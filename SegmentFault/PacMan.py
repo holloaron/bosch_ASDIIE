@@ -25,7 +25,7 @@ class PacMan:
 
         print(self.map_size)
         # lists for the map components
-        self.body = []        
+        self.body = (0,0)
         self.objects = []
         self.walls = []
         self.points = []
@@ -35,7 +35,6 @@ class PacMan:
         # initiate default values
         self.step_ = 0
         self.dir = 1
-        self.size = 5
         self.last_obs = None
 
         # Variables for visualizing the current grid world
@@ -77,10 +76,12 @@ class PacMan:
         score = 0
         # setting basic env status
         is_dead = False
-        # getting the current head position (always the last body part)
-        pos_x, pos_y = self.body[-1]
 
-        # get new head position
+        # get the current position of the player
+        pos_x = self.body[0]
+        pos_y = self.body[1]
+
+        # get new player position
         if self.dir == 0:
             x, y, = self._going_up(action, pos_x, pos_y)
         elif self.dir == 1:
@@ -96,12 +97,10 @@ class PacMan:
         x = self._check_borders(x)
         y = self._check_borders(y)
 
-        self.body.append((x, y))
+        self.body = (x, y)
 
         # checking for object to eat
         if (x, y) in self.objects:
-            # increase size due to feeding
-            self.size += 1
             score = 1
             self.objects.remove((x, y))
             # self._create_objects(num=1) # use this line for generating new object if one is eaten
@@ -204,13 +203,8 @@ class PacMan:
         for obj in self.objects:
             obs_[obj[0], obj[1], 0] = 0.25
         
-        # add pacman body
-        for piece in self.body:
-            obs_[piece[0], piece[1], 0] = 1
-
-        # mark head
-        head_coord = self.body[-1]
-        obs_[head_coord[0], head_coord[1], 0] = 0.8
+        # add player
+        obs_[self.body[0], self.body[1], 0] = 1
 
         # walls
         for obj in self.walls:
@@ -223,14 +217,12 @@ class PacMan:
         return obs_
 
     def reset(self):
-        self.body = []
+        self.body = self.mapdata.get_first_coord_of(MapElements.PacMan)
         self.objects = []
         self.dir = 1
-        self.size = 1
         self.step_ = 0
         self.last_obs = None
 
-        self._create_body()
         #self._create_objects(num=10)
         #self.walls = self.mapdata.get_coords_of(MapElements.Wall)
         self.points = self.mapdata.get_coords_of(MapElements.Point)
@@ -255,11 +247,6 @@ class PacMan:
             cv2.imshow("PacMan", self.show_img)
             # add wait to see the game
             cv2.waitKey(50)
-
-    def _create_body(self):
-        #print(self.mapdata.get_first_coord_of(MapElements.PacMan))
-        self.body.append(self.mapdata.get_first_coord_of(MapElements.PacMan))
-        self.size = 1
 
     def _create_objects(self, num):
         for _ in range(num):
