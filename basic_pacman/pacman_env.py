@@ -125,7 +125,7 @@ class Pacman:
     def _check_done(self):
         """
         This function analyzes the game state and decides whether it's terminated or not.
-        :return: 'done' boolean value
+        :return: True if the game is terminated, otherwise False
         """
         if self.step_counter > MAX_STEP:
             return True
