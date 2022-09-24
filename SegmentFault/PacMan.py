@@ -7,9 +7,9 @@ from threading import Thread
 
 
 class PacMan:
-    answer = 0
+    answer = ''
     stop=False
-    old_answer = 0
+    old_answer = '0'
 
     def __init__(self):
         self.Stopper = TimeCounter()
@@ -47,7 +47,7 @@ class PacMan:
         # get the command from the consol
         #global state, reward, done_, info
         while not self.stop:
-            self.answer = int(input("Choose your next action:\n"))
+            self.answer = input("Choose your next action:\n")
             #time.sleep(0.001)
             self.old_answer = self.answer
             # state, reward, done_, info = self.step(action=self.old_answer)
@@ -81,17 +81,24 @@ class PacMan:
         pos_x = self.body[0]
         pos_y = self.body[1]
 
-        # get new player position
-        if self.direction == 0:
-            x, y, = self._going_up(action, pos_x, pos_y)
-        elif self.direction == 1:
-            x, y, = self._going_right(action, pos_x, pos_y)
-        elif self.direction == 2:
-            x, y, = self._going_down(action, pos_x, pos_y)
-        elif self.direction == 3:
-            x, y, = self._going_left(action, pos_x, pos_y)
+        if len(action) == 1:
+
+            action = int(action)
+
+            # get new player position
+            if self.direction == 0:
+                x, y, = self._going_up(action, pos_x, pos_y)
+            elif self.direction == 1:
+                x, y, = self._going_right(action, pos_x, pos_y)
+            elif self.direction == 2:
+                x, y, = self._going_down(action, pos_x, pos_y)
+            elif self.direction == 3:
+                x, y, = self._going_left(action, pos_x, pos_y)
+            else:
+                raise NotImplementedError
+        
         else:
-            raise NotImplementedError
+            pass
 
         # check if the player reached the end of the map
         x = self._check_borders(x)
@@ -147,6 +154,7 @@ class PacMan:
         # going right or left
         elif action == 1 or action == 3:
             pos_x -= 1
+        #going up
         elif action == 0:
             pos_y += 1
             self.direction = 0
@@ -155,11 +163,14 @@ class PacMan:
         return pos_x, pos_y
 
     def _going_up(self, action, pos_x, pos_y):
+        # going left
         if action == 3:
             pos_x -= 1
             self.direction = 3
+        # going up or down
         elif action == 0 or action == 2:
             pos_y += 1
+        # going right
         elif action == 1:
             pos_x += 1
             self.direction = 1
@@ -168,11 +179,14 @@ class PacMan:
         return pos_x, pos_y
 
     def _going_down(self, action, pos_x, pos_y):
+        # going right
         if action == 1:
             pos_x += 1
             self.direction = 1
+        # going up or down
         elif action == 0 or action == 2:
             pos_y -= 1
+        # going left
         elif action == 3:
             pos_x -= 1
             self.direction = 3
