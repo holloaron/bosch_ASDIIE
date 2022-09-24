@@ -115,7 +115,20 @@ class Pacman:
 
         return reward
 
-    def _calculate_score(self):
+    def _get_next_state(self, action: int) -> np.ndarray:
+        """
+        This function realizes the change in the game state according to the chosen action.
+        :param action: chosen action 0/1/2/3 corresponding to the directions in order up/right/down/left)
+        :return: state of the environment after the action
+        """
+        self._check_action_validity(action)
+        self._set_action(action)
+        self._move()
+        next_state = self._update_map()
+
+        return next_state
+
+    def _calculate_score(self) -> None:
         """
         This function calculates the scores which may have been acquired during the last step, and if so, removes the
         coin from the map.
