@@ -141,9 +141,8 @@ class Pacman:
         This function creates a visualization of the game state.
         :return: None
         """
-        print(self.state)
-        self.state[self.pos[0]][self.pos[1]] = 1
-        print(self.state)
+        cv2.imshow("Pacman Environment", self.state)
+        cv2.waitKey(50)
 
     def _generate_pos(self, obj: str, num_objects: int) -> None:
         """
