@@ -91,22 +91,6 @@ class Pacman:
 
         return state
 
-    def _move(self) -> None:
-        """
-        This function modifies PacMan's position according to its facing direction.
-        :return: None
-        """
-        if self.orientation == 0:
-            self.pos[0] -= 1
-        if self.orientation == 1:
-            self.pos[1] += 1
-        if self.orientation == 2:
-            self.pos[0] += 1
-        if self.orientation == 3:
-            self.pos[1] -= 1
-
-        self.step_counter += 1
-
     def step(self, action: int) -> Tuple[np.ndarray, float, bool, str]:
         """
         This function formulates the (next_state, reward, done, info) values, thus moving the game one step forward.
@@ -162,6 +146,22 @@ class Pacman:
         next_state = self._update_map()
 
         return next_state
+
+    def _move(self) -> None:
+        """
+        This function modifies PacMan's position according to its facing direction.
+        :return: None
+        """
+        if self.orientation == 0:
+            self.pos[0] -= 1
+        if self.orientation == 1:
+            self.pos[1] += 1
+        if self.orientation == 2:
+            self.pos[0] += 1
+        if self.orientation == 3:
+            self.pos[1] -= 1
+
+        self.step_counter += 1
 
     def _set_action(self, action: int | None) -> None:
         """
