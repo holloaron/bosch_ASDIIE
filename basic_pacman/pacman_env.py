@@ -17,6 +17,41 @@ class Pacman:
     ------------------------
 
 
+    Attributes:
+        map_size : int
+            size of the square map's one side
+        action_space : ndarray
+            defines the executable actions in the environment
+        coins_pos : list (of tuples)
+            contains the (x, y) coordinate pairs of the generated coin objects
+        ghosts_pos : list (of tuples)
+            contains the (x, y) coordinate pairs of the generated ghost objects
+        pos : tuple
+            defines the position of PacMan
+        step_counter : int
+            keeps track of the executed steps throughout the game
+        score : int
+            keeps track of the points acquired throughout the game
+        orientation : int
+            defines PacMan's facing direction
+        state : ndarray
+            defines an array representing the game status
+
+
+    Methods:
+        reset(self) -> numpy.ndarray
+        step(self, action: int) -> Tuple[numpy.ndarray, float, bool, str]
+        render(self) -> None
+        _move(self) -> None
+        _get_info(self) -> str
+        _get_reward(self, state: numpy.ndarray) -> float
+        _get_next_state(self, action: int) -> numpy.ndarray
+        _set_action(self, action: int | None) -> None
+        _check_action_validity(self, action: int) -> None
+        _calculate_score(self) -> None
+        _check_done(self) -> bool
+        _generate_pos(self, obj: str, num_objects: int) -> None
+        _update_map(self) -> numpy.ndarray
     """
     def __init__(self) -> None:
         """
