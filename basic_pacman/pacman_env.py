@@ -52,7 +52,11 @@ class Pacman:
 
         return state
 
-    def __move(self):
+    def _move(self) -> None:
+        """
+        This function modifies PacMan's position according to its facing direction.
+        :return: None
+        """
         if self.orientation == 0:
             self.pos[0] -= 1
         if self.orientation == 1:
