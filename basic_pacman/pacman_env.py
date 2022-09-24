@@ -21,8 +21,8 @@ class Pacman:
         """
         self.map_size = MAP_SIZE
 
-        self.coins = []
-        self.ghosts = []
+        self.coins_pos = []
+        self.ghosts_pos = []
         self.pos = tuple()
 
         self.step_cnt = None
