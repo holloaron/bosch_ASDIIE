@@ -1,15 +1,41 @@
+"""
+*********************************************************************
+*********************************************************************
+PROJECT_NAME : PacMan
+FILENAME     : PacMan.py
+AUTHOR       : Juhász Pál Lóránd; Őri Gergely László; Seregi Bálint Leon; Bozsóki Márk
+UNIVERSITY   : BME
+TEAM         : SegmentFault
+*********************************************************************
+*********************************************************************
+Short description
+--------------------------------------------------------------------
+(...)
+
+********************************************************************
+********************************************************************
+"""
 import cv2
 import numpy as np
-from TimerThread import *
-from MapData import *
 import time
 from threading import Thread
+
+from TimerThread import *
+from MapData import *
+from ActionParser import *
 
 
 class PacMan:
     answer = ''
     stop=False
     old_answer = '0'
+
+    class Direction(Enum):
+        Up = 0
+        Right = 1
+        Down = 2
+        Left = 3
+
 
     def __init__(self):
         self.Stopper = TimeCounter()
@@ -43,6 +69,7 @@ class PacMan:
         self.ratio = int(self.show_img_size / self.map_size)
         self.reset()
 
+
     def ask(self):
         # get the command from the consol
         #global state, reward, done_, info
@@ -52,6 +79,7 @@ class PacMan:
             self.old_answer = self.answer
             # state, reward, done_, info = self.step(action=self.old_answer)
             # self.render()
+
 
     def auto_step(self):
         # step the point at a given intervals
@@ -70,6 +98,7 @@ class PacMan:
                 start_time = time.time()
 
             done_ = self.timeout(60)
+
 
     def step(self, action):
         # setting base reward
@@ -130,6 +159,7 @@ class PacMan:
 
         return obs.flatten(), score, is_dead, info
 
+
     def _going_right(self, action, pos_x, pos_y):
         # going up
         if action == 0:
@@ -145,6 +175,7 @@ class PacMan:
         else:
             raise NotImplementedError
         return pos_x, pos_y
+
 
     def _going_left(self, action, pos_x, pos_y):
         # going down
@@ -162,6 +193,7 @@ class PacMan:
             raise NotImplementedError
         return pos_x, pos_y
 
+
     def _going_up(self, action, pos_x, pos_y):
         # going left
         if action == 3:
@@ -177,6 +209,7 @@ class PacMan:
         else:
             raise NotImplementedError
         return pos_x, pos_y
+
 
     def _going_down(self, action, pos_x, pos_y):
         # going right
@@ -194,6 +227,7 @@ class PacMan:
             raise NotImplementedError
         return pos_x, pos_y
 
+
     def _check_borders(self, coord):
         # checking the limit at max
         if coord == self.map_size:
@@ -204,6 +238,7 @@ class PacMan:
         # state is in boundaries
         else:
             return coord
+
 
     def _create_observation(self):
         """
@@ -230,6 +265,7 @@ class PacMan:
 
         return obs_
 
+
     def reset(self):
         self.body = self.mapdata.get_first_coord_of(MapElements.PacMan)
         self.objects = []
@@ -242,6 +278,7 @@ class PacMan:
 
         obs_ = self._create_observation()
         return obs_.flatten()
+
 
     def render(self, mode="human"):
         """
@@ -261,12 +298,14 @@ class PacMan:
             # add wait to see the game
             cv2.waitKey(50)
 
+
     def timeout(self, timelimit):
         if self.Stopper.seconds_passed >= timelimit:
             print(f"You have reached the:  {timelimit} s time limit")
             return True
         else:
             False
+
 
 
 if __name__ == "__main__":
@@ -280,4 +319,3 @@ if __name__ == "__main__":
     t2.join()
     env.stop = True
     print("program end")
-
