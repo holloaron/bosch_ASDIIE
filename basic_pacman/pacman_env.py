@@ -126,7 +126,7 @@ class Pacman:
         :return: information about the game's current state
         """
         self._calculate_score()
-        info = "Points acquired: " + str(self.score) + "\nSteps: " + self.step_counter + "/" + MAX_STEP
+        info = "Points acquired: " + str(self.score) + "\nSteps: " + str(self.step_counter) + "/" + str(MAX_STEP)
 
         return info
 
