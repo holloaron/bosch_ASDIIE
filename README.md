@@ -11,6 +11,10 @@ The course is at Budapest University of Technology and Economics and is hosted b
 The teams should fork this repository, create their own. After developing the code, they should submit a Pull Request to the main branch of this repo.
 Help: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork
 
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 First Task: Implement Pacman without Walls . Step , Reset and Render functions . Control with the buttons 0-3 . 
 
 |   Control   |
@@ -23,4 +27,6 @@ First Task: Implement Pacman without Walls . Step , Reset and Render functions .
 The objects are represented by brightness . The black points are the base points of the map , the second brightest points are rewards and the brightest is our agent , who can be controlled by the given keys .  
 
 
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Second Task: Update the Code to satisfy Clean Code  . 
