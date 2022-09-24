@@ -34,7 +34,7 @@ class PacMan:
 
         # initiate default values
         self.step_ = 0
-        self.dir = 1
+        self.direction = 1
         self.last_obs = None
 
         # Variables for visualizing the current grid world
@@ -82,13 +82,13 @@ class PacMan:
         pos_y = self.body[1]
 
         # get new player position
-        if self.dir == 0:
+        if self.direction == 0:
             x, y, = self._going_up(action, pos_x, pos_y)
-        elif self.dir == 1:
+        elif self.direction == 1:
             x, y, = self._going_right(action, pos_x, pos_y)
-        elif self.dir == 2:
+        elif self.direction == 2:
             x, y, = self._going_down(action, pos_x, pos_y)
-        elif self.dir == 3:
+        elif self.direction == 3:
             x, y, = self._going_left(action, pos_x, pos_y)
         else:
             raise NotImplementedError
@@ -127,14 +127,14 @@ class PacMan:
         # going up
         if action == 0:
             pos_y += 1
-            self.dir = 0
+            self.direction = 0
         # going right or left
         elif action == 1 or action == 3:
             pos_x += 1
         # going down
         elif action == 2:
             pos_y -= 1
-            self.dir = 2
+            self.direction = 2
         else:
             raise NotImplementedError
         return pos_x, pos_y
@@ -143,13 +143,13 @@ class PacMan:
         # going down
         if action == 2:
             pos_y -= 1
-            self.dir = 2
+            self.direction = 2
         # going right or left
         elif action == 1 or action == 3:
             pos_x -= 1
         elif action == 0:
             pos_y += 1
-            self.dir = 0
+            self.direction = 0
         else:
             raise NotImplementedError
         return pos_x, pos_y
@@ -157,12 +157,12 @@ class PacMan:
     def _going_up(self, action, pos_x, pos_y):
         if action == 3:
             pos_x -= 1
-            self.dir = 3
+            self.direction = 3
         elif action == 0 or action == 2:
             pos_y += 1
         elif action == 1:
             pos_x += 1
-            self.dir = 1
+            self.direction = 1
         else:
             raise NotImplementedError
         return pos_x, pos_y
@@ -170,12 +170,12 @@ class PacMan:
     def _going_down(self, action, pos_x, pos_y):
         if action == 1:
             pos_x += 1
-            self.dir = 1
+            self.direction = 1
         elif action == 0 or action == 2:
             pos_y -= 1
         elif action == 3:
             pos_x -= 1
-            self.dir = 3
+            self.direction = 3
         else:
             raise NotImplementedError
         return pos_x, pos_y
@@ -219,7 +219,7 @@ class PacMan:
     def reset(self):
         self.body = self.mapdata.get_first_coord_of(MapElements.PacMan)
         self.objects = []
-        self.dir = 1
+        self.direction = 1
         self.step_ = 0
         self.last_obs = None
 
