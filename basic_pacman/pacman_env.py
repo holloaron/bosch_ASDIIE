@@ -112,6 +112,14 @@ class Pacman:
 
         return next_state, reward, done, info
 
+    def render(self) -> None:
+        """
+        This function creates a visualization of the game state.
+        :return: None
+        """
+        cv2.imshow("Pacman Environment", self.state)
+        cv2.waitKey(50)
+
     def _get_info(self) -> str:
         """
         This function creates an 'info' string which can be used as a feedback from the environment itself.
@@ -210,14 +218,6 @@ class Pacman:
                 return True
 
         return False
-
-    def render(self) -> None:
-        """
-        This function creates a visualization of the game state.
-        :return: None
-        """
-        cv2.imshow("Pacman Environment", self.state)
-        cv2.waitKey(50)
 
     def _generate_pos(self, obj: str, num_objects: int) -> None:
         """
