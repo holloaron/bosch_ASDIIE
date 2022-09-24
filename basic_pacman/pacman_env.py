@@ -5,6 +5,9 @@ np.random.seed(0)
 
 MAP_SIZE = 30
 MAX_STEP = 100
+NUM_GHOSTS = 4
+NUM_COINS = 100
+ACTION_SPACE_SIZE = 4
 
 
 class Pacman:
