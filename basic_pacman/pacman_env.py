@@ -14,7 +14,11 @@ class Pacman:
     """
 
     """
-    def __init__(self):
+    def __init__(self) -> None:
+        """
+        Constructs the basic components of the Pacman Environment Class.
+        :return: None
+        """
         self.map_size = MAP_SIZE
 
         self.coins = []
