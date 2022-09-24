@@ -187,7 +187,7 @@ class Pacman:
         :param action: chosen action 0/1/2/3 corresponding to the directions in order up/right/down/left)
         :return: None
         """
-        if min(self.action_space) <= action < max(self.action_space):
+        if min(self.action_space) <= action <= max(self.action_space):
             return
         else:
             raise ValueError("Please enter a number in the [0; 4) interval!")
