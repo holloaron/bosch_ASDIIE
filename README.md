@@ -14,6 +14,7 @@ Help: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/
 First Task: Implement Pacman without Walls . Step , Reset and Render functions . Control with the buttons 0-3 . 
 
 |   Control   |
+|-------------|
 |  down     0 |
 |  right    1 |
 |  up       2 |
