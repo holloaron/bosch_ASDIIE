@@ -136,7 +136,7 @@ class Pacman:
 
         return False
 
-    def render(self):
+    def render(self) -> None:
         """
         This function creates a visualization window of the current state.
         :return: None
