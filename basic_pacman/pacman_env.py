@@ -30,7 +30,7 @@ class Pacman:
         self.score = None
         self.orientation = None
 
-        self.state = self.reset()
+        self.reset()
 
     def reset(self) -> np.ndarray:
         """
