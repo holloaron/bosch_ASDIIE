@@ -223,7 +223,6 @@ class PacMan:
         self.step_ = 0
         self.last_obs = None
 
-        #self._create_objects(num=10)
         #self.walls = self.mapdata.get_coords_of(MapElements.Wall)
         self.points = self.mapdata.get_coords_of(MapElements.Point)
 
@@ -247,13 +246,6 @@ class PacMan:
             cv2.imshow("PacMan", self.show_img)
             # add wait to see the game
             cv2.waitKey(50)
-
-    def _create_objects(self, num):
-        for _ in range(num):
-            coords = tuple(np.random.randint(0, self.map_size, (2,)))
-            while coords in self.objects or coords in self.body:
-                coords = tuple(np.random.randint(0, self.map_size, (2,)))
-            self.objects.append(coords)
 
     def timeout(self, timelimit):
         if self.Stopper.seconds_passed >= timelimit:
