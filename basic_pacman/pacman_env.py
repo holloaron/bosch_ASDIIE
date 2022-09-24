@@ -70,7 +70,7 @@ class Pacman:
         if self.orientation == 3:
             self.pos[1] -= 1
 
-        return self.pos
+        self.step_counter += 1
 
     def step(self, action: int) -> Tuple[np.ndarray, float, bool, str]:
         """
