@@ -82,17 +82,10 @@ class Pacman:
             info : str
                 contains information about the game progress (scores acquired, steps)
         """
-        if 0 <= action < 4:
-            self.orientation = action
-        else:
-            raise ValueError
-
-        self.pos = self.__move()
-        self.step_cnt += 1
-
-        reward = 0
-
+        next_state = self._get_next_state(action)
+        reward = self._get_reward(next_state)
         done = self._check_done()
+        info = self._get_info()
 
         self._calculate_score()
         info = "Points acquired: " + str(self.score)
