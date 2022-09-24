@@ -60,7 +60,7 @@ Short description
       - 2 linebreaks between every function
   
 ```
-def xyz_func(int: number, string: name)
+def xyz_func(number: int, name: str) -> [return type]
     """ docstring
 
     @args:
