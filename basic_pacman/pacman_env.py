@@ -122,7 +122,7 @@ class Pacman:
                 self.score += 10
                 self.coins_pos.remove(coin_pos)
 
-    def _check_done(self):
+    def _check_done(self) -> bool:
         """
         This function analyzes the game state and decides whether it's terminated or not.
         :return: True if the game is terminated, otherwise False
