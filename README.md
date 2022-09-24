@@ -21,3 +21,6 @@ First Task: Implement Pacman without Walls . Step , Reset and Render functions .
 |  left     3 |
 
 The objects are represented by brightness . The black points are the base points of the map , the second brightest points are rewards and the brightest is our agent , who can be controlled by the given keys .  
+
+
+Second Task: Update the Code to satisfy Clean Code  . 
