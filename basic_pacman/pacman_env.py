@@ -25,7 +25,7 @@ class Pacman:
         self.ghosts_pos = []
         self.pos = tuple()
 
-        self.step_cnt = None
+        self.step_counter = None
         self.score = None
         self.orientation = None
 
@@ -36,16 +36,16 @@ class Pacman:
         This function resets the game session and returns a newly generated game state.
         :return: current state of the game (empty map with the pacman, ghosts and coins spawned)
         """
-        self.step_cnt = 0
+        self.step_counter = 0
         self.score = 0
         self.orientation = np.random.randint(4)
 
-        self.ghosts = []
-        self.coins = []
+        self.ghosts_pos = []
+        self.coins_pos = []
 
-        self.pos_generator('self_pos', 1)
-        self.pos_generator('ghost', 4)
-        self.pos_generator('coin', 300)
+        self._generate_pos('self_pos', 1)
+        self._generate_pos('ghost', NUM_GHOSTS)
+        self._generate_pos('coin', NUM_COINS)
 
         state = self.update_map()
 
@@ -94,20 +94,20 @@ class Pacman:
         coin from the map.
         :return: None
         """
-        for coin_pos in self.coins:
+        for coin_pos in self.coins_pos:
             if self.pos == coin_pos:
                 self.score += 10
-                self.coins.remove(coin_pos)
+                self.coins_pos.remove(coin_pos)
 
     def _check_done(self):
         """
         This function analyzes the game state and decides whether it's terminated or not.
         :return: 'done' boolean value
         """
-        if self.step_cnt > MAX_STEP:
+        if self.step_counter > MAX_STEP:
             return True
 
-        for ghost_pos in self.ghosts:
+        for ghost_pos in self.ghosts_pos:
             if self.pos == ghost_pos:
                 return True
 
@@ -131,13 +131,13 @@ class Pacman:
         """
         for _ in range(num_objects):
             pos = list(np.random.randint(MAP_SIZE, size=(2,)))
-            while pos in self.coins or pos == self.pos or pos in self.ghosts:
+            while pos in self.coins_pos or pos == self.pos or pos in self.ghosts_pos:
                 pos = list(np.random.randint(MAP_SIZE, size=(2,)))
 
             if obj == 'ghost':
-                self.ghosts.append(pos)
+                self.ghosts_pos.append(pos)
             elif obj == 'coin':
-                self.coins.append(pos)
+                self.coins_pos.append(pos)
             elif obj == 'self_pos':
                 self.pos = pos
             else:
@@ -151,10 +151,10 @@ class Pacman:
         """
         state = np.zeros((MAP_SIZE, MAP_SIZE))
 
-        for coin_pos in self.coins:
+        for coin_pos in self.coins_pos:
             state[coin_pos[0], coin_pos[1]] = 0.25
 
-        for ghost_pos in self.ghosts:
+        for ghost_pos in self.ghosts_pos:
             state[ghost_pos[0], ghost_pos[1]] = 0.5
 
         state[self.pos[0], self.pos[1]] = 1
