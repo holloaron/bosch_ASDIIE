@@ -138,6 +138,17 @@ class Pacman:
         self.orientation = action
         # Timer response to be implemented later...
 
+    def _check_action_validity(self, action: int) -> None:
+        """
+        This function verifies the user input's validity.
+        :param action: chosen action 0/1/2/3 corresponding to the directions in order up/right/down/left)
+        :return: None
+        """
+        if min(self.action_space) <= action < max(self.action_space):
+            return
+        else:
+            raise ValueError("Please enter a number in the [0; 4) interval!")
+
     def _calculate_score(self) -> None:
         """
         This function calculates the scores which may have been acquired during the last step, and if so, removes the
