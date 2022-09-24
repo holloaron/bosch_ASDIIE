@@ -128,6 +128,16 @@ class Pacman:
 
         return next_state
 
+    def _set_action(self, action: int | None) -> None:
+        """
+        This function coordinates the modification of the 'orientation' variable based on user and timer (To be
+        implemented...) input.
+        :param action: chosen action 0/1/2/3 corresponding to the directions in order up/right/down/left)
+        :return: None
+        """
+        self.orientation = action
+        # Timer response to be implemented later...
+
     def _calculate_score(self) -> None:
         """
         This function calculates the scores which may have been acquired during the last step, and if so, removes the
