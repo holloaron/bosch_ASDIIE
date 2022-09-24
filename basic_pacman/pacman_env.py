@@ -68,11 +68,19 @@ class Pacman:
 
         return self.pos
 
-    def step(self, action):
+    def step(self, action: int) -> Tuple[np.ndarray, float, bool, str]:
         """
-        This function realizes the change in the game state according to the chosen action.
-        :param action: chosen action (integer 0/1/2/3 corresponding to the directions in order up/right/down/left)
-        :return: (state, reward, done, info)
+        This function formulates the (next_state, reward, done, info) values, thus moving the game one step forward.
+        :param action: chosen action 0/1/2/3 corresponding to the directions in order up/right/down/left)
+        :return:
+            next_state : ndarray
+                state of the environment after the action
+            reward : float
+                quantification of the state transition ###(To be implemented...)###
+            done : bool
+                True if the game is terminated, otherwise False
+            info : str
+                contains information about the game progress (scores acquired, steps)
         """
         if 0 <= action < 4:
             self.orientation = action
