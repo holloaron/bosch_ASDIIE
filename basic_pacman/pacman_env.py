@@ -99,9 +99,17 @@ class Pacman:
 
         return info
 
-        self.state = self.update_map()
+    def _get_reward(self, state: np.ndarray) -> float:
+        """
+        This function realizes the reward function and formulates the value based on the state passed as an argument.
+        :param state: ndarray of the game state based on which the reward value is calculated
+        :return: reward value from which the agent is able to learn
+        """
+        # Only for RL purposes
+        # To be implemented later...
+        reward = 0.0
 
-        return self.state, reward, done, info
+        return reward
 
     def _calculate_score(self):
         """
