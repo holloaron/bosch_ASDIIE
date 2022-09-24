@@ -35,7 +35,7 @@ class Pacman:
     def reset(self) -> np.ndarray:
         """
         This function resets the game session and returns a newly generated game state.
-        :return: current state of the game (empty map with the pacman, ghosts and coins spawned)
+        :return: current state of the game (empty map with PacMan, ghosts and coins generated)
         """
         self.step_counter = 0
         self.score = 0
