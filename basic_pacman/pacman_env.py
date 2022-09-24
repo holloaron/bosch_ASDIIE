@@ -12,6 +12,10 @@ ACTION_SPACE_SIZE = 4
 
 class Pacman:
     """
+    ------------------------
+    Pacman Environment Class
+    ------------------------
+
 
     """
     def __init__(self) -> None:
