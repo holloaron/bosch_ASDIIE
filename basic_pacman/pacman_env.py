@@ -115,6 +115,8 @@ class Pacman:
         """
         This function calculates the scores which may have been acquired during the last step, and if so, removes the
         coin from the map.
+        Score calculation:
+            +10 / coin collected
         :return: None
         """
         for coin_pos in self.coins_pos:
