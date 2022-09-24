@@ -2,7 +2,7 @@
 //*********************************************************************
 //*********************************************************************
 / PROJECT_NAME : PacMan
-/ FILENAME     : TimerThread.py
+/ FILENAME     : MapData.py
 / AUTHOR       : Márk Bozsóki
 / UNIVERSITY   : BME
 / TEAM         : SegmentFault
@@ -10,7 +10,7 @@
 **********************************************************************
 / Short description
 / --------------------------------------------------------------------
-/ Timer module to measure and handle time while the program is running
+/ Position data provider, from a local .dat file
 
 /*********************************************************************
 /*********************************************************************
