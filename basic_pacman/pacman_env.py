@@ -47,7 +47,7 @@ class Pacman:
         self._generate_pos('ghost', NUM_GHOSTS)
         self._generate_pos('coin', NUM_COINS)
 
-        state = self.update_map()
+        state = self._update_map()
 
         return state
 
@@ -143,11 +143,10 @@ class Pacman:
             else:
                 raise ValueError
 
-    def update_map(self):
+    def _update_map(self) -> np.ndarray:
         """
-        This function updates the game state given as input according to the coordinates included in tuples and returns
-        the update-et array.
-        :return: updated numpy array
+        This function updates the game state according to the modified coordinates in position tuples.
+        :return: game state after modification
         """
         state = np.zeros((MAP_SIZE, MAP_SIZE))
 
