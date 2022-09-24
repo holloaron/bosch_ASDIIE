@@ -141,7 +141,7 @@ class Pacman:
             elif obj == 'self_pos':
                 self.pos = pos
             else:
-                raise ValueError
+                raise NotImplementedError("Not implemented for the given object name!")
 
     def _update_map(self) -> np.ndarray:
         """
