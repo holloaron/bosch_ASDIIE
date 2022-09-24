@@ -20,6 +20,7 @@ class Pacman:
         :return: None
         """
         self.map_size = MAP_SIZE
+        self.action_space = np.arange(ACTION_SPACE_SIZE)
 
         self.coins_pos = []
         self.ghosts_pos = []
@@ -38,7 +39,7 @@ class Pacman:
         """
         self.step_counter = 0
         self.score = 0
-        self.orientation = np.random.randint(4)
+        self.orientation = np.random.randint(ACTION_SPACE_SIZE)
 
         self.ghosts_pos = []
         self.coins_pos = []
