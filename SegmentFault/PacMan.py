@@ -19,7 +19,7 @@ import cv2
 import numpy as np
 import time
 from threading import Thread
-
+import os
 from TimerThread import *
 from MapData import *
 #from ActionParser import *
@@ -96,6 +96,8 @@ class PacMan:
         while not time_is_up:
             start_time = self.execute_step(start_time, step_time)
             time_is_up = self.timeout(timeout)
+        if time_is_up:
+            self.Clean_up_and_close()
 
     def time_init(self)->tuple:
         step_time = 0.5
@@ -336,6 +338,9 @@ class PacMan:
             return True
         else:
             False
+
+    def Clean_up_and_close(self):
+        os._exit(0)
 
 
 
