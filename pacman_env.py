@@ -62,7 +62,7 @@ class PacMan:
         #in this game not used
         info= None
 
-
+        print(self.step_ , done_)
         #end of episode
         return obs.flatten(), self.score, done_, info
 
