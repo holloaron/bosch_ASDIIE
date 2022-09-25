@@ -31,14 +31,23 @@ class PacMan:
 
     def first_step(self):
         self.step_=30
-    def step(self , action):
+    def step(self , action : int):
+
+        '''
+        This function is responsible for doing steps
+        :param action: key control in range (0,3)
+        :return: return parameters like an openai.gym environment
+                state , reward , done , info
+        '''
+
+
         # setting basic env status
         done_ = False
         
         # getting the current position
         pos_x, pos_y = self.body
 
-        x,y=self.choose_action(pos_x=pos_x , pos_y=pos_y)
+        x,y=self.choose_action(pos_x=pos_x , pos_y=pos_y , action=action)
 
         #coordinates of the PacMan object
         self.body = (x,y)
@@ -68,7 +77,7 @@ class PacMan:
         #end of episode
         return obs.flatten(), self.score, done_, info
 
-    def choose_action(self , pos_x , pos_y):
+    def choose_action(self , pos_x :int , pos_y :int,action : int):
         if action == 0:
             # going right
             x, y = self.right(pos_x, pos_y, action)
