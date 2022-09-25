@@ -224,7 +224,7 @@ if __name__ == "__main__":
 
     #render before first step
     env.render()
-    for episode in (EPISODES):
+    for episode in range(EPISODES):
         print(f"Game over , Your Score is{env.score}")
         env.reset()
         #play loop
