@@ -33,39 +33,17 @@ class PacMan:
         # setting basic env status
         done_ = False
         
-        # getting the current head position (always the last body part)
+        # getting the current position
         pos_x, pos_y = self.body
 
-        #choose action
-        if action==0:
-            #going right
-            x,y = self.right(pos_x,pos_y,action)
-        elif action == 1:
-            #going up
-            x, y = self.up(pos_x, pos_y, action)
+        x,y=self.choose_action(pos_x=pos_x , pos_y=pos_y)
 
-        elif action == 2:
-            #going left
-            x, y = self.left(pos_x, pos_y, action)
-
-        elif action == 3:
-            #going down
-            x, y = self.down(pos_x, pos_y, action)
-
-        else:
-            print("You lose")
-            done_ = True
-            self.score= -1
-
+        #coordinates of the PacMan object
         self.body = (x,y)
         self._wall_limit()
 
-
-        if (x, y) in self.objects:
-            #increment score by eating an object
-            self.score += 1
-            #if object reached  , remove
-            self.objects.remove((x, y))
+        #Eat and add to score
+        self.eat(x,y)
 
             # create observation
         obs = self._create_observation()
@@ -73,17 +51,52 @@ class PacMan:
         # save observation
         self.last_obs = obs
 
+        #decrement for termination , by reaching 0
         self.step_ -=1
+
+        #termination branch
         if self.step_ == 0:
             done_ = True
 
+        #in this game not used
         info= None
 
 
+        #end of episode
         return obs.flatten(), self.score, done_, info
 
-    def choose_action(self):
-        pass
+    def choose_action(self , pos_x , pos_y):
+        if action == 0:
+            # going right
+            x, y = self.right(pos_x, pos_y, action)
+        elif action == 1:
+            # going up
+            x, y = self.up(pos_x, pos_y, action)
+
+        elif action == 2:
+            # going left
+            x, y = self.left(pos_x, pos_y, action)
+
+        elif action == 3:
+            # going down
+            x, y = self.down(pos_x, pos_y, action)
+
+        else:
+            print("You lose , wrong key")
+            done_ = True
+            self.score= -1
+            print(f"Score {self.score}")
+
+        return x,y
+
+    def eat(self , x , y):
+        if (x, y) in self.objects:
+            # increment score by eating an object
+            self.score += 1
+
+            # if object reached  , remove
+            self.objects.remove((x, y))
+
     def right(self , x,y,action):
 
         #only the x coordinate changes
