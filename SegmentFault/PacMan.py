@@ -38,8 +38,7 @@ class PacMan:
 
 
     def __init__(self):
-        self.Stopper = TimeCounter()
-        self.Stopper.start()
+        self.start_stopper()
 
         # map data
         self.mapdata = MapData("Map.dat")
@@ -68,6 +67,11 @@ class PacMan:
         self.show_img = np.zeros((self.show_img_size, self.show_img_size, 3))
         self.ratio = int(self.show_img_size / self.map_size)
         self.reset()
+
+    def start_stopper(self):
+        self.Stopper = TimeCounter()
+        self.Stopper.start()
+
 
 
     def ask(self):
