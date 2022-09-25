@@ -30,7 +30,9 @@ class PacMan:
 
 
     def first_step(self):
+        #starting value of the counter
         self.step_=30
+
     def step(self , action : int):
 
         '''
@@ -78,6 +80,13 @@ class PacMan:
         return obs.flatten(), self.score, done_, info
 
     def choose_action(self , pos_x :int , pos_y :int,action : int):
+        """
+
+        :param pos_x: the vertical position of our agent
+        :param pos_y: the horizontal position of the agent
+        :param action: movement variable , 0-->down , 1-->right , 2-->up , 3-->left
+        :return:  both axis position
+        """
         if action == 0:
             # going right
             x, y = self.right(pos_x, pos_y, action)
