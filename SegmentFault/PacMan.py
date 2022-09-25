@@ -45,7 +45,8 @@ class PacMan:
         self.set_visualisation()
 
     def set_visualisation(self):
-        self.show_img_size = (self.map_size * 10)
+        map_size_multiplier=10
+        self.show_img_size = (self.map_size * map_size_multiplier)
         self.show_img = np.zeros((self.show_img_size, self.show_img_size, 3))
         self.ratio = int(self.show_img_size / self.map_size)
         self.reset()
