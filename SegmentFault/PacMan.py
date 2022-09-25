@@ -26,9 +26,9 @@ from MapData import *
 
 
 class PacMan:
-    answer = ''
+    direction_command = ''
     stop=False
-    old_answer = '0'
+    old_direction_command = '0'
 
     class Direction(Enum):
         Up = 0
@@ -78,16 +78,14 @@ class PacMan:
         if self.map_height < self.map_width:
             self.map_size = self.map_width
 
-    def ask(self):
+    def choose_next_action(self):
         # get the command from the consol
-        #global state, reward, done_, info
         while not self.stop:
-            self.answer = input("Choose your next action:\n")
-            #time.sleep(0.001)
-            self.old_answer = self.answer
-            # state, reward, done_, info = self.step(action=self.old_answer)
-            # self.render()
+            self.get_next_direction_from_user()
 
+    def get_next_direction_from_user(self):
+        self.direction_command = input("Choose your next action:\n")
+        self.old_direction_command = self.direction_command
 
     def auto_step(self):
         # step the point at a given intervals
@@ -100,7 +98,7 @@ class PacMan:
             # print(f"The answer is {answer} .")
 
             if time_taken > time_limit:
-                state, reward, done_, info = self.step(action=self.old_answer)
+                state, reward, done_, info = self.step(action=self.old_direction_command)
                 self.render()
                 time.sleep(0.001)
                 start_time = time.time()
@@ -320,7 +318,7 @@ if __name__ == "__main__":
     env = PacMan()
     done_ = False
     state = env.reset()
-    t1 = Thread(target=env.ask)
+    t1 = Thread(target=env.choose_next_action)
     t2 = Thread(target=env.auto_step)
     t1.start()
     t2.start()
