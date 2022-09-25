@@ -42,8 +42,9 @@ class PacMan:
         self.create_mapdata()
         self.create_lists_for_the_map_contents()
         self.set_default_values()
+        self.set_visualisation()
 
-        # Variables for visualizing the current grid world
+    def set_visualisation(self):
         self.show_img_size = (self.map_size * 10)
         self.show_img = np.zeros((self.show_img_size, self.show_img_size, 3))
         self.ratio = int(self.show_img_size / self.map_size)
