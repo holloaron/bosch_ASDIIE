@@ -22,7 +22,7 @@ from threading import Thread
 
 from TimerThread import *
 from MapData import *
-from ActionParser import *
+#from ActionParser import *
 
 
 class PacMan:
@@ -39,21 +39,8 @@ class PacMan:
 
     def __init__(self):
         self.start_stopper()
-
-        # map data
-        self.mapdata = MapData("Map.dat")
-        self.map_height = self.mapdata.height
-        self.map_width = self.mapdata.width
-        self.map_size = self.map_height
-        if self.map_height < self.map_width:
-            self.map_size = self.map_width
-
-        print(self.map_size)
-        # lists for the map components
-        self.body = (0,0)
-        self.objects = []
-        self.walls = []
-        self.points = []
+        self.create_mapdata()
+        self.create_lists_for_the_map_contents()
 
         # set startup positions
 
@@ -68,11 +55,27 @@ class PacMan:
         self.ratio = int(self.show_img_size / self.map_size)
         self.reset()
 
+    def create_lists_for_the_map_contents(self):
+        self.body = (0, 0)
+        self.objects = []
+        self.walls = []
+        self.points = []
+
     def start_stopper(self):
         self.Stopper = TimeCounter()
         self.Stopper.start()
 
+    def create_mapdata(self):
+        self.mapdata = MapData("Map.dat")
+        self.set_map_data()
+        print(self.map_size)
 
+    def set_map_data(self):
+        self.map_height = self.mapdata.height
+        self.map_width = self.mapdata.width
+        self.map_size = self.map_height
+        if self.map_height < self.map_width:
+            self.map_size = self.map_width
 
     def ask(self):
         # get the command from the consol
