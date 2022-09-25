@@ -89,18 +89,18 @@ class PacMan:
         """
         if action == 0:
             # going right
-            x, y = self.right(pos_x, pos_y, action)
+            x, y = self.right(pos_x, pos_y)
         elif action == 1:
             # going up
-            x, y = self.up(pos_x, pos_y, action)
+            x, y = self.up(pos_x, pos_y)
 
         elif action == 2:
             # going left
-            x, y = self.left(pos_x, pos_y, action)
+            x, y = self.left(pos_x, pos_y)
 
         elif action == 3:
             # going down
-            x, y = self.down(pos_x, pos_y, action)
+            x, y = self.down(pos_x, pos_y)
 
         else:
             #in case of wrong key
