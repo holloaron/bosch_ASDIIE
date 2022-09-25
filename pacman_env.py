@@ -82,6 +82,8 @@ class PacMan:
 
         return obs.flatten(), self.score, done_, info
 
+    def choose_action(self):
+        pass
     def right(self , x,y,action):
 
         #only the x coordinate changes
