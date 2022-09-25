@@ -30,7 +30,10 @@ The objects are represented by brightness . The black points are the base points
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Second Task: Update the Code to satisfy Clean Code  . 
-Add type hint
-Add docstring
-Descriptive variable names
-Functions 
+
+|           Tasks           |
+|---------------------------|
+|       Add type hint       |
+|       Add docstring       |
+|Descriptive variable names |
+|       Functions           |
