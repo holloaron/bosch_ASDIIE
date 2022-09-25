@@ -14,7 +14,7 @@ class PacMan:
         self.body = None
         self.objects = []
         # initiate default values
-        self.step_ = 100
+        self.step_ = 40
         self.dir = 1
 
         self.last_obs = None
@@ -204,8 +204,9 @@ class PacMan:
         
 
 def initialize_parameters():
-    global map_size , done_
+    global map_size , done_ , EPISODES
     map_size = 20
+    EPISODES=3
     done_ = False
 
 
@@ -223,19 +224,21 @@ if __name__ == "__main__":
 
     #render before first step
     env.render()
+    for episode in (EPISODES):
+        print(f"Game over , Your Score is{env.score}")
+        env.reset()
+        #play loop
+        while not done_:
+            # here are declared the control keys
+            print("control assist TODO")
 
-    #play loop
-    while not done_:
-        # here are declared the control keys
-        print("control assist TODO")
+            #add the next action
+            action = int(input("Next action:\n"))
 
-        #add the next action
-        action = int(input("Next action:\n"))
+            #gym compatible return of step
+            state, reward, done_, info = env.step(action=action)
 
-        #gym compatible return of step
-        state, reward, done_, info = env.step(action=action)
+            #visualization of the game
+            env.render()
 
-        #visualization of the game
-        env.render()
-
-    print(f" Game over , your score is{env.score}")
+        print(f" Game over , your score is{env.score}")
