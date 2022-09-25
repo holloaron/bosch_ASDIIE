@@ -26,7 +26,7 @@ from MapData import *
 
 
 class PacMan:
-    direction_command = ''
+    direction_command = '0'
     stop=False
     old_direction_command = '0'
 
@@ -80,11 +80,14 @@ class PacMan:
 
     def choose_next_action(self):
         while not self.stop:
-            self.get_next_direction_from_user()
+            self.get_next_direction()
 
-    def get_next_direction_from_user(self):
-        self.direction_command = input("Choose your next action:\n")
-        self.old_direction_command = self.direction_command
+    def get_next_direction(self):
+        user_input=input("Choose your next action:\n")
+        if self.is_integer(user_input):
+            self.direction_command = user_input
+        else:
+            pass
 
     def auto_step(self):
         # step the point at a given intervals
@@ -110,7 +113,7 @@ class PacMan:
 
     def render_step(self):
         global state, reward, time_is_up, info
-        state, reward, time_is_up, info = self.step(action=self.old_direction_command)
+        state, reward, time_is_up, info = self.step(action=self.direction_command)
         self.render()
         time.sleep(0.001)
 
@@ -172,6 +175,14 @@ class PacMan:
             is_dead = True
 
         return obs.flatten(), score, is_dead, info
+
+    def is_integer(self,string:str):
+        try:
+            float(string)
+        except ValueError:
+            return False
+        else:
+            return True
 
 
     def _going_right(self, action, pos_x, pos_y):
