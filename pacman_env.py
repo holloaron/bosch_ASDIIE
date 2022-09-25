@@ -226,7 +226,7 @@ if __name__ == "__main__":
     env.render()
     for episode in range(EPISODES):
         print(f"Game over , Your Score is{env.score}")
-        env.reset()
+
         #play loop
         while not done_:
             # here are declared the control keys
@@ -245,3 +245,4 @@ if __name__ == "__main__":
                 break
 
         print(f" Game over , your score is{env.score}")
+        env.reset()
