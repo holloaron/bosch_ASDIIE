@@ -160,6 +160,10 @@ class PacMan:
 
     def reset(self):
 
+        """
+        This function resets the valuables to the initial state
+        :return:
+        """
         self.body = None
         self.objects = []
         self.dir = 1
