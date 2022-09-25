@@ -91,7 +91,7 @@ class PacMan:
 
     def auto_step(self):
         # step the point at a given intervals
-        global state, reward, time_is_up, info
+        global state, reward, time_is_up
         start_time, step_time, timeout = self.time_init()
         while not time_is_up:
             start_time = self.execute_step(start_time, step_time)
@@ -112,69 +112,69 @@ class PacMan:
         return start_time
 
     def render_step(self):
-        global state, reward, time_is_up, info
-        state, reward, time_is_up, info = self.step(action=self.direction_command)
+        global state, reward, time_is_up
+        state, reward, time_is_up = self.step(action=self.direction_command)
         self.render()
         time.sleep(0.001)
 
-    def step(self, action):
-        # setting base reward
+    def step(self, action:str):
         score = 0
-        # setting basic env status
         is_dead = False
+        x, y = self.calculate_new_position(action)
+        score = self.checking_for_object_to_eat(score, x, y)
+        obs = self.repaint_map()
+        self.step_ += 1
+        if self.step_ > 100:
+            is_dead = True
 
-        # get the current position of the player
-        pos_x = self.body[0]
-        pos_y = self.body[1]
+        return obs.flatten(), score, is_dead
 
+    def repaint_map(self):
+        obs = self._create_observation()
+        self.last_obs = obs
+        return obs
+
+    def calculate_new_position(self, action):
+        pos_x, pos_y = self.get_current_position()
         if len(action) == 1:
-
             action = int(action)
+            x, y = self.set_new_position(action, pos_x, pos_y)
+        x, y = self.check_if_player_reached_the_border_of_the_map(x, y)
+        return x, y
 
-            # get new player position
-            if self.direction == 0:
-                x, y, = self._going_up(action, pos_x, pos_y)
-            elif self.direction == 1:
-                x, y, = self._going_right(action, pos_x, pos_y)
-            elif self.direction == 2:
-                x, y, = self._going_down(action, pos_x, pos_y)
-            elif self.direction == 3:
-                x, y, = self._going_left(action, pos_x, pos_y)
-            else:
-                raise NotImplementedError
-        
-        else:
-            pass
-
-        # check if the player reached the end of the map
-        x = self._check_borders(x)
-        y = self._check_borders(y)
-
-        self.body = (x, y)
-
+    def checking_for_object_to_eat(self, score, x, y):
         # checking for object to eat
         if (x, y) in self.objects:
             score = 1
             self.objects.remove((x, y))
             # self._create_objects(num=1) # use this line for generating new object if one is eaten
+        return score
 
-        # create observation
-        obs = self._create_observation()
+    def check_if_player_reached_the_border_of_the_map(self, x, y):
+        # check if the player reached the end of the map
+        x = self._check_borders(x)
+        y = self._check_borders(y)
+        self.body = (x, y)
+        return x, y
 
-        # save observation
-        self.last_obs = obs
+    def get_current_position(self):
+        pos_x = self.body[0]
+        pos_y = self.body[1]
+        return pos_x, pos_y
 
-        # placeholder for additional information
-        info = None
+    def set_new_position(self, action, pos_x, pos_y):
+        if self.direction == 0:
+            x, y, = self._going_up(action, pos_x, pos_y)
+        elif self.direction == 1:
+            x, y, = self._going_right(action, pos_x, pos_y)
+        elif self.direction == 2:
+            x, y, = self._going_down(action, pos_x, pos_y)
+        elif self.direction == 3:
+            x, y, = self._going_left(action, pos_x, pos_y)
+        else:
+            raise NotImplementedError
 
-        # count the steps of the game
-        self.step_ += 1
-
-        # terminating the game after some step
-        if self.step_ > 100:
-            is_dead = True
-
-        return obs.flatten(), score, is_dead, info
+        return x, y
 
     def is_integer(self,string:str):
         try:
