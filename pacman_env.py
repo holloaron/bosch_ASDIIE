@@ -226,26 +226,26 @@ if __name__ == "__main__":
 
     #render before first step
     env.render()
-    for episode in range(EPISODES):
-        print(f"Game over , Your Score is{env.score}")
 
-        env.first_step()
-        #play loop
-        while not done_:
-            # here are declared the control keys
-            print("control assist TODO")
 
-            #add the next action
-            action = int(input("Next action:\n"))
 
-            #gym compatible return of step
-            state, reward, done_, info = env.step(action=action)
+    env.first_step()
+    #play loop
+    while not done_:
+        # here are declared the control keys
+        print("control assist TODO")
 
-            #visualization of the game
-            env.render()
+        #add the next action
+        action = int(input("Next action:\n"))
 
-            if done_==True:
-                break
+        #gym compatible return of step
+        state, reward, done_, info = env.step(action=action)
 
-        print(f" Game over , your score is{env.score}")
-        env.reset()
+        #visualization of the game
+        env.render()
+
+        if done_==True:
+            break
+
+    print(f" Game over , your score is{env.score}")
+    env.reset()
