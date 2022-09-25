@@ -59,12 +59,12 @@ class PacMan:
         #termination branch
         if self.step_ == 0:
             done_ = True
-            print(f"Your score is {self.score}")
+
 
         #in this game not used
         info= None
 
-        print(self.step_ , done_)
+
         #end of episode
         return obs.flatten(), self.score, done_, info
 
