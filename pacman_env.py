@@ -247,5 +247,5 @@ if __name__ == "__main__":
         if done_==True:
             break
 
-    print(f" Game over , your score is{env.score}")
+    print(f" Game over , your score is : {env.score}")
     env.reset()
