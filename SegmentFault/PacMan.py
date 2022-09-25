@@ -81,6 +81,7 @@ class PacMan:
     def choose_next_action(self):
         while not self.stop:
             self.get_next_direction()
+        print('stopped')
 
     def get_next_direction(self):
         user_input=input("Choose your next action:\n")
@@ -90,7 +91,6 @@ class PacMan:
             pass
 
     def auto_step(self):
-        # step the point at a given intervals
         global state, reward, time_is_up
         start_time, step_time, timeout = self.time_init()
         while not time_is_up:
@@ -99,7 +99,7 @@ class PacMan:
 
     def time_init(self)->tuple:
         step_time = 0.5
-        timeout = 60
+        timeout = 10
         start_time = time.time()
         return start_time, step_time, timeout
 
@@ -130,7 +130,7 @@ class PacMan:
         return obs.flatten(), score, is_dead
 
     def repaint_map(self):
-        obs = self._create_observation()
+        obs = self.create_observation()
         self.last_obs = obs
         return obs
 
@@ -140,6 +140,7 @@ class PacMan:
             action = int(action)
             x, y = self.set_new_position(action, pos_x, pos_y)
         x, y = self.check_if_player_reached_the_border_of_the_map(x, y)
+
         return x, y
 
     def checking_for_object_to_eat(self, score, x, y):
@@ -148,29 +149,32 @@ class PacMan:
             score = 1
             self.objects.remove((x, y))
             # self._create_objects(num=1) # use this line for generating new object if one is eaten
+
         return score
 
     def check_if_player_reached_the_border_of_the_map(self, x, y):
         # check if the player reached the end of the map
-        x = self._check_borders(x)
-        y = self._check_borders(y)
+        x = self.check_borders(x)
+        y = self.check_borders(y)
         self.body = (x, y)
+
         return x, y
 
     def get_current_position(self):
         pos_x = self.body[0]
         pos_y = self.body[1]
+
         return pos_x, pos_y
 
     def set_new_position(self, action, pos_x, pos_y):
         if self.direction == 0:
-            x, y, = self._going_up(action, pos_x, pos_y)
+            x, y, = self.going_up(action, pos_x, pos_y)
         elif self.direction == 1:
-            x, y, = self._going_right(action, pos_x, pos_y)
+            x, y, = self.going_right(action, pos_x, pos_y)
         elif self.direction == 2:
-            x, y, = self._going_down(action, pos_x, pos_y)
+            x, y, = self.going_down(action, pos_x, pos_y)
         elif self.direction == 3:
-            x, y, = self._going_left(action, pos_x, pos_y)
+            x, y, = self.going_left(action, pos_x, pos_y)
         else:
             raise NotImplementedError
 
@@ -180,12 +184,14 @@ class PacMan:
         try:
             float(string)
         except ValueError:
+
             return False
         else:
+
             return True
 
 
-    def _going_right(self, action, pos_x, pos_y):
+    def going_right(self, action, pos_x, pos_y):
         # going up
         if action == 0:
             pos_y += 1
@@ -199,10 +205,10 @@ class PacMan:
             self.direction = 2
         else:
             raise NotImplementedError
+
         return pos_x, pos_y
 
-
-    def _going_left(self, action, pos_x, pos_y):
+    def going_left(self, action, pos_x, pos_y):
         # going down
         if action == 2:
             pos_y -= 1
@@ -216,10 +222,10 @@ class PacMan:
             self.direction = 0
         else:
             raise NotImplementedError
+
         return pos_x, pos_y
 
-
-    def _going_up(self, action, pos_x, pos_y):
+    def going_up(self, action, pos_x, pos_y):
         # going left
         if action == 3:
             pos_x -= 1
@@ -236,7 +242,7 @@ class PacMan:
         return pos_x, pos_y
 
 
-    def _going_down(self, action, pos_x, pos_y):
+    def going_down(self, action, pos_x, pos_y):
         # going right
         if action == 1:
             pos_x += 1
@@ -253,7 +259,7 @@ class PacMan:
         return pos_x, pos_y
 
 
-    def _check_borders(self, coord):
+    def check_borders(self, coord):
         # checking the limit at max
         if coord == self.map_size:
             return 0
@@ -265,7 +271,7 @@ class PacMan:
             return coord
 
 
-    def _create_observation(self):
+    def create_observation(self):
         """
         This funtcion creates a grayscale observation (image) from the current state of the game.
         :return:
@@ -301,7 +307,7 @@ class PacMan:
         #self.walls = self.mapdata.get_coords_of(MapElements.Wall)
         self.points = self.mapdata.get_coords_of(MapElements.Point)
 
-        obs_ = self._create_observation()
+        obs_ = self.create_observation()
         return obs_.flatten()
 
 
@@ -343,4 +349,3 @@ if __name__ == "__main__":
     t2.start()
     t2.join()
     env.stop = True
-    print("program end")
