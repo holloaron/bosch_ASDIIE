@@ -103,6 +103,7 @@ class PacMan:
             x, y = self.down(pos_x, pos_y, action)
 
         else:
+            #in case of wrong key
             print("You lose , wrong key")
             done_ = True
             self.score= -1
@@ -110,7 +111,11 @@ class PacMan:
 
         return x,y
 
-    def eat(self , x , y):
+    def eat(self , x : int , y : int):
+        '''
+        Remove objects
+        :return: None
+        '''
         if (x, y) in self.objects:
             # increment score by eating an object
             self.score += 1
@@ -118,7 +123,7 @@ class PacMan:
             # if object reached  , remove
             self.objects.remove((x, y))
 
-    def right(self , x,y,action):
+    def right(self , x:int,y:int):
 
         #only the x coordinate changes
 
@@ -127,7 +132,7 @@ class PacMan:
         return x,y
 
 
-    def up(self, x,y,action):
+    def up(self, x:int,y:int):
 
         #only the y coordinate changes
         x = x
@@ -135,7 +140,7 @@ class PacMan:
         return x,y
 
 
-    def left(self, x,y,action):
+    def left(self, x:int,y:int):
 
         x -= 1
         y = y
@@ -143,7 +148,7 @@ class PacMan:
         return x,y
 
 
-    def down(self, x,y,action):
+    def down(self, x:int,y:int):
 
         # only the y coordinate changes
         x = x
