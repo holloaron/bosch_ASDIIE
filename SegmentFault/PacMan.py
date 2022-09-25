@@ -79,7 +79,6 @@ class PacMan:
             self.map_size = self.map_width
 
     def choose_next_action(self):
-        # get the command from the consol
         while not self.stop:
             self.get_next_direction_from_user()
 
@@ -89,22 +88,31 @@ class PacMan:
 
     def auto_step(self):
         # step the point at a given intervals
-        global state, reward, done_, info
-        time_limit = 0.5
+        global state, reward, time_is_up, info
+        start_time, step_time, timeout = self.time_init()
+        while not time_is_up:
+            start_time = self.execute_step(start_time, step_time)
+            time_is_up = self.timeout(timeout)
+
+    def time_init(self)->tuple:
+        step_time = 0.5
+        timeout = 60
         start_time = time.time()
-        while not done_:
-            time_taken = time.time() - start_time
+        return start_time, step_time, timeout
 
-            # print(f"The answer is {answer} .")
+    def execute_step(self, start_time: float , step_time:float)->float:
+        time_taken = time.time() - start_time
+        if time_taken > step_time:
+            self.render_step()
+            start_time = time.time()
 
-            if time_taken > time_limit:
-                state, reward, done_, info = self.step(action=self.old_direction_command)
-                self.render()
-                time.sleep(0.001)
-                start_time = time.time()
+        return start_time
 
-            done_ = self.timeout(60)
-
+    def render_step(self):
+        global state, reward, time_is_up, info
+        state, reward, time_is_up, info = self.step(action=self.old_direction_command)
+        self.render()
+        time.sleep(0.001)
 
     def step(self, action):
         # setting base reward
@@ -316,7 +324,7 @@ class PacMan:
 
 if __name__ == "__main__":
     env = PacMan()
-    done_ = False
+    time_is_up = False
     state = env.reset()
     t1 = Thread(target=env.choose_next_action)
     t2 = Thread(target=env.auto_step)
