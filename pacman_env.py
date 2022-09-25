@@ -14,7 +14,7 @@ class PacMan:
         self.body = None
         self.objects = []
         # initiate default values
-        self.step_ = 40
+        self.step_ = 3
         self.dir = 1
 
         self.last_obs = None
@@ -240,5 +240,8 @@ if __name__ == "__main__":
 
             #visualization of the game
             env.render()
+
+            if done_==True:
+                break
 
         print(f" Game over , your score is{env.score}")
