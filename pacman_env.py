@@ -8,7 +8,7 @@ import cv2
 import numpy as np
 
 class PacMan:
-    def __init__(self, map_size):
+    def __init__(self, map_size:int):
         self.map_size = map_size
         # lists for the map components
         self.body = None
@@ -31,7 +31,7 @@ class PacMan:
 
     def first_step(self):
         #starting value of the counter
-        self.step_=30
+        self.step_=100
 
     def step(self , action : int):
 
