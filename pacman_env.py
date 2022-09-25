@@ -29,6 +29,8 @@ class PacMan:
         self.reset()
 
 
+    def first_step(self):
+        self.step_=30
     def step(self , action):
         # setting basic env status
         done_ = False
@@ -227,6 +229,7 @@ if __name__ == "__main__":
     for episode in range(EPISODES):
         print(f"Game over , Your Score is{env.score}")
 
+        env.first_step()
         #play loop
         while not done_:
             # here are declared the control keys
