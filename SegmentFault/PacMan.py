@@ -41,19 +41,18 @@ class PacMan:
         self.start_stopper()
         self.create_mapdata()
         self.create_lists_for_the_map_contents()
-
-        # set startup positions
-
-        # initiate default values
-        self.step_ = 0
-        self.direction = 1
-        self.last_obs = None
+        self.set_default_values()
 
         # Variables for visualizing the current grid world
         self.show_img_size = (self.map_size * 10)
         self.show_img = np.zeros((self.show_img_size, self.show_img_size, 3))
         self.ratio = int(self.show_img_size / self.map_size)
         self.reset()
+
+    def set_default_values(self):
+        self.step_ = 0
+        self.direction = 1
+        self.last_obs = None
 
     def create_lists_for_the_map_contents(self):
         self.body = (0, 0)
