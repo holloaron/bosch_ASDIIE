@@ -81,9 +81,9 @@ class PacMan:
 
     def choose_action(self , pos_x :int , pos_y :int,action : int):
         """
-
-        :param pos_x: the vertical position of our agent
-        :param pos_y: the horizontal position of the agent
+        The origin is top left[0,0]
+        :param pos_x: the horizontal position of our agent
+        :param pos_y: the vertical position of the agent
         :param action: movement variable , 0-->down , 1-->right , 2-->up , 3-->left
         :return:  both axis position
         """
@@ -125,7 +125,7 @@ class PacMan:
 
     def right(self , x:int,y:int):
 
-        #only the x coordinate changes
+        #only the horizontal coordinate changes
 
         x += 1
         y = y
@@ -134,7 +134,7 @@ class PacMan:
 
     def up(self, x:int,y:int):
 
-        #only the y coordinate changes
+        #only the vertical coordinate changes
         x = x
         y +=1
         return x,y
@@ -142,6 +142,7 @@ class PacMan:
 
     def left(self, x:int,y:int):
 
+        # only the horizontal coordinate changes
         x -= 1
         y = y
 
@@ -150,7 +151,7 @@ class PacMan:
 
     def down(self, x:int,y:int):
 
-        # only the y coordinate changes
+        #only the vertical coordinate changes
         x = x
         y -= 1
 
