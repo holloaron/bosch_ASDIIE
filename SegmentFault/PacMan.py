@@ -15,6 +15,7 @@ Short description
 ********************************************************************
 ********************************************************************
 """
+from turtle import right
 from Direction import Direction
 import cv2
 import numpy as np
@@ -28,7 +29,6 @@ from Player import *
 
 class PacMan:
     def __init__(self):
-        self.movement_command = Commands.Nothing
         self.stop = False
 
         self.Stopper = TimeCounter()
@@ -51,31 +51,45 @@ class PacMan:
         self.reset()
 
 
-    def choose_next_action(self):
-        """ 
+    def get_user_input(self) -> None:
+        """ User interaction logic
         """
         while not self.stop:
             user_input=command_parser(input("Choose your next action:\n"))
             
+            # CHANGE DIRECTION
             if is_movement_command(user_input):
-                self.movement_command = user_input
+                if user_input == Commands.SetDirection_Right:
+                    self.player.next_direction = Direction.Right
 
+                if user_input == Commands.SetDirection_Down:
+                    self.player.next_direction = Direction.Down
+
+                if user_input == Commands.SetDirection_Left:
+                    self.player.next_direction = Direction.Left
+
+                if user_input == Commands.SetDirection_Up:
+                    self.player.next_direction = Direction.Up
+
+            # RESET GAME
             if user_input == Commands.Restart:
                 self.reset()
 
+            # EXIT GAME
             if user_input == Commands.Exit:
                 self.Clean_up_and_close()
-        
 
-    def auto_step(self):
-        """
+
+    def auto_step(self) -> None:
+        """ Autamate game state change
+            Shuts down the game on a specific time limit
         """
         global state, reward, time_is_up
 
-        # init parameters
+        # init timing parameters
         start_time = time.time()
         time_step = 0.5
-        timeout = 60
+        game_timeout = 60
 
         while not time_is_up:
 
@@ -87,16 +101,31 @@ class PacMan:
                 time.sleep(0.001)
                 start_time = time.time()
 
-            time_is_up = self.is_timeout(timeout)
+            time_is_up = self.is_timeout(game_timeout)
 
         self.Clean_up_and_close()
 
 
+    def is_timeout(self, timelimit: int) -> bool:
+        """ Determines if the timelimit for the game is passed or not
+
+        @args:
+            timelimit [int] - the timelimit for the game
+        @return:
+            True, if the given timelimit in secunds is up
+        """
+        if self.Stopper.seconds_passed >= timelimit:
+            print(f"You have reached the:  {timelimit} s time limit")
+            return True
+        else:
+            False
+
+
     def step(self) -> tuple[any, int, bool]:
+        """ Player-Map interaction
         """
-        """
-        self.player.position = self.calculate_new_position(self.movement_command, self.player.position[0], self.player.position[1])
-        self.player.score += self.check_collectables(self.player.position[0], self.player.position[1])
+        self.player.position = self.set_player_position(self.player.position[0], self.player.position[1])
+        self.player.score += self.set_score(self.player.position[0], self.player.position[1])
 
         obs = self.create_observation()
         self.last_obs = obs
@@ -107,80 +136,104 @@ class PacMan:
 
         return obs.flatten(), self.player.score, self.player.is_dead
 
-    def calculate_new_position(self, command: Commands, pos_x: int, pos_y: int) -> tuple[int, int]:
-        """ Calculates the next position depemding on the given command
+    def set_player_position(self, pos_x: int, pos_y: int) -> tuple[int, int]:
+        """ Sets the players new position based on the mapdata, current position and direction
         
         @args:
-
+            (pos_x, pos_y) [int, int] - the player current position
         @return:
-
+            (pos_x, pos_y) [int, int] - the player new position
         """
-        if command == Commands.SetDirection_Right:
-            self.player.direction = Direction.Right
-            pos_y += 1
 
-        if command == Commands.SetDirection_Down:
-            self.player.direction = Direction.Down
-            pos_x += 1
-
-        if command == Commands.SetDirection_Left:
-            self.player.direction = Direction.Left
-            pos_y -= 1
-
-        if command == Commands.SetDirection_Up:
-            self.player.direction = Direction.Up
-            pos_x -= 1
+        # change the direction, if turning is available
+        if self.player.next_direction != None:
+            test_x, test_y = self.next_position(self.player.next_direction, pos_x, pos_y)
+            if not self.is_obstacle(test_x, test_y):
+                self.player.direction = self.player.next_direction
+                self.player.next_direction = None
         
-        pos_x, pos_y = self.check_obstacles(pos_x, pos_y)
+        # calculate the next position
+        pos_x, pos_y = self.next_position(self.player.direction, pos_x, pos_y)
+
+        # reset position if obstacle ahead
+        if self.is_obstacle(pos_x, pos_y):
+            pos_x, pos_y = self.reset_position(self.player.direction, pos_x, pos_y)
+
+        # jump to the other side
         pos_x, pos_y = self.check_borders(pos_x, pos_y)
 
         return (pos_x, pos_y)
 
+    def is_obstacle(self, pos_x: int, pos_y: int) -> bool:
+        """ Determines if there is an obstacle on the given coordinates or not
 
-    def check_obstacles(self, pos_x: int, pos_y: int):
-        """ Checks if any obstacle is in front of the player
-        
         @args:
-
-        @returns:
-
+            (pos_x, pos_y) [int, int] - position on the map
+        @return:
+            True, if ther is an obstacle on the given coordinates
         """
-        obstacle_ahead = False
 
         # check walls
         if (pos_x, pos_y) in self.mapdata.obstacles.walls:
-            obstacle_ahead = True
+            return True
         
         # check door
         if (pos_x, pos_y) == self.mapdata.obstacles.door:
-            obstacle_ahead = True
+            return True
+        
+        return False
 
-        if obstacle_ahead:
+    def next_position(self, direction: Direction, pos_x: int, pos_y: int) -> tuple[int, int]:
+        """ Gets the next position based on the current position and the direction
 
-            # reset player position
-            if self.player.direction == Direction.Right:
-                pos_y -= 1
-            if self.player.direction == Direction.Down:
-                pos_x -= 1
-            if self.player.direction == Direction.Left:
-                pos_y += 1
-            if self.player.direction == Direction.Up:
-                pos_x += 1
-            
-            # stop autostep
-            self.movement_command = Commands.Nothing
-
+        @args:
+            direction [Direction] - the direction of the movement
+            (pos_x, pos_y) [int, int] - the current position
+        @return:
+            (pos_x, pos_y) [int, int] - the next position
+        """
+        if direction == Direction.Right:
+            pos_y += 1
+        if direction == Direction.Down:
+            pos_x += 1
+        if direction == Direction.Left:
+            pos_y -= 1
+        if direction == Direction.Up:
+            pos_x -= 1
+        
         return (pos_x, pos_y)
 
+
+    def reset_position(self, direction: Direction, pos_x: int, pos_y: int):
+        """ Resets the player position to the last position based on the direction
+        
+        @args:
+            direction [Direction] - the direction of the movement
+            (pos_x, pos_y) [int, int] - the player current position
+        @return:
+            (pos_x, pos_y) [int, int] - the player last position
+        """
+        if self.player.direction == Direction.Right:
+            pos_y -= 1
+        if self.player.direction == Direction.Down:
+            pos_x -= 1
+        if self.player.direction == Direction.Left:
+            pos_y += 1
+        if self.player.direction == Direction.Up:
+            pos_x += 1
+            
+        return (pos_x, pos_y)
 
     def check_borders(self, pos_x: int, pos_y: int) -> tuple[int, int]:
         """ Checks is the player reached the end of the map
             on any direction
+            If the player reaches the border, sets the player position
+            to the other side of the map
         
         @args:
-
+            (pos_x, pos_y) [int, int] - the player current position
         @return:
-
+            (pos_x, pos_y) [int, int] - the player new position
         """
         
         # check map bottom
@@ -202,7 +255,14 @@ class PacMan:
         return (pos_x, pos_y)
 
 
-    def check_collectables(self, pos_x: int, pos_y: int):
+    def set_score(self, pos_x: int, pos_y: int):
+        """ Returns the score value of the given coordinate
+
+        @args:
+            (pos_x, pos_y) [int, int] - the player current position
+        @return:
+            score [int] - the value of the reward on the given coordinates
+        """
 
         # check for points
         if (pos_x, pos_y) in self.mapdata.collectables.points:
@@ -216,11 +276,12 @@ class PacMan:
 
         # check for cherry (cherry is not implemented yet)
 
+        # check for ghosts (ghosts are not implemented yet)
 
         return 0
 
 
-    def create_observation(self):
+    def create_observation(self) -> any:
         """
         This funtcion creates a grayscale observation (image) from the current state of the game.
         :return:
@@ -250,16 +311,13 @@ class PacMan:
         return obs_
 
 
-    def reset(self):
-        # stop PacMan
-        self.movement_command = Commands.Nothing
-
+    def reset(self) -> any:
         # reset MapData
         self.mapdata = MapData("Map.dat")
 
         # reset Player
-        self.player.position = self.mapdata.get_first_coord_of(MapElements.PacMan)
-        self.player.direction = Direction.Down
+        self.player = Player(self.mapdata.get_first_coord_of(MapElements.PacMan), Direction.Down)
+
 
         self.objects = []
         self.step_ = 0
@@ -269,7 +327,7 @@ class PacMan:
         return obs_.flatten()
 
 
-    def render(self, mode="human"):
+    def render(self, mode="human") -> None:
         """
         This function creates a cv2 plot from the current game state
         :param mode: not used, legacy of gym environments
@@ -290,18 +348,7 @@ class PacMan:
             cv2.waitKey(50)
 
 
-    def is_timeout(self, timelimit: int) -> bool:
-        """ 
-        @args:
-            timelimit [int] - the 
-        """
-        if self.Stopper.seconds_passed >= timelimit:
-            print(f"You have reached the:  {timelimit} s time limit")
-            return True
-        else:
-            False
-
-    def Clean_up_and_close(self):
+    def Clean_up_and_close(self) -> None:
         """ Forces the program to shut down
         """
         os._exit(0)
@@ -311,7 +358,7 @@ class PacMan:
 if __name__ == "__main__":
     env = PacMan()
     time_is_up = False
-    t1 = Thread(target=env.choose_next_action)
+    t1 = Thread(target=env.get_user_input)
     t2 = Thread(target=env.auto_step)
     t1.start()
     t2.start()
