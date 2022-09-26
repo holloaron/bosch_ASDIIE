@@ -48,7 +48,8 @@ class PacMan:
         self.map_ratio = 10
         self.shown_map_height = self.mapdata.height * self.map_ratio
         self.shown_map_width = self.mapdata.width * self.map_ratio
-        self.show_img = np.zeros((self.shown_map_width, self.shown_map_height, 3))
+        self.show_img = np.zeros((self.shown_map_height, self.shown_map_width, 3))
+
         self.reset()
 
 
@@ -217,7 +218,7 @@ class PacMan:
         :return:
         """
         # init map
-        obs_ = np.zeros((self.mapdata.width, self.mapdata.height, 1))
+        obs_ = np.zeros((self.mapdata.height, self.mapdata.width, 1))
 
         # add objects
         for obj in self.objects:
@@ -271,9 +272,9 @@ class PacMan:
             img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 
             # rescale original image from the grid world to visualize with OpenCv
-            for width in range(self.shown_map_width):
-                for height in range(self.shown_map_height):
-                    self.show_img[width][height] = img[width // self.map_ratio][height // self.map_ratio]
+            for height in range(self.shown_map_height):
+                for width in range(self.shown_map_width):
+                    self.show_img[height][width] = img[height // self.map_ratio][width // self.map_ratio]
             
             cv2.imshow("PacMan", self.show_img)
 
