@@ -233,6 +233,10 @@ class PacMan:
         for coord in self.mapdata.collectables.points:
             obs_[coord[0], coord[1], 0] = 0.25
 
+        # coins
+        for coord in self.mapdata.collectables.coins:
+            obs_[coord[0], coord[1], 0] = 0.35
+
         return obs_
 
 
