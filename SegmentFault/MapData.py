@@ -25,7 +25,7 @@ class MapElements(str, Enum):
     Point = ' '
     Coin = 'o'
     PacMan = 'O'
-    Blinky = 'R' # red ghost
+    Blinky = 'B' # red ghost
     Pinky = 'P'  # pink ghost
     Inky = 'I'   # cyan ghost
     Clyde = 'C'  # orange ghost
