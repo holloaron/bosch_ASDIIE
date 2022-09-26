@@ -38,7 +38,7 @@ class PacMan:
         self.mapdata = MapData("Map.dat")
         
         # init Player
-        self.player = Player()
+        self.player = Player(self.mapdata.get_first_coord_of(MapElements.PacMan), Direction.Down)
         
         self.step_ = 0
         self.last_obs = None
@@ -150,7 +150,7 @@ class PacMan:
         elif command == Commands.SetDirection_Up:
             return self.going_up(command, pos_x, pos_y)
         else:
-            return (0,0)
+            return (self.player.position)
 
 
     def going_right(self, action, pos_x, pos_y):
@@ -246,6 +246,9 @@ class PacMan:
 
 
     def reset(self):
+        # stop PacMan
+        self.movement_command = Commands.Nothing
+
         # reset MapData
         self.mapdata = MapData("Map.dat")
 
