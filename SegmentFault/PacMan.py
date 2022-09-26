@@ -15,6 +15,7 @@ Short description
 ********************************************************************
 ********************************************************************
 """
+from Direction import Direction
 import cv2
 import numpy as np
 import time
@@ -22,20 +23,11 @@ from threading import Thread
 import os
 from TimerThread import *
 from MapData import *
-#from ActionParser import *
-
+from Commands import *
 
 class PacMan:
-    direction_command = '0'
+    movement_command = Direction.Down
     stop=False
-    old_direction_command = '0'
-
-    class Direction(Enum):
-        Up = 0
-        Right = 1
-        Down = 2
-        Left = 3
-
 
     def __init__(self):
         self.start_stopper()
@@ -53,7 +45,7 @@ class PacMan:
 
     def set_default_values(self):
         self.step_ = 0
-        self.direction = 1
+        self.direction = Direction.Down
         self.last_obs = None
 
     def create_lists_for_the_map_contents(self):
@@ -84,11 +76,18 @@ class PacMan:
         print('stopped')
 
     def get_next_direction(self):
-        user_input=input("Choose your next action:\n")
-        if self.is_integer(user_input):
-            self.direction_command = user_input
-        else:
-            pass
+        user_input=command_parser(input("Choose your next action:\n"))
+        
+        if is_movement_command(user_input):
+            self.movement_command = user_input
+
+        if user_input == Commands.Restart:
+            self.reset()
+
+        if user_input == Commands.Exit:
+            self.Clean_up_and_close()
+        
+        
 
     def auto_step(self):
         global state, reward, time_is_up
@@ -101,7 +100,7 @@ class PacMan:
 
     def time_init(self)->tuple:
         step_time = 0.5
-        timeout = 10
+        timeout = 60
         start_time = time.time()
         return start_time, step_time, timeout
 
@@ -115,14 +114,14 @@ class PacMan:
 
     def render_step(self):
         global state, reward, time_is_up
-        state, reward, time_is_up = self.step(action=self.direction_command)
+        state, reward, time_is_up = self.step(command=self.movement_command)
         self.render()
         time.sleep(0.001)
 
-    def step(self, action:str):
+    def step(self, command: Commands):
         score = 0
         is_dead = False
-        x, y = self.calculate_new_position(action)
+        x, y = self.calculate_new_position(command)
         score = self.checking_for_object_to_eat(score, x, y)
         obs = self.repaint_map()
         self.step_ += 1
@@ -136,11 +135,9 @@ class PacMan:
         self.last_obs = obs
         return obs
 
-    def calculate_new_position(self, action):
+    def calculate_new_position(self, command: Commands):
         pos_x, pos_y = self.get_current_position()
-        if len(action) == 1:
-            action = int(action)
-            x, y = self.set_new_position(action, pos_x, pos_y)
+        x, y = self.set_new_position(command, pos_x, pos_y)
         x, y = self.check_if_player_reached_the_border_of_the_map(x, y)
 
         return x, y
@@ -168,96 +165,78 @@ class PacMan:
 
         return pos_x, pos_y
 
-    def set_new_position(self, action, pos_x, pos_y):
-        if self.direction == 0:
-            x, y, = self.going_up(action, pos_x, pos_y)
-        elif self.direction == 1:
-            x, y, = self.going_right(action, pos_x, pos_y)
-        elif self.direction == 2:
-            x, y, = self.going_down(action, pos_x, pos_y)
-        elif self.direction == 3:
-            x, y, = self.going_left(action, pos_x, pos_y)
-        else:
-            raise NotImplementedError
+    def set_new_position(self, command: Commands, pos_x, pos_y):
+        if self.direction == Direction.Up:
+            x, y, = self.going_up(command, pos_x, pos_y)
+        elif self.direction == Direction.Right:
+            x, y, = self.going_right(command, pos_x, pos_y)
+        elif self.direction == Direction.Down:
+            x, y, = self.going_down(command, pos_x, pos_y)
+        elif self.direction == Direction.Left:
+            x, y, = self.going_left(command, pos_x, pos_y)
 
         return x, y
-
-    def is_integer(self,string:str):
-        try:
-            float(string)
-        except ValueError:
-
-            return False
-        else:
-
-            return True
 
 
     def going_right(self, action, pos_x, pos_y):
         # going up
-        if action == 0:
+        if action == Commands.SetDirection_Up:
             pos_y += 1
-            self.direction = 0
+            self.direction = Direction.Up
         # going right or left
-        elif action == 1 or action == 3:
+        elif action == Commands.SetDirection_Right or action == Commands.SetDirection_Left:
             pos_x += 1
         # going down
-        elif action == 2:
+        elif action == Commands.SetDirection_Down:
             pos_y -= 1
-            self.direction = 2
-        else:
-            raise NotImplementedError
+            self.direction = Direction.Down
 
         return pos_x, pos_y
 
     def going_left(self, action, pos_x, pos_y):
         # going down
-        if action == 2:
+        if action == Commands.SetDirection_Down:
             pos_y -= 1
-            self.direction = 2
+            self.direction = Direction.Down
         # going right or left
-        elif action == 1 or action == 3:
+        elif action == Commands.SetDirection_Right or action == Commands.SetDirection_Left:
             pos_x -= 1
         #going up
-        elif action == 0:
+        elif action == Commands.SetDirection_Up:
             pos_y += 1
-            self.direction = 0
-        else:
-            raise NotImplementedError
+            self.direction = Direction.Up
 
         return pos_x, pos_y
 
     def going_up(self, action, pos_x, pos_y):
         # going left
-        if action == 3:
+        if action == Commands.SetDirection_Left:
             pos_x -= 1
-            self.direction = 3
+            self.direction = Direction.Left
         # going up or down
-        elif action == 0 or action == 2:
+        elif action == Commands.SetDirection_Up or action == Commands.SetDirection_Down:
             pos_y += 1
         # going right
-        elif action == 1:
+        elif action == Commands.SetDirection_Right:
             pos_x += 1
-            self.direction = 1
-        else:
-            raise NotImplementedError
+            self.direction = Direction.Right
+
         return pos_x, pos_y
 
 
     def going_down(self, action, pos_x, pos_y):
         # going right
-        if action == 1:
+        if action == Commands.SetDirection_Right:
             pos_x += 1
-            self.direction = 1
+            self.direction = Direction.Right
         # going up or down
-        elif action == 0 or action == 2:
+        elif action == Commands.SetDirection_Up or action == Commands.SetDirection_Down:
             pos_y -= 1
         # going left
-        elif action == 3:
+        elif action == Commands.SetDirection_Left:
             pos_x -= 1
-            self.direction = 3
-        else:
-            raise NotImplementedError
+            self.direction = Direction.Left
+
         return pos_x, pos_y
 
 
@@ -302,12 +281,12 @@ class PacMan:
     def reset(self):
         self.body = self.mapdata.get_first_coord_of(MapElements.PacMan)
         self.objects = []
-        self.direction = 1
+        self.direction = Direction.Down
         self.step_ = 0
         self.last_obs = None
 
         #self.walls = self.mapdata.get_coords_of(MapElements.Wall)
-        self.points = self.mapdata.get_coords_of(MapElements.Point)
+        #self.points = self.mapdata.get_coords_of(MapElements.Point)
 
         obs_ = self.create_observation()
         return obs_.flatten()
