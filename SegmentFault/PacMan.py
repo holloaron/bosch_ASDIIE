@@ -71,49 +71,30 @@ class PacMan:
         """
         """
         global state, reward, time_is_up
-        start_time, step_time, timeout = self.time_init()
-        while not time_is_up:
-            start_time = self.execute_step(start_time, step_time)
-            time_is_up = self.is_timeout(timeout)
-        if time_is_up:
-            self.Clean_up_and_close()
 
-
-    def time_init(self) -> tuple:
-        """
-        """
-        step_time = 0.5
-        timeout = 60
+        # init parameters
         start_time = time.time()
-        return start_time, step_time, timeout
+        time_step = 0.5
+        timeout = 60
 
+        while not time_is_up:
 
-    def execute_step(self, start_time: float , step_time: float) -> float:
-        """
-        """
-        time_taken = time.time() - start_time
-        if time_taken > step_time:
-            self.render_step()
-            start_time = time.time()
+            time_taken = time.time() - start_time
 
-        return start_time
+            if time_taken > time_step:
+                state, reward, time_is_up = self.step()
+                self.render()
+                time.sleep(0.001)
+                start_time = time.time()
 
+            time_is_up = self.is_timeout(timeout)
 
-    def render_step(self):
-        """
-        """
-        global state, reward, time_is_up
-        state, reward, time_is_up = self.step()
-        self.render()
-        time.sleep(0.001)
+        self.Clean_up_and_close()
 
 
     def step(self) -> tuple[any, int, bool]:
         """
         """
-        #self.player.score = 0
-        #self.player.is_dead = False
-
         self.player.position = self.calculate_new_position(self.movement_command, self.player.position[0], self.player.position[1])
         self.player.score += self.check_collectables(self.player.position[0], self.player.position[1])
 
@@ -125,7 +106,6 @@ class PacMan:
             self.player.is_dead = True
 
         return obs.flatten(), self.player.score, self.player.is_dead
-
 
     def calculate_new_position(self, command: Commands, pos_x: int, pos_y: int) -> tuple[int, int]:
         """ Calculates the next position depemding on the given command
