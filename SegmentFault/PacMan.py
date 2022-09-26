@@ -95,128 +95,119 @@ class PacMan:
         time.sleep(0.001)
 
     def step(self):
-        self.player.score = 0
-        self.player.is_dead = False
-        x, y = self.calculate_new_position()
-        self.player.score = self.checking_for_object_to_eat(self.player.score, x, y)
-        obs = self.repaint_map()
+        #self.player.score = 0
+        #self.player.is_dead = False
+
+        self.player.position = self.calculate_new_position(self.movement_command, self.player.position[0], self.player.position[1])
+        self.player.score += self.check_collectables(self.player.position[0], self.player.position[1])
+
+        obs = self.create_observation()
+        self.last_obs = obs
+
         self.step_ += 1
         if self.step_ > 100:
             self.player.is_dead = True
 
         return obs.flatten(), self.player.score, self.player.is_dead
 
-    def repaint_map(self):
-        obs = self.create_observation()
-        self.last_obs = obs
-        return obs
 
-    def calculate_new_position(self):
-        poz_x = self.player.position[0]
-        poz_y = self.player.position[1]
-        x, y = self.set_new_position(self.movement_command, poz_x, poz_y)
-        x, y = self.check_if_player_reached_the_border_of_the_map(x, y)
-        self.player.position = (x, y)
+    def calculate_new_position(self, command: Commands, pos_x: int, pos_y: int):
 
-        return x, y
-
-    def checking_for_object_to_eat(self, score, x, y):
-        # checking for object to eat
-        if (x, y) in self.objects:
-            score = 1
-            self.objects.remove((x, y))
-            # self._create_objects(num=1) # use this line for generating new object if one is eaten
-
-        return score
-
-    def check_if_player_reached_the_border_of_the_map(self, x, y):
-        # check if the player reached the end of the map
-        x = self.check_borders(x)
-        y = self.check_borders(y)
-
-        return x, y
-
-
-    def set_new_position(self, command: Commands, pos_x, pos_y):
         if command == Commands.SetDirection_Right:
-            return self.going_right(command, pos_x, pos_y)
-
-        elif command == Commands.SetDirection_Down:
-            return self.going_down(command, pos_x, pos_y)
-
-        elif command == Commands.SetDirection_Left:
-            return self.going_left(command, pos_x, pos_y)
-
-        elif command == Commands.SetDirection_Up:
-            return self.going_up(command, pos_x, pos_y)
-        else:
-            return (self.player.position)
-
-
-    def going_right(self, action, pos_x, pos_y):
-        # going up
-        if action == Commands.SetDirection_Up:
-            pos_y += 1
-        # going right or left
-        elif action == Commands.SetDirection_Right or action == Commands.SetDirection_Left:
-            pos_x += 1
-        # going down
-        elif action == Commands.SetDirection_Down:
-            pos_y -= 1
-
-        return pos_x, pos_y
-
-    def going_left(self, action, pos_x, pos_y):
-        # going down
-        if action == Commands.SetDirection_Down:
-            pos_y -= 1
-        # going right or left
-        elif action == Commands.SetDirection_Right or action == Commands.SetDirection_Left:
-            pos_x -= 1
-        #going up
-        elif action == Commands.SetDirection_Up:
+            self.player.direction = Direction.Right
             pos_y += 1
 
-        return pos_x, pos_y
-
-    def going_up(self, action, pos_x, pos_y):
-        # going left
-        if action == Commands.SetDirection_Left:
-            pos_x -= 1
-        # going up or down
-        elif action == Commands.SetDirection_Up or action == Commands.SetDirection_Down:
-            pos_y += 1
-        # going right
-        elif action == Commands.SetDirection_Right:
+        if command == Commands.SetDirection_Down:
+            self.player.direction = Direction.Down
             pos_x += 1
 
-        return pos_x, pos_y
-
-
-    def going_down(self, action, pos_x, pos_y):
-        # going right
-        if action == Commands.SetDirection_Right:
-            pos_x += 1
-        # going up or down
-        elif action == Commands.SetDirection_Up or action == Commands.SetDirection_Down:
+        if command == Commands.SetDirection_Left:
+            self.player.direction = Direction.Left
             pos_y -= 1
-        # going left
-        elif action == Commands.SetDirection_Left:
+
+        if command == Commands.SetDirection_Up:
+            self.player.direction = Direction.Up
             pos_x -= 1
+        
+        pos_x, pos_y = self.check_obstacles(pos_x, pos_y)
+        pos_x, pos_y = self.check_borders(pos_x, pos_y)
 
-        return pos_x, pos_y
+        return (pos_x, pos_y)
 
 
-    def check_borders(self, coord):
-        # checking the limit at max
-        if coord == self.map_size:
-            return 0
-        # checking limit at min
-        elif coord < 0:
-            return self.map_size - 1
-        # state is in boundaries
-        else:
-            return coord
+    def check_obstacles(self, pos_x: int, pos_y: int):
+        """ Checks if any obstacle is in front of the player
+        
+        @args:
+
+        @returns:
+
+        """
+        obstacle_ahead = False
+
+        # check walls
+        if (pos_x, pos_y) in self.mapdata.obstacles.walls:
+            obstacle_ahead = True
+        
+        # check door
+        if (pos_x, pos_y) == self.mapdata.obstacles.door:
+            obstacle_ahead = True
+
+        if obstacle_ahead:
+
+            # reset player position
+            if self.player.direction == Direction.Right:
+                pos_y -= 1
+            if self.player.direction == Direction.Down:
+                pos_x -= 1
+            if self.player.direction == Direction.Left:
+                pos_y += 1
+            if self.player.direction == Direction.Up:
+                pos_x += 1
+            
+            # stop autostep
+            self.movement_command = Commands.Nothing
+
+        return (pos_x, pos_y)
+
+
+    def check_borders(self, pos_x: int, pos_y: int):
+        
+        # check map bottom
+        if pos_x == self.mapdata.height:
+            pos_x = 0
+        
+        # check map top
+        if pos_x < 0:
+            pos_x = self.mapdata.height - 1
+        
+        # check map left
+        if pos_y == self.mapdata.width:
+            pos_y = 0
+
+        # check map right
+        if pos_y < 0:
+            pos_y = self.mapdata.width - 1
+        
+        return (pos_x, pos_y)
+
+
+    def check_collectables(self, pos_x: int, pos_y: int):
+
+        # check for points
+        if (pos_x, pos_y) in self.mapdata.collectables.points:
+            self.mapdata.collectables.points.remove((pos_x, pos_y))
+            return 10
+
+        # check for coins
+        if (pos_x, pos_y) in self.mapdata.collectables.coins:
+            self.mapdata.collectables.coins.remove((pos_x, pos_y))
+            return 20
+
+        # check for cherry (cherry is not implemented yet)
+
+
+        return 0
 
 
     def create_observation(self):
@@ -235,11 +226,11 @@ class PacMan:
         obs_[self.player.position[0], self.player.position[1], 0] = 1
 
         # walls
-        for coord in self.walls:#self.mapdata.obstacles.walls:
+        for coord in self.mapdata.obstacles.walls:
             obs_[coord[0], coord[1], 0] = 0.45
         
         # points
-        for coord in self.points:#self.mapdata.collectables.points:
+        for coord in self.mapdata.collectables.points:
             obs_[coord[0], coord[1], 0] = 0.25
 
         return obs_
@@ -261,8 +252,6 @@ class PacMan:
         self.step_ = 0
         self.last_obs = None
 
-        self.walls = [] #self.mapdata.obstacles.walls
-        self.points = []#self.mapdata.collectables.points
         self.coins = [] #self.mapdata.collectables.coins
 
         obs_ = self.create_observation()
