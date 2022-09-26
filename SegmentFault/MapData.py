@@ -39,8 +39,8 @@ class MapData():
     def __init__(self, MapDataFilePath: str) -> None:
         self.data_path = MapDataFilePath
         self.size = self.get_size()
-        self.height = self.size[0]
-        self.width = self.size[1]
+        self.width = self.size[0]
+        self.height = self.size[1]
 
         self.obstacles = Obstacles()
         self.obstacles.walls = self.get_coords_of(MapElements.Wall)
@@ -65,8 +65,8 @@ class MapData():
         @return:
             map_height [int] - height of the map
             map_width [int] - width of the map
-            size [tuple(int,int)] - [0] - height
-                                    [1] - width
+            size [tuple(int,int)] - [0] - width
+                                    [1] - height
         """
         mapdata = open(self.data_path, 'r')
 
@@ -81,12 +81,12 @@ class MapData():
                 break
 
             map_height += 1
-            current_width = len(line)
+            current_width = len(line) - 1
             if current_width > map_width:
                 map_width = current_width
 
         mapdata.close()
-        return (map_height, map_width)
+        return (map_width, map_height)
 
 
     def contains(self, element: MapElements) -> bool:
