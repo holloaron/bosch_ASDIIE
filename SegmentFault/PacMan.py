@@ -27,10 +27,10 @@ from Commands import *
 from Player import *
 
 class PacMan:
-    movement_command = Commands.Nothing
-    stop=False
-
     def __init__(self):
+        self.movement_command = Commands.Nothing
+        self.stop = False
+
         self.Stopper = TimeCounter()
         self.Stopper.start()
 
@@ -43,8 +43,6 @@ class PacMan:
         self.step_ = 0
         self.last_obs = None
 
-        print(self.mapdata.size)
-
         self.map_ratio = 10
         self.shown_map_height = self.mapdata.height * self.map_ratio
         self.shown_map_width = self.mapdata.width * self.map_ratio
@@ -54,6 +52,8 @@ class PacMan:
 
 
     def choose_next_action(self):
+        """ 
+        """
         while not self.stop:
             user_input=command_parser(input("Choose your next action:\n"))
             
@@ -68,21 +68,29 @@ class PacMan:
         
 
     def auto_step(self):
+        """
+        """
         global state, reward, time_is_up
         start_time, step_time, timeout = self.time_init()
         while not time_is_up:
             start_time = self.execute_step(start_time, step_time)
-            time_is_up = self.timeout(timeout)
+            time_is_up = self.is_timeout(timeout)
         if time_is_up:
             self.Clean_up_and_close()
 
-    def time_init(self)->tuple:
+
+    def time_init(self) -> tuple:
+        """
+        """
         step_time = 0.5
         timeout = 60
         start_time = time.time()
         return start_time, step_time, timeout
 
-    def execute_step(self, start_time: float , step_time:float)->float:
+
+    def execute_step(self, start_time: float , step_time: float) -> float:
+        """
+        """
         time_taken = time.time() - start_time
         if time_taken > step_time:
             self.render_step()
@@ -90,13 +98,19 @@ class PacMan:
 
         return start_time
 
+
     def render_step(self):
+        """
+        """
         global state, reward, time_is_up
         state, reward, time_is_up = self.step()
         self.render()
         time.sleep(0.001)
 
-    def step(self):
+
+    def step(self) -> tuple[any, int, bool]:
+        """
+        """
         #self.player.score = 0
         #self.player.is_dead = False
 
@@ -113,8 +127,14 @@ class PacMan:
         return obs.flatten(), self.player.score, self.player.is_dead
 
 
-    def calculate_new_position(self, command: Commands, pos_x: int, pos_y: int):
+    def calculate_new_position(self, command: Commands, pos_x: int, pos_y: int) -> tuple[int, int]:
+        """ Calculates the next position depemding on the given command
+        
+        @args:
 
+        @return:
+
+        """
         if command == Commands.SetDirection_Right:
             self.player.direction = Direction.Right
             pos_y += 1
@@ -173,7 +193,15 @@ class PacMan:
         return (pos_x, pos_y)
 
 
-    def check_borders(self, pos_x: int, pos_y: int):
+    def check_borders(self, pos_x: int, pos_y: int) -> tuple[int, int]:
+        """ Checks is the player reached the end of the map
+            on any direction
+        
+        @args:
+
+        @return:
+
+        """
         
         # check map bottom
         if pos_x == self.mapdata.height:
@@ -282,7 +310,11 @@ class PacMan:
             cv2.waitKey(50)
 
 
-    def timeout(self, timelimit):
+    def is_timeout(self, timelimit: int) -> bool:
+        """ 
+        @args:
+            timelimit [int] - the 
+        """
         if self.Stopper.seconds_passed >= timelimit:
             print(f"You have reached the:  {timelimit} s time limit")
             return True
@@ -290,14 +322,15 @@ class PacMan:
             False
 
     def Clean_up_and_close(self):
+        """ Forces the program to shut down
+        """
         os._exit(0)
 
 
-
+# program entry point
 if __name__ == "__main__":
     env = PacMan()
     time_is_up = False
-    state = env.reset()
     t1 = Thread(target=env.choose_next_action)
     t2 = Thread(target=env.auto_step)
     t1.start()
