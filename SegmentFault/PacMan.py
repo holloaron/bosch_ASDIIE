@@ -22,52 +22,34 @@ import time
 from threading import Thread
 import os
 from TimerThread import *
-from MapData import *
+from MapData import MapData, MapElements
 from Commands import *
+from Player import *
 
 class PacMan:
-    movement_command = Direction.Down
+    movement_command = Commands.Nothing
     stop=False
 
     def __init__(self):
-        self.start_stopper()
-        self.create_mapdata()
-        self.create_lists_for_the_map_contents()
-        self.set_default_values()
-        self.set_visualisation()
+        self.Stopper = TimeCounter()
+        self.Stopper.start()
 
-    def set_visualisation(self):
+        # load mapdata
+        self.mapdata = MapData("Map.dat")
+        
+        # init Player
+        self.player = Player()
+        
+        self.step_ = 0
+        self.last_obs = None
+
         map_size_multiplier=10
+        self.map_size = self.mapdata.height
         self.show_img_size = (self.map_size * map_size_multiplier)
         self.show_img = np.zeros((self.show_img_size, self.show_img_size, 3))
         self.ratio = int(self.show_img_size / self.map_size)
         self.reset()
 
-    def set_default_values(self):
-        self.step_ = 0
-        self.last_obs = None
-
-    def create_lists_for_the_map_contents(self):
-        self.body = (0, 0)
-        self.objects = []
-        self.walls = []
-        self.points = []
-
-    def start_stopper(self):
-        self.Stopper = TimeCounter()
-        self.Stopper.start()
-
-    def create_mapdata(self):
-        self.mapdata = MapData("Map.dat")
-        self.set_map_data()
-        print(self.map_size)
-
-    def set_map_data(self):
-        self.map_height = self.mapdata.height
-        self.map_width = self.mapdata.width
-        self.map_size = self.map_height
-        if self.map_height < self.map_width:
-            self.map_size = self.map_width
 
     def choose_next_action(self):
         while not self.stop:
@@ -113,16 +95,16 @@ class PacMan:
         time.sleep(0.001)
 
     def step(self):
-        score = 0
-        is_dead = False
+        self.player.score = 0
+        self.player.is_dead = False
         x, y = self.calculate_new_position()
-        score = self.checking_for_object_to_eat(score, x, y)
+        self.player.score = self.checking_for_object_to_eat(self.player.score, x, y)
         obs = self.repaint_map()
         self.step_ += 1
         if self.step_ > 100:
-            is_dead = True
+            self.player.is_dead = True
 
-        return obs.flatten(), score, is_dead
+        return obs.flatten(), self.player.score, self.player.is_dead
 
     def repaint_map(self):
         obs = self.create_observation()
@@ -130,9 +112,11 @@ class PacMan:
         return obs
 
     def calculate_new_position(self):
-        pos_x, pos_y = self.get_current_position()
-        x, y = self.set_new_position(self.movement_command, pos_x, pos_y)
+        poz_x = self.player.position[0]
+        poz_y = self.player.position[1]
+        x, y = self.set_new_position(self.movement_command, poz_x, poz_y)
         x, y = self.check_if_player_reached_the_border_of_the_map(x, y)
+        self.player.position = (x, y)
 
         return x, y
 
@@ -149,27 +133,24 @@ class PacMan:
         # check if the player reached the end of the map
         x = self.check_borders(x)
         y = self.check_borders(y)
-        self.body = (x, y)
 
         return x, y
 
-    def get_current_position(self):
-        pos_x = self.body[0]
-        pos_y = self.body[1]
-
-        return pos_x, pos_y
 
     def set_new_position(self, command: Commands, pos_x, pos_y):
         if command == Commands.SetDirection_Right:
-            x, y, = self.going_up(command, pos_x, pos_y)
-        if command == Commands.SetDirection_Down:
-            x, y, = self.going_right(command, pos_x, pos_y)
-        if command == Commands.SetDirection_Left:
-            x, y, = self.going_down(command, pos_x, pos_y)
-        if command == Commands.SetDirection_Up:
-            x, y, = self.going_left(command, pos_x, pos_y)
+            return self.going_right(command, pos_x, pos_y)
 
-        return x, y
+        elif command == Commands.SetDirection_Down:
+            return self.going_down(command, pos_x, pos_y)
+
+        elif command == Commands.SetDirection_Left:
+            return self.going_left(command, pos_x, pos_y)
+
+        elif command == Commands.SetDirection_Up:
+            return self.going_up(command, pos_x, pos_y)
+        else:
+            return (0,0)
 
 
     def going_right(self, action, pos_x, pos_y):
@@ -251,27 +232,35 @@ class PacMan:
             obs_[obj[0], obj[1], 0] = 0.25
         
         # add player
-        obs_[self.body[0], self.body[1], 0] = 1
+        obs_[self.player.position[0], self.player.position[1], 0] = 1
 
         # walls
-        for obj in self.walls:
-            obs_[obj[0], obj[1], 0] = 0.45
+        for coord in self.walls:#self.mapdata.obstacles.walls:
+            obs_[coord[0], coord[1], 0] = 0.45
         
         # points
-        for obj in self.points:
-            obs_[obj[0], obj[1], 0] = 0.25
+        for coord in self.points:#self.mapdata.collectables.points:
+            obs_[coord[0], coord[1], 0] = 0.25
 
         return obs_
 
 
     def reset(self):
-        self.body = self.mapdata.get_first_coord_of(MapElements.PacMan)
+        # reset MapData
+        self.mapdata = MapData("Map.dat")
+
+        # reset Player
+        self.player.position = self.mapdata.get_first_coord_of(MapElements.PacMan)
+        self.player.direction = Direction.Down
+
+        
         self.objects = []
         self.step_ = 0
         self.last_obs = None
 
-        #self.walls = self.mapdata.get_coords_of(MapElements.Wall)
-        #self.points = self.mapdata.get_coords_of(MapElements.Point)
+        self.walls = [] #self.mapdata.obstacles.walls
+        self.points = []#self.mapdata.collectables.points
+        self.coins = [] #self.mapdata.collectables.coins
 
         obs_ = self.create_observation()
         return obs_.flatten()
