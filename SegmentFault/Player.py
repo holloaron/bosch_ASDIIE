@@ -18,10 +18,8 @@
 from Direction import *
 
 class Player():
-    def __init__(self, start_position = (0,0), start_direction = Direction.Down) -> None:
+    def __init__(self, start_position: tuple[int, int], start_direction: Direction):
         self.direction = start_direction
         self.position = start_position
-        self.X = self.position[0]
-        self.Y = self.position[1]
         self.is_dead = False
         self.score = 0
