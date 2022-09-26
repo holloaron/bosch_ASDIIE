@@ -8,6 +8,7 @@ MAX_STEP = 100
 NUM_GHOSTS = 4
 NUM_COINS = 100
 ACTION_SPACE_SIZE = 4
+SCORE_COIN = 10
 
 
 class Pacman:
@@ -202,7 +203,7 @@ class Pacman:
         """
         for coin_pos in self.coins_pos:
             if self.pos == coin_pos:
-                self.score += 10
+                self.score += SCORE_COIN
                 self.coins_pos.remove(coin_pos)
 
     def _check_done(self) -> bool:
