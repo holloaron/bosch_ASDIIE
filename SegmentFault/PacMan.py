@@ -45,7 +45,6 @@ class PacMan:
 
     def set_default_values(self):
         self.step_ = 0
-        self.direction = Direction.Down
         self.last_obs = None
 
     def create_lists_for_the_map_contents(self):
@@ -72,21 +71,16 @@ class PacMan:
 
     def choose_next_action(self):
         while not self.stop:
-            self.get_next_direction()
-        print('stopped')
+            user_input=command_parser(input("Choose your next action:\n"))
+            
+            if is_movement_command(user_input):
+                self.movement_command = user_input
 
-    def get_next_direction(self):
-        user_input=command_parser(input("Choose your next action:\n"))
-        
-        if is_movement_command(user_input):
-            self.movement_command = user_input
+            if user_input == Commands.Restart:
+                self.reset()
 
-        if user_input == Commands.Restart:
-            self.reset()
-
-        if user_input == Commands.Exit:
-            self.Clean_up_and_close()
-        
+            if user_input == Commands.Exit:
+                self.Clean_up_and_close()
         
 
     def auto_step(self):
@@ -114,14 +108,14 @@ class PacMan:
 
     def render_step(self):
         global state, reward, time_is_up
-        state, reward, time_is_up = self.step(command=self.movement_command)
+        state, reward, time_is_up = self.step()
         self.render()
         time.sleep(0.001)
 
-    def step(self, command: Commands):
+    def step(self):
         score = 0
         is_dead = False
-        x, y = self.calculate_new_position(command)
+        x, y = self.calculate_new_position()
         score = self.checking_for_object_to_eat(score, x, y)
         obs = self.repaint_map()
         self.step_ += 1
@@ -135,9 +129,9 @@ class PacMan:
         self.last_obs = obs
         return obs
 
-    def calculate_new_position(self, command: Commands):
+    def calculate_new_position(self):
         pos_x, pos_y = self.get_current_position()
-        x, y = self.set_new_position(command, pos_x, pos_y)
+        x, y = self.set_new_position(self.movement_command, pos_x, pos_y)
         x, y = self.check_if_player_reached_the_border_of_the_map(x, y)
 
         return x, y
@@ -166,13 +160,13 @@ class PacMan:
         return pos_x, pos_y
 
     def set_new_position(self, command: Commands, pos_x, pos_y):
-        if self.direction == Direction.Up:
+        if command == Commands.SetDirection_Right:
             x, y, = self.going_up(command, pos_x, pos_y)
-        elif self.direction == Direction.Right:
+        if command == Commands.SetDirection_Down:
             x, y, = self.going_right(command, pos_x, pos_y)
-        elif self.direction == Direction.Down:
+        if command == Commands.SetDirection_Left:
             x, y, = self.going_down(command, pos_x, pos_y)
-        elif self.direction == Direction.Left:
+        if command == Commands.SetDirection_Up:
             x, y, = self.going_left(command, pos_x, pos_y)
 
         return x, y
@@ -182,14 +176,12 @@ class PacMan:
         # going up
         if action == Commands.SetDirection_Up:
             pos_y += 1
-            self.direction = Direction.Up
         # going right or left
         elif action == Commands.SetDirection_Right or action == Commands.SetDirection_Left:
             pos_x += 1
         # going down
         elif action == Commands.SetDirection_Down:
             pos_y -= 1
-            self.direction = Direction.Down
 
         return pos_x, pos_y
 
@@ -197,14 +189,12 @@ class PacMan:
         # going down
         if action == Commands.SetDirection_Down:
             pos_y -= 1
-            self.direction = Direction.Down
         # going right or left
         elif action == Commands.SetDirection_Right or action == Commands.SetDirection_Left:
             pos_x -= 1
         #going up
         elif action == Commands.SetDirection_Up:
             pos_y += 1
-            self.direction = Direction.Up
 
         return pos_x, pos_y
 
@@ -212,14 +202,12 @@ class PacMan:
         # going left
         if action == Commands.SetDirection_Left:
             pos_x -= 1
-            self.direction = Direction.Left
         # going up or down
         elif action == Commands.SetDirection_Up or action == Commands.SetDirection_Down:
             pos_y += 1
         # going right
         elif action == Commands.SetDirection_Right:
             pos_x += 1
-            self.direction = Direction.Right
 
         return pos_x, pos_y
 
@@ -228,14 +216,12 @@ class PacMan:
         # going right
         if action == Commands.SetDirection_Right:
             pos_x += 1
-            self.direction = Direction.Right
         # going up or down
         elif action == Commands.SetDirection_Up or action == Commands.SetDirection_Down:
             pos_y -= 1
         # going left
         elif action == Commands.SetDirection_Left:
             pos_x -= 1
-            self.direction = Direction.Left
 
         return pos_x, pos_y
 
@@ -281,7 +267,6 @@ class PacMan:
     def reset(self):
         self.body = self.mapdata.get_first_coord_of(MapElements.PacMan)
         self.objects = []
-        self.direction = Direction.Down
         self.step_ = 0
         self.last_obs = None
 
