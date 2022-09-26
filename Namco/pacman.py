@@ -1,5 +1,5 @@
 import numpy as np
-
+from pytimedinput import timedInput
 
 class PacMan:
     def __init__(self, map_size=10, max_time_step=100):
@@ -29,6 +29,15 @@ class PacMan:
     def render(self):
         pass
 
+    # Selecting automatic action if no user input (direction) given
+    def select_action(self, prev_action):
+        user_input, timedOut = timedInput("Choose your next action:\n")
+        if timedOut:
+            action = prev_action
+        else:
+            action = int(user_input)
+            prev_action = user_input
+        return prev_action, action
 
 if __name__ == "__main__":
     # Instantiating the environment
@@ -36,7 +45,11 @@ if __name__ == "__main__":
                  max_time_step=100)
 
     done_ = False
+    # First step
+    user_input = int(input("Choose your first action:\n"))
+    done = env.step(user_input)
+    prev_action = user_input
     while not done_:
-        done_ = env.step()
+        done_ = env.select_action(prev_action)
 
 
