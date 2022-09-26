@@ -36,12 +36,26 @@ class MapElements(str, Enum):
 """
 
 class MapData():
-    def __init__(self, MapDataFilePath: str):
+    def __init__(self, MapDataFilePath: str) -> None:
         self.data_path = MapDataFilePath
         self.size = self.get_size()
         self.height = self.size[0]
         self.width = self.size[1]
-        
+
+        self.obstacles = Obstacles()
+        self.obstacles.walls = self.get_coords_of(MapElements.Wall)
+        self.obstacles.door = self.get_first_coord_of(MapElements.Door)
+
+        self.collectables = Collectables()
+        self.collectables.points = self.get_coords_of(MapElements.Point)
+        self.collectables.points = self.get_coords_of(MapElements.Coin)
+
+        self.enemies = Enemies()
+        self.enemies.Blinky = self.get_first_coord_of(MapElements.Blinky)
+        self.enemies.Pinky = self.get_first_coord_of(MapElements.Pinky)
+        self.enemies.Inky = self.get_first_coord_of(MapElements.Inky)
+        self.enemies.Clyde = self.get_first_coord_of(MapElements.Clyde)
+
 
     def get_size(self) -> tuple[(int, int)]:
         """ Determines the loaded mapsize
@@ -173,3 +187,17 @@ class MapData():
 
         mapdata.close()
         return result
+
+class Obstacles():
+    walls = []
+    door = (0,0)
+
+class Collectables():
+    points = []
+    coins = []
+
+class Enemies():
+    Blinky = (0,0) # red ghost
+    Pinky = (0,0)  # pink ghost
+    Inky = (0,0)   # cyan ghost
+    Clyde = (0,0)  # orange ghost
