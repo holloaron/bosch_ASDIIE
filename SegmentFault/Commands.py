@@ -65,3 +65,22 @@ def command_parser(user_input: str) -> str:
 
     # input cannot be parsed and there is no alias
     return Commands.Nothing
+
+
+def is_movement_command(command: Commands) -> bool:
+    """ Determines if the given command is
+    
+    """
+    if command == Commands.SetDirection_Up:
+            return True
+    
+    if command == Commands.SetDirection_Right:
+            return True
+
+    if command == Commands.SetDirection_Down:
+            return True
+
+    if command == Commands.SetDirection_Left:
+            return True
+    
+    return False
