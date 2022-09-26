@@ -43,7 +43,7 @@ class MapData():
         self.width = self.size[1]
         
 
-    def get_size(self) -> tuple(int,int):
+    def get_size(self) -> tuple[(int, int)]:
         """ Determines the loaded mapsize
 
         @args:
@@ -74,6 +74,7 @@ class MapData():
         mapdata.close()
         return (map_height, map_width)
 
+
     def contains(self, element: MapElements) -> bool:
         """ Determines if the map contains the given MapElement
         
@@ -103,7 +104,7 @@ class MapData():
         return result
 
 
-    def get_first_coord_of(self, element: MapElements) -> tuple(int,int):
+    def get_first_coord_of(self, element: MapElements) -> tuple[(int, int)]:
         """ Returns the coordinates of the given MapElement
         
         @args:
@@ -136,7 +137,8 @@ class MapData():
             
             x +=1
             
-    def get_coords_of(self, element: MapElements) -> list[tuple(int,int)]:
+
+    def get_coords_of(self, element: MapElements) -> list[(int,int)]:
         """ Returns a list of coordinates as tuple of the given MapElement
         
         @args:
