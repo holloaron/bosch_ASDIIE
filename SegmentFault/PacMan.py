@@ -43,11 +43,12 @@ class PacMan:
         self.step_ = 0
         self.last_obs = None
 
-        map_size_multiplier=10
-        self.map_size = self.mapdata.height
-        self.show_img_size = (self.map_size * map_size_multiplier)
-        self.show_img = np.zeros((self.show_img_size, self.show_img_size, 3))
-        self.ratio = int(self.show_img_size / self.map_size)
+        print(self.mapdata.size)
+
+        self.map_ratio = 10
+        self.shown_map_height = self.mapdata.height * self.map_ratio
+        self.shown_map_width = self.mapdata.width * self.map_ratio
+        self.show_img = np.zeros((self.shown_map_width, self.shown_map_height, 3))
         self.reset()
 
 
@@ -216,7 +217,7 @@ class PacMan:
         :return:
         """
         # init map
-        obs_ = np.zeros((self.map_size, self.map_size, 1))
+        obs_ = np.zeros((self.mapdata.width, self.mapdata.height, 1))
 
         # add objects
         for obj in self.objects:
@@ -251,12 +252,9 @@ class PacMan:
         self.player.position = self.mapdata.get_first_coord_of(MapElements.PacMan)
         self.player.direction = Direction.Down
 
-        
         self.objects = []
         self.step_ = 0
         self.last_obs = None
-
-        self.coins = [] #self.mapdata.collectables.coins
 
         obs_ = self.create_observation()
         return obs_.flatten()
@@ -268,15 +266,17 @@ class PacMan:
         :param mode: not used, legacy of gym environments
         :return:
         """
-
         if self.last_obs is not None:
             img = np.float32(self.last_obs)
             img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+
             # rescale original image from the grid world to visualize with OpenCv
-            for i in range(self.show_img_size):
-                for j in range(self.show_img_size):
-                    self.show_img[i][j] = img[i // self.ratio][j // self.ratio]
+            for width in range(self.shown_map_width):
+                for height in range(self.shown_map_height):
+                    self.show_img[width][height] = img[width // self.map_ratio][height // self.map_ratio]
+            
             cv2.imshow("PacMan", self.show_img)
+
             # add wait to see the game
             cv2.waitKey(50)
 
