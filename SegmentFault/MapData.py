@@ -48,7 +48,7 @@ class MapData():
 
         self.collectables = Collectables()
         self.collectables.points = self.get_coords_of(MapElements.Point)
-        self.collectables.points = self.get_coords_of(MapElements.Coin)
+        self.collectables.coins = self.get_coords_of(MapElements.Coin)
 
         self.enemies = Enemies()
         self.enemies.Blinky = self.get_first_coord_of(MapElements.Blinky)
