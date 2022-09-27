@@ -163,13 +163,13 @@ class Pacman:
         :return: None
         """
         if self.orientation == DIRECTIONS["up"]:
-            self.pos[0] -= 1
-        if self.orientation == DIRECTIONS["right"]:
-            self.pos[1] += 1
-        if self.orientation == DIRECTIONS["down"]:
-            self.pos[0] += 1
-        if self.orientation == DIRECTIONS["left"]:
-            self.pos[1] -= 1
+            self.pos[0] = MAP_SIZE - 1 if self.pos[0] - 1 < 0 else self.pos[0] - 1
+        elif self.orientation == DIRECTIONS["right"]:
+            self.pos[1] = 0 if self.pos[1] + 1 == MAP_SIZE else self.pos[1] + 1
+        elif self.orientation == DIRECTIONS["down"]:
+            self.pos[0] = 0 if self.pos[0] + 1 == MAP_SIZE else self.pos[0] + 1
+        elif self.orientation == DIRECTIONS["left"]:
+            self.pos[1] = MAP_SIZE - 1 if self.pos[1] - 1 < 0 else self.pos[1] - 1
 
         self.step_counter += 1
 
