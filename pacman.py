@@ -10,8 +10,9 @@ class Pacman:
         self.world_size = world_size
         # map components list
         self.body = []
-        self.wall = []
-        self.ghost = []
+        self.walls = []
+        self.ghosts = []
+        self.pellets = []
         # default values
         self.step = 0
         self.direction = 1
