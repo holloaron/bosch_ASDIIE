@@ -23,4 +23,34 @@ class Pacman:
         self.show_window_size = np.zeros((self.show_window_size, self.show_window_size, 3))
         self.ratio = int(self.show_window_size / self.world_size)
         self.reset()
-        
+
+    def step(self, event):
+        # set default score
+        score = 0
+        # set basic status
+        is_dead = False
+        # get the current PacMan position
+        pos_x, pos_y = self.body[-1]
+
+        # get new PacMan position
+        if self.direction == 0:
+            x, y, = self.__up(event, pos_x, pos_y)
+        elif self.direction == 1:
+            x, y, = self.__right(event, pos_x, pos_y)
+        elif self.direction == 2:
+            x, y, = self.__down(event, pos_x, pos_y)
+        elif self.direction == 3:
+            x, y, = self.__left(event, pos_x, pos_y)
+        else:
+            raise NotImplementedError
+
+        # wall collision check
+        x = self.__check_walls(x)
+        y = self.__check_walls(y)
+
+        # add current state to the body
+        if (x, y) not in self.body:
+            self.body.append((x, y))
+
+        # check for pellets
+        # if (x, y) in self.pellets: todo: function for event when pacman collides with pellets
