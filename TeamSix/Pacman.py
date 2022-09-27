@@ -25,149 +25,137 @@ class Pacman:
         self.map_size = map_size
         # lists for the map components
         self.body = []
-        self.objects = []
+        self.collectables = []
         # initiate default values
-        self.step_ = 0
-        self.dir = 1
+        self.steps_ = 0
+        self.direction = 1
         self.size = 1
-        self.last_obs = None
+        self.last_observation = None
         # Variables for visualizing the current grid world
-        self.show_img_size = 300
-        self.show_img = np.zeros((self.show_img_size, self.show_img_size, 3))
-        self.ratio = int(self.show_img_size / self.map_size)
+        self.displayed_img_size = 300
+        self.displayed_img = np.zeros((self.displayed_img_size, self.displayed_img_size, 3))
+        self.image_to_map_size_ratio = int(self.displayed_img_size / self.map_size)
         self.reset()
 
-    def step(self, action):
+    def step(self, direction):
         # setting base reward
         score = 0
 
         # setting basic env status
         is_dead = False
         # getting the current head position (always the last body part)
-        pos_x, pos_y = self.body[-1]
+        position_x, position_y = self.body[-1]
 
         # get new head position
-        if self.dir == 0:
-            x, y, = self._going_up(action, pos_x, pos_y)
-        elif self.dir == 1:
-            x, y, = self._going_right(action, pos_x, pos_y)
-        elif self.dir == 2:
-            x, y, = self._going_down(action, pos_x, pos_y)
-        elif self.dir == 3:
-            x, y, = self._going_left(action, pos_x, pos_y)
+        if self.direction == 0:
+            new_position_x, new_position_y, = self._move_up(direction, position_x, position_y)
+        elif self.direction == 1:
+            new_position_x, new_position_y, = self._move_right(direction, position_x, position_y)
+        elif self.direction == 2:
+            new_position_x, new_position_y, = self._move_down(direction, position_x, position_y)
+        elif self.direction == 3:
+            new_position_x, new_position_y, = self._move_left(direction, position_x, position_y)
         else:
             raise NotImplementedError
 
-        # check if we go through the wall
-        x = self._check_walls(x)
-        y = self._check_walls(y)
+        if self.position_is_out_of_map(new_position_x, new_position_y):
+            new_position_x, new_position_y = self.move_to_the_other_side_of_the_map(new_position_x, new_position_x)
 
         # add current step to the body
-        if (x, y) not in self.body:
-            self.body.append((x, y))
-        # if the current pos is in the body, we bit ourselves, game over
-        else:
-            is_dead = True
-            score = -1
+        self.body.append((new_position_x, new_position_y))
 
         # checking for object to eat
-        if (x, y) in self.objects:
-            # increase size due to feeding
-            # self.size += 1
+        if (new_position_x, new_position_y) in self.collectables:
             score = 1
-            self.objects.remove((x, y))
-            # self._create_objects(num=1) # use this line for generating new object if one is eaten
+            self.collectables.remove((new_position_x, new_position_y))
 
-        # check the length
-        if len(self.body) > self.size:
-            # remove last body part if exceeds size
-            self.body.pop(0)
-
-        # create observation
-        obs = self._create_observation()
+        observation = self._create_observation()
 
         # save observation
-        self.last_obs = obs
+        self.last_observation = observation
 
-        # placeholder for additional information
-        info = None
-
-        # count the steps of the game
-        self.step_ += 1
+        self.steps_ += 1
 
         # terminating the game after some step
-        if self.step_ > 100:
+        if self.steps_ > 100:
             is_dead = True
 
-        return obs.flatten(), score, is_dead, info
+        return observation.flatten(), score, is_dead
 
-    def _going_right(self, action, pos_x, pos_y):
+    def _move_right(self, initial_direction, position_x, position_y):
         # going up
-        if action == 0:
-            pos_y += 1
-            self.dir = 0
+        if initial_direction == 0:
+            position_y += 1
+            self.direction = 0
         # going right or left
-        elif action == 1 or action == 3:
-            pos_x += 1
+        elif initial_direction == 1 or initial_direction == 3:
+            position_x += 1
         # going down
-        elif action == 2:
-            pos_y -= 1
-            self.dir = 2
+        elif initial_direction == 2:
+            position_y -= 1
+            self.direction = 2
         else:
             raise NotImplementedError
-        return pos_x, pos_y
+        return position_x, position_y
 
-    def _going_left(self, action, pos_x, pos_y):
+    def _move_left(self, initial_direction, position_x, position_y):
         # going down
-        if action == 2:
-            pos_y -= 1
-            self.dir = 2
+        if initial_direction == 2:
+            position_y -= 1
+            self.direction = 2
         # going right or left
-        elif action == 1 or action == 3:
-            pos_x -= 1
-        elif action == 0:
-            pos_y += 1
-            self.dir = 0
+        elif initial_direction == 1 or initial_direction == 3:
+            position_x -= 1
+        elif initial_direction == 0:
+            position_y += 1
+            self.direction = 0
         else:
             raise NotImplementedError
-        return pos_x, pos_y
+        return position_x, position_y
 
-    def _going_up(self, action, pos_x, pos_y):
-        if action == 3:
-            pos_x -= 1
-            self.dir = 3
-        elif action == 0 or action == 2:
-            pos_y += 1
-        elif action == 1:
-            pos_x += 1
-            self.dir = 1
+    def _move_up(self, initial_direction, position_x, position_y):
+        if initial_direction == 3:
+            position_x -= 1
+            self.direction = 3
+        elif initial_direction == 0 or initial_direction == 2:
+            position_y += 1
+        elif initial_direction == 1:
+            position_x += 1
+            self.direction = 1
         else:
             raise NotImplementedError
-        return pos_x, pos_y
+        return position_x, position_y
 
-    def _going_down(self, action, pos_x, pos_y):
-        if action == 1:
-            pos_x += 1
-            self.dir = 1
-        elif action == 0 or action == 2:
-            pos_y -= 1
-        elif action == 3:
-            pos_x -= 1
-            self.dir = 3
+    def _move_down(self, initial_direction, position_x, position_y):
+        if initial_direction == 1:
+            position_x += 1
+            self.direction = 1
+        elif initial_direction == 0 or initial_direction == 2:
+            position_y -= 1
+        elif initial_direction == 3:
+            position_x -= 1
+            self.direction = 3
         else:
             raise NotImplementedError
-        return pos_x, pos_y
+        return position_x, position_y
 
-    def _check_walls(self, coord):
-        # checking the limit at max
-        if coord == self.map_size:
-            return 0
-        # checking limit at min
-        elif coord < 0:
-            return self.map_size - 1
-        # state is in boundaries
-        else:
-            return coord
+    def position_is_out_of_map(self, position_x, position_y):
+        return position_x == self.map_size or position_y == self.map_size or position_x < 0 or position_y < 0
+
+    def move_to_the_other_side_of_the_map(self, position_x, position_y):
+        new_position_x = position_x
+        new_position_y = position_y
+
+        if position_x == self.map_size:
+            new_position_x = 0
+        if position_x < 0:
+            new_position_x = self.map_size - 1
+        if position_y == self.map_size:
+            new_position_y = 0
+        if position_y < 0:
+            new_position_y = self.map_size - 1
+
+        return new_position_x, new_position_y
 
     def _create_observation(self):
         """
@@ -175,47 +163,45 @@ class Pacman:
         :return:
         """
         # init map
-        obs_ = np.zeros((self.map_size, self.map_size, 1))
+        observations_ = np.zeros((self.map_size, self.map_size, 1))
 
         # add objects
-        for obj in self.objects:
-            obs_[obj[0], obj[1], 0] = 0.25
-        # add snake body
-        for piece in self.body:
-            obs_[piece[0], piece[1], 0] = 1
-        # mark head
-        head_coord = self.body[-1]
-        obs_[head_coord[0], head_coord[1], 0] = 0.8
-        return obs_
+        for collectible in self.collectables:
+            observations_[collectible[0], collectible[1], 0] = 0.25
+        # add pacman body
+        observations_[self.body[-1][0], self.body[-1][1], 0] = 0.8
+
+        return observations_
 
     def reset(self):
         self.body = []
-        self.objects = []
-        self.dir = 1
+        self.collectables = []
+        self.direction = 1
         self.size = 1
-        self.step_ = 0
-        self.last_obs = None
+        self.steps_ = 0
+        self.last_observation = None
 
         self._create_body()
-        self._create_objects(num=10)
-        obs_ = self._create_observation()
-        return obs_.flatten()
+        self._create_collectables(num=10)
+        observations_ = self._create_observation()
+        return observations_.flatten()
 
-    def render(self, mode="human"):
+    def render(self):
         """
         This function creates a cv2 plot from the current game state
         :param mode: not used, legacy of gym environments
         :return:
         """
 
-        if self.last_obs is not None:
-            img = np.float32(self.last_obs)
-            img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        if self.last_observation is not None:
+            image = np.float32(self.last_observation)
+            image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
             # rescale original image from the grid world to visualize with OpenCv
-            for i in range(self.show_img_size):
-                for j in range(self.show_img_size):
-                    self.show_img[i][j] = img[i // self.ratio][j // self.ratio]
-            cv2.imshow("Pacman Env", self.show_img)
+            for i in range(self.displayed_img_size):
+                for j in range(self.displayed_img_size):
+                    self.displayed_img[i][j] = \
+                        image[i // self.image_to_map_size_ratio][j // self.image_to_map_size_ratio]
+            cv2.imshow("Pacman Env", self.displayed_img)
             # add wait to see the game
             cv2.waitKey(50)
 
@@ -223,12 +209,12 @@ class Pacman:
         self.body.append((0, 0))
         self.size = 1
 
-    def _create_objects(self, num):
+    def _create_collectables(self, num):
         for _ in range(num):
-            coords = tuple(np.random.randint(0, self.map_size, (2,)))
-            while coords in self.objects or coords in self.body:
-                coords = tuple(np.random.randint(0, self.map_size, (2,)))
-            self.objects.append(coords)
+            coordinates = tuple(np.random.randint(0, self.map_size, (2,)))
+            while coordinates in self.collectables or coordinates in self.body:
+                coordinates = tuple(np.random.randint(0, self.map_size, (2,)))
+            self.collectables.append(coordinates)
 
     def keyboard_on_press(self, key):
         try:
@@ -252,7 +238,7 @@ if __name__ == "__main__":
     state = env.reset()
     steps_done = 0
     while not done_:
-        state, reward, done_, info = env.step(action=env.dir)
+        state, reward, done_ = env.step(direction=env.direction)
         env.render()
         time.sleep(1)
         steps_done += 1
