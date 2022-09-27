@@ -18,12 +18,25 @@ The player controls the eponymous character through an enclosed maze. The object
 
 ## :joystick: How to play
 
-| Action | Key |
-| :---: | :---: |
-| Go Up | 0 |
-| Go Right | 1 |
-| Go Down | 2 |
-| Go Left | 3 |
+**The actions and commands are case-*in*sensitive!**
+
+| Action | Key | Alias |
+| :---: | :---: | :---: |
+| Up | W | 0 |
+| Right | D | 1 |
+| Down | S | 2 |
+| Left | A | 3 |
+
+---
+
+| Commands | Key | Aliases |
+| :---: | :---: | :--- |
+| restart | r | new, reset |
+| exit | q | end, quit |
+
+<details><summary>Hint!</summary><br>
+Every words listed in the Commands table are valid command. Except "Commands", "Key" and "Aliases"... :wink:
+</details>
 
 ## :rocket: Development
 
@@ -32,7 +45,7 @@ The player controls the eponymous character through an enclosed maze. The object
 - [x] Empty map without walls
 - [x] Can move left, right, up, down
 - [x] Step after some seconds
-- [ ] Collect points
+- [x] Collect points
 - [x] Game terminates after a given timesteps
 
 </details>
