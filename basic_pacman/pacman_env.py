@@ -191,7 +191,7 @@ class Pacman:
         if min(self.action_space) <= action <= max(self.action_space):
             return
         else:
-            raise ValueError("Please enter a number in the [0; 4) interval!")
+            raise ValueError("Please enter a number in the [0; {0}) interval!".format(ACTION_SPACE_SIZE))
 
     def _calculate_score(self) -> None:
         """
