@@ -162,6 +162,11 @@ class Pacman:
         This function modifies PacMan's position according to its facing direction.
         :return: None
         """
+        # if facing of the pacman == _direction_:
+        #     if pacman is at the end of the map:
+        #         move to the opposite side
+        #     else:
+        #         move a unit in the _direction_
         if self.orientation == DIRECTIONS["up"]:
             self.pos[0] = MAP_SIZE - 1 if self.pos[0] - 1 < 0 else self.pos[0] - 1
         elif self.orientation == DIRECTIONS["right"]:
