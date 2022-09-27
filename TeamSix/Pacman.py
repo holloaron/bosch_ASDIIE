@@ -11,6 +11,16 @@ from pynput import keyboard
 
 
 class Pacman:
+    KEY_NAME_UP = 'up'
+    KEY_NAME_DOWN = 'down'
+    KEY_NAME_RIGHT = 'right'
+    KEY_NAME_LEFT = 'left'
+
+    DIRECTION_UP = 3
+    DIRECTION_DOWN = 1
+    DIRECTION_RIGHT = 0
+    DIRECTION_LEFT = 2
+
     def __init__(self, map_size):
         self.map_size = map_size
         # lists for the map components
@@ -222,14 +232,14 @@ class Pacman:
 
     def keyboard_on_press(self, key):
         try:
-            if key.name == 'up':
-                self.dir = 3
-            elif key.name == 'down':
-                self.dir = 1
-            elif key.name == 'right':
-                self.dir = 0
-            elif key.name == 'left':
-                self.dir = 2
+            if key.name == self.KEY_NAME_UP:
+                self.direction = self.DIRECTION_UP
+            elif key.name == self.KEY_NAME_DOWN:
+                self.direction = self.KEY_NAME_DOWN
+            elif key.name == self.KEY_NAME_RIGHT:
+                self.direction = self.DIRECTION_RIGHT
+            elif key.name == self.KEY_NAME_LEFT:
+                self.direction = self.DIRECTION_LEFT
         except:
             return
 
