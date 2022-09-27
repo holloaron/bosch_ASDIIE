@@ -65,7 +65,7 @@ class Pacman:
 
         self.coins_pos = []
         self.ghosts_pos = []
-        self.pos = tuple()
+        self.pos = None
 
         self.step_counter = None
         self.score = None
