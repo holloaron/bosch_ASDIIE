@@ -9,6 +9,7 @@ NUM_GHOSTS = 4
 NUM_COINS = 100
 ACTION_SPACE_SIZE = 4
 SCORE_COIN = 10
+DIRECTIONS = {"up": 0, "right": 1, "down": 2, "left": 3}
 
 
 class Pacman:
@@ -161,13 +162,13 @@ class Pacman:
         This function modifies PacMan's position according to its facing direction.
         :return: None
         """
-        if self.orientation == 0:
+        if self.orientation == DIRECTIONS["up"]:
             self.pos[0] -= 1
-        if self.orientation == 1:
+        if self.orientation == DIRECTIONS["right"]:
             self.pos[1] += 1
-        if self.orientation == 2:
+        if self.orientation == DIRECTIONS["down"]:
             self.pos[0] += 1
-        if self.orientation == 3:
+        if self.orientation == DIRECTIONS["left"]:
             self.pos[1] -= 1
 
         self.step_counter += 1
