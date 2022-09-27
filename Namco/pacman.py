@@ -14,7 +14,7 @@ class PacMan:
     def reset(self):
         pass
 
-    def step(self):
+    def step(self, action):
         done = False
 
         # Increasing the timestep
@@ -35,7 +35,7 @@ class PacMan:
         if timedOut:
             action = prev_action
         else:
-            action = int(user_input)
+            action = user_input
             prev_action = user_input
         return prev_action, action
 
@@ -46,10 +46,11 @@ if __name__ == "__main__":
 
     done_ = False
     # First step
-    user_input = int(input("Choose your first action:\n"))
+    user_input = input("Choose your first action:\n")
     done = env.step(user_input)
     prev_action = user_input
     while not done_:
-        done_ = env.select_action(prev_action)
+        action = env.select_action(prev_action)
+        done_ = env.step(action)
 
 
