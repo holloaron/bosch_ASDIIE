@@ -28,7 +28,7 @@ class Pacman:
         # set default score
         score = 0
         # set basic status
-        is_dead = False
+        done = False
         # get the current PacMan position
         pos_x, pos_y = self.body[-1]
 
