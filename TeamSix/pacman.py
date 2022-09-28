@@ -18,7 +18,7 @@ PACMAN_SPEED = 4
 class Pacman:
 
     def __init__(self):
-        self.pacman_position = [50, 50]
+        self.pacman_position = [60, 60]
 
         self.direction = POSITION_RIGHT
         self.new_direction = self.direction
