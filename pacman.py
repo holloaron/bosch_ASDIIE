@@ -54,3 +54,5 @@ class Pacman:
 
         # check for pellets
         # if (x, y) in self.pellets: todo: function for event when pacman collides with pellets
+
+        self.step_counter += 1
