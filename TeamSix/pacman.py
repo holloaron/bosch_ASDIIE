@@ -2,6 +2,7 @@ import pygame
 
 WINDOW_HEIGHT = 450
 WINDOW_WIDTH = 900
+STEP_SIZE = 30
 
 COLOR_YELLOW = pygame.Color(255, 255, 0)
 COLOR_BLACK = pygame.Color(0, 0, 0)
@@ -44,13 +45,17 @@ class Pacman:
 
     def step(self):
         if self.direction == POSITION_UP:
-            self.pacman_position[1] -= 30
+            if self.pacman_position[1] >= STEP_SIZE:
+                self.pacman_position[1] -= STEP_SIZE
         if self.direction == POSITION_DOWN:
-            self.pacman_position[1] += 30
+            if self.pacman_position[1] <= (WINDOW_HEIGHT - (STEP_SIZE+1)):
+                self.pacman_position[1] += STEP_SIZE
         if self.direction == POSITION_LEFT:
-            self.pacman_position[0] -= 30
+            if self.pacman_position[0] >= STEP_SIZE:
+                self.pacman_position[0] -= STEP_SIZE
         if self.direction == POSITION_RIGHT:
-            self.pacman_position[0] += 30
+            if self.pacman_position[0] <= (WINDOW_WIDTH - (STEP_SIZE+1)):
+                self.pacman_position[0] += STEP_SIZE
 
     def change_direction(self):
         if self.new_direction == POSITION_UP:
