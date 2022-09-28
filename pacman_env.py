@@ -9,17 +9,16 @@ import numpy as np
 
 class PacMan:
     def __init__(self, map_size: int):
+        '''
+        This function is called by doing a constructor
+        :param map_size:
+        '''
         self.map_size = map_size
-        # lists for the map components
         self.body = None
         self.objects = []
-        # initiate default values
         self.step_ = 3
         self.dir = 1
-
         self.last_obs = None
-        # placeholder for additional information
-        info = None
         self.time_step=40
         # Variables for visualizing the current grid world
         self.show_img_size = 300
