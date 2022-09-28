@@ -53,7 +53,7 @@ class Pacman:
         _check_action_validity(self, action: int) -> None
         _calculate_score(self) -> None
         _check_done(self) -> bool
-        _generate_pos(self, obj: str, num_objects: int) -> None
+        _generate_pos(self, object_name: str, num_objects: int) -> None
         _update_map(self) -> numpy.ndarray
     """
     def __init__(self, image_size: int = 600) -> None:
@@ -241,10 +241,10 @@ class Pacman:
 
         return False
 
-    def _generate_pos(self, obj: str, num_objects: int) -> None:
+    def _generate_pos(self, object_name: str, num_objects: int) -> None:
         """
         This function generates (x, y) coordinate pairs randomly in the available spots.
-        :param obj: name of the object to be generated across the map
+        :param object_name: name of the object to be generated across the map
         :param num_objects: number of objects for coordinates
         :return: None
         """
@@ -253,11 +253,11 @@ class Pacman:
             while pos in self.coins_pos or pos == self.pos or pos in self.ghosts_pos:
                 pos = list(np.random.randint(MAP_SIZE, size=(2,)))
 
-            if obj == 'ghost':
+            if object_name == 'ghost':
                 self.ghosts_pos.append(pos)
-            elif obj == 'coin':
+            elif object_name == 'coin':
                 self.coins_pos.append(pos)
-            elif obj == 'self_pos':
+            elif object_name == 'self_pos':
                 self.pos = pos
             else:
                 raise NotImplementedError("Not implemented for the given object name!")
