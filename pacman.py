@@ -14,7 +14,7 @@ class Pacman:
         self.ghosts = []
         self.pellets = []
         # default values
-        self.step = 0
+        self.step_counter = 0
         self.direction = 1
         self.score = 0
         self.last_state = None
