@@ -61,6 +61,10 @@ class Pacman:
         done = self.is_done()
 
     def is_done(self):
+        """
+        This function checks if the game has reached the maximum amount of timesteps.
+        :return: A boolean value
+        """
         if self.step_counter > MAX_STEPS:
             return True
         else:
