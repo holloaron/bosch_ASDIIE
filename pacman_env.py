@@ -8,18 +8,10 @@ import cv2
 import numpy as np
 
 class PacMan:
-<<<<<<< Updated upstream
     def __init__(self, map_size: int):
         '''
         This function is called by doing a constructor
         :param map_size:
-=======
-    def __init__(self, map_size:int):
-        '''
-        This function is called by doing a constructor of the class
-        :param map_size: width and height of the map
-        All variables are class variables
->>>>>>> Stashed changes
         '''
         self.map_size = map_size
         self.body = None
@@ -27,13 +19,8 @@ class PacMan:
         self.step_ = 3
         self.dir = 1
         self.last_obs = None
-<<<<<<< Updated upstream
         self.time_step = 40
 
-=======
-
-        self.time_step=40
->>>>>>> Stashed changes
         # Variables for visualizing the current grid world
         self.show_img_size = 300
         self.show_img = np.zeros((self.show_img_size, self.show_img_size, 3))
@@ -60,17 +47,19 @@ class PacMan:
         # getting the current position
         pos_x, pos_y = self.body
 
-<<<<<<< Updated upstream
         x , y = self.choose_action(pos_x=pos_x, pos_y=pos_y, action=action)
 
         #coordinates of the PacMan object
-=======
-        x,y=self.choose_action(pos_x=pos_x , pos_y=pos_y , action=action)
->>>>>>> Stashed changes
         self.body = (x,y)
         self._wall_limit()
+
+        #Eat and add to score
         self.eat(x,y)
+
+            # create observation
         obs = self._create_observation()
+
+        # save observation
         self.last_obs = obs
 
         #decrement for termination , by reaching 0
@@ -80,8 +69,10 @@ class PacMan:
         if self.step_ == 0:
             done_ = True
 
+
         #in this game not used
         info= None
+
 
         #end of episode
         return obs.flatten(), self.score, done_, info
