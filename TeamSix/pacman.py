@@ -1,6 +1,6 @@
 import pygame
 
-WINDOW_HEIGHT = 900
+WINDOW_HEIGHT = 450
 WINDOW_WIDTH = 900
 
 COLOR_YELLOW = pygame.Color(255, 255, 0)
