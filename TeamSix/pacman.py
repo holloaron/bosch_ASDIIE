@@ -82,6 +82,12 @@ class Pacman:
                     self.new_direction = POSITION_RIGHT
 
 
+class Coins:
+    def __init__(self, number_of_coins):
+        self.positions = []
+        self.number_of_coins = number_of_coins
+
+
 if __name__ == '__main__':
     game = Pacman()
     game.play()
