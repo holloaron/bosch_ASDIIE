@@ -1,10 +1,12 @@
 import pygame
+import random
 
 WINDOW_HEIGHT = 900
 WINDOW_WIDTH = 900
 
 COLOR_YELLOW = pygame.Color(255, 255, 0)
 COLOR_BLACK = pygame.Color(0, 0, 0)
+COLOR_WHITE = pygame.Color(255, 255, 255)
 
 POSITION_UP = 'UP'
 POSITION_DOWN = 'DOWN'
@@ -12,6 +14,11 @@ POSITION_RIGHT = 'RIGHT'
 POSITION_LEFT = 'LEFT'
 
 PACMAN_SPEED = 4
+
+pygame.init()
+pygame.display.set_caption('TeamSix Pacman')
+screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+fps = pygame.time.Clock()
 
 
 class Pacman:
@@ -21,11 +28,11 @@ class Pacman:
 
         self.direction = POSITION_RIGHT
         self.new_direction = self.direction
-        pygame.init()
-        pygame.display.set_caption('TeamSix Pacman')
-        self.game_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        #pygame.init()
+        #pygame.display.set_caption('TeamSix Pacman')
+        #self.game_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
-        self.fps = pygame.time.Clock()
+        #self.fps = pygame.time.Clock()
 
     def play(self):
         while True:
@@ -33,13 +40,13 @@ class Pacman:
             self.change_direction()
             self.step()
 
-            self.game_window.fill(COLOR_BLACK)
+            screen.fill(COLOR_BLACK)
             self.draw_on_screen()
             pygame.display.update()
-            self.fps.tick(PACMAN_SPEED)
+            fps.tick(PACMAN_SPEED)
 
     def draw_on_screen(self):
-        pygame.draw.circle(self.game_window, COLOR_YELLOW, (self.pacman_position[0] + 15, self.pacman_position[1] + 15),
+        pygame.draw.circle(screen, COLOR_YELLOW, (self.pacman_position[0] + 15, self.pacman_position[1] + 15),
                            15)
 
     def step(self):
