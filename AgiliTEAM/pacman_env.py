@@ -55,7 +55,7 @@ class Pacman:
         _generate_pos(self, obj: str, num_objects: int) -> None
         _update_map(self) -> numpy.ndarray
     """
-    def __init__(self) -> None:
+    def __init__(self, image_size: int = 600) -> None:
         """
         Constructs the basic components of the Pacman Environment Class.
         :return: None
@@ -70,6 +70,10 @@ class Pacman:
         self.step_counter = None
         self.score = None
         self.orientation = None
+
+        self.image_size = image_size
+        self.image = np.zeros((self.image_size, self.image_size, 3))
+        self.ratio = int(self.image_size / self.map_size)
 
         self.reset()
 
