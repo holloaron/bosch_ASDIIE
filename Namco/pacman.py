@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
     done_ = False
     # First step
-    user_input = input("Choose your first action:\n")
+    user_input = input("Choose your first action (Please enter WASD keys to move):\n")
     done = env.step(user_input)
     prev_action = user_input
     while not done_:
