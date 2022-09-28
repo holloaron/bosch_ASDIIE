@@ -41,6 +41,7 @@ class Pacman:
 
 
     Methods:
+        __init__(self, image_size: int = 600) -> None
         reset(self) -> numpy.ndarray
         step(self, action: int) -> Tuple[numpy.ndarray, float, bool, str]
         render(self) -> None
