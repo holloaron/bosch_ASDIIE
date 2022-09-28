@@ -45,10 +45,6 @@ class Pacman:
         else:
             raise NotImplementedError
 
-        # wall collision check
-        x = self.__check_walls(x)
-        y = self.__check_walls(y)
-
         # add current state to the body
         if (x, y) not in self.body:
             self.body.append((x, y))
