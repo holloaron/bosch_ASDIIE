@@ -19,18 +19,19 @@ class PacMan:
         self.step_ = 3
         self.dir = 1
         self.last_obs = None
-        self.time_step=40
+        self.time_step = 40
+
         # Variables for visualizing the current grid world
         self.show_img_size = 300
         self.show_img = np.zeros((self.show_img_size, self.show_img_size, 3))
         self.ratio = int(self.show_img_size / self.map_size)
-        self.score=0
+        self.score = 0
         self.reset()
 
 
     def first_step(self):
         #starting value of the counter
-        self.step_=100
+        self.step_ = 100
 
     def step(self, action: int):
         '''
@@ -46,7 +47,7 @@ class PacMan:
         # getting the current position
         pos_x, pos_y = self.body
 
-        x,y=self.choose_action(pos_x=pos_x, pos_y=pos_y, action=action)
+        x , y = self.choose_action(pos_x=pos_x, pos_y=pos_y, action=action)
 
         #coordinates of the PacMan object
         self.body = (x,y)
@@ -106,7 +107,7 @@ class PacMan:
             self.score= -1
             print(f"Score {self.score}")
 
-        return x,y
+        return x , y
 
     def eat(self, x: int, y: int):
         '''
@@ -135,7 +136,7 @@ class PacMan:
 
         #only the vertical coordinate changes
         x = x
-        y +=1
+        y += 1
         return x,y
 
 
@@ -258,7 +259,7 @@ def initialize_parameters():
     """
     global map_size , done_ , EPISODES
     map_size = 20
-    EPISODES=3
+    EPISODES = 3
     done_ = False
 
 
