@@ -34,13 +34,13 @@ class Pacman:
 
         # get new PacMan position
         if self.direction == 0:
-            x, y, = self.__up(action, pos_x, pos_y)
+            x, y, = self._up(action, pos_x, pos_y)
         elif self.direction == 1:
-            x, y, = self.__right(action, pos_x, pos_y)
+            x, y, = self._right(action, pos_x, pos_y)
         elif self.direction == 2:
-            x, y, = self.__down(action, pos_x, pos_y)
+            x, y, = self._down(action, pos_x, pos_y)
         elif self.direction == 3:
-            x, y, = self.__left(action, pos_x, pos_y)
+            x, y, = self._left(action, pos_x, pos_y)
         else:
             raise NotImplementedError
 
