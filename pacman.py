@@ -57,3 +57,11 @@ class Pacman:
         # if (x, y) in self.pellets: todo: function for event when pacman collides with pellets
 
         self.step_counter += 1
+
+        done = self.is_done()
+
+    def is_done(self):
+        if self.step_counter > MAX_STEPS:
+            return True
+        else:
+            return False
