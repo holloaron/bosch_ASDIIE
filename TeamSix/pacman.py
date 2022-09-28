@@ -3,6 +3,7 @@ import pygame
 WINDOW_HEIGHT = 450
 WINDOW_WIDTH = 900
 STEP_SIZE = 30
+MAX_STEPS = 100
 
 COLOR_YELLOW = pygame.Color(255, 255, 0)
 COLOR_BLACK = pygame.Color(0, 0, 0)
@@ -19,6 +20,7 @@ class Pacman:
 
     def __init__(self):
         self.pacman_position = [60, 60]
+        self.steps = 0
 
         self.direction = POSITION_RIGHT
         self.new_direction = self.direction
@@ -29,10 +31,11 @@ class Pacman:
         self.fps = pygame.time.Clock()
 
     def play(self):
-        while True:
+        while self.steps < MAX_STEPS:
             self.handle_key_events()
             self.change_direction()
             self.step()
+            self.steps += 1
 
             self.game_window.fill(COLOR_BLACK)
             self.draw_on_screen()
