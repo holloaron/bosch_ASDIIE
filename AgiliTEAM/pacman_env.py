@@ -57,7 +57,7 @@ class Pacman:
         _get_reward(self, state: numpy.ndarray) -> float
         _get_next_state(self, action: int) -> numpy.ndarray
         _set_action(self, action: int | None) -> None
-        _check_action_validity(self, action: int) -> None
+        _check_action_validity(self, action: int) -> bool
         _calculate_score(self) -> None
         _check_done(self) -> bool
         _generate_pos(self, object_name: str, num_objects: int) -> None
@@ -173,8 +173,9 @@ class Pacman:
         :param action: chosen action 0/1/2/3 corresponding to the directions in order up/right/down/left)
         :return: state of the environment after the action
         """
-        self._check_action_validity(action)
-        self._set_action(action)
+        valid = self._check_action_validity(action)
+        if valid:
+            self._set_action(action)
         self._move()
         next_state = self._update_map()
 
@@ -211,14 +212,14 @@ class Pacman:
         self.orientation = action
         # Timer response to be implemented later...
 
-    def _check_action_validity(self, action: int) -> None:
+    def _check_action_validity(self, action: int) -> bool:
         """
         This function verifies the user input's validity.
         :param action: chosen action 0/1/2/3 corresponding to the directions in order up/right/down/left)
-        :return: None
+        :return: True if the user input action is valid
         """
         if min(self.action_space) <= action <= max(self.action_space):
-            return
+            return True
         else:
             raise ValueError("Please enter a number in the [0; {0}) interval!".format(ACTION_SPACE_SIZE))
 
