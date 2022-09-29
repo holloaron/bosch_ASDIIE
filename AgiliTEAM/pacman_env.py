@@ -177,9 +177,9 @@ class Pacman:
         if valid:
             self._set_action(action)
         self._move()
-        next_state = self._update_map()
+        self.state = self._update_map()
 
-        return next_state
+        return self.state
 
     def _move(self) -> None:
         """
