@@ -41,6 +41,7 @@ class Pacman:
 
 
     Methods:
+        __init__(self, image_size: int = 600) -> None
         reset(self) -> numpy.ndarray
         step(self, action: int) -> Tuple[numpy.ndarray, float, bool, str]
         render(self) -> None
@@ -52,10 +53,10 @@ class Pacman:
         _check_action_validity(self, action: int) -> None
         _calculate_score(self) -> None
         _check_done(self) -> bool
-        _generate_pos(self, obj: str, num_objects: int) -> None
+        _generate_pos(self, object_name: str, num_objects: int) -> None
         _update_map(self) -> numpy.ndarray
     """
-    def __init__(self) -> None:
+    def __init__(self, image_size: int = 600) -> None:
         """
         Constructs the basic components of the Pacman Environment Class.
         :return: None
@@ -70,6 +71,10 @@ class Pacman:
         self.step_counter = None
         self.score = None
         self.orientation = None
+
+        self.image_size = image_size
+        self.image = np.zeros((self.image_size, self.image_size, 3))
+        self.ratio = int(self.image_size / self.map_size)
 
         self.reset()
 
@@ -119,8 +124,18 @@ class Pacman:
         This function creates a visualization of the game state.
         :return: None
         """
-        cv2.imshow("Pacman Environment", self.state)
+        self.create_image()
+        cv2.imshow("AgiliTEAM Pacman Environment", self.image)
         cv2.waitKey(50)
+
+    def create_image(self) -> None:
+        """
+        This function processes the environment's state and creates the image array according to the given display size.
+        :return: None
+        """
+        for i in range(self.image_size):
+            for j in range(self.image_size):
+                self.image[i][j] = self.state[i // self.ratio][j // self.ratio]
 
     def _get_info(self) -> str:
         """
@@ -226,10 +241,10 @@ class Pacman:
 
         return False
 
-    def _generate_pos(self, obj: str, num_objects: int) -> None:
+    def _generate_pos(self, object_name: str, num_objects: int) -> None:
         """
         This function generates (x, y) coordinate pairs randomly in the available spots.
-        :param obj: name of the object to be generated across the map
+        :param object_name: name of the object to be generated across the map
         :param num_objects: number of objects for coordinates
         :return: None
         """
@@ -238,11 +253,11 @@ class Pacman:
             while pos in self.coins_pos or pos == self.pos or pos in self.ghosts_pos:
                 pos = list(np.random.randint(MAP_SIZE, size=(2,)))
 
-            if obj == 'ghost':
+            if object_name == 'ghost':
                 self.ghosts_pos.append(pos)
-            elif obj == 'coin':
+            elif object_name == 'coin':
                 self.coins_pos.append(pos)
-            elif obj == 'self_pos':
+            elif object_name == 'self_pos':
                 self.pos = pos
             else:
                 raise NotImplementedError("Not implemented for the given object name!")
