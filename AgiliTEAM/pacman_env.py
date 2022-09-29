@@ -38,6 +38,12 @@ class Pacman:
             defines PacMan's facing direction
         state : ndarray
             defines an array representing the game status
+        image_size : int = 600
+            passed as an argument to the constructor, defines the size of the displayed visualization window
+        image : ndarray
+            BGR channel image array, which is displayed in the render function
+        ratio : int
+            image_size divided by the MAP_SIZE, used for the visualization window in image preprocessing
 
 
     Methods:
