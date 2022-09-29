@@ -1,76 +1,80 @@
 import numpy as np
-from pytimedinput import timedInput
+
+# Constants
+PACMAN = 1
+OBJECT = 2
+
 
 class PacMan:
     def __init__(self, map_size=10, max_time_step=100):
         # PacMan variables
         self.map_size = map_size
-        self.time_step = 0
+        self.time_step_cnt = 0
         self.max_time_step = max_time_step
-        self.map = np.zeros((map_size, map_size))
         self.x = np.random.randint(0, self.map_size)
         self.y = np.random.randint(0, self.map_size)
+        self.objects = []
+        self.score = 0
 
     def reset(self):
         pass
 
     def step(self, action):
-        done = False
+        terminate = False
 
         # Increasing the timestep
-        self.time_step += 1
+        self.time_step_cnt += 1
+
+        # Moving pacman based on current action
+        self.move_pacman(action)
+
+        observation = self.create_observation()
 
         # Terminating after max time steps
-        if self.time_step > self.max_time_step:
-            done = True
+        if self.time_step_cnt > self.max_time_step:
+            terminate = True
 
-        return done
+        return observation, self.score, terminate
 
-    def render(self):
-        pass
+    def render(self, observation):
+        print(observation)
 
-    # Selecting automatic action if no user input (direction) given
-    def select_action(self, prev_action):
-        user_input, timedOut = timedInput("Choose your next action:\n")
-        if timedOut:
-            action = prev_action
-        else:
-            action = user_input
-            prev_action = user_input
-        return prev_action, action
+    def create_observation(self):
+        # Creating the map
+        observation = np.zeros((self.map_size, self.map_size), dtype=int)
 
-    def movement(self,action,vel_x,vel_y):
-        # going up
+        observation[self.x, self.y] = PACMAN
+
+        return observation
+
+    def move_pacman(self, action):
+        # Moving up
         if action == 'w':
-            vel_x = -1
-            vel_y = 0
-        # going left
+            self.x = max(self.x - 1, 0)
+        # Moving left
         elif action == 'a':
-            vel_x = 0
-            vel_y = -1
-        # going down
+            self.y = max(self.y - 1, 0)
+        # Moving down
         elif action == 's':
-            vel_x = 1
-            vel_y = 0
-        # going right
+            self.x = min(self.x + 1, self.map_size - 1)
+        # Moving right
         elif action == 'd':
-            vel_x = 0
-            vel_y = 1
+            self.y = min(self.y + 1, self.map_size - 1)
 
-        return vel_x, vel_y
 
 if __name__ == "__main__":
     # Instantiating the environment
     env = PacMan(map_size=10,
                  max_time_step=100)
+    # Reset environment
+    env.reset()
 
-    done_ = False
-    # First step
-    user_input = input("Choose your first action (Please enter WASD keys to move):\n")
-    done = env.step(user_input)
-    prev_action = user_input
-    while not done_:
-        action = env.select_action(prev_action)
-        done_ = env.step(action)
+    done = False
+
+    while not done:
+        user_input = input("Select your next action (W, A, S, D): ")
+        state, reward, done = env.step(user_input)
+        env.render(state)
+
 
 
