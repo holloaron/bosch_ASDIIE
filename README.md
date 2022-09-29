@@ -1,10 +1,4 @@
-# bosch_ASDIIE I_NEED_A
-This is a repository to version control the developments of I_NEED_A team.
-|      Team members    |
-| -------------------- |
-| Knáb István Gellért  |
-| Csorba Levente       |
-| Tóth Tibor Áron      |
+
 
 This repository is for student work at the class of Agile Software Development in Industrial Environment.
 The course is at Budapest University of Technology and Economics and is hosted by Robert Bosch Kft.
