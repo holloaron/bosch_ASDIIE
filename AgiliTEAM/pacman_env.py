@@ -136,7 +136,7 @@ class Pacman:
         cv2.imshow("AgiliTEAM Pacman Environment", self.image)
         cv2.waitKey(50)
 
-    def create_image(self) -> None:
+    def _create_image(self) -> None:
         """
         This function processes the environment's state and creates the image array according to the given display size.
         :return: None
