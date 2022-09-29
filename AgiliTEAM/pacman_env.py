@@ -38,6 +38,12 @@ class Pacman:
             defines PacMan's facing direction
         state : ndarray
             defines an array representing the game status
+        image_size : int = 600
+            passed as an argument to the constructor, defines the size of the displayed visualization window
+        image : ndarray
+            BGR channel image array, which is displayed in the render function
+        ratio : int
+            image_size divided by the MAP_SIZE, used for the visualization window in image preprocessing
 
 
     Methods:
@@ -45,12 +51,13 @@ class Pacman:
         reset(self) -> numpy.ndarray
         step(self, action: int) -> Tuple[numpy.ndarray, float, bool, str]
         render(self) -> None
+        _create_image(self) -> None
         _move(self) -> None
         _get_info(self) -> str
         _get_reward(self, state: numpy.ndarray) -> float
         _get_next_state(self, action: int) -> numpy.ndarray
         _set_action(self, action: int | None) -> None
-        _check_action_validity(self, action: int) -> None
+        _check_action_validity(self, action: int) -> bool
         _calculate_score(self) -> None
         _check_done(self) -> bool
         _generate_pos(self, object_name: str, num_objects: int) -> None
@@ -63,6 +70,7 @@ class Pacman:
         """
         self.map_size = MAP_SIZE
         self.action_space = np.arange(ACTION_SPACE_SIZE)
+        self.state = None
 
         self.coins_pos = []
         self.ghosts_pos = []
@@ -94,9 +102,9 @@ class Pacman:
         self._generate_pos('ghost', NUM_GHOSTS)
         self._generate_pos('coin', NUM_COINS)
 
-        state = self._update_map()
+        self.state = self._update_map()
 
-        return state
+        return self.state
 
     def step(self, action: int) -> Tuple[np.ndarray, float, bool, str]:
         """
@@ -128,7 +136,7 @@ class Pacman:
         cv2.imshow("AgiliTEAM Pacman Environment", self.image)
         cv2.waitKey(50)
 
-    def create_image(self) -> None:
+    def _create_image(self) -> None:
         """
         This function processes the environment's state and creates the image array according to the given display size.
         :return: None
@@ -165,12 +173,13 @@ class Pacman:
         :param action: chosen action 0/1/2/3 corresponding to the directions in order up/right/down/left)
         :return: state of the environment after the action
         """
-        self._check_action_validity(action)
-        self._set_action(action)
+        valid = self._check_action_validity(action)
+        if valid:
+            self._set_action(action)
         self._move()
-        next_state = self._update_map()
+        self.state = self._update_map()
 
-        return next_state
+        return self.state
 
     def _move(self) -> None:
         """
@@ -203,14 +212,14 @@ class Pacman:
         self.orientation = action
         # Timer response to be implemented later...
 
-    def _check_action_validity(self, action: int) -> None:
+    def _check_action_validity(self, action: int) -> bool:
         """
         This function verifies the user input's validity.
         :param action: chosen action 0/1/2/3 corresponding to the directions in order up/right/down/left)
-        :return: None
+        :return: True if the user input action is valid
         """
         if min(self.action_space) <= action <= max(self.action_space):
-            return
+            return True
         else:
             raise ValueError("Please enter a number in the [0; {0}) interval!".format(ACTION_SPACE_SIZE))
 
@@ -233,10 +242,12 @@ class Pacman:
         :return: True if the game is terminated, otherwise False
         """
         if self.step_counter > MAX_STEP:
+            print("Time step limit reached!")
             return True
 
         for ghost_pos in self.ghosts_pos:
             if self.pos == ghost_pos:
+                print("You have been caught by a ghost!")
                 return True
 
         return False
@@ -276,7 +287,5 @@ class Pacman:
             state[ghost_pos[0], ghost_pos[1]] = 0.5
 
         state[self.pos[0], self.pos[1]] = 1
-
-        self.state = state
 
         return state
