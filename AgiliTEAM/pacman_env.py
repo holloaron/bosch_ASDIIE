@@ -132,7 +132,7 @@ class Pacman:
         This function creates a visualization of the game state.
         :return: None
         """
-        self.create_image()
+        self._create_image()
         cv2.imshow("AgiliTEAM Pacman Environment", self.image)
         cv2.waitKey(50)
 
