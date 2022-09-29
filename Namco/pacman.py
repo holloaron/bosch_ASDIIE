@@ -7,18 +7,24 @@ OBJECT = 2
 
 
 class PacMan:
-    def __init__(self, map_size=10, max_time_step=100):
+    def __init__(self, map_size=10, max_time_step=100, num_of_objects=10):
         # PacMan variables
         self.map_size = map_size
         self.time_step_cnt = 0
         self.max_time_step = max_time_step
-        self.x = np.random.randint(0, self.map_size)
-        self.y = np.random.randint(0, self.map_size)
         self.objects = []
+        self.num_of_objects = num_of_objects
+        self.x = 0
+        self.y = 0
         self.score = 0
 
     def reset(self):
-        pass
+        # Generating the initial position of Pacman
+        self.x = np.random.randint(0, self.map_size)
+        self.y = np.random.randint(0, self.map_size)
+
+        # Generating object positions
+        self.generate_objects()
 
     def step(self, action):
         terminate = False
@@ -64,11 +70,15 @@ class PacMan:
         elif action == 'd':
             self.y = min(self.y + 1, self.map_size - 1)
 
+    def generate_objects(self):
+        pass
+
 
 if __name__ == "__main__":
     # Instantiating the environment
     env = PacMan(map_size=10,
-                 max_time_step=100)
+                 max_time_step=100,
+                 num_of_objects=10)
     # Reset environment
     env.reset()
 
