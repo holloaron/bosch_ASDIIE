@@ -51,6 +51,7 @@ class Pacman:
         reset(self) -> numpy.ndarray
         step(self, action: int) -> Tuple[numpy.ndarray, float, bool, str]
         render(self) -> None
+        _create_image(self) -> None
         _move(self) -> None
         _get_info(self) -> str
         _get_reward(self, state: numpy.ndarray) -> float
