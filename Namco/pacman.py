@@ -26,6 +26,11 @@ class PacMan:
         # Generating object positions
         self.generate_objects()
 
+        # Creating observation
+        observation = self.create_observation()
+
+        return observation
+
     def step(self, action):
         terminate = False
 
@@ -35,6 +40,7 @@ class PacMan:
         # Moving pacman based on current action
         self.move_pacman(action)
 
+        # Creating observation
         observation = self.create_observation()
 
         # Terminating after max time steps
@@ -47,6 +53,7 @@ class PacMan:
         # Clearing console before printing the map (does not clear the console in PyCharm, only in terminal)
         os.system('cls' if os.name == 'nt' else 'clear')
         print(observation)
+        print("Current score:", self.score)
 
     def create_observation(self):
         # Creating the map
@@ -79,8 +86,10 @@ if __name__ == "__main__":
     env = PacMan(map_size=10,
                  max_time_step=100,
                  num_of_objects=10)
-    # Reset environment
-    env.reset()
+
+    # Reset environment and render the initial state
+    state = env.reset()
+    env.render(state)
 
     done = False
 
