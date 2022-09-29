@@ -278,6 +278,4 @@ class Pacman:
 
         state[self.pos[0], self.pos[1]] = 1
 
-        self.state = state
-
         return state
