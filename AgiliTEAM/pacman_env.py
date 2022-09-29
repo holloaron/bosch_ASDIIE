@@ -63,6 +63,7 @@ class Pacman:
         """
         self.map_size = MAP_SIZE
         self.action_space = np.arange(ACTION_SPACE_SIZE)
+        self.state = None
 
         self.coins_pos = []
         self.ghosts_pos = []
