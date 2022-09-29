@@ -19,6 +19,7 @@ class Pacman:
         self.direction = 1
         self.score = 0
         self.last_state = None
+        self.size = 3
         # variables for world
         self.show_window_size = 300
         self.show_window_size = np.zeros((self.show_window_size, self.show_window_size, 3))
@@ -65,3 +66,14 @@ class Pacman:
             return True
         else:
             return False
+
+    def create_pacman(self):
+        self.body.append((0, 0))
+        self.size = 3
+
+    def create_pellets(self, numbers):
+        for _ in range(numbers):
+            coordinates = tuple(np.random.randint(0, self.world_size, (2,)))
+            while coordinates in self.pellets or coordinates in self.body:
+                coordinates = tuple(np.random.randint(0, self.world_size, (2,)))
+            self.pellets.append(coordinates)
