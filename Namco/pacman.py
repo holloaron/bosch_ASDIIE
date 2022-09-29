@@ -1,4 +1,5 @@
 import numpy as np
+import os
 
 # Constants
 PACMAN = 1
@@ -37,6 +38,8 @@ class PacMan:
         return observation, self.score, terminate
 
     def render(self, observation):
+        # Clearing console before printing the map (does not clear the console in PyCharm, only in terminal)
+        os.system('cls' if os.name == 'nt' else 'clear')
         print(observation)
 
     def create_observation(self):
