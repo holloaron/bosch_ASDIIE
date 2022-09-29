@@ -241,10 +241,12 @@ class Pacman:
         :return: True if the game is terminated, otherwise False
         """
         if self.step_counter > MAX_STEP:
+            print("Time step limit reached!")
             return True
 
         for ghost_pos in self.ghosts_pos:
             if self.pos == ghost_pos:
+                print("You have been caught by a ghost!")
                 return True
 
         return False
