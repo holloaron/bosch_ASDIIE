@@ -95,9 +95,9 @@ class Pacman:
         self._generate_pos('ghost', NUM_GHOSTS)
         self._generate_pos('coin', NUM_COINS)
 
-        state = self._update_map()
+        self.state = self._update_map()
 
-        return state
+        return self.state
 
     def step(self, action: int) -> Tuple[np.ndarray, float, bool, str]:
         """
