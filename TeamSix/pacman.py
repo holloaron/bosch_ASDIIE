@@ -135,7 +135,6 @@ class Coins:
     def draw(self):
         for coin_pos in self.positions:
             pygame.draw.circle(screen, COLOR_WHITE, coin_pos, 5)
-            pygame.display.update()
 
 
 class Game:
