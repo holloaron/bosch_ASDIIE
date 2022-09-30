@@ -129,9 +129,11 @@ class Coins:
 
 
 class Game:
-    def __init__(self, pacman, coins):
-        self.pacman = pacman
-        self.coins = coins
+    def __init__(self):
+        self.pacman = Pacman()
+        self.coins = Coins(NUMBER_OF_COINS)
+        self.coins.generate()
+        self.score = 0
 
     def play(self):
         while True:
@@ -141,6 +143,7 @@ class Game:
 
             if self.pacman.pacman_position in self.coins.positions:
                 self.coins.positions.remove(self.pacman.pacman_position)
+                self.score += 1
 
             screen.fill(COLOR_BLACK)
             self.pacman.draw_on_screen()
@@ -150,8 +153,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    pacman = Pacman()
-    coins = Coins(NUMBER_OF_COINS)
-    coins.generate()
-    game = Game(pacman, coins)
+    game = Game()
     game.play()
