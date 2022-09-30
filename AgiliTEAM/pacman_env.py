@@ -39,10 +39,19 @@ class Pacman:
             BGR channel image array, which is displayed in the render function
         ratio : int
             image_size divided by the MAP_SIZE, used for the visualization window in image preprocessing
+        num_coins : int = 100
+            number of coins generated on the map
+        num_ghosts : int = 4
+            number of ghosts generated on the map
+        score_coin : int = 10
+            value of each collected coin
+        max_step : int = 100
+            termination limit value
 
 
     Methods:
-        __init__(self, image_size: int = 600) -> None
+        __init__(self, image_size: int = 600, map_size: int = 30, max_step: int = 100, num_ghosts: int = 4,
+                 num_coins: int = 100, score_coin: int = 10) -> None
         reset(self) -> numpy.ndarray
         step(self, action: int) -> Tuple[numpy.ndarray, float, bool, str]
         render(self) -> None
