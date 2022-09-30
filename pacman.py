@@ -87,3 +87,8 @@ class Pacman:
             self.direction = action
         else:
             raise ValueError("Please choose an action between 0-3")
+
+    def _up(self, pos_x, pos_y):
+        pos_y += 1
+        return pos_x, pos_y
+    
