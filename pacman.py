@@ -35,17 +35,7 @@ class Pacman:
         # get the current PacMan position
         pos_x, pos_y = self.body[-1]
 
-        # get new PacMan position
-        if self.direction == 0:
-            x, y, = self._up(action, pos_x, pos_y)
-        elif self.direction == 1:
-            x, y, = self._right(action, pos_x, pos_y)
-        elif self.direction == 2:
-            x, y, = self._down(action, pos_x, pos_y)
-        elif self.direction == 3:
-            x, y, = self._left(action, pos_x, pos_y)
-        else:
-            raise NotImplementedError
+        x, y = self._move(pos_x,pos_y,action)
 
         # add current state to the body
         if (x, y) not in self.body:
@@ -79,3 +69,6 @@ class Pacman:
             while coordinates in self.pellets or coordinates in self.body:
                 coordinates = tuple(np.random.randint(0, self.world_size, (2,)))
             self.pellets.append(coordinates)
+
+    def _move (self, pos_x, pos_y, action):
+        raise NotImplementedError
