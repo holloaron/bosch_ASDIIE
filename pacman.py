@@ -22,7 +22,7 @@ class Pacman:
         self.last_state = None
         # variables for world
         self.show_window_size = 300
-        self.show_window_size = np.zeros((self.show_window_size, self.show_window_size, 3))
+        self.show_window = np.zeros((self.show_window_size, self.show_window_size, 3))
         self.ratio = int(self.show_window_size / self.world_size)
         self.reset()
 
@@ -111,4 +111,13 @@ class Pacman:
 
         obs_[self.body[0], self.body[1], 0] = 0.8
         return obs_
-    
+
+    def render(self):
+        if self.last_state is not None:
+            img = np.float32(self.last_state)
+        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        for i in range(self.show_window_size):
+            for j in range (self.show_window_size):
+                self.show_window[i][j] = img[i//self.ratio][j//self.ratio]
+        cv2.imshow("Pacman", self.show_window)
+        cv2.waitKey(50)
