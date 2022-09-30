@@ -3,12 +3,7 @@ import cv2
 import numpy as np
 np.random.seed(0)
 
-MAP_SIZE = 30
-MAX_STEP = 100
-NUM_GHOSTS = 4
-NUM_COINS = 100
 ACTION_SPACE_SIZE = 4
-SCORE_COIN = 10
 DIRECTIONS = {"up": 0, "right": 1, "down": 2, "left": 3}
 
 
@@ -44,10 +39,19 @@ class Pacman:
             BGR channel image array, which is displayed in the render function
         ratio : int
             image_size divided by the MAP_SIZE, used for the visualization window in image preprocessing
+        num_coins : int = 100
+            number of coins generated on the map
+        num_ghosts : int = 4
+            number of ghosts generated on the map
+        score_coin : int = 10
+            value of each collected coin
+        max_step : int = 100
+            termination limit value
 
 
     Methods:
-        __init__(self, image_size: int = 600) -> None
+        __init__(self, image_size: int = 600, map_size: int = 30, max_step: int = 100, num_ghosts: int = 4,
+                 num_coins: int = 100, score_coin: int = 10) -> None
         reset(self) -> numpy.ndarray
         step(self, action: int) -> Tuple[numpy.ndarray, float, bool, str]
         render(self) -> None
@@ -63,19 +67,24 @@ class Pacman:
         _generate_pos(self, object_name: str, num_objects: int) -> None
         _update_map(self) -> numpy.ndarray
     """
-    def __init__(self, image_size: int = 600) -> None:
+    def __init__(self, image_size: int = 600, map_size: int = 30, max_step: int = 100, num_ghosts: int = 4,
+                 num_coins: int = 100, score_coin: int = 10) -> None:
         """
         Constructs the basic components of the Pacman Environment Class.
         :return: None
         """
-        self.map_size = MAP_SIZE
+        self.map_size = map_size
         self.action_space = np.arange(ACTION_SPACE_SIZE)
         self.state = None
 
+        self.num_coins = num_coins
+        self.num_ghosts = num_ghosts
         self.coins_pos = []
         self.ghosts_pos = []
+        self.score_coin = score_coin
         self.pos = None
 
+        self.max_step = max_step
         self.step_counter = None
         self.score = None
         self.orientation = None
@@ -99,8 +108,8 @@ class Pacman:
         self.coins_pos = []
 
         self._generate_pos('self_pos', 1)
-        self._generate_pos('ghost', NUM_GHOSTS)
-        self._generate_pos('coin', NUM_COINS)
+        self._generate_pos('ghost', self.num_ghosts)
+        self._generate_pos('coin', self.num_coins)
 
         self.state = self._update_map()
 
@@ -151,7 +160,7 @@ class Pacman:
         :return: information about the game's current state
         """
         self._calculate_score()
-        info = "Points acquired: " + str(self.score) + "\nSteps: " + str(self.step_counter) + "/" + str(MAX_STEP)
+        info = "Points acquired: " + str(self.score) + "\nSteps: " + str(self.step_counter) + "/" + str(self.max_step)
 
         return info
 
@@ -162,7 +171,7 @@ class Pacman:
         :return: reward value from which the agent is able to learn
         """
         # Only for RL purposes
-        # To be implemented later...
+        # TODO: add implementation of reward function
         reward = 0.0
 
         return reward
@@ -192,13 +201,13 @@ class Pacman:
         #     else:
         #         move a unit in the _direction_
         if self.orientation == DIRECTIONS["up"]:
-            self.pos[0] = MAP_SIZE - 1 if self.pos[0] - 1 < 0 else self.pos[0] - 1
+            self.pos[0] = self.map_size - 1 if self.pos[0] - 1 < 0 else self.pos[0] - 1
         elif self.orientation == DIRECTIONS["right"]:
-            self.pos[1] = 0 if self.pos[1] + 1 == MAP_SIZE else self.pos[1] + 1
+            self.pos[1] = 0 if self.pos[1] + 1 == self.map_size else self.pos[1] + 1
         elif self.orientation == DIRECTIONS["down"]:
-            self.pos[0] = 0 if self.pos[0] + 1 == MAP_SIZE else self.pos[0] + 1
+            self.pos[0] = 0 if self.pos[0] + 1 == self.map_size else self.pos[0] + 1
         elif self.orientation == DIRECTIONS["left"]:
-            self.pos[1] = MAP_SIZE - 1 if self.pos[1] - 1 < 0 else self.pos[1] - 1
+            self.pos[1] = self.map_size - 1 if self.pos[1] - 1 < 0 else self.pos[1] - 1
 
         self.step_counter += 1
 
@@ -233,7 +242,7 @@ class Pacman:
         """
         for coin_pos in self.coins_pos:
             if self.pos == coin_pos:
-                self.score += SCORE_COIN
+                self.score += self.score_coin
                 self.coins_pos.remove(coin_pos)
 
     def _check_done(self) -> bool:
@@ -241,7 +250,7 @@ class Pacman:
         This function analyzes the game state and decides whether it's terminated or not.
         :return: True if the game is terminated, otherwise False
         """
-        if self.step_counter > MAX_STEP:
+        if self.step_counter > self.max_step:
             print("Time step limit reached!")
             return True
 
@@ -260,9 +269,9 @@ class Pacman:
         :return: None
         """
         for _ in range(num_objects):
-            pos = list(np.random.randint(MAP_SIZE, size=(2,)))
+            pos = list(np.random.randint(self.map_size, size=(2,)))
             while pos in self.coins_pos or pos == self.pos or pos in self.ghosts_pos:
-                pos = list(np.random.randint(MAP_SIZE, size=(2,)))
+                pos = list(np.random.randint(self.map_size, size=(2,)))
 
             if object_name == 'ghost':
                 self.ghosts_pos.append(pos)
@@ -278,7 +287,7 @@ class Pacman:
         This function updates the game state according to the modified coordinates in position tuples.
         :return: game state after modification
         """
-        state = np.zeros((MAP_SIZE, MAP_SIZE))
+        state = np.zeros((self.map_size, self.map_size))
 
         for coin_pos in self.coins_pos:
             state[coin_pos[0], coin_pos[1]] = 0.25
