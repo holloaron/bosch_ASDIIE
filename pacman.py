@@ -5,10 +5,11 @@ created by Git-egylet
 import cv2
 import numpy as np
 
-MAX_STEPS = 200
+
 class Pacman:
     def __init__(self, world_size):
         self.world_size = world_size
+        self.max_steps = 200
         # map components list
         self.body = []
         self.walls = []
