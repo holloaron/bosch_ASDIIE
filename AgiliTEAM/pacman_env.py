@@ -3,12 +3,7 @@ import cv2
 import numpy as np
 np.random.seed(0)
 
-MAP_SIZE = 30
-MAX_STEP = 100
-NUM_GHOSTS = 4
-NUM_COINS = 100
 ACTION_SPACE_SIZE = 4
-SCORE_COIN = 10
 DIRECTIONS = {"up": 0, "right": 1, "down": 2, "left": 3}
 
 
@@ -63,19 +58,24 @@ class Pacman:
         _generate_pos(self, object_name: str, num_objects: int) -> None
         _update_map(self) -> numpy.ndarray
     """
-    def __init__(self, image_size: int = 600) -> None:
+    def __init__(self, image_size: int = 600, map_size: int = 30, max_step: int = 100, num_ghosts: int = 4,
+                 num_coins: int = 100, score_coin: int = 10) -> None:
         """
         Constructs the basic components of the Pacman Environment Class.
         :return: None
         """
-        self.map_size = MAP_SIZE
+        self.map_size = map_size
         self.action_space = np.arange(ACTION_SPACE_SIZE)
         self.state = None
 
+        self.num_coins = num_coins
+        self.num_ghosts = num_ghosts
         self.coins_pos = []
         self.ghosts_pos = []
+        self.score_coin = score_coin
         self.pos = None
 
+        self.max_step = max_step
         self.step_counter = None
         self.score = None
         self.orientation = None
