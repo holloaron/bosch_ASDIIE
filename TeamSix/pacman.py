@@ -1,8 +1,9 @@
 import pygame
 
-WINDOW_HEIGHT = 450
-WINDOW_WIDTH = 900
-STEP_SIZE = 30
+WINDOW_HEIGHT = 600
+WINDOW_WIDTH = 600
+PACMAN_SIZE = WINDOW_HEIGHT/20
+STEP_SIZE = PACMAN_SIZE
 MAX_STEPS = 100
 
 COLOR_YELLOW = pygame.Color(255, 255, 0)
@@ -43,8 +44,8 @@ class Pacman:
             self.fps.tick(PACMAN_SPEED)
 
     def draw_on_screen(self):
-        pygame.draw.circle(self.game_window, COLOR_YELLOW, (self.pacman_position[0] + 15, self.pacman_position[1] + 15),
-                           15)
+        pygame.draw.circle(self.game_window, COLOR_YELLOW, (self.pacman_position[0] + (PACMAN_SIZE/2), self.pacman_position[1] + (PACMAN_SIZE/2)),
+                           (PACMAN_SIZE/2))
 
     def step(self):
         if self.direction == POSITION_UP:
