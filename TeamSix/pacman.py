@@ -84,8 +84,10 @@ class Coins:
         self.positions.append([position_x, position_y])
 
         while len(self.positions) < self.number_of_coins:
-            if cycle_counter % 5 == 0:
+            if cycle_counter % 3 == 0:
                 random_number = random.randint(0, 2)
+            else:
+                random_number = 0
             cycle_counter += 1
             delta_x = position_x - position_x_tmp
             delta_y = position_y - position_y_tmp
