@@ -162,7 +162,7 @@ class Pacman:
         :return: reward value from which the agent is able to learn
         """
         # Only for RL purposes
-        # To be implemented later...
+        # TODO: add implementation of reward function
         reward = 0.0
 
         return reward
