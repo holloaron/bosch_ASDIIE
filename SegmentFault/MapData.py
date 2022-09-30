@@ -36,8 +36,8 @@ class MapElements(str, Enum):
 """
 
 class MapData():
-    def __init__(self, MapDataFilePath: str) -> None:
-        self.data_path = MapDataFilePath
+    def __init__(self, mapdatafile_path: str) -> None:
+        self.data_path = mapdatafile_path
         self.size = self.get_size()
         self.width = self.size[0]
         self.height = self.size[1]
