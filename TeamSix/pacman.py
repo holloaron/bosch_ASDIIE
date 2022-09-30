@@ -94,33 +94,43 @@ class Coins:
         cycle_counter = 0
         position_x = 80
         position_y = 50
-        position_x_tmp = position_x
-        position_y_tmp = position_y
+        position_x_tmp = 50
+        position_y_tmp = 50
         self.positions.append([position_x, position_y])
 
         while len(self.positions) < self.number_of_coins:
-            if cycle_counter % 3 == 0:
-                random_number = random.randint(0, 3)
+            if cycle_counter % 5 == 0:
+                random_number = random.randint(0, 2)
             cycle_counter += 1
-            if random_number == 0:
-                position_x += 30
-            elif random_number == 1:
-                position_y += 30
-            elif random_number == 2:
-                position_x -= 30
-            elif random_number == 3:
-                position_y -= 30
-            if position_y > WINDOW_HEIGHT or position_y < 0 or position_x > WINDOW_WIDTH or position_x < 0:
-                position_x = 80 + random.randint(0, 30) * 30
-                position_y = 50 + random.randint(0, 30) * 30
-            if position_x == self.positions[-1][0] and position_y == self.positions[-1][1]:
-                position_x = position_x_tmp
-                position_y = position_y_tmp
+            delta_x = position_x - position_x_tmp
+            delta_y = position_y - position_y_tmp
+            position_x_tmp = position_x
+            position_y_tmp = position_y
+            if delta_x != 0:
+                if random_number == 0:
+                    position_x += delta_x
+                elif random_number == 1:
+                    position_y += 30
+                else:
+                    position_y -= 30
+            elif delta_y != 0:
+                if random_number == 0:
+                    position_y += delta_y
+                elif random_number == 1:
+                    position_x += 30
+                else:
+                    position_x -= 30
+            if position_x > WINDOW_WIDTH or position_x < 0 or position_y > WINDOW_HEIGHT or position_y < 0:
+                position_x = 80
+                position_y = 50
+                position_x_tmp = 50
+                position_y_tmp = 50
                 continue
-            else:
+            if [position_x, position_y] not in self.positions:
                 self.positions.append([position_x, position_y])
-                position_x_tmp = position_x
-                position_y_tmp = position_y
+
+            else:
+                continue
 
     def draw(self):
         for coin_pos in self.positions:
