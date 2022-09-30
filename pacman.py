@@ -121,3 +121,16 @@ class Pacman:
                 self.show_window[i][j] = img[i//self.ratio][j//self.ratio]
         cv2.imshow("Pacman", self.show_window)
         cv2.waitKey(50)
+
+    def reset(self):
+        self.body = []
+        self.pellets = []
+        self.step_counter = 0
+        self.direction = 1
+        self.score = 0
+        self.last_state = None
+
+        self.create_pacman()
+        self.create_pellets(10)
+        obs_ = self._create_observation()
+        return obs_.flatten()
