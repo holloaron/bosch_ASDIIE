@@ -48,7 +48,7 @@ class Pacman:
 
         self.step_counter += 1
 
-        done = self.is_done()
+        done = self.is_done(self.max_steps)
 
     def is_done(self, max_steps: int):
         """
