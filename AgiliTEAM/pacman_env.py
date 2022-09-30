@@ -108,8 +108,8 @@ class Pacman:
         self.coins_pos = []
 
         self._generate_pos('self_pos', 1)
-        self._generate_pos('ghost', NUM_GHOSTS)
-        self._generate_pos('coin', NUM_COINS)
+        self._generate_pos('ghost', self.num_ghosts)
+        self._generate_pos('coin', self.num_coins)
 
         self.state = self._update_map()
 
@@ -160,7 +160,7 @@ class Pacman:
         :return: information about the game's current state
         """
         self._calculate_score()
-        info = "Points acquired: " + str(self.score) + "\nSteps: " + str(self.step_counter) + "/" + str(MAX_STEP)
+        info = "Points acquired: " + str(self.score) + "\nSteps: " + str(self.step_counter) + "/" + str(self.max_step)
 
         return info
 
@@ -201,13 +201,13 @@ class Pacman:
         #     else:
         #         move a unit in the _direction_
         if self.orientation == DIRECTIONS["up"]:
-            self.pos[0] = MAP_SIZE - 1 if self.pos[0] - 1 < 0 else self.pos[0] - 1
+            self.pos[0] = self.map_size - 1 if self.pos[0] - 1 < 0 else self.pos[0] - 1
         elif self.orientation == DIRECTIONS["right"]:
-            self.pos[1] = 0 if self.pos[1] + 1 == MAP_SIZE else self.pos[1] + 1
+            self.pos[1] = 0 if self.pos[1] + 1 == self.map_size else self.pos[1] + 1
         elif self.orientation == DIRECTIONS["down"]:
-            self.pos[0] = 0 if self.pos[0] + 1 == MAP_SIZE else self.pos[0] + 1
+            self.pos[0] = 0 if self.pos[0] + 1 == self.map_size else self.pos[0] + 1
         elif self.orientation == DIRECTIONS["left"]:
-            self.pos[1] = MAP_SIZE - 1 if self.pos[1] - 1 < 0 else self.pos[1] - 1
+            self.pos[1] = self.map_size - 1 if self.pos[1] - 1 < 0 else self.pos[1] - 1
 
         self.step_counter += 1
 
@@ -242,7 +242,7 @@ class Pacman:
         """
         for coin_pos in self.coins_pos:
             if self.pos == coin_pos:
-                self.score += SCORE_COIN
+                self.score += self.score_coin
                 self.coins_pos.remove(coin_pos)
 
     def _check_done(self) -> bool:
@@ -250,7 +250,7 @@ class Pacman:
         This function analyzes the game state and decides whether it's terminated or not.
         :return: True if the game is terminated, otherwise False
         """
-        if self.step_counter > MAX_STEP:
+        if self.step_counter > self.max_step:
             print("Time step limit reached!")
             return True
 
@@ -269,9 +269,9 @@ class Pacman:
         :return: None
         """
         for _ in range(num_objects):
-            pos = list(np.random.randint(MAP_SIZE, size=(2,)))
+            pos = list(np.random.randint(self.map_size, size=(2,)))
             while pos in self.coins_pos or pos == self.pos or pos in self.ghosts_pos:
-                pos = list(np.random.randint(MAP_SIZE, size=(2,)))
+                pos = list(np.random.randint(self.map_size, size=(2,)))
 
             if object_name == 'ghost':
                 self.ghosts_pos.append(pos)
@@ -287,7 +287,7 @@ class Pacman:
         This function updates the game state according to the modified coordinates in position tuples.
         :return: game state after modification
         """
-        state = np.zeros((MAP_SIZE, MAP_SIZE))
+        state = np.zeros((self.map_size, self.map_size))
 
         for coin_pos in self.coins_pos:
             state[coin_pos[0], coin_pos[1]] = 0.25
