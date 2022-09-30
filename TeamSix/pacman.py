@@ -30,21 +30,6 @@ class Pacman:
 
         self.direction = POSITION_RIGHT
         self.new_direction = self.direction
-        #pygame.init()
-        #pygame.display.set_caption('TeamSix Pacman')
-        #self.game_window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-
-        #self.fps = pygame.time.Clock()
-
-    def play(self):
-        while True:
-            self.handle_key_events()
-            self.change_direction()
-            self.step()
-            #screen.fill(COLOR_BLACK)
-            self.draw_on_screen()
-            pygame.display.update()
-            fps.tick(PACMAN_SPEED)
 
     def draw_on_screen(self):
         pygame.draw.circle(screen, COLOR_YELLOW, (self.pacman_position[0], self.pacman_position[1]),
