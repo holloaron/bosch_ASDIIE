@@ -99,4 +99,8 @@ class Pacman:
     def _down(self, pos_x, pos_y):
         pos_y -= 1
         return pos_x, pos_y
+
+    def _left(self, pos_x, pos_y):
+        pos_x -= 1
+        return pos_x, pos_y
     
