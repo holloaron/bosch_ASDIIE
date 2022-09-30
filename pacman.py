@@ -72,3 +72,9 @@ class Pacman:
 
     def _move (self, pos_x, pos_y, action):
         raise NotImplementedError
+
+    def _change_direction(self, action):
+        if 0 <= action < 4:
+            self.direction = action
+        else:
+            raise ValueError("Please choose an action between 0-3")
