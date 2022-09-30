@@ -1,7 +1,10 @@
 import pygame
 
-WINDOW_HEIGHT = 900
-WINDOW_WIDTH = 900
+WINDOW_HEIGHT = 600
+WINDOW_WIDTH = 600
+PACMAN_SIZE = WINDOW_HEIGHT/20
+STEP_SIZE = PACMAN_SIZE
+MAX_STEPS = 100
 
 COLOR_YELLOW = pygame.Color(255, 255, 0)
 COLOR_BLACK = pygame.Color(0, 0, 0)
@@ -17,7 +20,8 @@ PACMAN_SPEED = 4
 class Pacman:
 
     def __init__(self):
-        self.pacman_position = [50, 50]
+        self.pacman_position = [60, 60]
+        self.steps = 0
 
         self.direction = POSITION_RIGHT
         self.new_direction = self.direction
@@ -28,10 +32,11 @@ class Pacman:
         self.fps = pygame.time.Clock()
 
     def play(self):
-        while True:
+        while self.steps < MAX_STEPS:
             self.handle_key_events()
             self.change_direction()
             self.step()
+            self.steps += 1
 
             self.game_window.fill(COLOR_BLACK)
             self.draw_on_screen()
@@ -39,18 +44,18 @@ class Pacman:
             self.fps.tick(PACMAN_SPEED)
 
     def draw_on_screen(self):
-        pygame.draw.circle(self.game_window, COLOR_YELLOW, (self.pacman_position[0] + 15, self.pacman_position[1] + 15),
-                           15)
+        pygame.draw.circle(self.game_window, COLOR_YELLOW, (self.pacman_position[0] + (PACMAN_SIZE/2), self.pacman_position[1] + (PACMAN_SIZE/2)),
+                           (PACMAN_SIZE/2))
 
     def step(self):
-        if self.direction == POSITION_UP:
-            self.pacman_position[1] -= 30
-        if self.direction == POSITION_DOWN:
-            self.pacman_position[1] += 30
-        if self.direction == POSITION_LEFT:
-            self.pacman_position[0] -= 30
-        if self.direction == POSITION_RIGHT:
-            self.pacman_position[0] += 30
+        if self.direction == POSITION_UP and self.pacman_position[1] >= STEP_SIZE:
+            self.pacman_position[1] -= STEP_SIZE
+        if self.direction == POSITION_DOWN and self.pacman_position[1] <= (WINDOW_HEIGHT - (STEP_SIZE+1)):
+            self.pacman_position[1] += STEP_SIZE
+        if self.direction == POSITION_LEFT and self.pacman_position[0] >= STEP_SIZE:
+            self.pacman_position[0] -= STEP_SIZE
+        if self.direction == POSITION_RIGHT and self.pacman_position[0] <= (WINDOW_WIDTH - (STEP_SIZE+1)):
+            self.pacman_position[0] += STEP_SIZE
 
     def change_direction(self):
         if self.new_direction == POSITION_UP:
