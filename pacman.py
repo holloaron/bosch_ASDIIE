@@ -91,4 +91,8 @@ class Pacman:
     def _up(self, pos_x, pos_y):
         pos_y += 1
         return pos_x, pos_y
+
+    def _right(self, pos_x, pos_y):
+        pos_x += 1
+        return pos_x, pos_y
     
