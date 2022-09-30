@@ -43,8 +43,7 @@ class Pacman:
         obs = self._create_observation()
         self.last_state = obs
 
-        # check for pellets
-        # if (x, y) in self.pellets: todo: function for event when pacman collides with pellets
+        self._check_pellets(x,y)
 
         self.step_counter += 1
 
@@ -108,6 +107,11 @@ class Pacman:
     def _left(self, pos_x, pos_y):
         pos_x -= 1
         return pos_x, pos_y
+
+    def _check_pellets(self, x, y):
+        if (x, y) in self.pellets:
+            self.score += 1
+            self.pellets.remove((x, y))
 
     def _create_observation(self):
 
