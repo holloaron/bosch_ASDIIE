@@ -101,4 +101,14 @@ class Pacman:
     def _left(self, pos_x, pos_y):
         pos_x -= 1
         return pos_x, pos_y
+
+    def _create_observation(self):
+
+        obs_ = np.zeros((self.world_size, self.world_size, 1))
+
+        for pellet in self.pellets:
+            obs_[pellet[0], pellet[1], 0] = 0.25
+
+        obs_[self.body[0], self.body[1], 0] = 0.8
+        return obs_
     
