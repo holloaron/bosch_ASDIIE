@@ -40,6 +40,9 @@ class Pacman:
         if (x, y) not in self.body:
             self.body.append((x, y))
 
+        obs = self._create_observation()
+        self.last_state = obs
+
         # check for pellets
         # if (x, y) in self.pellets: todo: function for event when pacman collides with pellets
 
