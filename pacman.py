@@ -20,7 +20,6 @@ class Pacman:
         self.direction = 1
         self.score = 0
         self.last_state = None
-        self.size = 3
         # variables for world
         self.show_window_size = 300
         self.show_window_size = np.zeros((self.show_window_size, self.show_window_size, 3))
@@ -35,7 +34,7 @@ class Pacman:
         # get the current PacMan position
         pos_x, pos_y = self.body[-1]
 
-        x, y = self._move(pos_x,pos_y,action)
+        x, y = self._move(pos_x, pos_y, action)
 
         # add current state to the body
         if (x, y) not in self.body:
@@ -61,7 +60,6 @@ class Pacman:
 
     def create_pacman(self):
         self.body.append((0, 0))
-        self.size = 3
 
     def create_pellets(self, numbers):
         for _ in range(numbers):
