@@ -274,9 +274,9 @@ class PacMan:
             self.mapdata.collectables.coins.remove((pos_x, pos_y))
             return 20
 
-        # check for cherry (cherry is not implemented yet)
+        #TODO: check for cherry
 
-        # check for ghosts (ghosts are not implemented yet)
+        #TODO: check for ghosts
 
         return 0
 
