@@ -91,26 +91,26 @@ class Coins:
         self.number_of_coins = number_of_coins
 
     def generate(self):
-        cnt = 0
+        cycle_counter = 0
         position_x = 80
         position_y = 50
         position_x_tmp = position_x
         position_y_tmp = position_y
-        self.positions.append((position_x, position_y))
+        self.positions.append([position_x, position_y])
 
         while len(self.positions) < self.number_of_coins:
-            if cnt % 3 == 0:
-                rnd_num = random.randint(0, 3)
-            cnt += 1
-            if rnd_num == 0:
+            if cycle_counter % 3 == 0:
+                random_number = random.randint(0, 3)
+            cycle_counter += 1
+            if random_number == 0:
                 position_x += 30
-            elif rnd_num == 1:
+            elif random_number == 1:
                 position_y += 30
-            elif rnd_num == 2:
+            elif random_number == 2:
                 position_x -= 30
-            elif rnd_num == 3:
+            elif random_number == 3:
                 position_y -= 30
-            if position_y > 900 or position_y < 0 or position_x > 900 or position_x < 0:
+            if position_y > WINDOW_HEIGHT or position_y < 0 or position_x > WINDOW_WIDTH or position_x < 0:
                 position_x = 80 + random.randint(0, 30) * 30
                 position_y = 50 + random.randint(0, 30) * 30
             if position_x == self.positions[-1][0] and position_y == self.positions[-1][1]:
@@ -118,7 +118,7 @@ class Coins:
                 position_y = position_y_tmp
                 continue
             else:
-                self.positions.append((position_x, position_y))
+                self.positions.append([position_x, position_y])
                 position_x_tmp = position_x
                 position_y_tmp = position_y
 
@@ -128,9 +128,30 @@ class Coins:
             pygame.display.update()
 
 
+class Game:
+    def __init__(self, pacman, coins):
+        self.pacman = pacman
+        self.coins = coins
+
+    def play(self):
+        while True:
+            self.pacman.handle_key_events()
+            self.pacman.change_direction()
+            self.pacman.step()
+
+            if self.pacman.pacman_position in self.coins.positions:
+                self.coins.positions.remove(self.pacman.pacman_position)
+
+            screen.fill(COLOR_BLACK)
+            self.pacman.draw_on_screen()
+            self.coins.draw()
+            pygame.display.update()
+            fps.tick(PACMAN_SPEED)
+
+
 if __name__ == '__main__':
-    game = Pacman()
+    pacman = Pacman()
     coins = Coins(NUMBER_OF_COINS)
     coins.generate()
-    coins.draw()
+    game = Game(pacman, coins)
     game.play()
