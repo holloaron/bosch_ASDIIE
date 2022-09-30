@@ -48,18 +48,14 @@ class Pacman:
                            (PACMAN_SIZE/2))
 
     def step(self):
-        if self.direction == POSITION_UP:
-            if self.pacman_position[1] >= STEP_SIZE:
-                self.pacman_position[1] -= STEP_SIZE
-        if self.direction == POSITION_DOWN:
-            if self.pacman_position[1] <= (WINDOW_HEIGHT - (STEP_SIZE+1)):
-                self.pacman_position[1] += STEP_SIZE
-        if self.direction == POSITION_LEFT:
-            if self.pacman_position[0] >= STEP_SIZE:
-                self.pacman_position[0] -= STEP_SIZE
-        if self.direction == POSITION_RIGHT:
-            if self.pacman_position[0] <= (WINDOW_WIDTH - (STEP_SIZE+1)):
-                self.pacman_position[0] += STEP_SIZE
+        if self.direction == POSITION_UP and self.pacman_position[1] >= STEP_SIZE:
+            self.pacman_position[1] -= STEP_SIZE
+        if self.direction == POSITION_DOWN and self.pacman_position[1] <= (WINDOW_HEIGHT - (STEP_SIZE+1)):
+            self.pacman_position[1] += STEP_SIZE
+        if self.direction == POSITION_LEFT and self.pacman_position[0] >= STEP_SIZE:
+            self.pacman_position[0] -= STEP_SIZE
+        if self.direction == POSITION_RIGHT and self.pacman_position[0] <= (WINDOW_WIDTH - (STEP_SIZE+1)):
+            self.pacman_position[0] += STEP_SIZE
 
     def change_direction(self):
         if self.new_direction == POSITION_UP:
