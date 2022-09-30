@@ -50,6 +50,10 @@ class Pacman:
 
         done = self.is_done(self.max_steps)
 
+        info = None
+
+        return obs.flatten(), score, done, info
+
     def is_done(self, max_steps: int):
         """
         This function checks if the game has reached the maximum amount of timesteps.
