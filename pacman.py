@@ -68,7 +68,7 @@ class Pacman:
                 coordinates = tuple(np.random.randint(0, self.world_size, (2,)))
             self.pellets.append(coordinates)
 
-    def _move (self, pos_x, pos_y, action):
+    def _move(self, pos_x, pos_y, action):
         self.direction = self._change_direction(action)
         if self.direction == 0:
             x, y = self._up(pos_x, pos_y)
@@ -117,8 +117,8 @@ class Pacman:
             img = np.float32(self.last_state)
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
         for i in range(self.show_window_size):
-            for j in range (self.show_window_size):
-                self.show_window[i][j] = img[i//self.ratio][j//self.ratio]
+            for j in range(self.show_window_size):
+                self.show_window[i][j] = img[i // self.ratio][j // self.ratio]
         cv2.imshow("Pacman", self.show_window)
         cv2.waitKey(50)
 
@@ -134,3 +134,13 @@ class Pacman:
         self.create_pellets(10)
         obs_ = self._create_observation()
         return obs_.flatten()
+
+
+if __name__ == "__main__":
+    env = Pacman(world_size=1)
+    done = False
+    state = env.reset()
+    while not done:
+        a = int(input("Choose your next action:\n"))
+        state, reward, done, info = env.step(action=a)
+        env.render()
