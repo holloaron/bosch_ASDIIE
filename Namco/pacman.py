@@ -1,76 +1,177 @@
 import numpy as np
-from pytimedinput import timedInput
+import os
+
+# Enumerating the participants of the PacMan game
+EMPTY = 0
+PACMAN = 1
+OBJECT = 2
+
 
 class PacMan:
-    def __init__(self, map_size=10, max_time_step=100):
+    def __init__(self, map_size=10, max_time_step=100, num_of_objects=10):
+        """
+        PacMan Game
+        :param map_size: dimension of the map [size x size] (int)
+        :param max_time_step: after how many steps should the game be ended (int)
+        :param num_of_objects: number of randomly generated objects (int)
+        """
         # PacMan variables
         self.map_size = map_size
-        self.time_step = 0
+        self.time_step_cnt = 0
         self.max_time_step = max_time_step
-        self.map = np.zeros((map_size, map_size))
-        self.x = np.random.randint(0, self.map_size)
-        self.y = np.random.randint(0, self.map_size)
+        self.objects = []
+        self.num_of_objects = num_of_objects
+        self.pacman = [0, 0]
+        self.score = 0
 
-    def reset(self):
-        pass
+    def reset(self) -> np.ndarray:
+        """
+        Resets the environment
+        :return: Current state of the map (np.ndarray)
+        """
+        # Generating the initial position of Pacman
+        self.pacman[0] = np.random.randint(0, self.map_size)
+        self.pacman[1] = np.random.randint(0, self.map_size)
 
-    def step(self, action):
-        done = False
+        # Generating object positions
+        self.generate_objects()
+
+        # Creating observation
+        observation = self.create_observation()
+
+        return observation
+
+    def step(self, action: str) -> [np.ndarray, int, bool]:
+        """
+        Steps the environment into its next state
+        :param action: current user input (w, a ,s or d) (str)
+        :return: current state of the map (np.ndarray), current score (int), terminating flag (bool)
+        """
+        terminate = False
 
         # Increasing the timestep
-        self.time_step += 1
+        self.time_step_cnt += 1
+
+        # Moving pacman based on current action
+        self.move_pacman(action)
+
+        # Check whether Pacman moved on an object
+        self.check_objects()
+
+        # Creating observation
+        observation = self.create_observation()
 
         # Terminating after max time steps
-        if self.time_step > self.max_time_step:
-            done = True
+        if self.time_step_cnt > self.max_time_step:
+            terminate = True
 
-        return done
+        return observation, self.score, terminate
 
-    def render(self):
-        pass
+    def render(self, observation: np.ndarray) -> None:
+        """
+        Prints the current state of the environment on the console
+        :param observation: Current state of the map (np.ndarray)
+        :return: -
+        """
+        # Clearing console before printing the map (cannot clear the console in PyCharm, only in terminal)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        # Converting numpy array to python list
+        observation = observation.tolist()
 
-    # Selecting automatic action if no user input (direction) given
-    def select_action(self, prev_action):
-        user_input, timedOut = timedInput("Choose your next action:\n")
-        if timedOut:
-            action = prev_action
-        else:
-            action = user_input
-            prev_action = user_input
-        return prev_action, action
+        # Replacing number with characters for visualization
+        for x in range(self.map_size):
+            for y in range(self.map_size):
+                if observation[x][y] == EMPTY:
+                    observation[x][y] = '-'
+                elif observation[x][y] == PACMAN:
+                    observation[x][y] = '0'
+                elif observation[x][y] == OBJECT:
+                    observation[x][y] = '+'
 
-    def movement(self,action,vel_x,vel_y):
-        # going up
+        # Printing the current score and the current observation line by line with separation
+        for line in observation:
+            print(*line, sep='  ')
+
+        print("\nCurrent score:", self.score)
+
+    def create_observation(self) -> np.ndarray:
+        """
+        Processes the positions of Pacman and the objects and creates the current state matrix
+        :return: Current state of the map (np.ndarray)
+        """
+        # Creating the map
+        observation = np.zeros((self.map_size, self.map_size), dtype=int)
+
+        # Placing Pacman on the map
+        observation[self.pacman[0], self.pacman[1]] = PACMAN
+
+        # Placing the objects on the map
+        for obj in self.objects:
+            observation[obj[0], obj[1]] = OBJECT
+
+        return observation
+
+    def move_pacman(self, action: str) -> None:
+        """
+        Moves Pacman in the desired direction
+        :param action: current user input (w, a, s or d) (str)
+        :return: -
+        """
+        # Moving up
         if action == 'w':
-            vel_x = -1
-            vel_y = 0
-        # going left
+            self.pacman[0] = max(self.pacman[0] - 1, 0)
+        # Moving left
         elif action == 'a':
-            vel_x = 0
-            vel_y = -1
-        # going down
+            self.pacman[1] = max(self.pacman[1] - 1, 0)
+        # Moving down
         elif action == 's':
-            vel_x = 1
-            vel_y = 0
-        # going right
+            self.pacman[0] = min(self.pacman[0] + 1, self.map_size - 1)
+        # Moving right
         elif action == 'd':
-            vel_x = 0
-            vel_y = 1
+            self.pacman[1] = min(self.pacman[1] + 1, self.map_size - 1)
 
-        return vel_x, vel_y
+    def generate_objects(self) -> None:
+        """
+        Generates the given number of random objects on the map
+        :return: -
+        """
+        for _ in range(self.num_of_objects):
+            obj_coords = tuple(np.random.randint(0, self.map_size, (2,)))
+
+            # Making sure that generated objects do not have the same position with each other or with Pacman
+            while (obj_coords in self.objects) or (obj_coords == tuple(self.pacman)):
+                obj_coords = tuple(np.random.randint(0, self.map_size, (2,)))
+
+            self.objects.append(obj_coords)
+
+    def check_objects(self) -> None:
+        """
+        Checks whether Pacman picked up an object and increases the score accordingly
+        :return: -
+        """
+        for obj in self.objects:
+            if obj == tuple(self.pacman):
+                # If Pacman moved on an object, increase the score and remove the object
+                self.score += 1
+                self.objects.remove(obj)
+
 
 if __name__ == "__main__":
     # Instantiating the environment
     env = PacMan(map_size=10,
-                 max_time_step=100)
+                 max_time_step=100,
+                 num_of_objects=10)
 
-    done_ = False
-    # First step
-    user_input = input("Choose your first action (Please enter WASD keys to move):\n")
-    done = env.step(user_input)
-    prev_action = user_input
-    while not done_:
-        action = env.select_action(prev_action)
-        done_ = env.step(action)
+    # Reset environment and render the initial state
+    state = env.reset()
+    env.render(state)
+
+    done = False
+
+    while not done:
+        user_input = input("Select your next action (W, A, S, D): ")
+        state, reward, done = env.step(user_input)
+        env.render(state)
+
 
 
