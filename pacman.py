@@ -44,12 +44,12 @@ class Pacman:
         # set basic status
         done = False
         # get the current PacMan position
-        pos_x, pos_y = self.body[-1]
+        pos_x, pos_y = self.body
         # get the new position
         x, y = self._move(pos_x, pos_y, action)
         # add current state to the body
         if (x, y) not in self.body:
-            self.body.append((x, y))
+            self.body = (x, y)
         # create observation of the current state of the game
         obs = self._create_observation()
         # save observation
@@ -81,7 +81,7 @@ class Pacman:
         This function creates Pacman and sets its starting position.
         :return: None
         """
-        self.body.append((0, 0))
+        self.body = (0, 0)
 
     def create_pellets(self, numbers: int):
         """
@@ -192,7 +192,7 @@ class Pacman:
         for pellet in self.pellets:
             obs_[pellet[0], pellet[1], 0] = 0.25
         # add Pacman
-        body_coords = self.body[-1]
+        body_coords = self.body
         obs_[body_coords[0], body_coords[1], 0] = 0.8
         return obs_
 
@@ -222,7 +222,7 @@ class Pacman:
         self.body = []
         self.pellets = []
         self.step_counter = 0
-        self.direction = 1
+        self.direction = 0
         self.score = 0
         self.last_state = None
 
