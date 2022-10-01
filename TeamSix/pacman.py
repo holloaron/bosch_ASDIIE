@@ -39,7 +39,7 @@ class Pacman:
         pygame.draw.circle(screen, COLOR_YELLOW, (self.pacman_position[0], self.pacman_position[1]),
                            15)
 
-    # Method for stepping:
+    # Method for stepping and checking walls:
     # Screen coordinates: upper left corner's position is [0,0], coordinates increase to the right and downward.
     # Checking walls: walls are defined by pixel/coordinate values that pacman can't surpass.
     # TOP and LEFT wall: sum of pacman size and a step size -> pacman's coordinate can not be lower.
