@@ -151,8 +151,8 @@ class Pacman:
     def _down(self, pos_x: int, pos_y: int):
         """
         This function moves Pacman downwards.
-        :param pos_x: horizontal coordinate
-        :param pos_y: vertical coordinate
+        :param pos_x: vertical coordinate
+        :param pos_y: horizontal coordinate
         :return: pos_x, pos_y (int): the updated coordinates
         """
         pos_x += 1
