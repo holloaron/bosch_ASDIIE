@@ -19,7 +19,7 @@ POSITION_LEFT = 'LEFT'
 PACMAN_SPEED = 4
 NUMBER_OF_COINS = 100
 
-pygame.init()
+pygame.display.init()
 pygame.display.set_caption('TeamSix Pacman')
 screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 screen.fill(COLOR_BLACK)
