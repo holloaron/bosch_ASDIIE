@@ -1,6 +1,3 @@
-"""""
-created by Git-egylet
-"""""
 
 import cv2
 import numpy as np
