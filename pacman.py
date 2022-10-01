@@ -209,6 +209,10 @@ class Pacman:
         cv2.waitKey(50)
 
     def reset(self):
+        """
+        This function restarts the game by restoring the initial values and creating a new session.
+        :return: obs_ (ndarray): observation of the current state
+        """
         self.body = []
         self.pellets = []
         self.step_counter = 0
@@ -219,6 +223,7 @@ class Pacman:
         self.create_pacman()
         self.create_pellets(10)
         obs_ = self._create_observation()
+        
         return obs_.flatten()
 
 
