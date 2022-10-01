@@ -60,11 +60,11 @@ class PacMan:
         for x in range(self.map_size):
             for y in range(self.map_size):
                 if observation[x][y] == EMPTY:
-                    observation[x][y] = '.'
+                    observation[x][y] = '-'
                 elif observation[x][y] == PACMAN:
-                    observation[x][y] = 'O'
+                    observation[x][y] = '0'
                 elif observation[x][y] == OBJECT:
-                    observation[x][y] = '*'
+                    observation[x][y] = 'o'
 
         # Printing the current observation line by line with separation
         for line in observation:
