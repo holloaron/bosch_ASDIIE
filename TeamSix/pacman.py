@@ -134,12 +134,14 @@ class Game:
         self.coins = Coins(NUMBER_OF_COINS)
         self.coins.generate()
         self.score = 0
+        self.steps = 0
 
     def play(self):
-        while True:
+        while self.steps < MAX_STEPS:
             self.pacman.handle_key_events()
             self.pacman.change_direction()
             self.pacman.step()
+            self.steps += 1
 
             if self.pacman.pacman_position in self.coins.positions:
                 self.coins.positions.remove(self.pacman.pacman_position)
