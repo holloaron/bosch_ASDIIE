@@ -16,8 +16,7 @@ class PacMan:
         self.map_size = map_size
         self.body = None
         self.coins = []
-        self.step_ = 3
-        self.dir = 1
+        self.step_ = 100
         self.last_obs = None
         self.time_step = 40
 
@@ -167,7 +166,6 @@ class PacMan:
         # reset environment parameters
         self.body = None
         self.coins = []
-        self.dir = 1
         self.step_ = 0
         self.last_obs = None
 
