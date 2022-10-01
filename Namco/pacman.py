@@ -11,9 +11,9 @@ class PacMan:
     def __init__(self, map_size=10, max_time_step=100, num_of_objects=10):
         """
         PacMan Game
-        :param map_size: dimension of the map [size x size]
-        :param max_time_step: after how many steps should the game be ended
-        :param num_of_objects: number of randomly generated objects
+        :param map_size: dimension of the map [size x size] (int)
+        :param max_time_step: after how many steps should the game be ended (int)
+        :param num_of_objects: number of randomly generated objects (int)
         """
         # PacMan variables
         self.map_size = map_size
