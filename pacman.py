@@ -55,7 +55,7 @@ class Pacman:
         # save observation
         self.last_state = obs
         # check for pellets to eat
-        self._check_pellets(x, y)
+        self.score = self._check_pellets(x, y, self.score)
         # count the steps
         self.step_counter += 1
         # check if the game is terminated
@@ -63,7 +63,7 @@ class Pacman:
         # additional information
         info = None
 
-        return obs.flatten(), score, done, info
+        return obs.flatten(), self.score, done, info
 
     def is_done(self, max_steps: int):
         """
@@ -168,7 +168,7 @@ class Pacman:
         pos_x -= 1
         return pos_x, pos_y
 
-    def _check_pellets(self, x: int, y: int):
+    def _check_pellets(self, x: int, y: int, score: int):
         """
         This function checks if Pacman has interacted with a pellet.
         If so, the score increases and the pellet is removed from the map.
@@ -177,8 +177,9 @@ class Pacman:
         :return: None
         """
         if (x, y) in self.pellets:
-            self.score += 1
+            score += 1
             self.pellets.remove((x, y))
+        return score
 
     def _create_observation(self):
         """
