@@ -281,7 +281,7 @@ if __name__ == "__main__":
     # play loop
     while not done_:
         # here are declared the control keys
-        print("control assist TODO")
+        print("0->done  1->right    2->up   3->left")
 
         # add the next action
         action = int(input("Next action:\n"))
