@@ -166,7 +166,14 @@ class Pacman:
         pos_x -= 1
         return pos_x, pos_y
 
-    def _check_pellets(self, x, y):
+    def _check_pellets(self, x: int, y: int):
+        """
+        This function checks if Pacman has interacted with a pellet.
+        If so, the score increases and the pellet is removed from the map.
+        :param x: horizontal coordinate
+        :param y: vertical coordinate
+        :return: None
+        """
         if (x, y) in self.pellets:
             self.score += 1
             self.pellets.remove((x, y))
