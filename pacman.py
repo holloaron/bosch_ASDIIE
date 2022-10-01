@@ -113,6 +113,8 @@ class Pacman:
             x, y = self._down(pos_x, pos_y)
         elif self.direction == 3:
             x, y = self._left(pos_x, pos_y)
+        else:
+            raise NotImplementedError
         return x, y
 
     def _change_direction(self, action: int):
@@ -223,7 +225,7 @@ class Pacman:
         self.create_pacman()
         self.create_pellets(10)
         obs_ = self._create_observation()
-        
+
         return obs_.flatten()
 
 
