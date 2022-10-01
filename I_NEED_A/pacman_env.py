@@ -121,33 +121,26 @@ class PacMan:
         #only the horizontal coordinate changes
 
         x += 1
-        y = y
         return x,y
 
 
     def up(self, x: int, y: int):
 
         #only the vertical coordinate changes
-        x = x
         y += 1
         return x,y
-
 
     def left(self, x: int, y: int):
 
         # only the horizontal coordinate changes
         x -= 1
-        y = y
-
         return x,y
 
 
     def down(self, x: int, y: int):
 
         #only the vertical coordinate changes
-        x = x
         y -= 1
-
         return x,y
 
 
