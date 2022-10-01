@@ -293,7 +293,7 @@ if __name__ == "__main__":
         env.render()
 
         # stop the game
-        if done_==True:
+        if done_:
             break
 
     print(f" Game over, your score is : {env.score}")
