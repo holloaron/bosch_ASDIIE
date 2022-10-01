@@ -15,7 +15,7 @@ class PacMan:
         '''
         self.map_size = map_size
         self.body = None
-        self.objects = []
+        self.coins = []
         self.step_ = 3
         self.dir = 1
         self.last_obs = None
@@ -111,17 +111,17 @@ class PacMan:
 
     def eat(self, x: int, y: int):
         '''
-        Remove objects
+        Remove coins
         :param x: pac-man's x coordinate
         :param y: pac-man's y coordinate
         :return: None
         '''
-        if (x, y) in self.objects:
+        if (x, y) in self.coins:
             # increment score by eating an object
             self.score += 1
 
             # if object reached  , remove
-            self.objects.remove((x, y))
+            self.coins.remove((x, y))
 
     def right(self, x: int, y: int):
 
@@ -166,14 +166,14 @@ class PacMan:
         """
         # reset environment parameters
         self.body = None
-        self.objects = []
+        self.coins = []
         self.dir = 1
         self.step_ = 0
         self.last_obs = None
 
         # create pac-man, foods and the observation
         self._create_body()
-        self._create_objects(num=10)
+        self._create_coins(num=10)
         obs_ = self._create_observation()
     
         return obs_.flatten()
@@ -199,16 +199,16 @@ class PacMan:
         cv2.waitKey(50)
 
 
-    def _create_objects(self, num: int):
+    def _create_coins(self, num: int):
         """"
-        Generate objects (foods for pac-man).
-        :param num (int): number of objects (foods) to create
+        Generate coins (foods for pac-man).
+        :param num (int): number of coins (foods) to create
         :return: None
         """
         for _ in range(num):
             coordinates = tuple(np.random.randint(0, self.map_size, (2,)))
             if self.body[0] != coordinates[0] and self.body[1] != coordinates[1]:
-                self.objects.append(coordinates)
+                self.coins.append(coordinates)
 
 
     def _create_body(self):
@@ -229,8 +229,8 @@ class PacMan:
         # init map
         obs_ = np.zeros((self.map_size, self.map_size, 1))
 
-        # add objects
-        for obj in self.objects:
+        # add coins
+        for obj in self.coins:
             obs_[obj[0], obj[1], 0] = 0.25
 
         # add pac-man
