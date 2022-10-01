@@ -7,7 +7,11 @@ import numpy as np
 
 
 class Pacman:
-    def __init__(self, world_size):
+    def __init__(self, world_size: int):
+        """
+        This function initializes the base attributes of the Pacman class
+        :param world_size: size of the map in pixels
+        """
         self.world_size = world_size
         self.max_steps = 200
         # map components list
