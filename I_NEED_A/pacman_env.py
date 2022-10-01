@@ -1,8 +1,3 @@
-# Pacman Environment
-# Author : Csorba Levente , Knáb István Gellért, Tóth Tibor Áron
-# Team : I_NEED_A
-
-
 #import the needed libraries
 import cv2
 import numpy as np
