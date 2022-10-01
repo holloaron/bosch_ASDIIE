@@ -38,6 +38,7 @@ class MapElements(str, Enum):
 class MapData():
     def __init__(self, mapdatafile_path: str) -> None:
         self.data_path = mapdatafile_path
+        self.data_set = self.load_mapdata(mapdatafile_path)
         self.size = self.get_size()
         self.width = self.size[0]
         self.height = self.size[1]
@@ -55,6 +56,36 @@ class MapData():
         self.enemies.Pinky = self.get_first_coord_of(MapElements.Pinky)
         self.enemies.Inky = self.get_first_coord_of(MapElements.Inky)
         self.enemies.Clyde = self.get_first_coord_of(MapElements.Clyde)
+
+
+    def load_mapdata(self, mapdatafile_path: str) -> list[list[str]]:
+        """ Loads the mapdata from the file of the given path as numpy array
+
+        @args:
+            self
+            mapdatafile_path [str] - path for the mapdata file
+        @return:
+            lines [List[List[str]]] - list of list containing the mapdata
+        """
+        mapdata = open(mapdatafile_path, 'r')
+
+        lines = []
+
+        while True:
+            line = mapdata.readline()
+
+            # EndOfFile
+            if not line:
+                break
+
+            if list(line)[-1]== '\n':
+                lines.append(list(line)[:-1])
+            else:
+                lines.append(list(line))
+
+        mapdata.close()
+
+        return lines
 
 
     def get_size(self) -> tuple[(int, int)]:
