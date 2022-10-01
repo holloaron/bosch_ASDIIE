@@ -202,6 +202,8 @@ class Pacman:
         """
         if self.last_state is not None:
             img = np.float32(self.last_state)
+        else:
+            img = np.float32(self._create_observation())
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
         # rescale the image
         for i in range(self.show_window_size):
