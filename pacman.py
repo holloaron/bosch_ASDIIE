@@ -115,7 +115,12 @@ class Pacman:
             x, y = self._left(pos_x, pos_y)
         return x, y
 
-    def _change_direction(self, action):
+    def _change_direction(self, action: int):
+        """
+        This function changes the direction of Pacman according to the input action.
+        :param action: chosen action by the user between 0-3, which refer to direction
+        :return:
+        """
         if 0 <= action < 4:
             self.direction = action
         else:
