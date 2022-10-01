@@ -5,6 +5,7 @@ laszlo.szoke@hu.bosch.com
 import cv2
 import numpy as np
 
+# ADDED comment for something
 
 class Pacman:
     def __init__(self, map_size):
