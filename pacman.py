@@ -156,7 +156,13 @@ class Pacman:
         pos_y -= 1
         return pos_x, pos_y
 
-    def _left(self, pos_x, pos_y):
+    def _left(self, pos_x: int, pos_y: int):
+        """
+        This function moves Pacman left
+        :param pos_x: horizontal coordinate
+        :param pos_y: vertical coordinate
+        :return: pos_x, pos_y (int): the updated coordinates
+        """
         pos_x -= 1
         return pos_x, pos_y
 
