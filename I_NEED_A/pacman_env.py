@@ -95,7 +95,8 @@ class PacMan:
 
         else:
             #in case of wrong key
-            raise TypeError("Only integers brtween 0 and 3 are accepted")
+            if action != 0 or action != 1 or action != 2 or action != 3:
+                raise TypeError("Only integers brtween 0 and 3 are accepted")
             done_ = True
             self.score= -1
             print(f"Score {self.score}")
