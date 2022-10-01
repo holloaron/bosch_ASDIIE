@@ -192,7 +192,8 @@ class Pacman:
         for pellet in self.pellets:
             obs_[pellet[0], pellet[1], 0] = 0.25
         # add Pacman
-        obs_[self.body[0], self.body[1], 0] = 0.8
+        body_coords = self.body[-1]
+        obs_[body_coords[0], body_coords[1], 0] = 0.8
         return obs_
 
     def render(self):
