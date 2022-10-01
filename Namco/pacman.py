@@ -9,6 +9,12 @@ OBJECT = 2
 
 class PacMan:
     def __init__(self, map_size=10, max_time_step=100, num_of_objects=10):
+        """
+        PacMan Game
+        :param map_size: dimension of the map [size x size]
+        :param max_time_step: after how many steps should the game be ended
+        :param num_of_objects: number of randomly generated objects
+        """
         # PacMan variables
         self.map_size = map_size
         self.time_step_cnt = 0
@@ -21,7 +27,7 @@ class PacMan:
     def reset(self) -> np.ndarray:
         """
         Resets the environment
-        :return: Current state of the map
+        :return: Current state of the map (np.ndarray)
         """
         # Generating the initial position of Pacman
         self.pacman[0] = np.random.randint(0, self.map_size)
@@ -38,8 +44,8 @@ class PacMan:
     def step(self, action: str) -> [np.ndarray, int, bool]:
         """
         Steps the environment into its next state
-        :param action: current user input (w, a ,s or d)
-        :return: current state of the map, current score, terminating flag
+        :param action: current user input (w, a ,s or d) (str)
+        :return: current state of the map (np.ndarray), current score (int), terminating flag (bool)
         """
         terminate = False
 
@@ -64,7 +70,7 @@ class PacMan:
     def render(self, observation: np.ndarray) -> None:
         """
         Prints the current state of the environment on the console
-        :param observation: Current state of the map
+        :param observation: Current state of the map (np.ndarray)
         :return: -
         """
         # Clearing console before printing the map (cannot clear the console in PyCharm, only in terminal)
@@ -91,7 +97,7 @@ class PacMan:
     def create_observation(self) -> np.ndarray:
         """
         Processes the positions of Pacman and the objects and creates the current state matrix
-        :return: Current state of the map
+        :return: Current state of the map (np.ndarray)
         """
         # Creating the map
         observation = np.zeros((self.map_size, self.map_size), dtype=int)
@@ -108,7 +114,7 @@ class PacMan:
     def move_pacman(self, action: str) -> None:
         """
         Moves Pacman in the desired direction
-        :param action: current user input (w, a, s or d)
+        :param action: current user input (w, a, s or d) (str)
         :return: -
         """
         # Moving up
