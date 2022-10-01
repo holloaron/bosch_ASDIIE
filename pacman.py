@@ -233,7 +233,7 @@ class Pacman:
 
 
 if __name__ == "__main__":
-    env = Pacman(world_size=1)
+    env = Pacman(world_size=10)
     done = False
     state = env.reset()
     while not done:
