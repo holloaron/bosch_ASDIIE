@@ -30,7 +30,16 @@ class Pacman:
         self.ratio = int(self.show_window_size / self.world_size)
         self.reset()
 
-    def step(self, action):
+    def step(self, action: int):
+        """
+        This function makes the steps in time during the game.
+        :param action: chosen action by the user between 0-3, which refer to directions
+        :return:
+            obs (ndarray): observetion from the current state of the game
+            score (int): the points collected
+            done (bool): tells whether the game is terminated or not
+            info (str): additional information
+        """
         # set default score
         score = 0
         # set basic status
