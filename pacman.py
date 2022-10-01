@@ -126,7 +126,13 @@ class Pacman:
         else:
             raise ValueError("Please choose an action between 0-3")
 
-    def _up(self, pos_x, pos_y):
+    def _up(self, pos_x: int, pos_y: int):
+        """
+        This function moves Pacman upwards.
+        :param pos_x: horizontal coordinate
+        :param pos_y: vertical coordinate
+        :return: pos_x, pos_y (int): the updated coordinates
+        """
         pos_y += 1
         return pos_x, pos_y
 
