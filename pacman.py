@@ -37,7 +37,6 @@ class Pacman:
             done (bool): tells whether the game is terminated or not
             info (str): additional information
         """
-
         # set basic status
         done = False
         # get the current PacMan position
