@@ -15,14 +15,13 @@ class PacMan:
         self.max_time_step = max_time_step
         self.objects = []
         self.num_of_objects = num_of_objects
-        self.x = 0
-        self.y = 0
+        self.pacman = [0, 0]
         self.score = 0
 
     def reset(self):
         # Generating the initial position of Pacman
-        self.x = np.random.randint(0, self.map_size)
-        self.y = np.random.randint(0, self.map_size)
+        self.pacman[0] = np.random.randint(0, self.map_size)
+        self.pacman[1] = np.random.randint(0, self.map_size)
 
         # Generating object positions
         self.generate_objects()
@@ -80,7 +79,7 @@ class PacMan:
         observation = np.zeros((self.map_size, self.map_size), dtype=int)
 
         # Placing Pacman on the map
-        observation[self.x, self.y] = PACMAN
+        observation[self.pacman[0], self.pacman[1]] = PACMAN
 
         # Placing the objects on the map
         for obj in self.objects:
@@ -91,30 +90,30 @@ class PacMan:
     def move_pacman(self, action):
         # Moving up
         if action == 'w':
-            self.x = max(self.x - 1, 0)
+            self.pacman[0] = max(self.pacman[0] - 1, 0)
         # Moving left
         elif action == 'a':
-            self.y = max(self.y - 1, 0)
+            self.pacman[1] = max(self.pacman[1] - 1, 0)
         # Moving down
         elif action == 's':
-            self.x = min(self.x + 1, self.map_size - 1)
+            self.pacman[0] = min(self.pacman[0] + 1, self.map_size - 1)
         # Moving right
         elif action == 'd':
-            self.y = min(self.y + 1, self.map_size - 1)
+            self.pacman[1] = min(self.pacman[1] + 1, self.map_size - 1)
 
     def generate_objects(self):
         for _ in range(self.num_of_objects):
             obj_coords = tuple(np.random.randint(0, self.map_size, (2,)))
 
             # Making sure that generated objects do not have the same position with each other or with Pacman
-            while (obj_coords in self.objects) or (obj_coords in tuple([self.x, self.y])):
+            while (obj_coords in self.objects) or (obj_coords in tuple(self.pacman)):
                 obj_coords = tuple(np.random.randint(0, self.map_size, (2,)))
 
             self.objects.append(obj_coords)
 
     def check_objects(self):
         for obj in self.objects:
-            if obj == tuple([self.x, self.y]):
+            if obj == tuple(self.pacman):
                 # If Pacman moved on an object, increase the score and remove the object
                 self.score += 1
                 self.objects.remove(obj)
