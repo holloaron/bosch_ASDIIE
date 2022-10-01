@@ -95,7 +95,7 @@ class PacMan:
 
         else:
             #in case of wrong key
-            print("You lose , wrong key")
+            raise TypeError("Only types of integers are accepted")
             done_ = True
             self.score= -1
             print(f"Score {self.score}")
