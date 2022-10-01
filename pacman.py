@@ -84,7 +84,12 @@ class Pacman:
         """
         self.body.append((0, 0))
 
-    def create_pellets(self, numbers):
+    def create_pellets(self, numbers: int):
+        """
+        This function creates the pellets for Pacman to eat in the available positions of the map.
+        :param numbers: the number of pellets to create
+        :return: None
+        """
         for _ in range(numbers):
             coordinates = tuple(np.random.randint(0, self.world_size, (2,)))
             while coordinates in self.pellets or coordinates in self.body:
