@@ -237,22 +237,14 @@ class PacMan:
         self.body = (limited_x,limited_y)
 
 
-def initialize_parameters():
-    """
-    Initalize/set environment parameters.
-    :param:
-    :return: None
-    """
-    global map_size , done_ , EPISODES
-    map_size = 20
-    EPISODES = 3
-    done_ = False
+
 
 
 if __name__ == "__main__":
 
-    # initial parameters
-    initialize_parameters()
+    map_size = 20
+    EPISODES = 3
+    done_ = False
 
     # calling Constructor for the game
     env = PacMan(map_size=map_size)
