@@ -46,22 +46,22 @@ class Pacman:
         done = False
         # get the current PacMan position
         pos_x, pos_y = self.body[-1]
-
+        # get the new position
         x, y = self._move(pos_x, pos_y, action)
-
         # add current state to the body
         if (x, y) not in self.body:
             self.body.append((x, y))
-
+        # create observation of the current state of the game
         obs = self._create_observation()
+        # save observation
         self.last_state = obs
-
-        self._check_pellets(x,y)
-
+        # check for pellets to eat
+        self._check_pellets(x, y)
+        # count the steps
         self.step_counter += 1
-
+        # check if the game is terminated
         done = self.is_done(self.max_steps)
-
+        # additional information
         info = None
 
         return obs.flatten(), score, done, info
