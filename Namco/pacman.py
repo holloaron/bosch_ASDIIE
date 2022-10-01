@@ -86,7 +86,7 @@ class PacMan:
                 elif observation[x][y] == PACMAN:
                     observation[x][y] = '0'
                 elif observation[x][y] == OBJECT:
-                    observation[x][y] = 'o'
+                    observation[x][y] = '+'
 
         # Printing the current score and the current observation line by line with separation
         for line in observation:
