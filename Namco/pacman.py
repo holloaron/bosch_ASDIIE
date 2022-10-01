@@ -19,6 +19,10 @@ class PacMan:
         self.score = 0
 
     def reset(self):
+        """
+        Resets the environment
+        :return: Current state of the map
+        """
         # Generating the initial position of Pacman
         self.pacman[0] = np.random.randint(0, self.map_size)
         self.pacman[1] = np.random.randint(0, self.map_size)
@@ -32,6 +36,11 @@ class PacMan:
         return observation
 
     def step(self, action):
+        """
+        Steps the environment into its next state
+        :param action: current user input (w, a ,s or d)
+        :return: current state of the map, current score, terminating flag
+        """
         terminate = False
 
         # Increasing the timestep
@@ -53,6 +62,11 @@ class PacMan:
         return observation, self.score, terminate
 
     def render(self, observation):
+        """
+        Prints the current state of the environment on the console
+        :param observation: Current state of the map
+        :return: -
+        """
         # Clearing console before printing the map (cannot clear the console in PyCharm, only in terminal)
         os.system('cls' if os.name == 'nt' else 'clear')
         # Converting numpy array to python list
@@ -75,6 +89,10 @@ class PacMan:
         print("\nCurrent score:", self.score)
 
     def create_observation(self):
+        """
+        Processes the positions of Pacman and the objects and creates the current state matrix
+        :return: Current state of the map
+        """
         # Creating the map
         observation = np.zeros((self.map_size, self.map_size), dtype=int)
 
@@ -88,6 +106,11 @@ class PacMan:
         return observation
 
     def move_pacman(self, action):
+        """
+        Moves Pacman in the desired direction
+        :param action: current user input (w, a, s or d)
+        :return: -
+        """
         # Moving up
         if action == 'w':
             self.pacman[0] = max(self.pacman[0] - 1, 0)
@@ -102,6 +125,10 @@ class PacMan:
             self.pacman[1] = min(self.pacman[1] + 1, self.map_size - 1)
 
     def generate_objects(self):
+        """
+        Generates the given number of random objects on the map
+        :return: -
+        """
         for _ in range(self.num_of_objects):
             obj_coords = tuple(np.random.randint(0, self.map_size, (2,)))
 
@@ -112,6 +139,10 @@ class PacMan:
             self.objects.append(obj_coords)
 
     def check_objects(self):
+        """
+        Checks whether Pacman picked up an object and increases the score accordingly
+        :return: -
+        """
         for obj in self.objects:
             if obj == tuple(self.pacman):
                 # If Pacman moved on an object, increase the score and remove the object
