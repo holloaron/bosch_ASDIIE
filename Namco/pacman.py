@@ -41,6 +41,9 @@ class PacMan:
         # Moving pacman based on current action
         self.move_pacman(action)
 
+        # Check whether Pacman moved on an object
+        self.check_objects()
+
         # Creating observation
         observation = self.create_observation()
 
@@ -108,6 +111,13 @@ class PacMan:
                 obj_coords = tuple(np.random.randint(0, self.map_size, (2,)))
 
             self.objects.append(obj_coords)
+
+    def check_objects(self):
+        for obj in self.objects:
+            if obj == tuple([self.x, self.y]):
+                # If Pacman moved on an object, increase the score and remove the object
+                self.score += 1
+                self.objects.remove(obj)
 
 
 if __name__ == "__main__":
