@@ -21,13 +21,37 @@ Clone the project folder function from our repository: https://github.com/gujgid
 pip install -r requirements
 ```
 
-## Run the game
+## Run and control the game
 
-This is what you should type in to start the game.
+This is what you should type in to start the game:
 
 ```bash
 python3 pacman.py
 ```
+
+Press the following buttons on the keyboard to control the movement of Pacman:
+
+| Direction | Responsible button |
+|-----------|--------------------|
+| Up        | 0                  |
+| Right     | 1                  |
+| Down      | 2                  |
+| Left      | 3                  |
+
+# Milestones
+
+Already done in v.1:
+- Map loading without walls
+- Step function to control events
+- Direction control for Pacman
+- Pellet generator and point counter
+- Variable game duration (terminate after given time)
+
+Yet to be done:
+- Place walls on the map
+- Generate the ghosts
+
+Git-egylet as a team tries to keep the principles of "clean coding" prior to everything else.
 
 # Credits
 
