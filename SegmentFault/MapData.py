@@ -99,24 +99,13 @@ class MapData():
             size [tuple(int,int)] - [0] - width
                                     [1] - height
         """
-        mapdata = open(self.data_path, 'r')
-
-        map_height = 0
+        map_height = len(self.data_set)
         map_width = 0
 
-        while True:
-            line = mapdata.readline()
+        for i in range(len(self.data_set)):
+            if len(self.data_set[i]) > map_width:
+                map_width = len(self.data_set[i])
 
-            # eof
-            if not line:
-                break
-
-            map_height += 1
-            current_width = len(line) - 1
-            if current_width > map_width:
-                map_width = current_width
-
-        mapdata.close()
         return (map_width, map_height)
 
 
