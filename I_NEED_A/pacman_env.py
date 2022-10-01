@@ -18,7 +18,6 @@ class PacMan:
         self.coins = []
         self.step_ = 100
         self.last_obs = None
-        self.time_step = 40
 
         # Variables for visualizing the current grid world
         self.show_img_size = 300
