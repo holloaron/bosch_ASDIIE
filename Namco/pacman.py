@@ -18,7 +18,7 @@ class PacMan:
         self.pacman = [0, 0]
         self.score = 0
 
-    def reset(self):
+    def reset(self) -> np.ndarray:
         """
         Resets the environment
         :return: Current state of the map
@@ -35,7 +35,7 @@ class PacMan:
 
         return observation
 
-    def step(self, action):
+    def step(self, action: str) -> [np.ndarray, int, bool]:
         """
         Steps the environment into its next state
         :param action: current user input (w, a ,s or d)
@@ -61,7 +61,7 @@ class PacMan:
 
         return observation, self.score, terminate
 
-    def render(self, observation):
+    def render(self, observation: np.ndarray) -> None:
         """
         Prints the current state of the environment on the console
         :param observation: Current state of the map
@@ -88,7 +88,7 @@ class PacMan:
 
         print("\nCurrent score:", self.score)
 
-    def create_observation(self):
+    def create_observation(self) -> np.ndarray:
         """
         Processes the positions of Pacman and the objects and creates the current state matrix
         :return: Current state of the map
@@ -105,7 +105,7 @@ class PacMan:
 
         return observation
 
-    def move_pacman(self, action):
+    def move_pacman(self, action: str) -> None:
         """
         Moves Pacman in the desired direction
         :param action: current user input (w, a, s or d)
@@ -124,7 +124,7 @@ class PacMan:
         elif action == 'd':
             self.pacman[1] = min(self.pacman[1] + 1, self.map_size - 1)
 
-    def generate_objects(self):
+    def generate_objects(self) -> None:
         """
         Generates the given number of random objects on the map
         :return: -
@@ -138,7 +138,7 @@ class PacMan:
 
             self.objects.append(obj_coords)
 
-    def check_objects(self):
+    def check_objects(self) -> None:
         """
         Checks whether Pacman picked up an object and increases the score accordingly
         :return: -
