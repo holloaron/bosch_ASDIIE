@@ -238,6 +238,9 @@ if __name__ == "__main__":
     done = False
     state = env.reset()
     while not done:
+        env.render()
         a = int(input("Choose your next action:\n"))
         state, reward, done, info = env.step(action=a)
-        env.render()
+        print("Your score: {env.score}")
+    print("Game over")
+    print("Final score: {env.score}")
