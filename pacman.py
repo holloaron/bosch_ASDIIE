@@ -13,7 +13,6 @@ class Pacman:
         :param world_size: size of the map in pixels
         """
         self.world_size = world_size
-        self.max_steps = 200
         # map components list
         self.body = []
         self.walls = []
@@ -24,6 +23,7 @@ class Pacman:
         self.direction = 1
         self.score = 0
         self.last_state = None
+        self.max_steps = 200
         # variables for world
         self.show_window_size = 300
         self.show_window = np.zeros((self.show_window_size, self.show_window_size, 3))
