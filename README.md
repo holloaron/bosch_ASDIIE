@@ -1,5 +1,5 @@
 # bosch_ASDIIE_TSzBF
-This is a repo for TSzBF team.
+This is a repository for TSzBF team.
 
 Team members
 | -------------------- |
@@ -7,6 +7,15 @@ Team members
 | Horváth Benedek Szabolcs |
 | Kovács Beáta |
 | De Haan Tom |
+
+Task:
+Create a PacMan game.
+
+Features:
+Empty map withou twalls
+Can move left, right, up, down
+Collects points
+Game terminates after a given timesteps
 
 This repository is for student work at the class of Agile Software Development in Industrial Environment.
 The course is at Budapest University of Technology and Economics and is hosted by Robert Bosch Kft.
