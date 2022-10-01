@@ -42,11 +42,11 @@ class Pacman:
     def step(self):
         pygame.draw.circle(screen, COLOR_BLACK, (self.pacman_position[0], self.pacman_position[1]),
                            15)
-        if self.direction == POSITION_UP and self.pacman_position[1] >= STEP_SIZE:
+        if self.direction == POSITION_UP and self.pacman_position[1] >= STEP_SIZE + PACMAN_SIZE:
             self.pacman_position[1] -= STEP_SIZE
         if self.direction == POSITION_DOWN and self.pacman_position[1] <= (WINDOW_HEIGHT - (STEP_SIZE + 1)):
             self.pacman_position[1] += STEP_SIZE
-        if self.direction == POSITION_LEFT and self.pacman_position[0] >= STEP_SIZE:
+        if self.direction == POSITION_LEFT and self.pacman_position[0] >= STEP_SIZE + PACMAN_SIZE:
             self.pacman_position[0] -= STEP_SIZE
         if self.direction == POSITION_RIGHT and self.pacman_position[0] <= (WINDOW_WIDTH - (STEP_SIZE + 1)):
             self.pacman_position[0] += STEP_SIZE
