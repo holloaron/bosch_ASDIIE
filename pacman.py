@@ -179,6 +179,10 @@ class Pacman:
             self.pellets.remove((x, y))
 
     def _create_observation(self):
+        """
+        This function creates a grayscale observation from the current state of the game.
+        :return: obs_ (ndarray): the created observation
+        """
 
         obs_ = np.zeros((self.world_size, self.world_size, 1))
 
