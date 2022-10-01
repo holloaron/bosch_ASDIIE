@@ -2,6 +2,7 @@ import numpy as np
 import os
 
 # Constants
+EMPTY = 0
 PACMAN = 1
 OBJECT = 2
 
@@ -50,10 +51,26 @@ class PacMan:
         return observation, self.score, terminate
 
     def render(self, observation):
-        # Clearing console before printing the map (does not clear the console in PyCharm, only in terminal)
+        # Clearing console before printing the map (cannot clear the console in PyCharm, only in terminal)
         os.system('cls' if os.name == 'nt' else 'clear')
-        print(observation)
-        print("Current score:", self.score)
+        # Converting numpy array to python list
+        observation = observation.tolist()
+
+        # Processing the observation for visualizing
+        for x in range(self.map_size):
+            for y in range(self.map_size):
+                if observation[x][y] == EMPTY:
+                    observation[x][y] = '.'
+                elif observation[x][y] == PACMAN:
+                    observation[x][y] = 'O'
+                elif observation[x][y] == OBJECT:
+                    observation[x][y] = '*'
+
+        # Printing the current observation line by line with separation
+        for line in observation:
+            print(*line, sep='  ')
+
+        print("\nCurrent score:", self.score)
 
     def create_observation(self):
         # Creating the map
