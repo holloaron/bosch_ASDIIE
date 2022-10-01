@@ -3,7 +3,7 @@ import random
 
 WINDOW_HEIGHT = 600
 WINDOW_WIDTH = 600
-PACMAN_SIZE = WINDOW_HEIGHT/20
+PACMAN_SIZE = WINDOW_HEIGHT / 20
 STEP_SIZE = PACMAN_SIZE
 MAX_STEPS = 100
 
@@ -117,11 +117,11 @@ class Coins:
                 position_x_tmp = 30
                 position_y_tmp = 30
                 continue
-            if [position_x, position_y] not in self.positions:
+            if [position_x, position_y] not in self.positions and self._is_in_map(position_x, position_y):
                 self.positions.append([position_x, position_y])
 
-            else:
-                continue
+    def _is_in_map(self, position_x, position_y):
+        return 0 < position_x < WINDOW_WIDTH and 0 < position_y < WINDOW_HEIGHT
 
     def draw(self):
         for coin_pos in self.positions:
