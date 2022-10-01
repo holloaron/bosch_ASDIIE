@@ -165,7 +165,7 @@ class Pacman:
         :param pos_y: vertical coordinate
         :return: pos_x, pos_y (int): the updated coordinates
         """
-        pos_x -= 1
+        pos_y -= 1
         return pos_x, pos_y
 
     def _check_pellets(self, x: int, y: int, score: int):
