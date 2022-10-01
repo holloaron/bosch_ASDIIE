@@ -1,7 +1,7 @@
 import numpy as np
 import os
 
-# Constants
+# Enumerating the participants of the PacMan game
 EMPTY = 0
 PACMAN = 1
 OBJECT = 2
@@ -139,7 +139,7 @@ class PacMan:
             obj_coords = tuple(np.random.randint(0, self.map_size, (2,)))
 
             # Making sure that generated objects do not have the same position with each other or with Pacman
-            while (obj_coords in self.objects) or (obj_coords in tuple(self.pacman)):
+            while (obj_coords in self.objects) or (obj_coords == tuple(self.pacman)):
                 obj_coords = tuple(np.random.randint(0, self.map_size, (2,)))
 
             self.objects.append(obj_coords)
