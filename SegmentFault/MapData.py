@@ -118,24 +118,11 @@ class MapData():
         @return:
             result [bool] - True, if the mapdata contains the given MapElement
         """
-        mapdata = open(self.data_path, 'r')
+        for i in range(len(self.data_set)):
+            if element in self.data_set[i]:
+                return True
 
-        result = False
-
-        while True:
-            line = mapdata.readline()
-
-            # eof
-            if not line:
-                break
-
-            for i in line:
-                if i == element.value:
-                    result = True
-                    break
-
-        mapdata.close()
-        return result
+        return False
 
 
     def get_first_coord_of(self, element: MapElements) -> tuple[(int, int)]:
