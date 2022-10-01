@@ -76,7 +76,12 @@ class PacMan:
         # Creating the map
         observation = np.zeros((self.map_size, self.map_size), dtype=int)
 
+        # Placing Pacman on the map
         observation[self.x, self.y] = PACMAN
+
+        # Placing the objects on the map
+        for obj in self.objects:
+            observation[obj[0], obj[1]] = OBJECT
 
         return observation
 
@@ -95,7 +100,14 @@ class PacMan:
             self.y = min(self.y + 1, self.map_size - 1)
 
     def generate_objects(self):
-        pass
+        for _ in range(self.num_of_objects):
+            obj_coords = tuple(np.random.randint(0, self.map_size, (2,)))
+
+            # Making sure that generated objects do not have the same position with each other or with Pacman
+            while (obj_coords in self.objects) or (obj_coords in tuple([self.x, self.y])):
+                obj_coords = tuple(np.random.randint(0, self.map_size, (2,)))
+
+            self.objects.append(obj_coords)
 
 
 if __name__ == "__main__":
