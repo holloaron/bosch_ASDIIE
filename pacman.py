@@ -78,6 +78,10 @@ class Pacman:
             return False
 
     def create_pacman(self):
+        """
+        This function creates Pacman and sets its starting position.
+        :return: None
+        """
         self.body.append((0, 0))
 
     def create_pellets(self, numbers):
