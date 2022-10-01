@@ -58,7 +58,7 @@ class PacMan:
         # Converting numpy array to python list
         observation = observation.tolist()
 
-        # Processing the observation for visualizing
+        # Replacing number with characters for visualization
         for x in range(self.map_size):
             for y in range(self.map_size):
                 if observation[x][y] == EMPTY:
@@ -68,7 +68,7 @@ class PacMan:
                 elif observation[x][y] == OBJECT:
                     observation[x][y] = 'o'
 
-        # Printing the current observation line by line with separation
+        # Printing the current score and the current observation line by line with separation
         for line in observation:
             print(*line, sep='  ')
 
