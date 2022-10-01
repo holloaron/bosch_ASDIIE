@@ -146,7 +146,13 @@ class Pacman:
         pos_x += 1
         return pos_x, pos_y
 
-    def _down(self, pos_x, pos_y):
+    def _down(self, pos_x: int, pos_y: int):
+        """
+        This function moves Pacman downwards.
+        :param pos_x: horizontal coordinate
+        :param pos_y: vertical coordinate
+        :return: pos_x, pos_y (int): the updated coordinates
+        """
         pos_y -= 1
         return pos_x, pos_y
 
