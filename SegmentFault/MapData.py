@@ -164,28 +164,20 @@ class MapData():
         if not self.contains(element):
             raise Exception(f"The Map does not contain the given MapElement: {element.name} {element.value}")
 
-        mapdata = open(self.data_path, 'r')
-        
         result = []
         x = 0
         y = 0
         
-        while True:
-            line = mapdata.readline()
-
-            #eof
-            if not line:
-                break
+        for i in range(len(self.data_set)):
 
             y = 0
-            for i in line:
-                if i == element.value:
+            for j in self.data_set[i]:
+                if j == element.value:
                     result.append((x,y))
                 y += 1
-            
-            x += 1
 
-        mapdata.close()
+            x +=1
+
         return result
 
 class Obstacles():
