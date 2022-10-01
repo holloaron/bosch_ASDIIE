@@ -183,12 +183,12 @@ class Pacman:
         This function creates a grayscale observation from the current state of the game.
         :return: obs_ (ndarray): the created observation
         """
-
+        # map initialization
         obs_ = np.zeros((self.world_size, self.world_size, 1))
-
+        # add pellets
         for pellet in self.pellets:
             obs_[pellet[0], pellet[1], 0] = 0.25
-
+        # add Pacman
         obs_[self.body[0], self.body[1], 0] = 0.8
         return obs_
 
