@@ -193,9 +193,15 @@ class Pacman:
         return obs_
 
     def render(self):
+        """
+        This function is responsible for the visualization of the game.
+        It creates a cv2 plot from the current game state.
+        :return: None
+        """
         if self.last_state is not None:
             img = np.float32(self.last_state)
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        # rescale the image
         for i in range(self.show_window_size):
             for j in range(self.show_window_size):
                 self.show_window[i][j] = img[i // self.ratio][j // self.ratio]
