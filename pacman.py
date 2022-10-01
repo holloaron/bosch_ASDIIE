@@ -124,9 +124,10 @@ class Pacman:
         :return:
         """
         if 0 <= action < 4:
-            self.direction = action
+            direction = action
         else:
             raise ValueError("Please choose an action between 0-3")
+        return direction
 
     def _up(self, pos_x: int, pos_y: int):
         """
