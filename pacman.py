@@ -96,7 +96,14 @@ class Pacman:
                 coordinates = tuple(np.random.randint(0, self.world_size, (2,)))
             self.pellets.append(coordinates)
 
-    def _move(self, pos_x, pos_y, action):
+    def _move(self, pos_x: int, pos_y: int, action: int):
+        """
+        This function is responsible for the movement of Pacman.
+        :param pos_x: horizontal coordinate
+        :param pos_y: vertical coordinate
+        :param action: chosen action by the user between 0-3, which refer to directions
+        :return: x, y (int): the new position of Pacman after the move was made.
+        """
         self.direction = self._change_direction(action)
         if self.direction == 0:
             x, y = self._up(pos_x, pos_y)
