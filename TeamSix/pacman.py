@@ -1,4 +1,4 @@
-import pygame
+import pygame  # provides functions for creating programs with a graphical user interface
 import random
 from enum import Enum
 
