@@ -1,6 +1,7 @@
 
 import cv2
 import numpy as np
+from typing import Tuple
 
 
 class Pacman:
@@ -29,7 +30,7 @@ class Pacman:
         self.ratio = int(self.show_window_size / self.world_size)
         self.reset()
 
-    def step(self, action: int) -> tuple[np.ndarray, int, bool, None]:
+    def step(self, action: int) -> Tuple[np.ndarray, int, bool, None]:
         """
         This function makes the steps in time during the game.
         :param action: chosen action by the user between 0-3, which refer to directions
@@ -92,7 +93,7 @@ class Pacman:
                 coordinates = tuple(np.random.randint(0, self.world_size, (2,)))
             self.pellets.append(coordinates)
 
-    def _move(self, pos_x: int, pos_y: int, action: int) -> tuple[int, int]:
+    def _move(self, pos_x: int, pos_y: int, action: int) -> Tuple[int, int]:
         """
         This function is responsible for the movement of Pacman.
         :param pos_x: horizontal coordinate
@@ -127,7 +128,7 @@ class Pacman:
         return direction
 
     @staticmethod
-    def _up(self, pos_x: int, pos_y: int) -> tuple[int, int]:
+    def _up(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
         """
         This function moves Pacman upwards.
         :param pos_x: vertical coordinate
@@ -138,7 +139,7 @@ class Pacman:
         return pos_x, pos_y
 
     @staticmethod
-    def _right(self, pos_x: int, pos_y: int) -> tuple[int, int]:
+    def _right(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
         """
         This function moves Pacman right.
         :param pos_x: vertical coordinate
@@ -149,7 +150,7 @@ class Pacman:
         return pos_x, pos_y
 
     @staticmethod
-    def _down(self, pos_x: int, pos_y: int) -> tuple[int, int]:
+    def _down(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
         """
         This function moves Pacman downwards.
         :param pos_x: vertical coordinate
@@ -160,7 +161,7 @@ class Pacman:
         return pos_x, pos_y
 
     @staticmethod
-    def _left(self, pos_x: int, pos_y: int) -> tuple[int, int]:
+    def _left(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
         """
         This function moves Pacman left
         :param pos_x: vertical coordinate
