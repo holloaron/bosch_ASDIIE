@@ -4,13 +4,14 @@ import numpy as np
 
 
 class Pacman:
-    def __init__(self, world_size: int, max_steps: int) -> None:
+    def __init__(self, world_size: int, max_steps: int, show_window_size: int) -> None:
         """
         This function initializes the base attributes of the Pacman class
         :param world_size: size of the map in pixels
         """
         self.world_size = world_size
         self.max_steps = max_steps
+        self.show_window_size = show_window_size
         # map components list
         self.body = []
         self.walls = []
@@ -22,7 +23,6 @@ class Pacman:
         self.score = 0
         self.last_state = None
         # variables for world
-        self.show_window_size = 300
         self.show_window = np.zeros((self.show_window_size, self.show_window_size, 3))
         self.ratio = int(self.show_window_size / self.world_size)
         self.reset()
@@ -230,7 +230,7 @@ class Pacman:
 
 
 if __name__ == "__main__":
-    env = Pacman(world_size=10, max_steps=200)
+    env = Pacman(world_size=10, max_steps=200, show_window_size=300)
     done = False
     state = env.reset()
     while not done:
