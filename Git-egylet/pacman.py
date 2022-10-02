@@ -11,6 +11,7 @@ class Pacman:
         :param world_size: size of the map
         :param max_steps: maximum amount of steps during the game
         :param show_window_size: size of the image in pixels
+        :param num_pellets: number of pellets (the objects which Pacman eats)
         """
         self.world_size = world_size
         self.max_steps = max_steps
