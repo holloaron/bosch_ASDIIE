@@ -5,7 +5,7 @@ from typing import Tuple
 
 
 class Pacman:
-    def __init__(self, world_size: int, max_steps: int, show_window_size: int) -> None:
+    def __init__(self, world_size: int, max_steps: int, show_window_size: int, num_pellets: int) -> None:
         """
         This function initializes the base attributes of the Pacman class
         :param world_size: size of the map
@@ -15,6 +15,7 @@ class Pacman:
         self.world_size = world_size
         self.max_steps = max_steps
         self.show_window_size = show_window_size
+        self.num_pellets = num_pellets
         # map components list
         self.body = []
         self.walls = []
@@ -24,7 +25,6 @@ class Pacman:
         self.step_counter = 0
         self.direction = 1
         self.score = 0
-        self.num_pellets = 10
         self.last_state = None
         # variables for world
         self.show_window = np.zeros((self.show_window_size, self.show_window_size, 3))
@@ -231,7 +231,6 @@ class Pacman:
         self.step_counter = 0
         self.direction = 0
         self.score = 0
-        self.num_pellets = 10
         self.last_state = None
 
         self.create_pacman()
@@ -242,7 +241,7 @@ class Pacman:
 
 
 if __name__ == "__main__":
-    env = Pacman(world_size=10, max_steps=200, show_window_size=300)
+    env = Pacman(world_size=10, max_steps=200, show_window_size=300, num_pellets=10)
     done = False
     state = env.reset()
     while not done:
