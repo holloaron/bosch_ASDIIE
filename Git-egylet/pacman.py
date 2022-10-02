@@ -196,10 +196,10 @@ class Pacman:
         :return: obs_ (ndarray): the created observation
         """
         obs_ = np.zeros((self.world_size, self.world_size, 1))
-        # add pellets
+
         for pellet in self.pellets:
             obs_[pellet[0], pellet[1], 0] = 0.25
-        # add Pacman
+        
         body_coords = self.body
         obs_[body_coords[0], body_coords[1], 0] = 0.8
         return obs_
