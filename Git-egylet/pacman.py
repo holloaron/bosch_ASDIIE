@@ -146,7 +146,7 @@ class Pacman:
         """
         if pos_y + 1 == self.world_size:
             pos_y = 0
-        else
+        else:
             pos_y += 1
         return pos_x, pos_y
 
