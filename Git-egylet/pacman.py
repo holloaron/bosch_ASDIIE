@@ -150,15 +150,17 @@ class Pacman:
             pos_y += 1
         return pos_x, pos_y
 
-    @staticmethod
-    def _down(pos_x: int, pos_y: int) -> Tuple[int, int]:
+    def _down(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
         """
         This function moves Pacman downwards.
         :param pos_x: vertical coordinate
         :param pos_y: horizontal coordinate
         :return: pos_x, pos_y (int): the updated coordinates
         """
-        pos_x += 1
+        if pos_x + 1 == self.world_size:
+            pos_x = 0
+        else:
+            pos_x += 1
         return pos_x, pos_y
 
     @staticmethod
