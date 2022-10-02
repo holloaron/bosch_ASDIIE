@@ -115,7 +115,7 @@ class Pacman:
         return x, y
 
     @staticmethod
-    def _change_direction(self, action: int) -> int:
+    def _change_direction(action: int) -> int:
         """
         This function changes the direction of Pacman according to the input action.
         :param action: chosen action by the user between 0-3, which refer to direction
@@ -128,7 +128,7 @@ class Pacman:
         return direction
 
     @staticmethod
-    def _up(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
+    def _up(pos_x: int, pos_y: int) -> Tuple[int, int]:
         """
         This function moves Pacman upwards.
         :param pos_x: vertical coordinate
@@ -139,7 +139,7 @@ class Pacman:
         return pos_x, pos_y
 
     @staticmethod
-    def _right(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
+    def _right(pos_x: int, pos_y: int) -> Tuple[int, int]:
         """
         This function moves Pacman right.
         :param pos_x: vertical coordinate
@@ -150,7 +150,7 @@ class Pacman:
         return pos_x, pos_y
 
     @staticmethod
-    def _down(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
+    def _down(pos_x: int, pos_y: int) -> Tuple[int, int]:
         """
         This function moves Pacman downwards.
         :param pos_x: vertical coordinate
@@ -161,7 +161,7 @@ class Pacman:
         return pos_x, pos_y
 
     @staticmethod
-    def _left(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
+    def _left(pos_x: int, pos_y: int) -> Tuple[int, int]:
         """
         This function moves Pacman left
         :param pos_x: vertical coordinate
