@@ -4,7 +4,7 @@ import numpy as np
 
 
 class Pacman:
-    def __init__(self, world_size: int):
+    def __init__(self, world_size: int) -> None:
         """
         This function initializes the base attributes of the Pacman class
         :param world_size: size of the map in pixels
@@ -27,7 +27,7 @@ class Pacman:
         self.ratio = int(self.show_window_size / self.world_size)
         self.reset()
 
-    def step(self, action: int):
+    def step(self, action: int) -> tuple[np.ndarray, int, bool, str]:
         """
         This function makes the steps in time during the game.
         :param action: chosen action by the user between 0-3, which refer to directions
@@ -61,7 +61,7 @@ class Pacman:
 
         return obs.flatten(), self.score, done, info
 
-    def is_done(self, max_steps: int):
+    def is_done(self, max_steps: int) -> bool:
         """
         This function checks if the game has reached the maximum amount of timesteps.
         :param max_steps: maximum amount of steps during the game
@@ -72,14 +72,14 @@ class Pacman:
         else:
             return False
 
-    def create_pacman(self):
+    def create_pacman(self) -> None:
         """
         This function creates Pacman and sets its starting position.
         :return: None
         """
         self.body = (0, 0)
 
-    def create_pellets(self, numbers: int):
+    def create_pellets(self, numbers: int) -> None:
         """
         This function creates the pellets for Pacman to eat in the available positions of the map.
         :param numbers: the number of pellets to create
@@ -91,7 +91,7 @@ class Pacman:
                 coordinates = tuple(np.random.randint(0, self.world_size, (2,)))
             self.pellets.append(coordinates)
 
-    def _move(self, pos_x: int, pos_y: int, action: int):
+    def _move(self, pos_x: int, pos_y: int, action: int) -> tuple[int, int]:
         """
         This function is responsible for the movement of Pacman.
         :param pos_x: horizontal coordinate
@@ -112,7 +112,7 @@ class Pacman:
             raise NotImplementedError
         return x, y
 
-    def _change_direction(self, action: int):
+    def _change_direction(self, action: int) -> int:
         """
         This function changes the direction of Pacman according to the input action.
         :param action: chosen action by the user between 0-3, which refer to direction
@@ -124,7 +124,7 @@ class Pacman:
             raise ValueError("Please choose an action between 0-3")
         return direction
 
-    def _up(self, pos_x: int, pos_y: int):
+    def _up(self, pos_x: int, pos_y: int) -> tuple[int, int]:
         """
         This function moves Pacman upwards.
         :param pos_x: vertical coordinate
@@ -134,7 +134,7 @@ class Pacman:
         pos_x -= 1
         return pos_x, pos_y
 
-    def _right(self, pos_x: int, pos_y: int):
+    def _right(self, pos_x: int, pos_y: int) -> tuple[int, int]:
         """
         This function moves Pacman right.
         :param pos_x: vertical coordinate
@@ -144,7 +144,7 @@ class Pacman:
         pos_y += 1
         return pos_x, pos_y
 
-    def _down(self, pos_x: int, pos_y: int):
+    def _down(self, pos_x: int, pos_y: int) -> tuple[int, int]:
         """
         This function moves Pacman downwards.
         :param pos_x: vertical coordinate
@@ -154,7 +154,7 @@ class Pacman:
         pos_x += 1
         return pos_x, pos_y
 
-    def _left(self, pos_x: int, pos_y: int):
+    def _left(self, pos_x: int, pos_y: int) -> tuple[int, int]:
         """
         This function moves Pacman left
         :param pos_x: vertical coordinate
@@ -164,7 +164,7 @@ class Pacman:
         pos_y -= 1
         return pos_x, pos_y
 
-    def _check_pellets(self, x: int, y: int, score: int):
+    def _check_pellets(self, x: int, y: int, score: int) -> int:
         """
         This function checks if Pacman has interacted with a pellet.
         If so, the score increases and the pellet is removed from the map.
@@ -177,7 +177,7 @@ class Pacman:
             self.pellets.remove((x, y))
         return score
 
-    def _create_observation(self):
+    def _create_observation(self) -> np.ndarray:
         """
         This function creates a grayscale observation from the current state of the game.
         :return: obs_ (ndarray): the created observation
@@ -192,7 +192,7 @@ class Pacman:
         obs_[body_coords[0], body_coords[1], 0] = 0.8
         return obs_
 
-    def render(self):
+    def render(self) -> None:
         """
         This function is responsible for the visualization of the game.
         It creates a cv2 plot from the current game state.
@@ -210,7 +210,7 @@ class Pacman:
         cv2.imshow("Pacman", self.show_window)
         cv2.waitKey(50)
 
-    def reset(self):
+    def reset(self) -> np.ndarray:
         """
         This function restarts the game by restoring the initial values and creating a new session.
         :return: obs_ (ndarray): observation of the current state
