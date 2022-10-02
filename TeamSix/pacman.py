@@ -70,14 +70,7 @@ class Pacman:
 
     # method that updates the current direction - needed for automatic steps, when there isn't any direction key pressed
     def change_direction(self):
-        if self.new_direction == Constants['POSITION_UP'].value:
-            self.direction = Constants['POSITION_UP'].value
-        if self.new_direction == Constants['POSITION_DOWN'].value:
-            self.direction = Constants['POSITION_DOWN'].value
-        if self.new_direction == Constants['POSITION_LEFT'].value:
-            self.direction = Constants['POSITION_LEFT'].value
-        if self.new_direction == Constants['POSITION_RIGHT'].value:
-            self.direction = Constants['POSITION_RIGHT'].value
+        self.direction = self.new_direction
 
     # function handling key events to update the direction
     def handle_key_events(self):
