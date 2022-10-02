@@ -29,6 +29,11 @@ class PacMan:
         Resets the environment
         :return: Current state of the map (np.ndarray)
         """
+        # Reset variables
+        self.time_step_cnt = 0
+        self.objects = []
+        self.score = 0
+
         # Generating the initial position of Pacman
         self.pacman[0] = np.random.randint(0, self.map_size)
         self.pacman[1] = np.random.randint(0, self.map_size)
@@ -172,6 +177,3 @@ if __name__ == "__main__":
         user_input = input("Select your next action (W, A, S, D): ")
         state, reward, done = env.step(user_input)
         env.render(state)
-
-
-
