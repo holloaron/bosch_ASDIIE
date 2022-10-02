@@ -29,7 +29,7 @@ class Pacman:
         self.ratio = int(self.show_window_size / self.world_size)
         self.reset()
 
-    def step(self, action: int) -> tuple[np.ndarray, int, bool, str]:
+    def step(self, action: int) -> tuple[np.ndarray, int, bool, None]:
         """
         This function makes the steps in time during the game.
         :param action: chosen action by the user between 0-3, which refer to directions
