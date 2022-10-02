@@ -167,8 +167,8 @@ class PacMan:
 if __name__ == "__main__":
 
     # Asking the user for the intial parameters
-    map_size = int(input("What map size would you like to play with? "))
-    num_of_food = int(input("How many food would you like on the map? "))
+    map_size = int(input("What map size would you like to play with? (Suggested: 10...20) "))
+    num_of_food = int(input("How many food would you like on the map? (Suggested: 1...100"))
 
     # Running the enviroment
     env = PacMan(map_size,
