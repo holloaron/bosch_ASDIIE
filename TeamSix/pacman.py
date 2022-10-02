@@ -93,15 +93,18 @@ class Coins:
         self.positions = []
         self.number_of_coins = number_of_coins
 
+    # function for generating coins
     def generate(self):
+        # initialize variables
         cycle_counter = 0
         position_x = 90
         position_y = 90
         position_x_tmp = 30
         position_y_tmp = 30
         self.positions.append([position_x, position_y])
-
+        # build a line of points
         while len(self.positions) < self.number_of_coins:
+            # going straight, every third cycle it might turn to left or right based on random_number
             if cycle_counter % 3 == 0:
                 random_number = random.randint(0, 2)
             else:
@@ -125,12 +128,14 @@ class Coins:
                     position_x += 30
                 else:
                     position_x -= 30
+            # checking if the new point is inside the map, if not reset
             if position_x > Constants['WINDOW_WIDTH'].value or position_x < 0 or position_y > Constants['WINDOW_HEIGHT'].value or position_y < 0:
                 position_x = 90
                 position_y = 90
                 position_x_tmp = 30
                 position_y_tmp = 30
                 continue
+            # add the new point to the list
             if [position_x, position_y] not in self.positions and self._is_in_map(position_x, position_y):
                 self.positions.append([position_x, position_y])
 
