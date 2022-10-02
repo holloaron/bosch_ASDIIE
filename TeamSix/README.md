@@ -1,4 +1,4 @@
-# bosch_ASDIIE Bosch Team
+# bosch_ASDIIE TeamSix
 
 Team members:
 | -------------------- |
