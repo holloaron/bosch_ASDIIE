@@ -7,7 +7,9 @@ class Pacman:
     def __init__(self, world_size: int, max_steps: int, show_window_size: int) -> None:
         """
         This function initializes the base attributes of the Pacman class
-        :param world_size: size of the map in pixels
+        :param world_size: size of the map
+        :param max_steps: maximum amount of steps during the game
+        :param show_window_size: size of the image in pixels
         """
         self.world_size = world_size
         self.max_steps = max_steps
