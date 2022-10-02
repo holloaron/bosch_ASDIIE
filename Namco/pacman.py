@@ -4,23 +4,23 @@ import os
 # Enumerating the participants of the PacMan game
 EMPTY = 0
 PACMAN = 1
-OBJECT = 2
+DOT = 2
 
 
 class PacMan:
-    def __init__(self, map_size=10, max_time_step=100, num_of_objects=10):
+    def __init__(self, map_size=10, max_time_step=100, num_of_dots=10):
         """
         PacMan Game
         :param map_size: dimension of the map [size x size] (int)
         :param max_time_step: after how many steps should the game be ended (int)
-        :param num_of_objects: number of randomly generated objects (int)
+        :param num_of_dots: number of randomly generated edible dots (int)
         """
         # PacMan variables
         self.map_size = map_size
         self.time_step_cnt = 0
         self.max_time_step = max_time_step
-        self.objects = []
-        self.num_of_objects = num_of_objects
+        self.dots = []
+        self.num_of_dots = num_of_dots
         self.pacman = [0, 0]
         self.score = 0
 
@@ -31,15 +31,15 @@ class PacMan:
         """
         # Reset variables
         self.time_step_cnt = 0
-        self.objects = []
+        self.dots = []
         self.score = 0
 
         # Generating the initial position of Pacman
         self.pacman[0] = np.random.randint(0, self.map_size)
         self.pacman[1] = np.random.randint(0, self.map_size)
 
-        # Generating object positions
-        self.generate_objects()
+        # Generating random edible dots
+        self.generate_dots()
 
         # Creating observation
         observation = self.create_observation()
@@ -60,8 +60,8 @@ class PacMan:
         # Moving pacman based on current action
         self.move_pacman(action)
 
-        # Check whether Pacman moved on an object
-        self.check_objects()
+        # Check whether Pacman picked up an edible dot
+        self.check_dots()
 
         # Creating observation
         observation = self.create_observation()
@@ -91,7 +91,7 @@ class PacMan:
                     observation[x][y] = '-'
                 elif observation[x][y] == PACMAN:
                     observation[x][y] = '0'
-                elif observation[x][y] == OBJECT:
+                elif observation[x][y] == DOT:
                     observation[x][y] = '+'
 
         # Printing the current score and the current observation line by line with separation
@@ -104,7 +104,7 @@ class PacMan:
 
     def create_observation(self) -> np.ndarray:
         """
-        Processes the positions of Pacman and the objects and creates the current state matrix
+        Processes the positions of Pacman and the edible dots and creates the current state matrix
         :return: Current state of the map (np.ndarray)
         """
         # Creating the map
@@ -113,9 +113,9 @@ class PacMan:
         # Placing Pacman on the map
         observation[self.pacman[0], self.pacman[1]] = PACMAN
 
-        # Placing the objects on the map
-        for obj in self.objects:
-            observation[obj[0], obj[1]] = OBJECT
+        # Placing the edible dots on the map
+        for dot in self.dots:
+            observation[dot[0], dot[1]] = DOT
 
         return observation
 
@@ -138,37 +138,37 @@ class PacMan:
         elif action == 'd':
             self.pacman[1] = min(self.pacman[1] + 1, self.map_size - 1)
 
-    def generate_objects(self) -> None:
+    def generate_dots(self) -> None:
         """
-        Generates the given number of random objects on the map
+        Generates the given number of random edible dots on the map
         :return: -
         """
-        for _ in range(self.num_of_objects):
-            obj_coords = tuple(np.random.randint(0, self.map_size, (2,)))
+        for _ in range(self.num_of_dots):
+            dot_coords = tuple(np.random.randint(0, self.map_size, (2,)))
 
-            # Making sure that generated objects do not have the same position with each other or with Pacman
-            while (obj_coords in self.objects) or (obj_coords == tuple(self.pacman)):
-                obj_coords = tuple(np.random.randint(0, self.map_size, (2,)))
+            # Making sure that the generated dots do not have the same position with each other or with Pacman
+            while (dot_coords in self.dots) or (dot_coords == tuple(self.pacman)):
+                dot_coords = tuple(np.random.randint(0, self.map_size, (2,)))
 
-            self.objects.append(obj_coords)
+            self.dots.append(dot_coords)
 
-    def check_objects(self) -> None:
+    def check_dots(self) -> None:
         """
-        Checks whether Pacman picked up an object and increases the score accordingly
+        Checks whether Pacman picked up a dot and increases the score accordingly
         :return: -
         """
-        for obj in self.objects:
-            if obj == tuple(self.pacman):
-                # If Pacman moved on an object, increase the score and remove the object
+        for dot in self.dots:
+            if dot == tuple(self.pacman):
+                # If Pacman moved on a dot, increase the score and remove the dot
                 self.score += 1
-                self.objects.remove(obj)
+                self.dots.remove(dot)
 
 
 if __name__ == "__main__":
     # Instantiating the environment
     env = PacMan(map_size=10,
                  max_time_step=100,
-                 num_of_objects=10)
+                 num_of_dots=10)
 
     # Reset environment and render the initial state
     state = env.reset()
