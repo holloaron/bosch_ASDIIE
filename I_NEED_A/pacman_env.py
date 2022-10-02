@@ -96,7 +96,7 @@ class PacMan:
         else:
             #in case of wrong key
             if action != 0 or action != 1 or action != 2 or action != 3:
-                raise TypeError("Only integers brtween 0 and 3 are accepted")
+                raise TypeError("Only integers between 0 and 3 are accepted")
             done_ = True
             self.score= -1
             print(f"Score {self.score}")
@@ -259,7 +259,7 @@ if __name__ == "__main__":
     # play loop
     while not done_:
         # here are declared the control keys
-        print("0->done  1->right    2->up   3->left")
+        print("0->down  1->right    2->up   3->left")
 
         # add the next action
         action = int(input("Next action:\n"))
