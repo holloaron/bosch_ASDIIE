@@ -89,7 +89,7 @@ class Pacman:
 
 
 class Coins:
-    def __init__(self, number_of_coins):
+    def __init__(self, number_of_coins: int):
         self.positions = []
         self.number_of_coins = number_of_coins
 
