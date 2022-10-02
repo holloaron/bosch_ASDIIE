@@ -100,10 +100,7 @@ class Coins:
     def generate(self):
         # initialize variables
         cycle_counter = 0
-        position_x = Constants['FIRST_COIN_POSITION'].value
-        position_y = Constants['FIRST_COIN_POSITION'].value
-        position_x_tmp = Constants['FIRST_COIN_POSITION_TMP'].value
-        position_y_tmp = Constants['FIRST_COIN_POSITION_TMP'].value
+        position_x, position_y, position_x_tmp, position_y_tmp = self._set_start_position()
         self.positions.append([position_x, position_y])
         # build a line of points
         while len(self.positions) < self.number_of_coins:
@@ -133,10 +130,7 @@ class Coins:
                     position_x -= Constants['STEP_SIZE'].value
             # checking if the new point is inside the map, if not reset
             if position_x > Constants['WINDOW_WIDTH'].value or position_x < 0 or position_y > Constants['WINDOW_HEIGHT'].value or position_y < 0:
-                position_x = Constants['FIRST_COIN_POSITION'].value
-                position_y = Constants['FIRST_COIN_POSITION'].value
-                position_x_tmp = Constants['FIRST_COIN_POSITION_TMP'].value
-                position_y_tmp = Constants['FIRST_COIN_POSITION_TMP'].value
+                position_x, position_y, position_x_tmp, position_y_tmp = self._set_start_position()
                 continue
             # add the new point to the list
             if [position_x, position_y] not in self.positions and self._is_in_map(position_x, position_y):
@@ -150,6 +144,14 @@ class Coins:
     def draw(self):
         for coin_pos in self.positions:
             pygame.draw.circle(screen, Constants['COLOR_WHITE'].value, coin_pos, 5)
+
+    # sets the position of first placed coin
+    def _set_start_position(self):
+        position_x = Constants['FIRST_COIN_POSITION'].value
+        position_y = Constants['FIRST_COIN_POSITION'].value
+        position_x_tmp = Constants['FIRST_COIN_POSITION_TMP'].value
+        position_y_tmp = Constants['FIRST_COIN_POSITION_TMP'].value
+        return position_x, position_y, position_x_tmp, position_y_tmp
 
 
 class Game:
