@@ -8,7 +8,7 @@ DOT = 2
 
 
 class PacMan:
-    def __init__(self, map_size=10, max_time_step=100, num_of_dots=10):
+    def __init__(self, map_size: int = 10, max_time_step: int = 100, num_of_dots: int = 10):
         """
         PacMan Game
         :param map_size: dimension of the map [size x size] (int)
