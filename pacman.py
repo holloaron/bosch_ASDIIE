@@ -1,6 +1,6 @@
 # pacman code for ASDIIE
 # Authors: Sárdi Ferenc Zsolt
-# Note: I've seen this visualizing method in the code of team Namco. It is useful for me because my computer can't handle the opening window for some
+# Note: I've seen this visualizing method in the code of team Namco. It is useful for me because my computer can't handle the opening window for some reason.
 
 import numpy as np
 import os
