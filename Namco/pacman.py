@@ -72,9 +72,10 @@ class PacMan:
 
         return observation, self.score, terminate
 
-    def render(self, observation: np.ndarray) -> None:
+    def render(self, observation: np.ndarray, action: str = 'w') -> None:
         """
         Prints the current state of the environment on the console
+        :param action: Current user input (str)
         :param observation: Current state of the map (np.ndarray)
         :return: -
         """
@@ -98,6 +99,8 @@ class PacMan:
             print(*line, sep='  ')
 
         print("\nCurrent score:", self.score)
+
+        print("Invalid input! Please use w, a, s or d!") if action not in ['w', 'a', 's', 'd'] else None
 
     def create_observation(self) -> np.ndarray:
         """
@@ -174,6 +177,6 @@ if __name__ == "__main__":
     done = False
 
     while not done:
-        user_input = input("Select your next action (W, A, S, D): ")
+        user_input = input("Select your next action (w, a, s, d): ")
         state, reward, done = env.step(user_input)
-        env.render(state)
+        env.render(state, user_input)
