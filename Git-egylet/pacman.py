@@ -163,15 +163,17 @@ class Pacman:
             pos_x += 1
         return pos_x, pos_y
 
-    @staticmethod
-    def _left(pos_x: int, pos_y: int) -> Tuple[int, int]:
+    def _left(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
         """
         This function moves Pacman left
         :param pos_x: vertical coordinate
         :param pos_y: horizontal coordinate
         :return: pos_x, pos_y (int): the updated coordinates
         """
-        pos_y -= 1
+        if pos_y - 1 < 0:
+            pos_y = self.world_size - 1
+        else:
+            pos_y -= 1
         return pos_x, pos_y
 
     def _check_pellets(self, x: int, y: int, score: int) -> int:
