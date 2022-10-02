@@ -137,15 +137,17 @@ class Pacman:
             pos_x -= 1
         return pos_x, pos_y
 
-    @staticmethod
-    def _right(pos_x: int, pos_y: int) -> Tuple[int, int]:
+    def _right(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
         """
         This function moves Pacman right.
         :param pos_x: vertical coordinate
         :param pos_y: horizontal coordinate
         :return: pos_x, pos_y (int): the updated coordinates
         """
-        pos_y += 1
+        if pos_y + 1 == self.world_size:
+            pos_y = 0
+        else
+            pos_y += 1
         return pos_x, pos_y
 
     @staticmethod
