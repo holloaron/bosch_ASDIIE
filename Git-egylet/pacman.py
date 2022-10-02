@@ -24,6 +24,7 @@ class Pacman:
         self.step_counter = 0
         self.direction = 1
         self.score = 0
+        self.num_pellets = 10
         self.last_state = None
         # variables for world
         self.show_window = np.zeros((self.show_window_size, self.show_window_size, 3))
@@ -227,10 +228,11 @@ class Pacman:
         self.step_counter = 0
         self.direction = 0
         self.score = 0
+        self.num_pellets = 10
         self.last_state = None
 
         self.create_pacman()
-        self.create_pellets(10)
+        self.create_pellets(self.num_pellets)
         obs_ = self._create_observation()
 
         return obs_.flatten()
