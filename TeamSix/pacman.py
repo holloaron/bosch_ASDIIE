@@ -32,6 +32,7 @@ fps = pygame.time.Clock()
 
 class Pacman:
 
+    # initial starting position in pixel values, starting direction and number of steps
     def __init__(self):
         self.pacman_position = [60, 60]
         self.steps = 0
@@ -46,7 +47,7 @@ class Pacman:
     # Method for stepping and checking walls:
     # Screen coordinates: upper left corner's position is [0,0], coordinates increase to the right and downward.
     # Checking walls: walls are defined by pixel/coordinate values that pacman can't surpass.
-    # TOP and LEFT wall: sum of pacman size and a step size -> pacman's coordinate can not be lower.
+    # TOP and LEFT wall: sum of pacman's size and a step size -> pacman's coordinate can not be lower.
     # BOTTOM and RIGHT wall: subtracting a step size plus 1 from the window height/width -> pacman's coordinate can not be higher.
     # STEPS: moving to the right or downward -> adding a step to the coordinate values;
     # moving to the left or upward -> subtracting a step from the coordinate values
@@ -62,6 +63,7 @@ class Pacman:
         if self.direction == Constants['POSITION_RIGHT'].value and self.pacman_position[0] <= (Constants['WINDOW_HEIGHT'].value - (Constants['STEP_SIZE'].value + 1)):
             self.pacman_position[0] += Constants['STEP_SIZE'].value
 
+    # method that updates the current direction - needed for automatic steps, when there isn't any direction key pressed
     def change_direction(self):
         if self.new_direction == Constants['POSITION_UP'].value:
             self.direction = Constants['POSITION_UP'].value
@@ -72,6 +74,7 @@ class Pacman:
         if self.new_direction == Constants['POSITION_RIGHT'].value:
             self.direction = Constants['POSITION_RIGHT'].value
 
+    # function handling key events to update the direction
     def handle_key_events(self):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -131,9 +134,11 @@ class Coins:
             if [position_x, position_y] not in self.positions and self._is_in_map(position_x, position_y):
                 self.positions.append([position_x, position_y])
 
+    # return x and y positions if they are on the map
     def _is_in_map(self, position_x, position_y):
         return 0 < position_x < Constants['WINDOW_WIDTH'].value and 0 < position_y < Constants['WINDOW_HEIGHT'].value
 
+    # drawing the generated coins
     def draw(self):
         for coin_pos in self.positions:
             pygame.draw.circle(screen, Constants['COLOR_WHITE'].value, coin_pos, 5)
@@ -147,6 +152,7 @@ class Game:
         self.score = 0
         self.steps = 0
 
+    # playing the game until max steps: moving pacman, updating coins, score, step number
     def play(self):
         while self.steps < Constants['MAX_STEPS'].value:
             self.pacman.handle_key_events()
