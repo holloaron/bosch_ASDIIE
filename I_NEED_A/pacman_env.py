@@ -22,10 +22,6 @@ class PacMan:
         self.reset()
 
 
-    def first_step(self):
-        #starting value of the counter
-        self.step_ = 100
-
     def step(self, action: int):
         '''
         This function is responsible for doing steps
@@ -49,7 +45,7 @@ class PacMan:
         #Eat and add to score
         self.eat(x,y)
 
-            # create observation
+        # create observation
         obs = self._create_observation()
 
         # save observation
@@ -254,7 +250,6 @@ if __name__ == "__main__":
 
     # render before first step
     env.render()
-    env.first_step()
 
     # play loop
     while not done_:
