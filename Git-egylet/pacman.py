@@ -41,24 +41,20 @@ class Pacman:
             done (bool): tells whether the game is terminated or not
             info (str): additional information
         """
-        # get the current PacMan position
         pos_x, pos_y = self.body
-        # get the new position
         x, y = self._move(pos_x, pos_y, action)
-        # add current state to the body
         if (x, y) not in self.body:
             self.body = (x, y)
-        # create observation of the current state of the game
+
         obs = self._create_observation()
-        # save observation
         self.last_state = obs
-        # check for pellets to eat
+
         self.score = self._check_pellets(x, y, self.score)
-        # count the steps
+
         self.step_counter += 1
-        # check if the game is terminated
+
         done = self.is_done(self.max_steps)
-        # additional information
+
         info = None
 
         return obs.flatten(), self.score, done, info
@@ -190,7 +186,6 @@ class Pacman:
         This function creates a grayscale observation from the current state of the game.
         :return: obs_ (ndarray): the created observation
         """
-        # map initialization
         obs_ = np.zeros((self.world_size, self.world_size, 1))
         # add pellets
         for pellet in self.pellets:
