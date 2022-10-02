@@ -132,7 +132,7 @@ class Pacman:
         :return: pos_x, pos_y (int): the updated coordinates
         """
         if pos_x - 1 < 0:
-            pos_x = self.world_size
+            pos_x = self.world_size - 1
         else:
             pos_x -= 1
         return pos_x, pos_y
