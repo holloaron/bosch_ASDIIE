@@ -68,6 +68,7 @@ class Pacman:
         :return: boolean value
         """
         if self.step_counter > max_steps:
+            print("Maximum time reached")
             return True
         else:
             return False
