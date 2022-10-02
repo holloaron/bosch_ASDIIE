@@ -113,6 +113,7 @@ class Pacman:
             raise NotImplementedError
         return x, y
 
+    @staticmethod
     def _change_direction(self, action: int) -> int:
         """
         This function changes the direction of Pacman according to the input action.
@@ -125,6 +126,7 @@ class Pacman:
             raise ValueError("Please choose an action between 0-3")
         return direction
 
+    @staticmethod
     def _up(self, pos_x: int, pos_y: int) -> tuple[int, int]:
         """
         This function moves Pacman upwards.
@@ -135,6 +137,7 @@ class Pacman:
         pos_x -= 1
         return pos_x, pos_y
 
+    @staticmethod
     def _right(self, pos_x: int, pos_y: int) -> tuple[int, int]:
         """
         This function moves Pacman right.
@@ -145,6 +148,7 @@ class Pacman:
         pos_y += 1
         return pos_x, pos_y
 
+    @staticmethod
     def _down(self, pos_x: int, pos_y: int) -> tuple[int, int]:
         """
         This function moves Pacman downwards.
@@ -155,6 +159,7 @@ class Pacman:
         pos_x += 1
         return pos_x, pos_y
 
+    @staticmethod
     def _left(self, pos_x: int, pos_y: int) -> tuple[int, int]:
         """
         This function moves Pacman left
