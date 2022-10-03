@@ -15,7 +15,7 @@ RIGHT_WALL = 4
 
 class PacMan:
 
-    def __init__(self, map_size, num_of_food, max_step):
+    def __init__(self, map_size: int, num_of_food:int, max_step:int):
 
         self.map_size = map_size
         self.step_counter = 0
@@ -30,7 +30,7 @@ class PacMan:
         self.left_wall = np.arange(1, map_size+1)
         self.right_wall = np.arange(1, map_size+1)
 
-    def reset(self):
+    def reset(self) -> np.ndarray:
         
         self.place_pacman()
         self.place_food()
@@ -39,7 +39,7 @@ class PacMan:
         # return the visualization of the map
         return visualization
 
-    def step(self, pressed_key):
+    def step(self, pressed_key: str) -> [np.ndarray, int, bool]:
         
         # Function parameters:
         # pressed_key: input from the user to determine the step direction 
@@ -54,7 +54,7 @@ class PacMan:
 
         return visualization, self.score, stop_the_game
 
-    def render(self, visualization):
+    def render(self, visualization: np.ndarray):
 
         os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -120,7 +120,7 @@ class PacMan:
         elif pressed_key == 'd':
             self.pacman[1] = min(self.pacman[1] + 1, self.map_size - 1)
 
-    def create_visualization(self):
+    def create_visualization(self) -> np.ndarray:
 
         visualization = np.zeros((self.map_size+2, self.map_size+2), dtype=int)
 
