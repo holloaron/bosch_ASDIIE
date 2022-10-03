@@ -93,8 +93,6 @@ class Pacman:
     def _move(self, action: int) -> Tuple[int, int]:
         """
         This function is responsible for the movement of Pacman.
-        :param pos_x: horizontal coordinate
-        :param pos_y: vertical coordinate
         :param action: chosen action by the user between 0-3, which refer to directions
         :return: x, y (int): the new position of Pacman after the move was made.
         """
