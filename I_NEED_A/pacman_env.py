@@ -75,18 +75,18 @@ class PacMan:
         :return:  both axis position
         """
         if action == 0:
-            # going right
+            # going down
             x, y = self.right(pos_x, pos_y)
         elif action == 1:
-            # going up
+            # going right
             x, y = self.up(pos_x, pos_y)
 
         elif action == 2:
-            # going left
+            # going up
             x, y = self.left(pos_x, pos_y)
 
         elif action == 3:
-            # going down
+            # going left
             x, y = self.down(pos_x, pos_y)
 
         else:
