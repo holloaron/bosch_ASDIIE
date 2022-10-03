@@ -125,18 +125,18 @@ class Pacman:
             raise ValueError("Please choose an action between 0-3")
         return direction
 
-    def _up(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
+    def _up(self) -> Tuple[int, int]:
         """
         This function moves Pacman upwards.
         :param pos_x: vertical coordinate
         :param pos_y: horizontal coordinate
         :return: pos_x, pos_y (int): the updated coordinates
         """
-        if pos_x - 1 < 0:
-            pos_x = self.world_size - 1
+        if self.body[0] - 1 < 0:
+            self.body[0] = self.world_size - 1
         else:
-            pos_x -= 1
-        return pos_x, pos_y
+            self.body[0] -= 1
+        return self.body[0], self.body[1]
 
     def _right(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
         """
