@@ -44,7 +44,7 @@ class Pacman:
         """
         x, y = self._move(action)
         if (x, y) not in self.body:
-            self.body = (x, y)
+            self.body = [x, y]
 
         obs = self._create_observation()
         self.last_state = obs
@@ -76,7 +76,7 @@ class Pacman:
         This function creates Pacman and sets its starting position.
         :return: None
         """
-        self.body = (0, 0)
+        self.body = [0, 0]
 
     def create_pellets(self, numbers: int) -> None:
         """
