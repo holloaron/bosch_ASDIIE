@@ -200,6 +200,6 @@ if __name__ == "__main__":
     
     #Running the game loop
     while not done:
-        user_input = input("Move by pressing 'w, a, s, d' or quit by pressing 'q': ")
+        user_input = input("Move by pressing 'w, a, s, d': ")
         state, reward, done = env.step(user_input)
         env.render(state)
