@@ -101,13 +101,13 @@ class Pacman:
         """
         self.direction = self._change_direction(action)
         if self.direction == 0:
-            x, y = self._up(pos_x, pos_y)
+            x, y = self._up()
         elif self.direction == 1:
-            x, y = self._right(pos_x, pos_y)
+            x, y = self._right()
         elif self.direction == 2:
-            x, y = self._down(pos_x, pos_y)
+            x, y = self._down()
         elif self.direction == 3:
-            x, y = self._left(pos_x, pos_y)
+            x, y = self._left()
         else:
             raise NotImplementedError
         return x, y
