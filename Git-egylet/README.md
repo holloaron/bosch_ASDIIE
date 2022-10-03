@@ -51,4 +51,6 @@ Git-egylet as a team tries to keep the principles of "clean coding" prior to eve
 | Dániel Gujgiczer [@gujgidani](https://github.com/gujgidani) |
 | Bence Üveges [@benceuveges](https://github.com/benceuveges) |
 | Krisztián Fördős [@4doschris](https://github.com/4doschris) |
+| Krisztián Zoltán Zubor [@zuborxyz](https://github.com/zuborxyz) |
+
 
