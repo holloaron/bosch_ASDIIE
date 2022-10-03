@@ -74,6 +74,8 @@ class Pacman:
     def create_pacman(self) -> None:
         """
         This function creates Pacman and sets its starting position.
+        The first element of the list represents Pacmans vertical coordinate,
+        while the second determines the horizontal one.
         :return: None
         """
         self.body = [0, 0]
