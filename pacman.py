@@ -16,7 +16,13 @@ RIGHT_WALL = 4
 class PacMan:
 
     def __init__(self, map_size: int, num_of_food:int, max_step:int):
-
+        """
+        Initial parameters are created for the game
+        :param map_size: dimension of the map [map_size x map_size] (int)
+        :param num_of_food: number of food on the map (int)
+        :param max_time_step: Length of the game in pacman steps (int)
+        """
+        
         self.map_size = map_size
         self.step_counter = 0
         self.max_step = max_step
@@ -31,18 +37,24 @@ class PacMan:
         self.right_wall = np.arange(1, map_size+1)
 
     def reset(self) -> np.ndarray:
+        """
+        Creating an initial enviroment
+        :return: Initial state of the map (np.ndarray)
+        """
         
         self.place_pacman()
         self.place_food()
         visualization = self.create_visualization()
 
-        # return the visualization of the map
         return visualization
 
     def step(self, pressed_key: str) -> [np.ndarray, int, bool]:
-        
-        # Function parameters:
-        # pressed_key: input from the user to determine the step direction 
+        """
+        Creates the map in the next step
+        :param pressed_key: input for stepping pacman (w, a ,s or d) (str)
+        :return: visualization of the map (np.ndarray), score (int), game stopping decision (bool)
+        """
+            
         self.step_counter += 1
         self.move_pacman(pressed_key)
         self.eat_food()
@@ -55,7 +67,11 @@ class PacMan:
         return visualization, self.score, stop_the_game
 
     def render(self, visualization: np.ndarray):
-
+        """
+        Displays the map created in the last step
+        :param visualization: The created map (np.ndarray)
+        """
+            
         os.system('cls' if os.name == 'nt' else 'clear')
 
         visualization = visualization.tolist()
@@ -77,19 +93,24 @@ class PacMan:
                 elif visualization[x][y] == FOOD:
                     visualization[x][y] = '*'
 
-        # Printing the score board and the map
         for line in visualization:
             print(*line, sep='  ')
 
         print("\nSCORE:", self.score)
 
     def place_pacman(self):
+        """
+        Generates the pacman coordinates
+        """
         
         self.pacman[0] = np.random.randint(1, self.map_size-1)
         self.pacman[1] = np.random.randint(1, self.map_size-1)
     
     def place_food(self):
-
+        """
+        Generates the pacman coordinates
+        """
+        
         for _ in range(self.num_of_food):
             food_coords = tuple(np.random.randint(1, self.map_size-1, (2,)))
 
@@ -99,7 +120,10 @@ class PacMan:
             self.food.append(food_coords)
 
     def eat_food(self):
-
+        """
+        Check if the new position of the pacman equal with any of the food coordinates
+        """
+        
                 for food in self.food:
                     if food == tuple(self.pacman):
                 
@@ -107,7 +131,11 @@ class PacMan:
                         self.food.remove(food)
     
     def move_pacman(self, pressed_key: str):
-
+        """
+        Calculating the new position of the pacman based on the preessed key
+        :param pressed_key: input for stepping pacman (w, a ,s or d) (str)
+        """
+        
         if pressed_key == 'w':
             self.pacman[0] = max(self.pacman[0] - 1, 0)
 
@@ -121,7 +149,11 @@ class PacMan:
             self.pacman[1] = min(self.pacman[1] + 1, self.map_size - 1)
 
     def create_visualization(self) -> np.ndarray:
-
+        """
+        Displaying the map
+        :return: the array of the map (np.ndarray)
+        """
+        
         visualization = np.zeros((self.map_size+2, self.map_size+2), dtype=int)
 
         for upper_bound in self.upper_wall:
