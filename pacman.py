@@ -23,6 +23,7 @@ class PacMan:
         :param max_time_step: Length of the game in pacman steps (int)
         """
         
+        #Initial parameters for the game
         self.map_size = map_size
         self.step_counter = 0
         self.max_step = max_step
@@ -42,6 +43,7 @@ class PacMan:
         :return: Initial state of the map (np.ndarray)
         """
         
+        #Placing the basic components on the map
         self.place_pacman()
         self.place_food()
         visualization = self.create_visualization()
@@ -54,12 +56,14 @@ class PacMan:
         :param pressed_key: input for stepping pacman (w, a ,s or d) (str)
         :return: visualization of the map (np.ndarray), score (int), game stopping decision (bool)
         """
-            
+        
+        #Moving to the next step
         self.step_counter += 1
         self.move_pacman(pressed_key)
         self.eat_food()
         visualization = self.create_visualization()
 
+        #Checking if we reached the maxium num of steps
         stop_the_game = False
         if self.step_counter > self.max_step:
             stop_the_game = True
@@ -71,11 +75,12 @@ class PacMan:
         Displays the map created in the last step
         :param visualization: The created map (np.ndarray)
         """
-            
+        #Clearing the console/terminal    
         os.system('cls' if os.name == 'nt' else 'clear')
 
         visualization = visualization.tolist()
 
+        #Substituting the labeld map array elements by symbols
         for x in range(self.map_size+2):
             for y in range(self.map_size+2):
                 if visualization[x][y] == EMPTY:
@@ -92,7 +97,8 @@ class PacMan:
                     visualization[x][y] = 'C'
                 elif visualization[x][y] == FOOD:
                     visualization[x][y] = '*'
-
+        
+        #Printing the map and the score
         for line in visualization:
             print(*line, sep='  ')
 
@@ -103,6 +109,7 @@ class PacMan:
         Generates the pacman coordinates
         """
         
+        #Random coordinates for pacman
         self.pacman[0] = np.random.randint(1, self.map_size-1)
         self.pacman[1] = np.random.randint(1, self.map_size-1)
     
@@ -111,6 +118,7 @@ class PacMan:
         Generates the pacman coordinates
         """
         
+        #Random coordinates for the food
         for _ in range(self.num_of_food):
             food_coords = tuple(np.random.randint(1, self.map_size-1, (2,)))
 
@@ -154,6 +162,7 @@ class PacMan:
         :return: the array of the map (np.ndarray)
         """
         
+        #Labeling the map array elements by the entity which they represent
         visualization = np.zeros((self.map_size+2, self.map_size+2), dtype=int)
 
         for upper_bound in self.upper_wall:
@@ -176,10 +185,12 @@ class PacMan:
         return visualization
 
 if __name__ == "__main__":
-
+    
+    #Asking the user for the enviroment inputs
     map_size = int(input("What map size would you like to play with? (Suggested: 10...20) "))
     num_of_food = int(input("How many food would you like on the map? (Suggested: 1...100"))
-
+    
+    #Running the enviroment
     env = PacMan(map_size,
                  num_of_food,
                  max_step=100)
@@ -188,7 +199,8 @@ if __name__ == "__main__":
     env.render(state)
 
     done = False
-
+    
+    #Running the game loop
     while not done:
         user_input = input("Move by pressing 'w, a, s, d' or quit by pressing 'q': ")
         state, reward, done = env.step(user_input)
