@@ -58,7 +58,7 @@ class MapData():
 
 
     def load_mapdata(self, mapdatafile_path: str) -> list[list[str]]:
-        """ Loads the mapdata from the file of the given path as numpy array
+        """ Loads the mapdata from the file of the given path as lol(str)
 
         @args:
             self
@@ -93,10 +93,8 @@ class MapData():
         @args:
             self
         @return:
-            map_height [int] - height of the map
-            map_width [int] - width of the map
-            size [tuple(int,int)] - [0] - width
-                                    [1] - height
+            size [tuple(int, int)] - [0] - width of the map
+                                     [1] - height of the map
         """
         map_height = len(self.data_set)
         map_width = 0
@@ -131,7 +129,7 @@ class MapData():
             self,
             element [MapElement] - the given MapElement
         @returns:
-            tuple(x [int], y [int]) - the first             
+            result [tuple(x [int], y [int])] - the first found coordinate          
         """
         if not self.contains(element):
             raise Exception(f"The Map does not contain the given MapElement: {element.name} {element.value}")
@@ -158,7 +156,7 @@ class MapData():
             self,
             element [MapElement] - the given MapElement
         @returns:
-            result [list[tuple(int,int)]] - 
+            result [list[tuple(int,int)]] - the found coordinates on the map
         """
         if not self.contains(element):
             raise Exception(f"The Map does not contain the given MapElement: {element.name} {element.value}")
