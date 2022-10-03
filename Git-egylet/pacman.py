@@ -91,7 +91,7 @@ class Pacman:
                 coordinates = tuple(np.random.randint(0, self.world_size, (2,)))
             self.pellets.append(coordinates)
 
-    def _move(self, pos_x: int, pos_y: int, action: int) -> Tuple[int, int]:
+    def _move(self, action: int) -> Tuple[int, int]:
         """
         This function is responsible for the movement of Pacman.
         :param pos_x: horizontal coordinate
