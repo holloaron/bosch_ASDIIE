@@ -4,7 +4,7 @@ from typing import Deque
 from bosch_ASDIIE.solid_version.core.canvas import Canvas
 from bosch_ASDIIE.solid_version.core.game_element import GameElement
 from bosch_ASDIIE.solid_version.core.key_event import KeyEvent
-from bosch_ASDIIE.solid_version.core.map import Coordinates
+from bosch_ASDIIE.solid_version.core.map import Coordinates, MapSize
 from bosch_ASDIIE.solid_version.core.visualizable import Visualizable
 
 
@@ -12,18 +12,23 @@ class MovingTransformation:
     """
     A class for handling keyboard events during playing
     """
-    def __init__(self, direction: KeyEvent):
+    def __init__(self, direction: KeyEvent, map_size: MapSize):
         self.direction = direction
+        self.map_size = map_size
 
-    def __call__(self, coodinates: Coordinates) -> Coordinates:
+    def __call__(self, coordinates: Coordinates) -> Coordinates:
         if self.direction == KeyEvent.UP:
-            return Coordinates(coodinates.row - 1, coodinates.col)
+            new_row = (coordinates.row - 1) % self.map_size.row_num
+            return Coordinates(new_row, coordinates.col)
         elif self.direction == KeyEvent.LEFT:
-            return Coordinates(coodinates.row, coodinates.col - 1)
+            new_col = (coordinates.col - 1) % self.map_size.col_num
+            return Coordinates(coordinates.row, new_col)
         elif self.direction == KeyEvent.DOWN:
-            return Coordinates(coodinates.row + 1, coodinates.col)
+            new_row = (coordinates.row + 1) % self.map_size.row_num
+            return Coordinates(new_row, coordinates.col)
         elif self.direction == KeyEvent.RIGHT:
-            return Coordinates(coodinates.row, coodinates.col + 1)
+            new_col = (coordinates.col + 1) % self.map_size.col_num
+            return Coordinates(coordinates.row, new_col)
         else:
             raise ValueError(f"There is no moving forward {self.direction} direction.")
 
@@ -33,7 +38,10 @@ class Snake(GameElement, Visualizable):
     A game element and visualizable class, for handling snake movement mainly,
     but visualizing is also represented here
     """
-    def __init__(self, body: Deque[Coordinates] = None, starting_direction: KeyEvent = KeyEvent.RIGHT):
+    def __init__(self,
+                 body: Deque[Coordinates] = None,
+                 starting_direction: KeyEvent = KeyEvent.RIGHT,
+                 map_size: MapSize = None):
         if body is None:
             self.body_parts = deque([
                 Coordinates(0, 1), Coordinates(0, 2), Coordinates(0, 3),
@@ -41,7 +49,9 @@ class Snake(GameElement, Visualizable):
             ])
         else:
             self.body_parts = body
-        self.moving_transformation = MovingTransformation(starting_direction)
+        if map_size is None:
+            map_size = MapSize(10, 10)
+        self.moving_transformation = MovingTransformation(starting_direction, map_size)
 
     def take_action(self, key_event: KeyEvent):
         if self._is_not_opposite_direction(key_event):
