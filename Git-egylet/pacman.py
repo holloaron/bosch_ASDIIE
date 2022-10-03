@@ -42,8 +42,7 @@ class Pacman:
             done (bool): tells whether the game is terminated or not
             info (str): additional information
         """
-        pos_x, pos_y = self.body
-        x, y = self._move(pos_x, pos_y, action)
+        x, y = self._move(action)
         if (x, y) not in self.body:
             self.body = (x, y)
 
