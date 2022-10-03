@@ -42,10 +42,9 @@ class Pacman:
             done (bool): tells whether the game is terminated or not
             info (str): additional information
         """
-        pos_x, pos_y = self.body
-        x, y = self._move(pos_x, pos_y, action)
+        x, y = self._move(action)
         if (x, y) not in self.body:
-            self.body = (x, y)
+            self.body = [x, y]
 
         obs = self._create_observation()
         self.last_state = obs
@@ -77,7 +76,7 @@ class Pacman:
         This function creates Pacman and sets its starting position.
         :return: None
         """
-        self.body = (0, 0)
+        self.body = [0, 0]
 
     def create_pellets(self, numbers: int) -> None:
         """
@@ -91,23 +90,21 @@ class Pacman:
                 coordinates = tuple(np.random.randint(0, self.world_size, (2,)))
             self.pellets.append(coordinates)
 
-    def _move(self, pos_x: int, pos_y: int, action: int) -> Tuple[int, int]:
+    def _move(self, action: int) -> Tuple[int, int]:
         """
         This function is responsible for the movement of Pacman.
-        :param pos_x: horizontal coordinate
-        :param pos_y: vertical coordinate
         :param action: chosen action by the user between 0-3, which refer to directions
         :return: x, y (int): the new position of Pacman after the move was made.
         """
         self.direction = self._change_direction(action)
         if self.direction == 0:
-            x, y = self._up(pos_x, pos_y)
+            x, y = self._up()
         elif self.direction == 1:
-            x, y = self._right(pos_x, pos_y)
+            x, y = self._right()
         elif self.direction == 2:
-            x, y = self._down(pos_x, pos_y)
+            x, y = self._down()
         elif self.direction == 3:
-            x, y = self._left(pos_x, pos_y)
+            x, y = self._left()
         else:
             raise NotImplementedError
         return x, y
@@ -125,57 +122,49 @@ class Pacman:
             raise ValueError("Please choose an action between 0-3")
         return direction
 
-    def _up(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
+    def _up(self) -> Tuple[int, int]:
         """
         This function moves Pacman upwards.
-        :param pos_x: vertical coordinate
-        :param pos_y: horizontal coordinate
-        :return: pos_x, pos_y (int): the updated coordinates
+        :return: self.body[0], self.body[1] (int): the updated vertical and horizontal coordinates
         """
-        if pos_x - 1 < 0:
-            pos_x = self.world_size - 1
+        if self.body[0] - 1 < 0:
+            self.body[0] = self.world_size - 1
         else:
-            pos_x -= 1
-        return pos_x, pos_y
+            self.body[0] -= 1
+        return self.body[0], self.body[1]
 
-    def _right(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
+    def _right(self) -> Tuple[int, int]:
         """
         This function moves Pacman right.
-        :param pos_x: vertical coordinate
-        :param pos_y: horizontal coordinate
-        :return: pos_x, pos_y (int): the updated coordinates
+        :return: self.body[0], self.body[1] (int): the updated vertical and horizontal coordinates
         """
-        if pos_y + 1 == self.world_size:
-            pos_y = 0
+        if self.body[1] + 1 == self.world_size:
+            self.body[1] = 0
         else:
-            pos_y += 1
-        return pos_x, pos_y
+            self.body[1] += 1
+        return self.body[0], self.body[1]
 
-    def _down(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
+    def _down(self) -> Tuple[int, int]:
         """
         This function moves Pacman downwards.
-        :param pos_x: vertical coordinate
-        :param pos_y: horizontal coordinate
-        :return: pos_x, pos_y (int): the updated coordinates
+        :return: self.body[0], self.body[1] (int): the updated vertical and horizontal coordinates
         """
-        if pos_x + 1 == self.world_size:
-            pos_x = 0
+        if self.body[0] + 1 == self.world_size:
+            self.body[0] = 0
         else:
-            pos_x += 1
-        return pos_x, pos_y
+            self.body[0] += 1
+        return self.body[0], self.body[1]
 
-    def _left(self, pos_x: int, pos_y: int) -> Tuple[int, int]:
+    def _left(self) -> Tuple[int, int]:
         """
         This function moves Pacman left
-        :param pos_x: vertical coordinate
-        :param pos_y: horizontal coordinate
-        :return: pos_x, pos_y (int): the updated coordinates
+        :return: self.body[0], self.body[1] (int): the updated vertical and horizontal coordinates
         """
-        if pos_y - 1 < 0:
-            pos_y = self.world_size - 1
+        if self.body[1] - 1 < 0:
+            self.body[1] = self.world_size - 1
         else:
-            pos_y -= 1
-        return pos_x, pos_y
+            self.body[1] -= 1
+        return self.body[0], self.body[1]
 
     def _check_pellets(self, x: int, y: int, score: int) -> int:
         """
