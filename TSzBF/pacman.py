@@ -64,9 +64,7 @@ class PacMan:
         visualization = self.create_visualization()
 
         #Checking if we reached the maxium num of steps
-        stop_the_game = False
-        if self.step_counter > self.max_step:
-            stop_the_game = True
+        stop_the_game = self.step_counter > self.max_step
 
         return visualization, self.score, stop_the_game
 
