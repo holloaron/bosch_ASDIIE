@@ -20,6 +20,7 @@ PACMAN_STARTING_POS_X = 160
 PACMAN_STARTING_POS_Y = 520
 PACMAN_SPEED = 5
 DOT_SIZE = (20, 20)
+DOT_NO_SPAWN_FRAME = 40
 MAX_SCORE = 60
 SCORE = 0
 SCORE_POS = 10
@@ -83,6 +84,19 @@ class Player(pygame.sprite.Sprite):
                 self.rect.move_ip(-SCREEN_SIZE, 0)
 
 if __name__ == "__main__":
+    Pac_man = Player()
+    dots = pygame.sprite.Group()
+    all_sprites = pygame.sprite.Group()
+
+    # Create given number of dots on the screen
+    for i in range(MAX_SCORE):
+        Score_Dot = DOT()
+        Score_Dot.rect.x = random.randint(DOT_NO_SPAWN_FRAME, SCREEN_SIZE - DOT_NO_SPAWN_FRAME)
+        Score_Dot.rect.y = random.randint(DOT_NO_SPAWN_FRAME, SCREEN_SIZE - DOT_NO_SPAWN_FRAME)
+        dots.add(Score_Dot)
+        all_sprites.add(Score_Dot)
+
+    all_sprites.add(Pac_man)
 
     while True:
         DISPLAYSURF.fill(BLACK)
