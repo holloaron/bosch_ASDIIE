@@ -99,7 +99,35 @@ if __name__ == "__main__":
     all_sprites.add(Pac_man)
 
     while True:
-        DISPLAYSURF.fill(BLACK)
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
 
-        pygame.display.update()
-        FramePerSec.tick(FPS)
+        DISPLAYSURF.fill(BLACK)
+        current_score = font_small.render(str(SCORE), True, WHITE)
+        DISPLAYSURF.blit(current_score, (SCORE_POS, SCORE_POS))
+
+        Pac_man.move()
+
+        dot_hit_list = pygame.sprite.spritecollide(Pac_man, dots, True)
+
+        for Score_Dot in dot_hit_list:
+            SCORE += 1
+        all_sprites.draw(DISPLAYSURF)
+
+        if SCORE == MAX_SCORE:
+            time.sleep(0.5)
+
+            DISPLAYSURF.fill(BLACK)
+            DISPLAYSURF.blit(game_over, (game_over_pos_x, game_over_pos_y))
+
+            pygame.display.update()
+            for entity in all_sprites:
+                entity.kill()
+            time.sleep(2)
+            pygame.quit()
+            sys.exit()
+
+    pygame.display.update()
+    FramePerSec.tick(FPS)
