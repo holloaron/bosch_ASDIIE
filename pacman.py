@@ -20,6 +20,18 @@ PACMAN_STARTING_POS_X = 160
 PACMAN_STARTING_POS_Y = 520
 PACMAN_SPEED = 5
 DOT_SIZE = (20, 20)
+MAX_SCORE = 60
+SCORE = 0
+SCORE_POS = 10
+
+#Font parameters
+FONT_SIZE = 60
+FONT_SMALL_SIZE = 20
+font = pygame.font.SysFont("Verdana", FONT_SIZE)
+font_small = pygame.font.SysFont("Verdana", FONT_SMALL_SIZE)
+game_over = font.render("Game Over", True, YELLOW)
+game_over_pos_x = 320
+game_over_pos_y = 500
 
 #Game window creation and title
 DISPLAYSURF = pygame.display.set_mode((SCREEN_SIZE, SCREEN_SIZE))
