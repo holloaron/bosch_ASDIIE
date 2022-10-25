@@ -16,25 +16,6 @@
 /*********************************************************************
 """
 
-from enum import Enum
-
-class MapElements(str, Enum):
-    Wall = '#'
-    Place = '_'
-    Door = '-'
-    Point = ' '
-    Coin = 'o'
-    PacMan = 'O'
-    Blinky = 'B' # red ghost
-    Pinky = 'P'  # pink ghost
-    Inky = 'I'   # cyan ghost
-    Clyde = 'C'  # orange ghost
-
-"""
-/*********************************************************************
-/*********************************************************************
-"""
-
 class MapData():
     def __init__(self, mapdatafile_path: str) -> None:
         self.data_set = self.load_mapdata(mapdatafile_path)
