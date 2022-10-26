@@ -50,6 +50,14 @@ Every words listed in the Commands table are valid command. Except "Commands", "
 
 </details>
 
+<details><summary><h3> Phase 2 </h3></summary>
+
+- [ ] Implement wall features on the sides
+- [ ] Extend to in-map walls (walls inside the map)
+- [ ] Game Over feature (hits wall = die)
+
+</details>
+
 ## :muscle: Collaborators
   
   - [**Amontobix**](https://github.com/Amontobix)
