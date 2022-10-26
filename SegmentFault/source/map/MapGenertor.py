@@ -16,5 +16,7 @@
 /*********************************************************************
 """
 
+from source.map import MapElements
+
 class MapGenerator():
     pass
