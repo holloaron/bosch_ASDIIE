@@ -27,6 +27,10 @@ from MapData import MapData, MapElements
 from Commands import *
 from Player import *
 
+from source import Timer
+from source.ui import Terminal
+from source.commands import *
+
 class PacMan:
     def __init__(self):
         self.stop = False
