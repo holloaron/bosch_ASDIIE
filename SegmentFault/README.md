@@ -22,7 +22,7 @@ The player controls the eponymous character through an enclosed maze. The object
 
 | Action | Key | Alias |
 | :---: | :---: | :---: |
-| Up | W | 0 |
+| Up | W | 5 |
 | Right | D | 1 |
 | Down | S | 2 |
 | Left | A | 3 |
