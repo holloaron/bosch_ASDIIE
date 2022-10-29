@@ -17,6 +17,7 @@ Short description
 """
 from turtle import right
 from Direction import Direction
+from SegmentFault.source.commands.CloseProgramCommand import CloseProgramCommand
 import cv2
 import numpy as np
 import time
@@ -59,25 +60,25 @@ class PacMan:
             
             # CHANGE DIRECTION
             if is_movement_command(user_input):
-                if user_input == Commands.SetDirection_Right:
+                if user_input == Inputs.SetDirection_Right:
                     self.player.next_direction = Direction.Right
 
-                if user_input == Commands.SetDirection_Down:
+                if user_input == Inputs.SetDirection_Down:
                     self.player.next_direction = Direction.Down
 
-                if user_input == Commands.SetDirection_Left:
+                if user_input == Inputs.SetDirection_Left:
                     self.player.next_direction = Direction.Left
 
-                if user_input == Commands.SetDirection_Up:
+                if user_input == Inputs.SetDirection_Up:
                     self.player.next_direction = Direction.Up
 
             # RESET GAME
-            if user_input == Commands.Restart:
+            if user_input == Inputs.Restart:
                 self.reset()
 
             # EXIT GAME
-            if user_input == Commands.Exit:
-                self.Clean_up_and_close()
+            if user_input == Inputs.Exit:
+                CloseProgramCommand.execute()
 
 
     def auto_step(self) -> None:
@@ -103,7 +104,7 @@ class PacMan:
 
             time_is_up = self.is_timeout(game_timeout)
 
-        self.Clean_up_and_close()
+        CloseProgramCommand.execute()
 
 
     def is_timeout(self, timelimit: int) -> bool:
@@ -295,12 +296,6 @@ class PacMan:
 
         obs_ = self.create_observation()
         return obs_.flatten()
-
-
-    def Clean_up_and_close(self) -> None:
-        """ Forces the program to shut down
-        """
-        os._exit(0)
 
 
 # program entry point
