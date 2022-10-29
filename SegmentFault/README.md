@@ -23,9 +23,9 @@ The player controls the eponymous character through an enclosed maze. The object
 | Action | Key | Alias |
 | :---: | :---: | :---: |
 | Up | W | 5 |
-| Right | D | 1 |
+| Right | D | 3 |
 | Down | S | 2 |
-| Left | A | 3 |
+| Left | A | 1 |
 
 ---
 
@@ -55,6 +55,7 @@ Every words listed in the Commands table are valid command. Except "Commands", "
 - [ ] Implement wall features on the sides
 - [ ] Extend to in-map walls (walls inside the map)
 - [ ] Game Over feature (hits wall = die)
+- [ ] Implement 3 unit tests
 
 </details>
 
