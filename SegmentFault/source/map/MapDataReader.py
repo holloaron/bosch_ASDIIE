@@ -16,12 +16,41 @@
 /*********************************************************************
 """
 
+import os
 from source.map import MapElements
+from source.map.MapData import MapData
 
 class MapDataReader():
-    def __init__(self, mapdatafile_path: str) -> None:
+    def __init__(self) -> None:
         self.data_set = self.load_mapdata(mapdatafile_path)
 
+
+    @staticmethod
+    def list_mapdatas(self) -> list[str]:
+        """ Gathers the available .mapdat filenames
+
+        @returns:
+            mapdata_files [list(str)]
+        """
+        mapdata_files = []
+
+        current_dir = os.path.dirname(__file__)
+        mapdata_dir = os.path.join(current_dir, "data/maps")
+        for mapdat in os.listdir(mapdata_dir):
+            mapdata_files.append(mapdat)
+        
+        return mapdata_files
+
+
+    def fill_mapdata(self, map: str) -> MapData:
+        """ Fills a MapData member with data
+
+        @args:
+            map [str] - label of the choosen map
+        @returns:
+            mapdata [MapData] - class member holding the mapdata
+        """
+        pass
 
     def load_mapdata(self, mapdatafile_path: str) -> list[list[str]]:
         """ Loads the mapdata from the file of the given path as lol(str)
@@ -43,7 +72,7 @@ class MapDataReader():
             if not line:
                 break
 
-            if list(line)[-1]== '\n':
+            if list(line)[-1] == '\n':
                 lines.append(list(line)[:-1])
             else:
                 lines.append(list(line))

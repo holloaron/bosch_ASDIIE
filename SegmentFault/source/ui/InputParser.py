@@ -57,6 +57,7 @@ class InputParser():
         # input cannot be parsed and there is no alias
         return Inputs.Nothing
 
+
     @staticmethod
     def parse(input: str, whitelist: list[str]) -> str:
         """ Parses the input from the console
@@ -66,8 +67,12 @@ class InputParser():
             whitelist [list(str)] - 
         @returns:
             parsed_input [str]
-        """
+        """        
+        if input.isdigit() == True:
+            if int(input) in range(whitelist):
+                return whitelist[int(input)]
+
         if input in whitelist:
             return input
-        
+
         return Inputs.Nothing
