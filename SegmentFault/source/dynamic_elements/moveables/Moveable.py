@@ -16,8 +16,8 @@ Superclass for moving object in the game
 ********************************************************************
 """
 
-from Direction import Direction
-from MapData import MapData
+from source.dynamic_elements import Direction
+from source.map import MapData
 
 
 class Movable():
