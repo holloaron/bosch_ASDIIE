@@ -15,3 +15,8 @@
 /*********************************************************************
 """
 
+class InputParser():
+
+    @staticmethod
+    def input() -> str:
+        return "K"
