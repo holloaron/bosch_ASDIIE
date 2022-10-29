@@ -24,7 +24,7 @@ from threading import Thread
 import os
 
 from source import Timer
-from source.ui import Terminal
+from source.ui import Terminal, Inputs
 from source.commands import *
 
 class PacMan:
@@ -281,36 +281,6 @@ class PacMan:
         return 0
 
 
-    def create_observation(self) -> any:
-        """
-        This funtcion creates a grayscale observation (image) from the current state of the game.
-        :return:
-        """
-        # init map
-        obs_ = np.zeros((self.mapdata.height, self.mapdata.width, 1))
-
-        # add objects
-        for obj in self.objects:
-            obs_[obj[0], obj[1], 0] = 0.25
-        
-        # add player
-        obs_[self.player.position[0], self.player.position[1], 0] = 1
-
-        # walls
-        for coord in self.mapdata.obstacles.walls:
-            obs_[coord[0], coord[1], 0] = 0.45
-        
-        # points
-        for coord in self.mapdata.collectables.points:
-            obs_[coord[0], coord[1], 0] = 0.25
-
-        # coins
-        for coord in self.mapdata.collectables.coins:
-            obs_[coord[0], coord[1], 0] = 0.35
-
-        return obs_
-
-
     def reset(self) -> any:
         # reset MapData
         self.mapdata = MapData("Map.dat")
@@ -325,27 +295,6 @@ class PacMan:
 
         obs_ = self.create_observation()
         return obs_.flatten()
-
-
-    def render(self, mode="human") -> None:
-        """
-        This function creates a cv2 plot from the current game state
-        :param mode: not used, legacy of gym environments
-        :return:
-        """
-        if self.last_obs is not None:
-            img = np.float32(self.last_obs)
-            img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-
-            # rescale original image from the grid world to visualize with OpenCv
-            for height in range(self.shown_map_height):
-                for width in range(self.shown_map_width):
-                    self.show_img[height][width] = img[height // self.map_ratio][width // self.map_ratio]
-            
-            cv2.imshow("PacMan", self.show_img)
-
-            # add wait to see the game
-            cv2.waitKey(50)
 
 
     def Clean_up_and_close(self) -> None:
