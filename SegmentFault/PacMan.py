@@ -21,7 +21,6 @@ import threading
 from source import Timer, Config
 from source.map.MapData import MapData
 from source.ui import Terminal, Inputs
-from source.commands import CloseProgramCommand
 
 class PacMan:
     def __init__(self):
