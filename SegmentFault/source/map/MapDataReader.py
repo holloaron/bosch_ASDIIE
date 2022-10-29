@@ -22,7 +22,7 @@ from source.map.MapData import MapData
 
 class MapDataReader():
     def __init__(self) -> None:
-        self.data_set = self.load_mapdata(mapdatafile_path)
+        self.data_set = None
 
 
     @staticmethod
@@ -50,7 +50,19 @@ class MapDataReader():
         @returns:
             mapdata [MapData] - class member holding the mapdata
         """
-        pass
+        mapdata = None
+
+        mapdata_paths = self.list_mapdatas()
+        mapdatafile_path = ""
+        for item in mapdata_paths:
+            # if the path contains the map string
+            if item.find(map) != -1:
+                mapdatafile_path = item
+
+        self.data_set = self.load_mapdata(mapdatafile_path)
+
+        #TODO: fill mapdata
+        
 
     def load_mapdata(self, mapdatafile_path: str) -> list[list[str]]:
         """ Loads the mapdata from the file of the given path as lol(str)
