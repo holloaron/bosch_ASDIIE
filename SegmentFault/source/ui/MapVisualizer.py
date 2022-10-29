@@ -17,8 +17,7 @@
 """
 import cv2
 import numpy as np
-from Player import Player
-from MapData import MapData
+from source.map import MapData
 
 class MapVisualizer:
     def __init__(self, mapdata: MapData, ratio: int = 10) -> None:
@@ -44,7 +43,7 @@ class GrayScale:
         self.point_color = 0.25
         self.coin_color = 0.35
 
-    def refresh_state(self, player: Player) -> any:
+    def refresh_state(self) -> any:
         """ Creates a matrix with the current game state
 
         @args:
@@ -55,7 +54,7 @@ class GrayScale:
         self.matrix = np.zeros((self.mapdata.height, self.mapdata.width, 1))
 
         # add player
-        self.matrix[player.position[0], player.position[1], 0] = self.player_color
+        self.matrix[self.mapdata.Player[0], self.mapdata.Player[1], 0] = self.player_color
 
         # add obstacles
         # walls

@@ -22,10 +22,6 @@ import numpy as np
 import time
 from threading import Thread
 import os
-from TimerThread import *
-from MapData import MapData, MapElements
-from Commands import *
-from Player import *
 
 from source import Timer
 from source.ui import Terminal

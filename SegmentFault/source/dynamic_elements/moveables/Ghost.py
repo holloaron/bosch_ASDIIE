@@ -16,13 +16,13 @@ Ghosts object definitions, movement and modes
 ********************************************************************
 """
 
-from Direction import Direction
-from MapData import MapData
-import Moveable
+import Moveable, Direction, GhostMode
 
 class Ghost(Moveable.Movable):
-    def __init__(self, mapdata: MapData, start_position: tuple[int, int], start_diretcion: Direction) -> None:
+    def __init__(self, start_position: tuple[int, int], start_diretcion: Direction) -> None:
         super(Ghost, self).__init_()
+        self.position = start_position
+        self.direction = start_diretcion
         self.mode = GhostMode.Roam
         self.root = None
 

@@ -39,6 +39,8 @@ class MapData():
         self.enemies.Inky = self.get_first_coord_of(MapElements.Inky)
         self.enemies.Clyde = self.get_first_coord_of(MapElements.Clyde)
 
+        self.Player = self.get_first_coord_of(MapElements.PacMan)
+
 class Obstacles():
     walls = []
     door = (0,0)
