@@ -24,4 +24,12 @@ class Config():
         self.Arguments = argparse.ArgumentParser(prog = "SegmentFault's Pacman")
         self.AddArguments()
     def AddArguments(self) -> None:
-        pass
+        self.Arguments.add_argument("--gamemode", "-gm", action='store',
+                                    help="Determins game type, standard/sandbox ", default="standard")
+        self.Arguments.add_argument("--timeout", "-to", '--int',
+                                    help="Determins the time in seconds after the game ends. By default it is 180 s",
+                                    default="180")
+        self.Arguments.add_argument("--mapdata", "-md", '--str',
+                                    help="The path of the mapdata container file, but generated can be used",
+                                    default="Basic.mapdat")
+        self.Arguments.add_argument("--gamespeed", "-gs", help="Value of the gamespeed", default=1)
