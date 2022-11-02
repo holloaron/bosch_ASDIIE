@@ -20,4 +20,5 @@ import argparse
 
 
 class Config():
-    pass
+    def __init__(self) -> None:
+        pass
