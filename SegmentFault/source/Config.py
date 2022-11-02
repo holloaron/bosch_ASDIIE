@@ -23,6 +23,7 @@ class Config():
     def __init__(self) -> None:
         self.Arguments = argparse.ArgumentParser(prog = "SegmentFault's Pacman")
         self.AddArguments()
+        self.GivenArguments = self.Arguments.parse_args()
     def AddArguments(self) -> None:
         self.Arguments.add_argument("--gamemode", "-gm", action='store',
                                     help="Determins game type, standard/sandbox ", default="standard")
