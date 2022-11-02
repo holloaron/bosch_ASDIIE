@@ -38,3 +38,7 @@ class Config():
     def GetGamemode(self) -> str:
         gamemode = self.GivenArguments.gamemode
         return gamemode
+
+    def GetTimeout(self) -> int:
+        Timeout = self.GivenArguments.timeout
+        return int(Timeout)
