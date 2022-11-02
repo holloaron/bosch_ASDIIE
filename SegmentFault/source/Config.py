@@ -42,3 +42,7 @@ class Config():
     def GetTimeout(self) -> int:
         Timeout = self.GivenArguments.timeout
         return int(Timeout)
+
+    def GetMapdata(self) -> str:
+        Mapdatafile = self.GivenArguments.mapdata
+        return Mapdatafile
