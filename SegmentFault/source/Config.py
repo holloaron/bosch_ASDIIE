@@ -22,3 +22,6 @@ import argparse
 class Config():
     def __init__(self) -> None:
         self.Arguments = argparse.ArgumentParser(prog = "SegmentFault's Pacman")
+
+    def AddArguments(self) -> None:
+        pass
