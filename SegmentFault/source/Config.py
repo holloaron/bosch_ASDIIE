@@ -3,14 +3,26 @@
 //*********************************************************************
 / PROJECT_NAME : PacMan
 / FILENAME     : Config.py
-/ AUTHOR       : 
+/ AUTHOR       : Pal Lorand Juhasz
 / UNIVERSITY   : BME
 / TEAM         : SegmentFault
 **********************************************************************
 **********************************************************************
 / Short description
 / --------------------------------------------------------------------
-/ 
+/
+Creates and handles arguments
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --gamemode GAMEMODE, -gm GAMEMODE
+                        Determins game type, standard/sandbox
+  --timeout TIMEOUT, -to TIMEOUT, --int TIMEOUT
+                        Determins the time in seconds after the game ends. By default it is 180 s
+  --mapdata MAPDATA, -md MAPDATA, --str MAPDATA
+                        The path of the mapdata container file, but generated can be used
+  --gamespeed GAMESPEED, -gs GAMESPEED
+                        Value of the gamespeed
 
 /*********************************************************************
 /*********************************************************************
