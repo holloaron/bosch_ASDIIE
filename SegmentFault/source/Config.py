@@ -46,3 +46,7 @@ class Config():
     def GetMapdata(self) -> str:
         Mapdatafile = self.GivenArguments.mapdata
         return Mapdatafile
+
+    def GetGamespeed(self) -> int:
+        GameSpeed = self.GivenArguments.gamespeed
+        return int(GameSpeed)
