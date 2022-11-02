@@ -34,3 +34,7 @@ class Config():
                                     help="The path of the mapdata container file, but generated can be used",
                                     default="Basic.mapdat")
         self.Arguments.add_argument("--gamespeed", "-gs", help="Value of the gamespeed", default=1)
+
+    def GetGamemode(self) -> str:
+        gamemode = self.GivenArguments.gamemode
+        return gamemode
