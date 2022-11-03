@@ -22,7 +22,11 @@ class ExtendedEnum(str, Enum):
     def list_value(cls):
         return list(map(lambda c: c.value, cls))
 
-class MapElements(str, Enum):
+    @classmethod
+    def list_name(cls):
+        return list(map(lambda c:c.name,cls))
+
+class MapElements(ExtendedEnum):
     Wall = '#'
     Place = '_'
     Door = '-'
