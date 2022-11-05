@@ -54,14 +54,14 @@ def main():
 
     visualizer = Visualizer([ghosts, pellets, pacman], canvas)
     start_game_state = PacmanGameState([pacman, pellets, ghosts, score_counter, defeat_checker])
-    game = Game(key_listener, start_game_state, visualizer)
+    game = Game(key_listener, start_game_state, visualizer, args.difficulty)
     game.run()
 
-    # stop the screen
     curses.nocbreak()
     screen.keypad(0)
     curses.echo()
     curses.endwin()
+
 
 if __name__ == "__main__":
     main()
