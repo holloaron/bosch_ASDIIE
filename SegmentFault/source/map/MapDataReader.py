@@ -24,10 +24,10 @@ from MapElements import MapElements
 from MapData import MapData
 from MapGenerator import MapGenerator
 
-class MapDataReader():
+class MapDataReader:
+
     def __init__(self) -> None:
         self.data_set = None
-
 
     @staticmethod
     def list_mapdatas(self) -> list[str]:
@@ -46,7 +46,7 @@ class MapDataReader():
         return mapdata_files
 
 
-    def fill_mapdata(self, map: str) -> MapData:
+    def fill_mapdata(self, map=None):
         """ Fills a MapData member with data
 
         @args:
@@ -55,15 +55,14 @@ class MapDataReader():
             mapdata [MapData] - class member holding the mapdata
         """
         mapdata = None
-
-        mapdata_paths = self.list_mapdatas()
-        mapdatafile_path = ""
-        for item in mapdata_paths:
-            # if the path contains the map string
-            if item.find(map) != -1:
-                mapdatafile_path = item
-
-        self.data_set = self.load_mapdata(mapdatafile_path)
+        mapdatafile_path = None
+        if not map is None:
+            mapdata_paths = self.list_mapdatas()
+            for item in mapdata_paths:
+                # if the path contains the map string
+                if item.find(map) != -1:
+                    mapdatafile_path = item
+            self.data_set = self.load_mapdata(mapdatafile_path)
 
         #TODO: fill mapdata
         
