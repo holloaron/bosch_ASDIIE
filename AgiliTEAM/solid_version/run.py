@@ -52,7 +52,7 @@ def main():
     else:
         raise NotImplementedError
 
-    visualizer = Visualizer([snake], ConsoleCanvas(MapSize(HEIGHT, WIDTH), screen))
+    visualizer = Visualizer([ghosts, pellets, pacman], canvas)
     start_game_state = SnakeGameState([snake])
     game = Game(key_listener, start_game_state, visualizer)
     game.run()
