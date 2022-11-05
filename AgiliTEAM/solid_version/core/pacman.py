@@ -12,7 +12,7 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize, Coordinates
 class Pacman(GameElement, Visualizable):
 
     def __init__(self,
-                 body: Deque[Coordinates] = None,
+                 body: List[Coordinates] = None,
                  starting_direction: KeyEvent = KeyEvent.RIGHT,
                  map_size: MapSize = None):
         if body is None:
