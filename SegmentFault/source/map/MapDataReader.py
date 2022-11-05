@@ -150,13 +150,3 @@ class MapDataReader:
         """
 
         return self.generated_map.get_obsacle_coordinates(element)
-
-            y = 0
-            for j in self.data_set[i]:
-                if j == element.value:
-                    result.append((x,y))
-                y += 1
-
-            x +=1
-
-        return result
