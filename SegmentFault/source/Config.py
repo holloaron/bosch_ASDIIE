@@ -100,6 +100,13 @@ class Config():
         GameSpeed = self.GivenArguments.gamespeed
         return int(GameSpeed)
 
+    """ Returns the value of the flags given to the program upon starting it
+    @args:
+        self
+
+    @return:
+            tuple - containing: gamemode, Timeout, Mapdatafile, GameSpeed
+    """
     def Getsettings(self) -> tuple:
         gamemode = self.GetGamemode()
         Timeout = self.GetTimeout()
