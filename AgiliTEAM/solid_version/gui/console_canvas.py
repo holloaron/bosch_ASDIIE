@@ -33,7 +33,7 @@ class ConsoleCanvas(Canvas):
 
     def draw_dots(self, coordinates: List[Coordinates], obj_type: str = None):
         for dot in coordinates:
-            self.map[dot.row][dot.col] = "x"
+            self.map[dot.row][dot.col] = self.OBJECT_MARKERS[obj_type]
 
     def render(self):
         for num_row, row in enumerate(self.map):
