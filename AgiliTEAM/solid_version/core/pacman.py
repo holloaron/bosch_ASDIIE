@@ -8,13 +8,6 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.visualizable import Visualizable
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.canvas import Canvas
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize, Coordinates
 
-class MovingTransformation:
-    """
-    A class for handling keyboard events during playing
-    """
-    def __init__(self, direction: KeyEvent, map_size: MapSize):
-        self.direction = direction
-        self.map_size = map_size
 
     def __call__(self, coordinates: Coordinates) -> Coordinates:
         if self.direction == KeyEvent.UP:
