@@ -6,10 +6,6 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.visualizer import Visualizer
 
 
 class Game:
-    """
-    Class for the game, managing it from start to end
-    """
-    GAME_SPEED = 0.4
 
     def __init__(self,
                  keyboard_listener: KeyboardListener,
