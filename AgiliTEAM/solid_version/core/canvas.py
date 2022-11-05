@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from bosch_ASDIIE.solid_version.core.map import Coordinates
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import Coordinates
 
 
 class Canvas(ABC):
