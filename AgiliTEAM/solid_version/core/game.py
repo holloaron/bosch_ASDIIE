@@ -11,11 +11,13 @@ class Game:
                  keyboard_listener: KeyListener,
                  game_state: PacmanGameState,
                  visualizer: Visualizer,
+                 game_speed: float,
                  ):
 
         self.keyboard_listener = keyboard_listener
         self.game_state = game_state
         self.visualizer = visualizer
+        self.game_speed = game_speed
 
     def run(self):
         can_continue = True
