@@ -45,6 +45,8 @@ def main():
     pellets = Pellets(map_size=MapSize(HEIGHT, WIDTH), num_pellets=args.num_pellets, known_pos=[pacman.pos])
     ghosts = Ghosts(map_size=MapSize(HEIGHT, WIDTH), num_ghosts=args.num_ghosts, known_pos=[pacman.pos, pellets.pos])
     score_counter = ScoreCounter(base_score=args.base_score, difficulty=args.difficulty, pacman=pacman, pellets=pellets)
+    defeat_checker = DefeatChecker(pacman=pacman, ghosts=ghosts)
+
     visualizer = Visualizer([snake], ConsoleCanvas(MapSize(HEIGHT, WIDTH), screen))
     start_game_state = SnakeGameState([snake])
     game = Game(key_listener, start_game_state, visualizer)
