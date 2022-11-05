@@ -18,7 +18,7 @@ Driver class and main script for our program
 
 import os
 import threading
-from source import Timer, Config
+from source import TimerThread, Config
 from source.map.MapData import MapData
 from source.ui import Terminal, Inputs
 
@@ -26,7 +26,8 @@ class PacMan:
     def __init__(self):
         self.terminal = Terminal()
         self.config = Config()
-        self.timer = Timer()
+        self.GAMEMODE, self.TIMEOUTLIMIT, self.MAPDATA, self.GAMESPEED = Config.Getsettings()
+        self.Timer = TimeCounter(self.TIMEOUTLIMIT)
 
 
         self.show_menu()
