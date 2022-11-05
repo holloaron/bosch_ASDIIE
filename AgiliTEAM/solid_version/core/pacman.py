@@ -42,11 +42,8 @@ class Pacman(GameElement, Visualizable):
         self.moving_transformation.direction = key_event
 
     def tick(self):
-        self.body_parts.popleft()
-        new_head = self.moving_transformation(self.body_parts[-1])
-        if new_head in self.body_parts:
-            return False
-        self.body_parts.append(new_head)
+        self.pos = [self.moving_transformation(self.pos[0])]
+
         return True
 
     def draw(self, canvas: Canvas):
