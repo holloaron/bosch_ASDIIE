@@ -1,3 +1,7 @@
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_event import KeyEvent
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize, Coordinates
+
+
 class MovingTransformation:
     """
     A class for handling keyboard events during playing
