@@ -5,6 +5,14 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman import Pacman
 
 
 class DefeatChecker(GameElement):
+
+    def __init__(self,
+                 pacman: Pacman,
+                 ghosts: Ghosts,
+                 ):
+        self.pacman = pacman
+        self.ghosts = ghosts
+
     def take_action(self, key_event: KeyEvent):
         pass
 
