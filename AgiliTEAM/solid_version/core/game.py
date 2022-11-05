@@ -8,8 +8,8 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.visualizer import Visualizer
 class Game:
 
     def __init__(self,
-                 keyboard_listener: KeyboardListener,
-                 game_state: SnakeGameState,
+                 keyboard_listener: KeyListener,
+                 game_state: PacmanGameState,
                  visualizer: Visualizer,
                  ):
 
