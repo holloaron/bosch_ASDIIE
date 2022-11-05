@@ -35,11 +35,10 @@ def main():
     arg_parser.add_argument("--base_score", type=int, default=BASE_SCORE)
     args = arg_parser.parse_args()
 
-    # using curses lib for proper keyboard-canvas interaction through SSH
     screen = Screen()
     curses.cbreak()
 
-    key_listener = KeyboardListener()
+    key_listener = KeyListener()
     key_listener.start(screen)
 
     snake = Snake(map_size=MapSize(HEIGHT, WIDTH))
