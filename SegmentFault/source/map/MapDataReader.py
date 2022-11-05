@@ -3,22 +3,26 @@
 //*********************************************************************
 / PROJECT_NAME : PacMan
 / FILENAME     : MapDataReader.py
-/ AUTHOR       : 
+/ AUTHOR       : Gergely Őri
 / UNIVERSITY   : BME
 / TEAM         : SegmentFault
 **********************************************************************
 **********************************************************************
 / Short description
 / --------------------------------------------------------------------
-/ Data provider, from selected local .mapdat files
+/ Data provider, from selected local .mapdat files, or with a basic
+map
 
 /*********************************************************************
 /*********************************************************************
 """
 
 import os
-from source.map import MapElements
-from source.map.MapData import MapData
+from typing import Callable, List
+
+from MapElements import MapElements
+from MapData import MapData
+from MapGenerator import MapGenerator
 
 class MapDataReader():
     def __init__(self) -> None:
