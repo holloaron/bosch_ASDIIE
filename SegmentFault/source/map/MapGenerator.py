@@ -20,25 +20,24 @@ from typing import List
 from MapElements import MapElements
 
 class MapGenerator:
-    def __init__(self, dataset: list[list[str]]):
+    def __init__(self, dataset=None):
         if dataset==None:
             self.generate_basic_map()
         else:
             self.dataset=dataset
-        self.mapelements=MapElements.list_value()
+        self.map_elements=MapElements.list_value()
         self.element_names=MapElements.list_name()
-        self.element_coordinates=[[]for element_count in range(len(self.mapelements))]
+        self.element_coordinates=[[] for element_count in range(len(self.map_elements))]
         self.translate_dataset()
 
     def translate_dataset(self):
          for map_row in range(len(self.dataset)):
              for map_column in range(len(self.dataset[map_row])):
-                 for element_count in range(len(self.mapelements)):
-                    if self.dataset[map_row][map_column]==self.mapelements[element_count]:
-                     #print(self.element_names[k])
+                 for element_count in range(len(self.map_elements)):
+                    if self.dataset[map_row][map_column]==self.map_elements[element_count]:
                      self.element_coordinates[element_count].append([map_row,map_column])
 
-    def get_coordinates(self):
+    def get_coordinates(self)-> list[list[tuple[int,int]]]:
         return self.element_coordinates
 
     def get_obsacle_coordinates(self, obstacle: MapElements) ->list[tuple[int,int]]:
@@ -46,10 +45,13 @@ class MapGenerator:
             return self.element_coordinates[self.element_names.index(obstacle.name)]
 
     def generate_basic_map(self):
+        """ Generate a 27*27 size Map, walls on the borders of the map and points inside the borders
+
+            @args:
+            self
+        """
         first_and_last_row = MapElements.Wall.value * 27
-        inner_row = MapElements.Wall.value
-        inner_row=inner_row.join(MapElements.Point.value*25)
-        inner_row=inner_row.join(MapElements.Wall.value)
+        inner_row = MapElements.Wall.value+MapElements.Point.value*25+MapElements.Wall.value
         self.dataset = [first_and_last_row, inner_row,first_and_last_row]
         for added_row in range(len(first_and_last_row)-3):
             self.dataset.insert(1,inner_row)
