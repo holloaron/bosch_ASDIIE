@@ -12,6 +12,11 @@ class ScoreCounter(GameElement):
                  pacman: Pacman,
                  pellets: Pellets,
                  ):
+        self.score_pellet = base_score * difficulty
+        self.pacman = pacman
+        self.pellets = pellets
+
+        self.score = 0
 
     def take_action(self, key_event: KeyEvent):
         pass
