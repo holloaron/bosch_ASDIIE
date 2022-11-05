@@ -17,4 +17,8 @@ class DefeatChecker(GameElement):
         pass
 
     def tick(self) -> bool:
-        pass
+        for i in range(len(self.ghosts.pos)):
+            if self.pacman.pos[0] == self.ghosts.pos[i]:
+                return False
+
+        return True
