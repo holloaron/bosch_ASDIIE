@@ -14,8 +14,14 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.screen import Screen
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.score_counter import ScoreCounter
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.defeat_checker import DefeatChecker
 
-WIDTH = 20
-HEIGHT = 20
+# Defaults
+WIDTH = 10
+HEIGHT = 10
+GUI = 'console'
+DIFFICULTY = 0.5
+PELLETS = 10
+GHOSTS = 4
+BASE_SCORE = 10
 
 
 def main():
