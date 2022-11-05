@@ -26,7 +26,7 @@ class KeyListener:
         while not self.stopped:
             try:
                 key = self.screen.getkey()
-                if key in self.KEYPRESS_TO_KEY_EVENT:
+                if key in self.KEY_PRESS_TO_KEY_EVENT:
                     self.last_key = key
             except:
                 pass
@@ -51,6 +51,7 @@ class KeyListener:
         if self.last_key is None:
             raise ValueError("KeyBoardListener has not noticed "
                              "any key event that could be read.")
-        key_event = self.KEYPRESS_TO_KEY_EVENT[self.last_key]
+        key_event = self.KEY_PRESS_TO_KEY_EVENT[self.last_key]
         self.last_key = None
+
         return key_event
