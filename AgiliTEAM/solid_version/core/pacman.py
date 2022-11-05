@@ -1,12 +1,12 @@
-from collections import deque
-from typing import Deque
+import numpy as np
+from typing import List
 
-from bosch_ASDIIE.solid_version.core.canvas import Canvas
-from bosch_ASDIIE.solid_version.core.game_element import GameElement
-from bosch_ASDIIE.solid_version.core.key_event import KeyEvent
-from bosch_ASDIIE.solid_version.core.map import Coordinates, MapSize
-from bosch_ASDIIE.solid_version.core.visualizable import Visualizable
-
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element import GameElement
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_event import KeyEvent
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.move import MovingTransformation
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.visualizable import Visualizable
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.canvas import Canvas
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize, Coordinates
 
 class MovingTransformation:
     """
