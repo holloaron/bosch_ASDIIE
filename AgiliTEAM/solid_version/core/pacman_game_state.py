@@ -4,10 +4,8 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element import GameElement
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_event import KeyEvent
 
 
-class SnakeGameState:
-    """
-    A class for managing the game state, handling actions of the game elements
-    """
+class PacmanGameState:
+
     def __init__(self, game_elements: List[GameElement]):
         self.game_elements = game_elements
         self._can_game_continue = True
