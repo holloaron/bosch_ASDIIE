@@ -10,6 +10,12 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize, Coordinates
 
 class Ghosts(GameElement, Visualizable):
 
+    def __init__(self,
+                 map_size: MapSize = None,
+                 num_ghosts: int = 4,
+                 known_pos: List[List[Coordinates]] = None,
+                 ):
+
     def take_action(self, key_event: KeyEvent):
         pass
 
