@@ -25,6 +25,17 @@ class Ghosts(GameElement, Visualizable):
 
         self.pos = self.generate_pos(num_of_pos=num_ghosts, map_size=map_size)
 
+    def generate_pos(self, num_of_pos: int, map_size: MapSize) -> List[Coordinates]:
+        pos_list = []
+        for _ in range(num_of_pos):
+            pos = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
+            while pos in self.known_pos:
+                pos = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
+            pos_list.append(pos)
+            self.known_pos.append(pos)
+
+        return pos_list
+
     def take_action(self, key_event: KeyEvent):
         pass
 
