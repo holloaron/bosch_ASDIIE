@@ -9,6 +9,13 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize, Coordinates
 
 
 class Pellets(GameElement, Visualizable):
+
+    def __init__(self,
+                 map_size: MapSize = None,
+                 num_pellets: int = 10,
+                 known_pos: List[List[Coordinates]] = None,
+                 ):
+
     def take_action(self, key_event: KeyEvent):
         pass
 
