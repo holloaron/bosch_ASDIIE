@@ -16,8 +16,17 @@
 /*********************************************************************
 """
 from enum import Enum
+class ExtendedEnum(str, Enum):
 
-class MapElements(str, Enum):
+    @classmethod
+    def list_value(cls):
+        return list(map(lambda c: c.value, cls))
+
+    @classmethod
+    def list_name(cls):
+        return list(map(lambda c:c.name,cls))
+
+class MapElements(ExtendedEnum):
     Wall = '#'
     Place = '_'
     Door = '-'
