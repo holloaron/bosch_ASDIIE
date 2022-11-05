@@ -43,6 +43,7 @@ def main():
 
     pacman = Pacman(map_size=MapSize(HEIGHT, WIDTH))
     pellets = Pellets(map_size=MapSize(HEIGHT, WIDTH), num_pellets=args.num_pellets, known_pos=[pacman.pos])
+    ghosts = Ghosts(map_size=MapSize(HEIGHT, WIDTH), num_ghosts=args.num_ghosts, known_pos=[pacman.pos, pellets.pos])
     visualizer = Visualizer([snake], ConsoleCanvas(MapSize(HEIGHT, WIDTH), screen))
     start_game_state = SnakeGameState([snake])
     game = Game(key_listener, start_game_state, visualizer)
