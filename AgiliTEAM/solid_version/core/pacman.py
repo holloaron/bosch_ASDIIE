@@ -20,7 +20,8 @@ class Pacman(GameElement, Visualizable):
         if known_pos is not None:
             self.known_pos = [item for sublist in known_pos for item in sublist]
         else:
-            self.body_parts = body
+            self.known_pos = []
+
         if map_size is None:
             map_size = MapSize(10, 10)
 
