@@ -7,9 +7,12 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.screen import Screen
 
 
 class ConsoleCanvas(Canvas):
-    """
-    The canvas class for the console version
-    """
+
+    OBJECT_MARKERS = {
+        "pacman": '@',
+        "ghosts": 'x',
+        "pellets": 'o'
+    }
 
     def __init__(self,
                  map_size: MapSize,
