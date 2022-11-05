@@ -1,8 +1,8 @@
 import time
 
-from bosch_ASDIIE.solid_version.core.key_listener import KeyboardListener
-from bosch_ASDIIE.solid_version.core.snake_game_state import SnakeGameState
-from bosch_ASDIIE.solid_version.core.visualizer import Visualizer
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_listener import KeyListener
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman_game_state import PacmanGameState
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.visualizer import Visualizer
 
 
 class Game:
