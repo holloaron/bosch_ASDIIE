@@ -37,10 +37,11 @@ class Ghosts(GameElement, Visualizable):
         return pos_list
 
     def take_action(self, key_event: KeyEvent):
+        # TODO: ghost moves
         pass
 
     def tick(self) -> bool:
-        pass
+        return True
 
     def draw(self, canvas: Canvas):
         pass
