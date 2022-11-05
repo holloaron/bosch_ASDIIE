@@ -3,11 +3,9 @@ import threading
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_event import KeyEvent
 
 
-class KeyboardListener:
-    """
-    Keyboard listener class for the keyboard events, usable in remote environments, in a side-thread
-    """
-    KEYPRESS_TO_KEY_EVENT = {
+class KeyListener:
+
+    KEY_PRESS_TO_KEY_EVENT = {
         "KEY_UP": KeyEvent.UP,
         "KEY_DOWN": KeyEvent.DOWN,
         "KEY_LEFT": KeyEvent.LEFT,
