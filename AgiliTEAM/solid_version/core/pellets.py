@@ -40,7 +40,7 @@ class Pellets(GameElement, Visualizable):
         pass
 
     def tick(self) -> bool:
-        pass
+        return True
 
     def draw(self, canvas: Canvas):
         pass
