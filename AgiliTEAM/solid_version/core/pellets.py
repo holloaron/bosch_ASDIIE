@@ -43,4 +43,4 @@ class Pellets(GameElement, Visualizable):
         return True
 
     def draw(self, canvas: Canvas):
-        pass
+        canvas.draw_dots(coordinates=self.pos, obj_type='pellets')
