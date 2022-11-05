@@ -41,7 +41,7 @@ def main():
     key_listener = KeyListener()
     key_listener.start(screen)
 
-    snake = Snake(map_size=MapSize(HEIGHT, WIDTH))
+    pacman = Pacman(map_size=MapSize(HEIGHT, WIDTH))
     visualizer = Visualizer([snake], ConsoleCanvas(MapSize(HEIGHT, WIDTH), screen))
     start_game_state = SnakeGameState([snake])
     game = Game(key_listener, start_game_state, visualizer)
