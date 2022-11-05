@@ -32,7 +32,7 @@ import argparse
 
 
 class Config():
-    
+
     def __init__(self) -> None:
         self.Arguments = argparse.ArgumentParser(prog = "SegmentFault's Pacman")
         self.AddArguments()
@@ -99,3 +99,10 @@ class Config():
     def GetGamespeed(self) -> int:
         GameSpeed = self.GivenArguments.gamespeed
         return int(GameSpeed)
+
+    def Getsettings(self) -> tuple:
+        gamemode = self.GetGamemode()
+        Timeout = self.GetTimeout()
+        Mapdatafile = self.GetMapdata()
+        GameSpeed = self.GetGamespeed()
+        return gamemode, Timeout, Mapdatafile, GameSpeed
