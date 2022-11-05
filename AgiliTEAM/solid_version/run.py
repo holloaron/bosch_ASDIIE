@@ -25,9 +25,14 @@ BASE_SCORE = 10
 
 
 def main():
-    # arg parser
     arg_parser = ArgumentParser()
-    arg_parser.add_argument("--gui", type=str, default="console")
+    arg_parser.add_argument("--gui", type=str, default=GUI)
+    arg_parser.add_argument("--map_width", type=int, default=WIDTH)
+    arg_parser.add_argument("--map_height", type=int, default=HEIGHT)
+    arg_parser.add_argument("--difficulty", type=float, default=DIFFICULTY)
+    arg_parser.add_argument("--num_pellets", type=int, default=PELLETS)
+    arg_parser.add_argument("--num_ghosts", type=int, default=GHOSTS)
+    arg_parser.add_argument("--base_score", type=int, default=BASE_SCORE)
     args = arg_parser.parse_args()
 
     # using curses lib for proper keyboard-canvas interaction through SSH
