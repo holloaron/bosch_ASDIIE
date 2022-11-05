@@ -14,16 +14,21 @@ class Pacman(GameElement, Visualizable):
     def __init__(self,
                  body: List[Coordinates] = None,
                  starting_direction: KeyEvent = KeyEvent.RIGHT,
-                 map_size: MapSize = None):
-        if body is None:
-            self.body_parts = deque([
-                Coordinates(0, 1), Coordinates(0, 2), Coordinates(0, 3),
-                Coordinates(0, 4), Coordinates(0, 5)
-            ])
+                 map_size: MapSize = None,
+                 known_pos: List[List[Coordinates]] = None,
+                 ):
+        if known_pos is not None:
+            self.known_pos = [item for sublist in known_pos for item in sublist]
         else:
             self.body_parts = body
         if map_size is None:
             map_size = MapSize(10, 10)
+
+        if body is None:
+            self.pos = self.generate_pos(1, map_size)
+        else:
+            self.pos = body
+
         self.moving_transformation = MovingTransformation(starting_direction, map_size)
 
     def take_action(self, key_event: KeyEvent):
