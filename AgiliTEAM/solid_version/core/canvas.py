@@ -6,7 +6,7 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import Coordinates
 
 class Canvas(ABC):
     @abstractmethod
-    def draw_dots(self, coordinates: List[Coordinates]):
+    def draw_dots(self, coordinates: List[Coordinates], obj_type: str = None):
         pass
 
     @abstractmethod
