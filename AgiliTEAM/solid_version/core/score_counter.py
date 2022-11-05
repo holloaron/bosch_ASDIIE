@@ -22,4 +22,10 @@ class ScoreCounter(GameElement):
         pass
 
     def tick(self) -> bool:
-        pass
+        for i in range(len(self.pellets.pos)):
+            if self.pacman.pos[0] == self.pellets.pos[i]:
+                self.score += self.score_pellet
+                self.pellets.pos.pop(i)
+                break
+
+        return True
