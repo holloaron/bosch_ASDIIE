@@ -21,6 +21,7 @@ class Game:
 
     def run(self):
         can_continue = True
+
         while can_continue:
             if self.keyboard_listener.has_happened():
                 key_event = self.keyboard_listener.read_last_key_event()
@@ -28,4 +29,4 @@ class Game:
             self.game_state.step()
             can_continue = not self.game_state.is_terminated()
             self.visualizer.render()
-            time.sleep(self.GAME_SPEED)
+            time.sleep(self.game_speed)
