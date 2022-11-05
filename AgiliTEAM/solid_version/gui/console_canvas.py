@@ -31,7 +31,7 @@ class ConsoleCanvas(Canvas):
         self.map = self._get_empty_map()
         self.crs_screen.clear()
 
-    def draw_dots(self, coordinates: List[Coordinates]):
+    def draw_dots(self, coordinates: List[Coordinates], obj_type: str = None):
         for dot in coordinates:
             self.map[dot.row][dot.col] = "x"
 
