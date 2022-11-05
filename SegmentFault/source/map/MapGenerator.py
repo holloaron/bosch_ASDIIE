@@ -65,12 +65,3 @@ class MapGenerator:
                 return True
 
         return False
-
-
-
-
-
-if __name__ == "__main__":
-    db = None
-    trial = MapGenerator(db)
-    print(trial.element_coordinates)
