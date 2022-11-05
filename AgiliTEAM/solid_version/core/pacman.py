@@ -9,28 +9,8 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.canvas import Canvas
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize, Coordinates
 
 
-    def __call__(self, coordinates: Coordinates) -> Coordinates:
-        if self.direction == KeyEvent.UP:
-            new_row = (coordinates.row - 1) % self.map_size.row_num
-            return Coordinates(new_row, coordinates.col)
-        elif self.direction == KeyEvent.LEFT:
-            new_col = (coordinates.col - 1) % self.map_size.col_num
-            return Coordinates(coordinates.row, new_col)
-        elif self.direction == KeyEvent.DOWN:
-            new_row = (coordinates.row + 1) % self.map_size.row_num
-            return Coordinates(new_row, coordinates.col)
-        elif self.direction == KeyEvent.RIGHT:
-            new_col = (coordinates.col + 1) % self.map_size.col_num
-            return Coordinates(coordinates.row, new_col)
-        else:
-            raise ValueError(f"There is no moving forward {self.direction} direction.")
+class Pacman(GameElement, Visualizable):
 
-
-class Snake(GameElement, Visualizable):
-    """
-    A game element and visualizable class, for handling snake movement mainly,
-    but visualizing is also represented here
-    """
     def __init__(self,
                  body: Deque[Coordinates] = None,
                  starting_direction: KeyEvent = KeyEvent.RIGHT,
