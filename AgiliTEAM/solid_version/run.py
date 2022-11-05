@@ -47,6 +47,11 @@ def main():
     score_counter = ScoreCounter(base_score=args.base_score, difficulty=args.difficulty, pacman=pacman, pellets=pellets)
     defeat_checker = DefeatChecker(pacman=pacman, ghosts=ghosts)
 
+    if args.gui == 'console':
+        canvas = ConsoleCanvas(MapSize(args.map_width, args.map_height), screen)
+    else:
+        raise NotImplementedError
+
     visualizer = Visualizer([snake], ConsoleCanvas(MapSize(HEIGHT, WIDTH), screen))
     start_game_state = SnakeGameState([snake])
     game = Game(key_listener, start_game_state, visualizer)
