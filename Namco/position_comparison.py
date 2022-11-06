@@ -39,3 +39,8 @@ class PositionComparison:
                 self.score += 1
                 self.dots.remove(dot)
 
+        for wall in self.wall:
+            if wall == tuple(self.pacman):
+                # If Pacman moved on a wall, terminate game
+                self.wall_hit = true
+
