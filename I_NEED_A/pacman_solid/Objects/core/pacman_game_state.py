@@ -4,7 +4,7 @@ from Objects.core.game_element import GameElement
 from Objects.core.get_action import KeyEvent
 
 
-class SnakeGameState:
+class PacmanGameState:
     """
     A class for managing the game state, handling actions of the game elements
     """
