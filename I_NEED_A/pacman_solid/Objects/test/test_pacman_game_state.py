@@ -1,0 +1,1 @@
+"""Test script for pac-man game state"""
