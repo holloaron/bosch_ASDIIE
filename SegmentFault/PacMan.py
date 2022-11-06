@@ -18,15 +18,17 @@ Driver class and main script for our program
 
 import os
 import threading
-from source import Timer, Config
+from source import TimerThread, Config
 from source.map.MapData import MapData
 from source.ui import Terminal, Inputs
 
 class PacMan:
     def __init__(self):
         self.terminal = Terminal()
-        self.timer = Timer()
         self.config = Config()
+        self.GAMEMODE, self.TIMEOUTLIMIT, self.MAPDATA, self.GAMESPEED = Config.Getsettings()
+        self.Timer = TimeCounter(self.TIMEOUTLIMIT)
+
 
         self.show_menu()
 
@@ -101,19 +103,7 @@ class PacMan:
         while not game_over:
             pass
 
-    def is_timeout(self, timelimit: int) -> bool:
-        """ Determines if the timelimit for the game is passed or not
 
-        @args:
-            timelimit [int] - the timelimit for the game
-        @return:
-            True, if the given timelimit in secunds is up
-        """
-        if self.Stopper.seconds_passed >= timelimit:
-            print(f"You have reached the:  {timelimit} s time limit")
-            return True
-        else:
-            False
 
 
     def step(self) -> tuple[any, int, bool]:

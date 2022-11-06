@@ -24,7 +24,7 @@ class TimeCounter(threading.Thread):
     @args:
         threading.Thread
     """
-    def __init__(self, *args, **kwargs):
+    def __init__(self, timelimit, *args, **kwargs):
         """ Inits the timer variables
         
         @args:
@@ -38,6 +38,7 @@ class TimeCounter(threading.Thread):
         self._running = threading.Event()  # stop thread identification
         self._running.set()  # set running to True
         self._seconds_passed = 0  # value to track passed seconds
+        self.TimeoutLimit = timelimit
 
 
     def run(self):
@@ -93,3 +94,17 @@ class TimeCounter(threading.Thread):
     @property
     def seconds_passed(self):
         return self._seconds_passed
+
+    def is_timeout(self) -> bool:
+        """ Determines if the timelimit for the game is passed or not
+
+        @args:
+                self
+        @return:
+            True, if the given timelimit in secunds is up
+        """
+        if self.seconds_passed >= self.TimeoutLimit:
+            print(f"You have reached the:  {self.TimeoutLimit} s time limit")
+            return True
+        else:
+            False

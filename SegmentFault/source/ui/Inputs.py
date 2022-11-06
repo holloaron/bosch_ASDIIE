@@ -18,6 +18,7 @@
 from enum import Enum
 
 class Imputs(str, Enum):
+
     SetDirection_Up = 'w'
     SetDirection_Right = 'd'
     SetDirection_Down = 's'
