@@ -15,3 +15,7 @@ class PacmanGameState:
 
     def is_terminated(self):
         return not self._can_game_continue
+
+    def take_action(self, key_event: KeyEvent):
+        for game_element in self.game_elements:
+            game_element.take_action(key_event)
