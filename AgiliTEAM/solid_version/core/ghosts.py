@@ -1,11 +1,15 @@
 from typing import List
 import numpy as np
+import math
 
 from solid_version.core.key_event import KeyEvent
 from solid_version.core.game_element import GameElement
 from solid_version.core.visualizable import Visualizable
+from solid_version.core.move import MovingTransformation
 from solid_version.core.canvas import Canvas
 from solid_version.core.map import MapSize, Coordinates
+
+GHOST_START_DIRECTION = KeyEvent.RIGHT
 
 
 class Ghosts(GameElement, Visualizable):
@@ -23,7 +27,9 @@ class Ghosts(GameElement, Visualizable):
         if map_size is None:
             map_size = MapSize(10, 10)
 
+        self.event = GHOST_START_DIRECTION
         self.pos = self.generate_pos(num_of_pos=num_ghosts, map_size=map_size)
+        self.moving_transformation_ghost = MovingTransformation(self.event, map_size)
 
     def generate_pos(self, num_of_pos: int, map_size: MapSize) -> List[Coordinates]:
         pos_list = []
@@ -36,12 +42,30 @@ class Ghosts(GameElement, Visualizable):
 
         return pos_list
 
-    def take_action(self, key_event: KeyEvent, pacman_position: Coordinates):
-        # TODO: ghost moves
+    def take_action(self, pacman_position: Coordinates):
+        for i in range(len(self.pos)):
+            current_ghost_pos = self.pos[i]
+            ghost_pacman_angle = math.atan2((pacman_position.row - current_ghost_pos.row),
+                                            (pacman_position.col - current_ghost_pos.col))
+            step_in_x = math.cos(ghost_pacman_angle)
+            step_in_y = math.sin(ghost_pacman_angle)
+            is_it_vertical_step = True if abs(step_in_x) < abs(step_in_y) else False
+            greater_direction_component = step_in_y if abs(step_in_x) < abs(step_in_y) else step_in_x
 
-        pass
+            if 0 > greater_direction_component and is_it_vertical_step:
+                self.event = KeyEvent.UP
+            elif 0 < greater_direction_component and is_it_vertical_step:
+                self.event = KeyEvent.DOWN
+            elif 0 > greater_direction_component and not is_it_vertical_step:
+                self.event = KeyEvent.LEFT
+            elif 0 < greater_direction_component and not is_it_vertical_step:
+                self.event = KeyEvent.RIGHT
 
-    def tick(self) -> bool:
+            self.moving_transformation_ghost.direction = self.event
+            self.pos[i] = self.moving_transformation_ghost(self.pos[i])
+
+    def tick(self, pacman_position: Coordinates) -> bool:
+        self.take_action(pacman_position)
         return True
 
     def draw(self, canvas: Canvas):
