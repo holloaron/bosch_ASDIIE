@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple, Union
 import cv2
 import numpy as np
 np.random.seed(0)
@@ -211,7 +211,7 @@ class Pacman:
 
         self.step_counter += 1
 
-    def _set_action(self, action: int | None) -> None:
+    def _set_action(self, action: Union[int, None]) -> None:
         """
         This function coordinates the modification of the 'orientation' variable based on user and timer (To be
         implemented...) input.
