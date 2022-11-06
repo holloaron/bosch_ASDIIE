@@ -45,8 +45,7 @@ class Pacman(GameElement, Visualizable):
                  map_size: MapSize = None):
         if body is None:
             self.body_parts = deque([
-                Coordinates(0, 1), Coordinates(0, 2), Coordinates(0, 3),
-                Coordinates(0, 4), Coordinates(0, 5)
+                Coordinates(0, 1)
             ])
         else:
             self.body_parts = body
