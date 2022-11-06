@@ -1,1 +1,1 @@
-"""Test script for pac-man game state"""
+"""Test script for pac-man game state."""
