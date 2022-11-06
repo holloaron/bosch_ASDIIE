@@ -29,3 +29,10 @@ class KeyListener:
                     self.last_key = key
             except:
                 pass
+
+    def stop(self):
+        self.stopped = True
+        self.thread.join()
+
+        self.screen.timeout(-1)
+        self.screen = None
