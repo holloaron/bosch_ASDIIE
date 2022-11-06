@@ -1,5 +1,5 @@
 from collections import namedtuple
 
 #actual position of pacman
-Coordinates = namedtuple("Coordinates", ("x_coord", "x_coord"))
-MapSize = namedtuple("MapSize", ("width", "Height"))
+Coordinates = namedtuple("Coordinates", ("row", "col"))
+MapSize = namedtuple("MapSize", ("row_num", "col_num"))

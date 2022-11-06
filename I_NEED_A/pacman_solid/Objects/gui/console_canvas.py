@@ -16,7 +16,7 @@ class ConsoleCanvas(Canvas):
                  curses_screen: Screen):
 
         self.width = map_size.col_num + 1
-        self.height = map_size.col_num + 1
+        self.height = map_size.row_num + 1
         self.crs_screen = curses_screen
         self.map = self._get_empty_map()
 
@@ -29,8 +29,7 @@ class ConsoleCanvas(Canvas):
         self.crs_screen.clear()
 
     def draw_dots(self, coordinates: List[Coordinates]):
-        for dot in coordinates:
-            self.map[dot.row][dot.col] = "x"
+        self.map[coordinates.row][coordinates.col] = "x"
 
     def render(self):
         for num_row, row in enumerate(self.map):

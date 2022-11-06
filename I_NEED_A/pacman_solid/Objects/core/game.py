@@ -1,7 +1,7 @@
 import time
 
 from Objects.core.step import KeyboardListener
-from Objects.core.pacman_game_state  import SnakeGameState
+from Objects.core.pacman_game_state  import PacmanGameState
 from Objects.core.visualizer import Visualizer
 
 
@@ -13,7 +13,7 @@ class Game:
 
     def __init__(self,
                  keyboard_listener: KeyboardListener,
-                 game_state: SnakeGameState,
+                 game_state: PacmanGameState,
                  visualizer: Visualizer,
                  ):
 
