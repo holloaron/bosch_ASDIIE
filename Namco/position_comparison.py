@@ -11,22 +11,6 @@ class PositionComparison:
     def __init__(self, ):
 
 
-    def create_observation(self) -> np.ndarray:
-        """
-        Processes the positions of Pacman and the edible dots and creates the current state matrix
-        :return: Current state of the map (np.ndarray)
-        """
-        # Creating the map
-        observation = np.zeros((self.map_size, self.map_size), dtype=int)
-
-        # Placing Pacman on the map
-        observation[self.pacman[0], self.pacman[1]] = PACMAN
-
-        # Placing the edible dots on the map
-        for dot in self.dots:
-            observation[dot[0], dot[1]] = DOT
-
-        return observation
 
     def check_dots(self) -> None:
         """
