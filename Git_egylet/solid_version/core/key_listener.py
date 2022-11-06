@@ -36,3 +36,9 @@ class KeyListener:
 
         self.screen.timeout(-1)
         self.screen = None
+
+    def start(self, screen):
+        self.screen = screen
+        self.thread = threading.Thread(target=self.listen, daemon=True)
+        self.stopped = False
+        self.thread.start()
