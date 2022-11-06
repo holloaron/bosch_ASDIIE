@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import List
 
+from Objects.core.map import Coordinates
+
 class Canvas(ABC):
     @abstractmethod
     def draw_dots(self, coordinates: List[Coordinates]):
