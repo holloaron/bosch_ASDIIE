@@ -13,7 +13,7 @@ class KeyboardListener:
         "KEY_LEFT": KeyEvent.LEFT,
         "KEY_RIGHT": KeyEvent.RIGHT,
     }
-    MILLISECONDS = 1000
+    MILLISECONDS = 500
 
     def __init__(self):
         self.screen = None
