@@ -42,3 +42,6 @@ class KeyListener:
         self.thread = threading.Thread(target=self.listen, daemon=True)
         self.stopped = False
         self.thread.start()
+
+    def has_happened(self):
+        return self.last_key is not None
