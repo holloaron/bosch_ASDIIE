@@ -8,3 +8,7 @@ class PacmanGameState:
     def __init__(self, game_elements: List[GameElement]):
         self.game_elements = game_elements
         self._can_game_continue = True
+
+    def step(self):
+        for game_element in self.game_elements:
+            self._can_game_continue = self._can_game_continue and game_element.tick()
