@@ -12,3 +12,11 @@ class ConsoleCanvas(Canvas):
         self.height = map_size.col_num + 1
         self.crs_screen = curses_screen
         self.map = self._get_empty_map()
+
+    def clear(self):
+        command = 'clear'
+        if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
+            command = 'cls'
+        os.system(command)
+        self.map = self._get_empty_map()
+        self.crs_screen.clear()
