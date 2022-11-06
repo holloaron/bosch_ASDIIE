@@ -1,17 +1,8 @@
 import numpy as np
 import os
 
-EMPTY = 0
-PACMAN = 1
-DOT = 2
-WALL = 3
-
 
 class PositionComparison:
-    def __init__(self, ):
-
-
-
     def check_dots(self) -> None:
         """
         Checks whether Pacman picked up a dot and increases the score accordingly
