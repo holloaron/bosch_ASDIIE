@@ -1,5 +1,5 @@
 class PacMan:
-    def __init__(self, init_row: int, init_col: int):
+    def __init__(self, init_row: int = 6, init_col: int = 6):
         """
         Implements PacMan
         """
