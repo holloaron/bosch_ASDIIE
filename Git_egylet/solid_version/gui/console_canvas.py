@@ -20,3 +20,7 @@ class ConsoleCanvas(Canvas):
         os.system(command)
         self.map = self._get_empty_map()
         self.crs_screen.clear()
+
+    def draw_dots(self, coordinates: List[Coordinates]):
+        for dot in coordinates:
+            self.map[dot.row][dot.col] = "x"
