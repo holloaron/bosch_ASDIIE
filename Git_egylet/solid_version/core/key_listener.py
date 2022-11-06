@@ -45,3 +45,11 @@ class KeyListener:
 
     def has_happened(self):
         return self.last_key is not None
+
+    def read_last_key_event(self) -> KeyEvent:
+        if self.last_key is None:
+            raise ValueError("KeyBoardListener has not noticed "
+                             "any key event that could be read.")
+        key_event = self.KEYPRESS_TO_KEY_EVENT[self.last_key]
+        self.last_key = None
+        return key_event
