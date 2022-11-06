@@ -3,7 +3,7 @@ import os
 
 
 class PositionComparison:
-    def check_dots(self) -> None:
+    def check_collision(self) -> None:
         """
         Checks whether Pacman picked up a dot and increases the score accordingly
         :return: -
