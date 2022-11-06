@@ -29,3 +29,9 @@ class ConsoleCanvas(Canvas):
         for num_row, row in enumerate(self.map):
             self.crs_screen.addstr(num_row, 0, "".join(row) + "\n")
         self.crs_screen.refresh()
+
+    def _get_empty_map(self):
+        screen = []
+        for _ in range(self.height):
+            screen.append([" "] * self.width)
+        return screen
