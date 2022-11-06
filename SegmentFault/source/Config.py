@@ -38,13 +38,16 @@ class Config():
         self.AddArguments()
         self.GivenArguments = self.Arguments.parse_args()
 
-    """ Initializes the flag with the help of argparse module
-    @args:
-        self
-    @return:
-            None
-    """
+
     def AddArguments(self) -> None:
+
+        """ Initializes the flag with the help of argparse module
+        @args:
+            self
+        @return:
+                None
+        """
+
         self.Arguments.add_argument("--gamemode", "-gm", action='store',
                                     help="Determins game type, standard/sandbox ", default="standard")
         self.Arguments.add_argument("--timeout", "-to", '--int',
@@ -56,58 +59,71 @@ class Config():
         self.Arguments.add_argument("--gamespeed", "-gs", help="Value of the gamespeed", default=1)
 
 
-    """ Returns the value of the given gamemode flag
-    @args:
-        self
 
-    @return:
-            gamemode [str]
-    """
     def GetGamemode(self) -> str:
-        gamemode = self.GivenArguments.gamemode
-        return gamemode
-
-    """ Returns the value of the given timeout flag
-    @args:
-        self
-
-    @return:
-            Timeout[int]
-    """
-    def GetTimeout(self) -> int:
-        Timeoutlimit = self.GivenArguments.timeout
-        return int(Timeoutlimit)
-
-    """ Returns the value of the given mapdata flag
+        """ Returns the value of the given gamemode flag
         @args:
             self
 
         @return:
-                Mapdatafile[str]
-    """
+                gamemode [str]
+        """
+        gamemode = self.GivenArguments.gamemode
+        return gamemode
+
+
+    def GetTimeout(self) -> int:
+
+        """ Returns the value of the given timeout flag
+         @args:
+             self
+
+         @return:
+                 Timeout[int]
+         """
+
+        Timeoutlimit = self.GivenArguments.timeout
+        return int(Timeoutlimit)
+
+
     def GetMapdata(self) -> str:
+
+        """ Returns the value of the given mapdata flag
+            @args:
+                self
+
+            @return:
+                    Mapdatafile[str]
+        """
+
         Mapdatafile = self.GivenArguments.mapdata
         return Mapdatafile
 
-    """ Returns the value of the given GameSpeed flag
-    @args:
-        self
 
-    @return:
-            GameSpeed[int]
-    """
     def GetGamespeed(self) -> int:
+
+        """ Returns the value of the given GameSpeed flag
+        @args:
+            self
+
+        @return:
+                GameSpeed[int]
+        """
+
         GameSpeed = self.GivenArguments.gamespeed
         return int(GameSpeed)
 
-    """ Returns the value of the flags given to the program upon starting it
-    @args:
-        self
 
-    @return:
-            tuple - containing: gamemode, Timeout, Mapdatafile, GameSpeed
-    """
     def Getsettings(self) -> tuple:
+
+        """ Returns the value of the flags given to the program upon starting it
+        @args:
+            self
+
+        @return:
+                tuple - containing: gamemode, Timeout, Mapdatafile, GameSpeed
+        """
+
         gamemode = self.GetGamemode()
         Timeout = self.GetTimeout()
         Mapdatafile = self.GetMapdata()
