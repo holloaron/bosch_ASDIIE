@@ -1,10 +1,10 @@
 class PacMan:
-    def __init__(self):
+    def __init__(self, init_row: int, init_col: int):
         """
         Implements PacMan
         """
-        self.row = 0
-        self.col = 0
+        self.row = init_row
+        self.col = init_col
 
     def process_action(self, action: str) -> [int, int]:
         """
