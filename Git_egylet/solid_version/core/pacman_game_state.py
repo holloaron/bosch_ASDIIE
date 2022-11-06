@@ -12,3 +12,6 @@ class PacmanGameState:
     def step(self):
         for game_element in self.game_elements:
             self._can_game_continue = self._can_game_continue and game_element.tick()
+
+    def is_terminated(self):
+        return not self._can_game_continue
