@@ -35,3 +35,9 @@ class ConsoleCanvas(Canvas):
         for _ in range(self.height):
             screen.append([" "] * self.width)
         return screen
+
+    def get_height(self):
+        return self.height
+
+    def get_width(self):
+        return self.width
