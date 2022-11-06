@@ -11,9 +11,21 @@ class KeyListener:
         "KEY_RIGHT": KeyEvent.RIGHT,
     }
     MILLISECONDS = 1000
-    
+
     def __init__(self):
         self.screen = None
         self.last_key = None
         self.thread = None
         self.stopped = False
+
+    def listen(self):
+        self.screen.keypad(True)
+        self.screen.timeout(self.MILLISECONDS)
+
+        while not self.stopped:
+            try:
+                key = self.screen.getkey()
+                if key in self.KEYPRESS_TO_KEY_EVENT:
+                    self.last_key = key
+            except:
+                pass
