@@ -32,7 +32,7 @@ def test_whenTakeAction_thenGameElementsGetIt():
         " should get the key event."
 
 
-def testSnakeGameState_whenStep_thenGameElementsTickCalled():
+def testPacmanGameState_whenStep_thenGameElementsTickCalled():
     game_element_mock = GameElementIsCalledMock()
     pacman_game_state = PacmanGameState([game_element_mock])
     pacman_game_state.step()
@@ -41,20 +41,7 @@ def testSnakeGameState_whenStep_thenGameElementsTickCalled():
         "the child GameElement objects should be called."
 
 
-def testSnakeGameState_whenSnakeBitesItself_thenGameStateIsTerminated():
-    pacman_game_state = PacmanGameState([Pacman()])
-    pacman_game_state.take_action(KeyEvent.UP)
-    pacman_game_state.step()
-    pacman_game_state.take_action(KeyEvent.LEFT)
-    pacman_game_state.step()
-    pacman_game_state.take_action(KeyEvent.DOWN)
-    pacman_game_state.step()
-    assert pacman_game_state.is_terminated(), \
-        "Pacman turn around and bites itself, so the " \
-        "game step into a terminated GameState."
-
-
-def testSnakeGameState_whenSnakeMovesOneDirectionAfterInit_thenGameStateIsNotTerminated():
+def testPacmanGameState_whenPacmanMovesOneDirectionAfterInit_thenGameStateIsNotTerminated():
     pacman_game_state = PacmanGameState([Pacman()])
     for _ in range(5):
         pacman_game_state.step()
