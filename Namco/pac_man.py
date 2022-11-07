@@ -1,30 +1,30 @@
 class PacMan:
-    def __init__(self, init_row: int = 6, init_col: int = 6):
+    def __init__(self, x: int = 6, y: int = 6):
         """
         Implements PacMan
-        :param init_row: row that PacMan starts the game at
-        :param init_col: col that PacMan starts the game at
+        :param x: row that PacMan starts the game at
+        :param y: col that PacMan starts the game at
         """
-        self.row = init_row
-        self.col = init_col
+        self.x = x
+        self.y = y
 
     def process_action(self, action: str) -> [int, int]:
         """
         Moves PacMan in the desired direction
         :param action: current user input (w, a, s or d) (str)
-        :return: -
+        :return: Current x and y coordinate of PacMan [int, int]
         """
         # Moving up
         if action == 'w':
-            self.row -= 1
+            self.x -= 1
         # Moving left
         elif action == 'a':
-            self.col -= 1
+            self.y -= 1
         # Moving down
         elif action == 's':
-            self.row += 1
+            self.x += 1
         # Moving right
         elif action == 'd':
-            self.col += 1
+            self.y += 1
 
-        return self.row, self.col
+        return self.x, self.y
