@@ -4,22 +4,20 @@ import os
 
 class PositionComparison:
 
-    dot_collision = False
-    wall_collision = False
-    def check_collision(self) -> [bool,bool]:
+
+    def check_collision(self, map, pacman_x: int, pacman_y: int) -> [bool,bool]:
         """
-        Checks whether Pacman picked up a dot and increases the score accordingly
+        Checks whether Pacman picked up a dot or hit a wall, changes flags accordingly
         :return: wall collision flag (bool), dot collision flag (bool)
         """
-        for dot in self.dots:
-            if dot == tuple(self.pacman):
-                # If Pacman moved on a dot, increase the score and remove the dot
-                dot_collision = True
-                self.dots.remove(dot)
+        dot_collision = False
+        wall_collision = False
 
-        for wall in self.wall:
-            if wall == tuple(self.pacman):
-                # If Pacman moved on a wall, terminate game
-                wall_collision = True
+        if map[pacman_x][pacman_y] == '-' or map[pacman_x][pacman_y] == '|':
+            wall_collision = True
+
+        elif map[pacman_x][pacman_y] == 'x':
+            dot_collision = True
+            
 
         return self.wall_collision, self.dot_collision
