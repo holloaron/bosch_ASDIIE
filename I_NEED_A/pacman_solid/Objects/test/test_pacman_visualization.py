@@ -27,7 +27,6 @@ class SpyCanvas(Canvas):
     def render(self):
         pass
 
-
 def testCanvas_whenPacmanHitTheEndOfCanvas_DoesNotDoAnything():
     """
     If Pacman reaches the wall (every side of map)  , can1t go forward
