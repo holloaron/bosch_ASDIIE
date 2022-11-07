@@ -8,7 +8,6 @@ class Map:
         Map class: initializing the map with walls and dots
         """
         # Loading map from the .txt file
-        self.map = None
         self.map = np.loadtxt(map_source, dtype=str, delimiter=',')
         # Filling up the map with dots
         self.map[self.map == ' '] = 'x'
