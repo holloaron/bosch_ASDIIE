@@ -46,7 +46,7 @@ def testCanvas_whenSnakeMoving_thenNewHeadAppearsAndTailDisappears():
         "The tail should not be on the canvas after moving."
     assert Coordinates(0, 4) not in dots_before_moving and \
            Coordinates(0, 4) in dots_after_moving, \
-        "Pacman should be moved on canvas after snake moving."
+        "Pacman should be moved on canvas "
 
 
 def testCanvas_whenSnakeMoving_thenOppositeKeyEventDoesNotDoAnything():
