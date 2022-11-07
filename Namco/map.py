@@ -14,11 +14,13 @@ class Map:
 
     def update_map(self, pacman_x: int, pacman_y: int) -> np.ndarray:
         """
-        Updates the map based on Pacman's position
-        :param pacman_x: Pacman's x position (int)
-        :param pacman_y: Pacman's y position (int)
+        Updates the map based on PacMan's position
+        :param pacman_x: PacMan's x position (int)
+        :param pacman_y: PacMan's y position (int)
         :return: updated map (np.ndarray)
         """
+        # PacMan's previous position must be emptied
         self.map[self.map == '0'] = ' '
+        # PacMan should be placed into its current position
         self.map[pacman_x][pacman_y] = '0'
         return self.map
