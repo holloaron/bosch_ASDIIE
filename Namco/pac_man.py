@@ -2,6 +2,8 @@ class PacMan:
     def __init__(self, init_row: int = 6, init_col: int = 6):
         """
         Implements PacMan
+        :param init_row: row that PacMan starts the game at
+        :param init_col: col that PacMan starts the game at
         """
         self.row = init_row
         self.col = init_col
