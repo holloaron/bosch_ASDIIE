@@ -33,7 +33,10 @@ class ConsoleCanvas(Canvas):
 
     def render(self):
         for num_row, row in enumerate(self.map):
-            self.crs_screen.addstr(num_row, 0, "".join(row) + "\n")
+            try:
+                self.crs_screen.addstr(num_row, 0, "".join(row) + "\n")
+            except:
+                raise "The terminal screen is too small for visualization."
         self.crs_screen.refresh()
 
     def _get_empty_map(self):

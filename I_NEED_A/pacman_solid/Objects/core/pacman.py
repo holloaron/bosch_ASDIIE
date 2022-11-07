@@ -19,19 +19,32 @@ class MovingTransformation:
 
     def __call__(self, coordinates: Coordinates) -> Coordinates:
         if self.direction == KeyEvent.UP:
-            new_row = (coordinates.row - 1) % self.map_size.row_num
+            new_row = (coordinates.row - 1)
             return Coordinates(new_row, coordinates.col)
         elif self.direction == KeyEvent.LEFT:
-            new_col = (coordinates.col - 1) % self.map_size.col_num
+            new_col = (coordinates.col - 1)
             return Coordinates(coordinates.row, new_col)
         elif self.direction == KeyEvent.DOWN:
-            new_row = (coordinates.row + 1) % self.map_size.row_num
+            new_row = (coordinates.row + 1)
             return Coordinates(new_row, coordinates.col)
         elif self.direction == KeyEvent.RIGHT:
-            new_col = (coordinates.col + 1) % self.map_size.col_num
+            new_col = (coordinates.col + 1)
             return Coordinates(coordinates.row, new_col)
         else:
             raise ValueError(f"There is no moving forward {self.direction} direction.")
+
+
+    def wall_limit(self, coordinates: Coordinates):
+            """
+            Limit pac-man to step outside the map.
+            :param coordinates(Coordinates): pacman's desired position to step
+            :return (Coordinates): allowed position
+            """
+            
+            limited_x = max(1, min(coordinates.row, self.map_size.row_num))
+            limited_y = max(1, min(coordinates.col, self.map_size.col_num))
+            
+            return Coordinates(limited_x,limited_y)    
 
 class Pacman(GameElement, Visualizable):
 
@@ -56,7 +69,8 @@ class Pacman(GameElement, Visualizable):
         self.moving_transformation.direction = key_event
 
     def tick(self):
-        self.body = self.moving_transformation(self.body)
+        desired_action = self.moving_transformation(self.body)
+        self.body = self.moving_transformation.wall_limit(desired_action)
         return True
 
     def draw(self, canvas: Canvas):

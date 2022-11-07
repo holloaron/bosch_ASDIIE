@@ -71,6 +71,7 @@ def testCanvas_whenSnakeMoving_thenOppositeKeyEventDoesNotDoAnything():
         "The head should be moved to forward the original direction " \
         "after snake got opposite KeyEvent."
 
+# test can't go through wall
 def testCanvas_whenSnakeHitTheEndOfCanvas_thenAppearsOnOppositeSide():
     canvas = ConsoleCanvas(5, 5)
     spy_canvas = SpyCanvas(canvas)

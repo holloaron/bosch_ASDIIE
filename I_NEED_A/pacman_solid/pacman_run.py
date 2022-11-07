@@ -13,8 +13,8 @@ from Objects.core.pacman import Pacman
 from Objects.gui.console_canvas import ConsoleCanvas
 
 
-WIDTH = 20
-HEIGHT = 20
+WIDTH = 5
+HEIGHT = 5
 
 
 def main():
