@@ -1,7 +1,3 @@
-import numpy as np
-import os
-
-
 class PositionComparison:
 
     def check_collision(self, map, pacman_x: int, pacman_y: int) -> [bool, bool]:
