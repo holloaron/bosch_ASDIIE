@@ -27,4 +27,4 @@ class Visualizer:
         :param curr_score: Current score of the player (int)
         :return: -
         """
-        print("\nCurrent score:", curr_score)
+        print("\nCurrent score: ", curr_score)
