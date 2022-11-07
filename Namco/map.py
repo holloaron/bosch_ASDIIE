@@ -12,13 +12,13 @@ class Map:
         # Filling up the map with dots
         self.map[self.map == ' '] = 'x'
 
-    def update_map(self, x: int, y: int) -> np.ndarray:
+    def update_map(self, pacman_x: int, pacman_y: int) -> np.ndarray:
         """
         Updates the map based on Pacman's position
-        :param x: Pacman's x position (int)
-        :param y: Pacman's y position (int)
+        :param pacman_x: Pacman's x position (int)
+        :param pacman_y: Pacman's y position (int)
         :return: updated map (np.ndarray)
         """
         self.map[self.map == '0'] = ' '
-        self.map[x][y] = '0'
+        self.map[pacman_x][pacman_y] = '0'
         return self.map
