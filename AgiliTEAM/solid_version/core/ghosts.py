@@ -13,6 +13,8 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize, Coordinates
 
 class Ghosts(GameElement, Visualizable):
 
+    GHOST_START_DIRECTION = KeyEvent.RIGHT
+
     def __init__(self,
                  map_size: MapSize = None,
                  num_ghosts: int = 4,
@@ -27,7 +29,7 @@ class Ghosts(GameElement, Visualizable):
         if map_size is None:
             map_size = MapSize(10, 10)
         self.step_confidence = step_confidence
-        self.event = GHOST_START_DIRECTION
+        self.event = self.GHOST_START_DIRECTION
         self.pos = self.generate_pos(num_of_pos=num_ghosts, map_size=map_size)
         self.moving_transformation_ghost = MovingTransformation(self.event, map_size)
 
