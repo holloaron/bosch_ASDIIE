@@ -67,7 +67,7 @@ class Ghosts(GameElement, Visualizable):
         self.pos[ghost_index] = self.moving_transformation_ghost(self.pos[ghost_index])
 
     def __take_random_action__(self,ghost_index: int):
-        self.event = random.randrange(1,4)
+        self.event = random.randrange(1, 4)
         self.pos[ghost_index] = self.moving_transformation_ghost(self.pos[ghost_index])
 
     def take_action(self, pacman_position: Coordinates):
@@ -76,7 +76,6 @@ class Ghosts(GameElement, Visualizable):
                 self.__take_best_action__(pacman_position,idx)
             else:
                 self.__take_random_action__(idx)
-
 
     def tick(self, pacman_position: Coordinates) -> bool:
         self.take_action(pacman_position)
