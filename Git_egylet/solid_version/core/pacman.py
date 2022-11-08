@@ -33,3 +33,18 @@ class Pacman(GameElement, Visualizable):
 
     def draw(self, canvas: Canvas):
         canvas.draw_dots(self.body_parts)
+
+    def _is_not_opposite_direction(self, key_event):
+        if self.moving_transformation.direction == KeyEvent.LEFT and \
+                key_event == KeyEvent.RIGHT:
+            return False
+        if self.moving_transformation.direction == KeyEvent.RIGHT and \
+                key_event == KeyEvent.LEFT:
+            return False
+        if self.moving_transformation.direction == KeyEvent.UP and \
+                key_event == KeyEvent.DOWN:
+            return False
+        if self.moving_transformation.direction == KeyEvent.DOWN and \
+                key_event == KeyEvent.UP:
+            return False
+        return True
