@@ -30,3 +30,6 @@ class Pacman(GameElement, Visualizable):
     def take_action(self, key_event: KeyEvent):
         if self._is_not_opposite_direction(key_event):
             self.moving_transformation.direction = key_event
+
+    def draw(self, canvas: Canvas):
+        canvas.draw_dots(self.body_parts)
