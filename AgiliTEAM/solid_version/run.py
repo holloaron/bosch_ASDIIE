@@ -22,6 +22,7 @@ DIFFICULTY = 0.5
 PELLETS = 10
 GHOSTS = 4
 BASE_SCORE = 10
+STEP_CONFIDENCE = 0.95
 
 
 def main():
@@ -33,6 +34,7 @@ def main():
     arg_parser.add_argument("--num_pellets", type=int, default=PELLETS)
     arg_parser.add_argument("--num_ghosts", type=int, default=GHOSTS)
     arg_parser.add_argument("--base_score", type=int, default=BASE_SCORE)
+    arg_parser.add_argument("--ghost_step_confidence", type=float, default=STEP_CONFIDENCE)
     args = arg_parser.parse_args()
 
     screen = Screen()
@@ -43,7 +45,8 @@ def main():
 
     pacman = Pacman(map_size=MapSize(HEIGHT, WIDTH))
     pellets = Pellets(map_size=MapSize(HEIGHT, WIDTH), num_pellets=args.num_pellets, known_pos=[pacman.pos])
-    ghosts = Ghosts(map_size=MapSize(HEIGHT, WIDTH), num_ghosts=args.num_ghosts, known_pos=[pacman.pos, pellets.pos])
+    ghosts = Ghosts(map_size=MapSize(HEIGHT, WIDTH), num_ghosts=args.num_ghosts, known_pos=[pacman.pos, pellets.pos],
+                    step_confidence=args.ghost_step_confidence)
     score_counter = ScoreCounter(base_score=args.base_score, difficulty=args.difficulty, pacman=pacman, pellets=pellets)
     defeat_checker = DefeatChecker(pacman=pacman, ghosts=ghosts)
 
