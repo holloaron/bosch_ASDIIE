@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_event import KeyEvent
+from solid_version.core.key_event import KeyEvent
 
 
 class GameElement(ABC):

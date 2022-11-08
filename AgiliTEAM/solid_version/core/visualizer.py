@@ -1,6 +1,6 @@
 from typing import List
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.canvas import Canvas
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.visualizable import Visualizable
+from solid_version.core.canvas import Canvas
+from solid_version.core.visualizable import Visualizable
 
 
 class Visualizer:
