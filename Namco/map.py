@@ -24,6 +24,7 @@ class Map:
         self.map[self.map == '0'] = ' '
         # PacMan should be placed into its current position
         self.map[pacman_x][pacman_y] = '0'
+        # Marking place of death on map
         if done:
             self.map[self.map == '0'] = 'X'
         return self.map
