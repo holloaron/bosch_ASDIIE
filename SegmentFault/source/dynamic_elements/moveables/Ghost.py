@@ -57,7 +57,7 @@ class Ghost(Moveable.Movable):
         """
         test_x, test_y = self.get_next_position()
 
-        while not self.is_obstacle(test_x, test_y):
+        while not self.is_wall_ahead(test_x, test_y):
             
             return True
 
