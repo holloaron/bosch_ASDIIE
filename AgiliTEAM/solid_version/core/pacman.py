@@ -41,9 +41,11 @@ class Pacman(GameElement, Visualizable):
     def take_action(self, key_event: KeyEvent):
         self.moving_transformation.direction = key_event
 
+    def get_pacman_position(self):
+        return self.pos[0]
+
     def tick(self):
         self.pos = [self.moving_transformation(self.pos[0])]
-
         return True
 
     def draw(self, canvas: Canvas):
