@@ -26,3 +26,7 @@ class Pacman(GameElement, Visualizable):
         if map_size is None:
             map_size = MapSize(10, 10)
         self.moving_transformation = MovingTransformation(starting_direction, map_size)
+
+    def take_action(self, key_event: KeyEvent):
+        if self._is_not_opposite_direction(key_event):
+            self.moving_transformation.direction = key_event
