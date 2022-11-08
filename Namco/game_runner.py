@@ -30,7 +30,7 @@ class GameRunner:
         :return: -
         """
         done = False
-        self.visualizer.render(self.world.map, self.score)
+        self.visualizer.render(self.world.map, self.score, done)
 
         while not done:
             action = input("Select your next action (w, a, s, d): ")
@@ -46,8 +46,8 @@ class GameRunner:
                 done = True
 
             # Updating the map and visualizing the current state
-            self.world.update_map(pacman_x, pacman_y)
-            self.visualizer.render(self.world.map, self.score)
+            self.world.update_map(pacman_x, pacman_y, done)
+            self.visualizer.render(self.world.map, self.score, done)
 
 
 def main():

@@ -29,13 +29,24 @@ class Visualizer:
         """
         print("\nCurrent score: ", curr_score)
 
-    def render(self, observation: np.ndarray, curr_score: int):
+    def game_over(self, done: bool):
+        """
+        Informing the user that the game is over
+        :param done: Game over flag
+        :return: -
+        """
+        if done:
+            print("\nGAME OVER")
+
+    def render(self, observation: np.ndarray, curr_score: int, done: bool):
         """
         Renders the required information.
         :param observation: Array containing the map (np.ndarray)
         :param curr_score: Current score of the player (int)
+        :param done: Game over flag (bool)
         :return:
         """
         self.clear_console()
         self.show_map(observation)
         self.show_score(curr_score)
+        self.game_over(done)
