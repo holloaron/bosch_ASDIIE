@@ -18,14 +18,10 @@ class Game:
         fps = pygame.time.Clock()
         self.start_game()
         self.drawing_service = DrawingService(screen)
-        self.cnt = 0
         while not self.pacman.dead:
             self.pacman.has_moved = False
             self.handle_key_events()
-            if self.cnt < 500:
-                # self.pacman.has_moved = True
-                self.maze.step()
-                self.cnt = self.cnt + 1
+            self.maze.step()
             self.maze.draw(self.drawing_service)
             self.pacman.draw(self.drawing_service)
             self.drawing_service.draw_score(self.pacman.points)
