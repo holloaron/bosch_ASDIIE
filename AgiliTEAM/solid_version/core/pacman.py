@@ -1,12 +1,12 @@
 import numpy as np
 from typing import List
 
-from solid_version.core.game_element import GameElement
-from solid_version.core.key_event import KeyEvent
-from solid_version.core.move import MovingTransformation
-from solid_version.core.visualizable import Visualizable
-from solid_version.core.canvas import Canvas
-from solid_version.core.map import MapSize, Coordinates
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element import GameElement
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_event import KeyEvent
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.move import MovingTransformation
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.visualizable import Visualizable
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.canvas import Canvas
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize, Coordinates
 
 
 class Pacman(GameElement, Visualizable):

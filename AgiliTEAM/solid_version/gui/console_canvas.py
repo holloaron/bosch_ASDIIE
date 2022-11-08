@@ -1,9 +1,9 @@
 import os
 from typing import List
 
-from solid_version.core.map import Coordinates, MapSize
-from solid_version.core.canvas import Canvas
-from solid_version.core.screen import Screen
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import Coordinates, MapSize
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.canvas import Canvas
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.screen import Screen
 
 
 class ConsoleCanvas(Canvas):

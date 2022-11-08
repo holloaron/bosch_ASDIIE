@@ -1,12 +1,11 @@
-from solid_version.core.game_element import GameElement
-from solid_version.core.key_event import KeyEvent
-from solid_version.core.pacman_game_state import PacmanGameState
-from solid_version.core.pacman import Pacman
-from solid_version.core.ghosts import Ghosts
-from solid_version.core.defeat_checker import DefeatChecker
-from solid_version.core.pellets import Pellets
-from solid_version.core.map import MapSize
-from solid_version.core.map import Coordinates
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_event import KeyEvent
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman_game_state import PacmanGameState
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman import Pacman
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.ghosts import Ghosts
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.defeat_checker import DefeatChecker
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.pellets import Pellets
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import Coordinates
 
 
 def test_WhenOneStep_IsTerminatedFalse():

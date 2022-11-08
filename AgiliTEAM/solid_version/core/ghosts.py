@@ -3,14 +3,12 @@ import numpy as np
 import math
 import random
 
-from solid_version.core.key_event import KeyEvent
-from solid_version.core.game_element import GameElement
-from solid_version.core.visualizable import Visualizable
-from solid_version.core.move import MovingTransformation
-from solid_version.core.canvas import Canvas
-from solid_version.core.map import MapSize, Coordinates
-
-GHOST_START_DIRECTION = KeyEvent.RIGHT
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_event import KeyEvent
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element import GameElement
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.visualizable import Visualizable
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.move import MovingTransformation
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.canvas import Canvas
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize, Coordinates
 
 
 class Ghosts(GameElement, Visualizable):
