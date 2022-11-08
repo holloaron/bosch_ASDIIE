@@ -19,7 +19,7 @@ optional arguments:
                         Determins game type, standard/sandbox
   --timeout TIMEOUT, -to TIMEOUT, --int TIMEOUT
                         Determins the time in seconds after the game ends. By default it is 180 s
-  --mapdata MAPDATA, -md MAPDATA, --str MAPDATA
+  --map MAPDATA, -m MAPDATA, --str MAPDATA
                         The path of the mapdata container file, but generated can be used
   --gamespeed GAMESPEED, -gs GAMESPEED
                         Value of the gamespeed
@@ -49,14 +49,17 @@ class Config():
         """
 
         self.Arguments.add_argument("--gamemode", "-gm", action='store',
-                                    help="Determins game type, standard/sandbox ", default="standard")
+                                    help="Determins game type, standard/sandbox ", 
+                                    default="sandbox")
         self.Arguments.add_argument("--timeout", "-to", '--int',
                                     help="Determins the time in seconds after the game ends. By default it is 180 s",
                                     default="180")
-        self.Arguments.add_argument("--mapdata", "-md", '--str',
+        self.Arguments.add_argument("--map", "-m", '--str',
                                     help="The path of the mapdata container file, but generated can be used",
                                     default="Basic.mapdat")
-        self.Arguments.add_argument("--gamespeed", "-gs", help="Value of the gamespeed", default=1)
+        self.Arguments.add_argument("--gamespeed", "-gs", 
+                                    help="Value of the gamespeed", 
+                                    default=1)
 
 
 
