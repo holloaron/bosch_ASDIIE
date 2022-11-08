@@ -19,27 +19,18 @@
 from source.map import MapElements
 
 class MapData():
-    def __init__(self, mapdatafile_path: str) -> None:
-        self.data_set = self.load_mapdata(mapdatafile_path)
-        self.size = self.get_size()
+    def __init__(self) -> None:
+        self.size = (0,0)
         self.width = self.size[0]
         self.height = self.size[1]
 
         self.obstacles = Obstacles()
-        self.obstacles.walls = self.get_coords_of(MapElements.Wall)
-        self.obstacles.door = self.get_first_coord_of(MapElements.Door)
 
         self.collectables = Collectables()
-        self.collectables.points = self.get_coords_of(MapElements.Point)
-        self.collectables.coins = self.get_coords_of(MapElements.Coin)
 
         self.enemies = Enemies()
-        self.enemies.Blinky = self.get_first_coord_of(MapElements.Blinky)
-        self.enemies.Pinky = self.get_first_coord_of(MapElements.Pinky)
-        self.enemies.Inky = self.get_first_coord_of(MapElements.Inky)
-        self.enemies.Clyde = self.get_first_coord_of(MapElements.Clyde)
 
-        self.Player = self.get_first_coord_of(MapElements.PacMan)
+        self.Player = (0,0)
 
 class Obstacles():
     walls = []
@@ -48,6 +39,7 @@ class Obstacles():
 class Collectables():
     points = []
     coins = []
+    #TODO: add cherry
 
 class Enemies():
     Blinky = (0,0) # red ghost
