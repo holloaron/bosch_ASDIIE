@@ -1,0 +1,47 @@
+from __future__ import annotations
+import abc
+from abc import ABC
+
+from direction import Direction
+from field import Field
+from thing import Thing
+from drawingService import DrawingService
+from direction import Direction
+
+
+class Pacman(Thing, ABC):
+    has_moved = False
+
+    def __init__(self, field: Field, direction: Direction = Direction.RIGHT.value):
+        super().__init__(field)
+        self.direction = direction
+        self.points = 0
+        self.dead = False
+
+    def collide_with(self, t: Thing):
+        t.hit_by(self)
+
+    def move(self, d: Direction):
+        if self.field and not self.has_moved:
+            neighbor = self.field.get_neighbor(d)
+            if neighbor:
+                self.field.remove(self)
+                neighbor.accept(self)
+            else:
+                self.die()
+            self.has_moved = True
+
+    def add_points(self, p):
+        self.points = self.points + p
+
+    def hit_by(self, p: Thing):
+        return
+
+    def draw(self, service: DrawingService):
+        service.draw_pacman(self.field.position_x, self.field.position_y)
+
+    def die(self):
+        self.dead = True
+
+    def step(self):
+        self.move(self.direction)

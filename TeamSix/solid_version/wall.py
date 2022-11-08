@@ -9,3 +9,14 @@ class Wall(Field):
         super().__init__(x, y)
         self.things = []
 
+    def accept(self, t: Thing):
+        if type(t) is Pacman:
+            t.die()
+        self.things.append(t)
+        t.field = self
+
+    def remove(self, t: Thing):
+        self.things.remove(t)
+
+    def draw(self, service: DrawingService):
+        service.draw_field(self.position_x, self.position_y, 'WALL')
