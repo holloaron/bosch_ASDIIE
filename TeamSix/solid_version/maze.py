@@ -14,6 +14,13 @@ class Maze(Drawable, Steppable):
         self.fields = list(range(10))
         for f in range(0, len(self.fields)):
             self.fields[f] = list(range(10))
+
+    def coin_removed(self):
+        empty_fields = list(filter(lambda f: len(f.things == 0), np.array(self.fields).tolist()))
+        rnd = random.randint(0, len(empty_fields))
+        empty_fields[rnd].thing.append(empty_fields[rnd].position_x, empty_fields[rnd].position_y)
+        return
+
     def init(self):
         # generate outer walls
         for x in range(0, Constants.MAZE_SIZE_X.value):
@@ -58,3 +65,12 @@ class Maze(Drawable, Steppable):
         field.things.append(pacman)
         return pacman
 
+    def step(self):
+        for x in self.fields:
+            for y in x:
+                y.step()
+
+    def draw(self, service):
+        for i in self.fields:
+            for j in i:
+                j.draw(service)
