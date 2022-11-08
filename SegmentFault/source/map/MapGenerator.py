@@ -3,99 +3,108 @@
 //*********************************************************************
 / PROJECT_NAME : PacMan
 / FILENAME     : MapGenerator.py
-/ AUTHOR       : Gergely Őri, Pal Lorand Juhasz
+/ AUTHOR       : Gergely Őri, Pal Lorand Juhasz, Bozsóki Márk
 / UNIVERSITY   : BME
 / TEAM         : SegmentFault
 **********************************************************************
 **********************************************************************
 / Short description
 / --------------------------------------------------------------------
-/ Module is responsible for map generation related tasks,
-  handles obstacle detecting
+/ Module is responsible for map generation
 
 /*********************************************************************
 /*********************************************************************
 """
-from typing import List
+import random
 
 from MapElements import MapElements
+from source.map.MapData import MapData
+from source.map.MapDataReader import MapDataReader
 
 class MapGenerator:
-    def __init__(self, dataset=None):
-        if dataset==None:
-            self.generate_basic_map()
-        else:
-            self.dataset=dataset
-        self.map_elements=MapElements.list_value()
-        self.element_names=MapElements.list_name()
-        self.element_coordinates=[[] for element_count in range(len(self.map_elements))]
-        self.translate_dataset()
+    def __init__(self):
+        self.dataset = None
 
-    def translate_dataset(self):
-        """ Translates the dataset into map matrix
 
-            @args:
-                    self
+    def generate_mapdata(self, map_width: int, map_height: int) -> list[list[str]]:
+        """ Generates the dataset for mapdata
 
-        """
-        for map_row in range(len(self.dataset)):
-             for map_column in range(len(self.dataset[map_row])):
-                 for element_count in range(len(self.map_elements)):
-                    if self.dataset[map_row][map_column]==self.map_elements[element_count]:
-                     self.element_coordinates[element_count].append([map_row,map_column])
-
-    def get_coordinates(self) -> list[list[tuple[int,int]]]:
-        """ Returns the elements coordinates
-
-            @args:
-                    self
-            @return:
-                    list
+        @args:
+            map_width [int] - width of the dataset
+            map_height [int] - height of the dataset
+        @returns:
+            dataset [list(list(str))] - the empty dataset
         """
 
-        return self.element_coordinates
+        self.dataset = self.generate_empty_dataset(map_width, map_height)
+        self.dataset = self.generate_border_of_walls()
 
-    def get_obsacle_coordinates(self, obstacle: MapElements) -> list[tuple[int, int]]:
-        if obstacle.name in self.element_names:
-            return self.element_coordinates[self.element_names.index(obstacle.name)]
+        Player = self.get_random_coord()
+        self.dataset[Player[0], Player[1]] = MapElements.PacMan
 
-    def generate_basic_map(self):
-        """ Generate a 27*27 size Map, walls on the borders of the map and points inside the borders
 
-            @args:
-            self
+    def generate_empty_dataset(self, width: int, height: int) -> list[list[str]]:
+        """ Fills a concainer with MapElements.Place in th determined size
+        
+        @args:
+            width [int] - width of the dataset
+            height [int] - height of the dataset
+        @returns:
+            result [list(list(str))] - the empty dataset
         """
-        first_and_last_row = MapElements.Wall.value * 27
-        inner_row = MapElements.Wall.value+MapElements.Point.value*25+MapElements.Wall.value
-        self.dataset = [first_and_last_row, inner_row,first_and_last_row]
-        for added_row in range(len(first_and_last_row)-3):
-            self.dataset.insert(1,inner_row)
+        result = []
+        
+        for i in range(width):
+            for j in range(height):
+                result[i,j] = MapElements.Place
+        
+        return result
+    
 
-    def get_mapsize(self) -> list[int]:
-        """ Returns the size of the dataset
+    def generate_border_of_walls(self) -> list[list[str]]:
+        """ Generates border of wall in the dataset
 
-            @args:
-                    self
-            @return:
-                    list
+        @returns:
+            dataset [list(list(str))]
         """
+        for i in range(len(self.dataset[0])):
+            for j in range(len(self.dataset[1])):
+                if i == 0 or i == len(self.dataset[0]):
+                    self.dataset[i,j] = MapElements.Wall
+                if j == 0 or j == len(self.dataset[1]):
+                    self.dataset[i,j] = MapElements.Wall
 
-        return [len(self.dataset[0]), len(self.dataset)]
+        return self.dataset
 
-    def contains_obstacle(self, obstacle: MapElements) -> bool:
 
-        """ Obstacle handling, returns True if the coordinates has wall on it
-            returns False if there is no wall on the given coordinates
+    def get_random_coord(self) -> tuple[(int, int)]:
+        """ Determines a random coordinate for MapElement placement from the available coordinates
 
-            @args:
-                    self
-                    Mapelements (as parameter)
-            @return:
-                    bool
+        @returns:
+            random_coord [tuple[(int, int)]] - the selected random coordinate
         """
+        white_list = []
 
-        for row_index in range(len(self.dataset)):
-            if obstacle.value in self.dataset[row_index]:
-                return True
+        for i in range(len(self.dataset[0])):
+            for j in range(len(self.dataset[1])):
+                if self.dataset[i,j] == MapElements.Place:
+                    white_list.append((i,j))
 
-        return False
+        random_index = random.randint(0, len(white_list))
+        random_coord = white_list[random_index]
+
+        return random_coord
+
+
+    def fill_mapdata(self) -> MapData:
+        """ Fills a MapData member with the generated dataset
+        
+        @returns:
+            mapdata [MapData] - the generated mapdata
+        """
+        data_reader = MapDataReader()
+        data_reader.data_set = self.dataset
+
+        mapdata = data_reader.fill_mapdata()
+
+        return mapdata
