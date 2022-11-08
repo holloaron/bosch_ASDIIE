@@ -8,9 +8,10 @@ class PositionComparison:
         dot_collision = False
         wall_collision = False
 
+        # Checking whether PacMan stepped on a wall
         if map[pacman_x][pacman_y] == '-' or map[pacman_x][pacman_y] == '|':
             wall_collision = True
-
+        # Checking whether PacMan collected an eatable dot
         elif map[pacman_x][pacman_y] == 'x':
             dot_collision = True
 
