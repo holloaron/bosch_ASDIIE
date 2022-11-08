@@ -18,17 +18,24 @@ Driver class and main script for our program
 
 import os
 import threading
+import time
 from source import TimerThread, Config
+from source.dynamic_elements.Direction import Direction
+from source.dynamic_elements.moveables.Player import Player
 from source.map.MapData import MapData
+from source.map.MapDataReader import MapDataReader
+from source.map.MapGenerator import MapGenerator
 from source.ui import Terminal, Inputs
+from source.ui.GrayScaleVisualizer import GrayScaleVisualizer
 
 class PacMan:
     def __init__(self):
         self.terminal = Terminal()
         self.config = Config()
-        self.GAMEMODE, self.TIMEOUTLIMIT, self.MAPDATA, self.GAMESPEED = Config.Getsettings()
-        self.Timer = TimeCounter(self.TIMEOUTLIMIT)
+        self.GAMEMODE, self.TIMEOUTLIMIT, self.MAP, self.GAMESPEED = Config.Getsettings()
+        self.timer = TimerThread.TimeCounter(self.TIMEOUTLIMIT)
 
+        self.mapdata = None
 
         self.show_menu()
 
@@ -52,12 +59,10 @@ class PacMan:
                     menuinput = self.terminal.get_menu_input("Choose gamemode option!", self.terminal.gamemode_menuitems)
                     
                     if menuinput == "standard":
-                        #TODO: config handling (standard game mode with loaded maps)
-                        pass
+                        self.GAMEMODE = "standard"
 
                     if menuinput == "sandbox":
-                        #TODO: config handling (generated maps)
-                        pass
+                        self.GAMEMODE = "sandbox"
 
             # MAP SETTINGS
             if menuinput == "change map":
@@ -65,61 +70,128 @@ class PacMan:
                     self.terminal.show_menu("Maps", self.terminal.changemap_menuitems)
                     menuinput = self.terminal.get_menu_input("Choose map option!", self.terminal.changemap_menuitems)
                     
-                    #TODO: set config
+                    if menuinput == "Basic":
+                        self.MAP = "Basic.mapdat"
+                    
+                    if menuinput == "Bosch ASDIIE":
+                        self.MAP = "Bosch ASDIIE.mapdat"
+
+                    if menuinput == "Clyde's Maze":
+                        self.MAP = "Clyde's Maze.mapdat"
+
+                    if menuinput == "Double Trouble":
+                        self.MAP = "Double Trouble.mapdat"
+
+                    if menuinput == "Horizontal":
+                        self.MAP = "Horizontal.mapdat"
+
+                    if menuinput == "Vertical":
+                        self.MAP = "Vertical.mapdat"
+
+                    self.GAMEMODE = "standard"
+
+                    #TODO: MAPDATA change based on the files contained in the "maps" directory
 
 
     def start_game_session(self):
 
         #TODO: init mapdata based on config
-        #TODO: init Player, Ghosts based on config
-
-        mapdata = None
+        
 
 
-        player_input_thread = threading.Thread(target=self.get_user_input)
+        # init mapdata
+        if self.GAMEMODE == "standard":
+            map_reader = MapDataReader()
+            map_reader.load_mapdata(self.MAP)
+            self.mapdata = map_reader.fill_mapdata()
+        else:
+            map_generator = MapGenerator()
+            map_generator.generate_mapdata(map_width=25, map_height=25)
+            self.mapdata = map_generator.fill_mapdata()
+            
+        self.timer.reset()
+        self.timer.run()
+
+        # start game
+        player_input_thread = threading.Thread(target=self.get_user_input())
         player_input_thread.start()
 
-        game_state = threading.Thread(target=self.render_game_state(mapdata, self.config))
+        game_state = threading.Thread(target=self.render_game_state())
         game_state.start()
 
+        # gameover
         player_input_thread.join()
         game_state.join()
 
+        self.timer.stop()
+
 
     def get_user_input(self):
-        player_input = ""
+        player_input = Inputs.Nothing
+
+        #TODO: init Ghosts based on config
+
+        # init Player (PacMan)
+        player = Player(self.mapdata.Player, Direction.Down)
+
+        # prevent for instant gameover for sandbox mode
+        if self.GAMEMODE == "sandbox":
+            for safe_direction in Direction.__members__.values():
+                if not player.is_wall_ahead(self.mapdata, player.position, safe_direction):
+                    player.direction = safe_direction
+
+        #TODO: init enemies and collectables
 
         while not game_over:
             self.termial.clear()
             self.terminal.show_title()
 
-            self.terminal.get_gameplay_input("Set new direction!")
+            player_input = self.terminal.get_gameplay_input("Set new direction!")
+
+            if player_input == Inputs.Restart:
+                #TODO: implement game restart logic
+                self.restart_game_session()
+                break
 
             if player_input == Inputs.Exit:
                 break
 
-    def render_game_state(self, mapdata: MapData):
-        #TODO: render game state
-        while not game_over:
-            pass
+            # direction changing
+            if player_input == Inputs.SetDirection_Up:
+                player.next_direction = Direction.Up
+
+            if player_input == Inputs.SetDirection_Right:
+                player.next_direction = Direction.Right
+            
+            if player_input == Inputs.SetDirection_Down:
+                player.next_direction = Direction.Down
+
+            if player_input == Inputs.SetDirection_Left:
+                player.next_direction = Direction.Left
+
+            if self.timer.is_timeout():
+                break
+
+        self.terminal.clear()
+        self.terminal.show_title()
+        print("GAME OVER")
+        print(f"Game Time: {self.timer.seconds_passed()}")
+        print(f"Score: {player.score}")
+        input("Press any key to continue...")
+            
+
+    def render_game_state(self):
+        visualiser = GrayScaleVisualizer(self.mapdata)
+
+        while not game_over or not self.timer.is_timeout:
+            visualiser.refresh_game_state()
+            visualiser.render_game_state()
+
+            time.sleep(self.GAMESPEED / 1000)
 
 
-
-
-    def step(self) -> tuple[any, int, bool]:
-        """ Player-Map interaction
-        """
-        self.player.position = self.set_player_position(self.player.position[0], self.player.position[1])
-        self.player.score += self.set_score(self.player.position[0], self.player.position[1])
-
-        obs = self.create_observation()
-        self.last_obs = obs
-
-        self.step_ += 1
-        if self.step_ > 100:
-            self.player.is_dead = True
-
-        return obs.flatten(), self.player.score, self.player.is_dead
+    def restart_game_session(self):
+        pass
 
 
     def terminate(self):
