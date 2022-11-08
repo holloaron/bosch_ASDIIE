@@ -18,103 +18,121 @@ Superclass for moving object in the game
 
 from source.dynamic_elements import Direction
 from source.map import MapData
+from source.map.MapElements import MapElements
 
 
 class Movable():
-    def __init__(self,mapdata: MapData, start_position: tuple[int, int], start_direction: Direction) -> None:
-        self.mapdata = mapdata
-        self.position = start_position
-        self.direction = start_direction
-        self.next_direction = None
-    
+    def __init__(self) -> None:
+        pass
         
-    def get_next_position(self) -> tuple[int, int]:
+    def next_position(self, cur_position: tuple[int, int], direction: Direction) -> tuple[int, int]:
         """ Calculates the next position based on the current position and the direction
 
+        @args:
+            cur_position [tuple(int, int)] - the current position
+            dirertion [Direction]
         @return:
             (pos_x, pos_y) [int, int] - the next position
         """
-        pos_x = self.position[0]
-        pos_y = self.position[1]
+        pos_x = cur_position[0]
+        pos_y = cur_position[1]
 
-        if self.direction == Direction.Right:
+        if direction == Direction.Right:
             pos_y += 1
-        if self.direction == Direction.Down:
+        if direction == Direction.Down:
             pos_x += 1
-        if self.direction == Direction.Left:
+        if direction == Direction.Left:
             pos_y -= 1
-        if self.direction == Direction.Up:
+        if direction == Direction.Up:
             pos_x -= 1
         
         return (pos_x, pos_y)
 
     
-    def get_original_position(self) -> tuple[int, int]:
-        """ Calculates the movalble object position original position based on thier direction
+    def last_position(self, cur_position: tuple[int, int], direction: Direction) -> tuple[int, int]:
+        """ Calculates the movalble object position last position based on thier direction
         
+        @args:
+            cur_position [tuple(int, int)] - the current position
+            dirertion [Direction]
         @return:
             (pos_x, pos_y) [int, int] - the player last position
         """
-        pos_x = self.position[0]
-        pos_y = self.position[1]
+        pos_x = cur_position[0]
+        pos_y = cur_position[1]
 
-        if self.direction == Direction.Right:
+        if direction == Direction.Right:
             pos_y -= 1
-        if self.direction == Direction.Down:
+        if direction == Direction.Down:
             pos_x -= 1
-        if self.direction == Direction.Left:
+        if direction == Direction.Left:
             pos_y += 1
-        if self.direction == Direction.Up:
+        if direction == Direction.Up:
             pos_x += 1
             
         return (pos_x, pos_y)
     
 
-    def check_borders(self) -> tuple[int, int]:
+    def jump_border(self, mapdata: MapData, cur_position: tuple[int, int]) -> tuple[int, int]:
         """ Checks if the movable object reached the end of the map
             on any direction
             If the movable reaches the border, returns the moveables new position
 
+        @args:
+            mapdata [MapData]
+            cur_position [tuple(int, int)] - the current position
+            dirertion [Direction]
         @return:
             (pos_x, pos_y) [int, int] - the player new position
         """
-        pos_x = self.position[0]
-        pos_y = self.position[1]
+        pos_x = cur_position[0]
+        pos_y = cur_position[1]
         
         # check map bottom
-        if pos_x == self.mapdata.height:
+        if pos_x == mapdata.height:
             pos_x = 0
         
         # check map top
         if pos_x < 0:
-            pos_x = self.mapdata.height - 1
+            pos_x = mapdata.height - 1
         
         # check map left
-        if pos_y == self.mapdata.width:
+        if pos_y == mapdata.width:
             pos_y = 0
 
         # check map right
         if pos_y < 0:
-            pos_y = self.mapdata.width - 1
+            pos_y = mapdata.width - 1
         
         return (pos_x, pos_y)
 
-        
-    def is_obstacle(self, pos_x: int, pos_y: int) -> bool:
-        """ Determines if there is an obstacle on the given coordinates or not
+
+    def what_is_ahead(self, mapdata: MapData, cur_position: tuple[int, int], direction: Direction) -> MapElements:
+        """ Returns the type of elemet is on the next position base on the current position and direction
 
         @args:
-            (pos_x, pos_y) [int, int] - position on the map
+            mapdata [MapData]
+            cur_position [tuple(int, int)] - the current position
+            dirertion [Direction]
+        @returns:
+            element ahead [MapElement]
+        """
+        pos_x, pos_y = self.next_position(cur_position, direction)
+        return mapdata[pos_x, pos_y]
+
+        
+    def is_wall_ahead(self, mapdata: MapData, cur_position: tuple[int, int], direction: Direction) -> bool:
+        """ Determines if there is an obstacle (wall) on the next coordinate based on
+            the given coordinates and direction
+
+        @args:
+            mapdata [MapData]
+            cur_position [tuple(int, int)] - the current position
+            dirertion [Direction]
         @return:
             True, if ther is an obstacle on the given coordinates
         """
-
-        # check walls
-        if (pos_x, pos_y) in self.mapdata.obstacles.walls:
-            return True
-        
-        # check door
-        if (pos_x, pos_y) == self.mapdata.obstacles.door:
+        if self.what_is_ahead(mapdata, cur_position, direction) == MapElements.Wall:
             return True
         
         return False
