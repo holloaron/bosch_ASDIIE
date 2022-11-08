@@ -18,10 +18,12 @@ class Game:
         self.start_game()
         self.drawing_service = DrawingService(screen)
             self.maze.draw(self.drawing_service)
+            self.pacman.draw(self.drawing_service)
             pygame.display.update()
             fps.tick(Constants.PACMAN_SPEED.value)
     def start_game(self):
         self.maze = Maze()
         self.maze.init()
+        self.pacman = self.maze.place_pacman(1, 1)
 if __name__ == '__main__':
     game = Game()

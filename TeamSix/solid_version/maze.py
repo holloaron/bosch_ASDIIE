@@ -49,3 +49,12 @@ class Maze(Drawable, Steppable):
                     self.fields[x][y].neighbors['RIGHT'] = self.fields[x + 1][y]
                 if y < Constants.MAZE_SIZE_Y.value - 1:
                     self.fields[x][y].neighbors['DOWN'] = self.fields[x][y + 1]
+
+    def place_pacman(self, field_x, field_y):
+        # pacman starting field must be empty
+        field = self.fields[field_x][field_y]
+        field.things = []
+        pacman = Pacman(field)
+        field.things.append(pacman)
+        return pacman
+
