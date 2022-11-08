@@ -25,6 +25,10 @@ class ConsoleCanvas(Canvas):
         for dot in coordinates:
             self.map[dot.row][dot.col] = "x"
 
+    def draw_walls(self, coordinates: List[Coordinates]):
+        for wall in coordinates:
+            self.map[wall.row][wall.col] = "x"
+
     def render(self):
         for num_row, row in enumerate(self.map):
             self.crs_screen.addstr(num_row, 0, "".join(row) + "\n")
