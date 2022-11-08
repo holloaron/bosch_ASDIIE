@@ -20,3 +20,6 @@ class Pellets(Visualizable):
             self.body_parts = body
         if map_size is None:
             map_size = MapSize(10, 10)
+
+    def draw(self, canvas: Canvas):
+        canvas.draw_dots(self.body_parts)
