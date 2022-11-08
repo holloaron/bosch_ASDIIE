@@ -3,26 +3,23 @@
 //*********************************************************************
 / PROJECT_NAME : PacMan
 / FILENAME     : MapDataReader.py
-/ AUTHOR       : Gergely Őri
+/ AUTHOR       : Gergely Őri, Bozsóki Márk
 / UNIVERSITY   : BME
 / TEAM         : SegmentFault
 **********************************************************************
 **********************************************************************
 / Short description
 / --------------------------------------------------------------------
-/ Data provider, from selected local .mapdat files, or with a basic
-map
+/ Data provider, from selected local .mapdat files
 
 /*********************************************************************
 /*********************************************************************
 """
 
 import os
-from typing import Callable, List
 
 from MapElements import MapElements
 from MapData import MapData
-from MapGenerator import MapGenerator
 
 class MapDataReader:
 
@@ -45,29 +42,7 @@ class MapDataReader:
         
         return mapdata_files
 
-
-    def fill_mapdata(self, map=None):
-        """ Fills a MapData member with data
-
-        @args:
-            map [str] - label of the choosen map
-        @returns:
-            mapdata [MapData] - class member holding the mapdata
-        """
-        mapdata = None
-        mapdatafile_path = None
-        if not map is None:
-            mapdata_paths = self.list_mapdatas()
-            for item in mapdata_paths:
-                # if the path contains the map string
-                if item.find(map) != -1:
-                    mapdatafile_path = item
-            self.data_set = self.load_mapdata(mapdatafile_path)
-
-        self.generated_map=MapGenerator(self.data_set)
-        
-
-    def load_mapdata(self, mapdatafile_path: str) -> list[list[str]]:
+    def load_mapdata(self, map: str) -> list[list[str]]:
         """ Loads the mapdata from the file of the given path as lol(str)
 
         @args:
@@ -76,6 +51,14 @@ class MapDataReader:
         @return:
             lines [List[List[str]]] - list of list containing the mapdata
         """
+
+        if not map is None:
+            mapdata_paths = self.list_mapdatas()
+            for item in mapdata_paths:
+                # if the path contains the map string
+                if item.find(map) != -1:
+                    mapdatafile_path = item
+
         mapdata = open(mapdatafile_path, 'r')
 
         lines = []
@@ -97,7 +80,43 @@ class MapDataReader:
         return lines
 
 
-    def get_size(self) -> Callable[[], list[int]]:
+    def fill_mapdata(self, map: str) -> MapData:
+        """ Fills a MapData member with mapdata
+
+        
+        @returns:
+            mapdata [MapData] - class member holding the mapdata
+        """
+
+        # init MapData
+        mapdata = MapData()
+        mapdata.size = self.get_size()
+
+        # get obsticles start pozition
+        mapdata.obstacles.walls = self.get_coords_of(MapElements.Wall)
+        mapdata.obstacles.door = self.get_first_coord_of(MapElements.Door)
+
+        # get collectables start pozition
+        mapdata.collectables.coins = self.get_coords_of(MapElements.Coin)
+        mapdata.collectables.points = self.get_coords_of(MapElements.Point)
+        #TODO: add cherry
+
+        # get enemies start pozition
+        mapdata.enemies.Blinky = self.get_first_coord_of(MapElements.Blinky)
+        mapdata.enemies.Clyde = self.get_first_coord_of(MapElements.Clyde)
+        mapdata.enemies.Inky = self.get_first_coord_of(MapElements.Inky)
+        mapdata.enemies.Pinky = self.get_first_coord_of(MapElements.Pinky)
+
+        # get player start pozition
+        mapdata.Player = self.get_first_coord_of(MapElements.PacMan)
+
+        return mapdata
+        
+
+
+
+
+    def get_size(self) -> tuple[(int, int)]:
         """ Determines the loaded mapsize
 
         @args:
@@ -106,7 +125,15 @@ class MapDataReader:
             size [tuple(int, int)] - [0] - width of the map
                                      [1] - height of the map
         """
-        return self.generated_map.get_mapsize
+        map_height = len(self.data_set)
+        map_width = 0
+
+        for i in range(len(self.data_set)):
+            if len(self.data_set[i]) > map_width:
+                map_width = len(self.data_set[i])
+
+        return (map_width, map_height)
+
 
 
     def contains(self, element: MapElements) -> bool:
@@ -118,10 +145,14 @@ class MapDataReader:
         @return:
             result [bool] - True, if the mapdata contains the given MapElement
         """
-        return self.generated_map.contains_obstacle(element)
+        for i in range(len(self.data_set)):
+            if element in self.data_set[i]:
+                return True
+
+        return False
 
 
-    def get_first_coords_of(self, element: MapElements) -> tuple[(int, int)]:
+    def get_first_coord_of(self, element: MapElements) -> tuple[(int, int)]:
         """ Returns the coordinates of the given MapElement
         
         @args:
@@ -130,14 +161,22 @@ class MapDataReader:
         @returns:
             result [tuple(x [int], y [int])] - the first found coordinate          
         """
-        coordinates=self.get_coords_of(element)
-        if len(coordinates)>0:
-            return coordinates[0]
-        else:
-            warning=element.name+" nincs a térképen"
-            raise Exception(warning)
+        if not self.contains(element):
+            raise Exception(f"The Map does not contain the given MapElement: {element.name} {element.value}")
+
+        x = 0
+        y = 0
         
-            
+        for i in range(len(self.data_set)):
+
+            y = 0
+            for j in self.data_set[i]:
+                if j == element.value:
+                    return (x,y)
+                y += 1
+
+            x +=1
+        
 
     def get_coords_of(self, element: MapElements) -> list[(int,int)]:
         """ Returns a list of coordinates as tuple of the given MapElement
@@ -148,5 +187,21 @@ class MapDataReader:
         @returns:
             result [list[tuple(int,int)]] - the found coordinates on the map
         """
+        if not self.contains(element):
+            raise Exception(f"The Map does not contain the given MapElement: {element.name} {element.value}")
 
-        return self.generated_map.get_obsacle_coordinates(element)
+        result = []
+        x = 0
+        y = 0
+        
+        for i in range(len(self.data_set)):
+
+            y = 0
+            for j in self.data_set[i]:
+                if j == element.value:
+                    result.append((x,y))
+                y += 1
+
+            x +=1
+
+        return result
