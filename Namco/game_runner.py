@@ -39,10 +39,11 @@ class GameRunner:
             pacman_x, pacman_y = self.agent.process_action(action)
             wall, dot = self.eval_situation.check_collision(self.world.map, pacman_x, pacman_y)
 
-            # Increasing the score or terminating the game according to the situation
+            # Increasing the score and the step number or terminating the game according to the situation
+            self.step_num += 1
             if dot:
                 self.score += 1
-            if wall or (self.step_num > self.max_step_num):
+            if wall or (self.step_num == self.max_step_num):
                 done = True
 
             # Updating the map and visualizing the current state
