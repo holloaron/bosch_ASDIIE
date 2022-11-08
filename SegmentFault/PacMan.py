@@ -35,7 +35,8 @@ class PacMan:
         self.GAMEMODE, self.TIMEOUTLIMIT, self.MAP, self.GAMESPEED = Config.Getsettings()
         self.timer = TimerThread.TimeCounter(self.TIMEOUTLIMIT)
 
-        self.mapdata = None
+        # init empty mapdata
+        self.mapdata = MapData()
 
         self.show_menu()
 
@@ -96,8 +97,6 @@ class PacMan:
     def start_game_session(self):
 
         #TODO: init mapdata based on config
-        
-
 
         # init mapdata
         if self.GAMEMODE == "standard":
@@ -169,6 +168,17 @@ class PacMan:
             if player_input == Inputs.SetDirection_Left:
                 player.next_direction = Direction.Left
 
+            # refresh player position
+            if self.GAMEMODE == "sandbox":
+                # game over in sandbox mode if player hits the wall
+                last_player_position = player.position
+                if player.get_next_position() == last_player_position:
+                    # if the player not moved, than reached a wall -> game over
+                    break
+            else:
+                player.position = player.get_next_position()
+
+            # game session timeout
             if self.timer.is_timeout():
                 break
 
@@ -178,7 +188,7 @@ class PacMan:
         print(f"Game Time: {self.timer.seconds_passed()}")
         print(f"Score: {player.score}")
         input("Press any key to continue...")
-            
+
 
     def render_game_state(self):
         visualiser = GrayScaleVisualizer(self.mapdata)
@@ -191,6 +201,7 @@ class PacMan:
 
 
     def restart_game_session(self):
+        #TODO: implement session restart
         pass
 
 
