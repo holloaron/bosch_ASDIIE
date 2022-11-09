@@ -16,7 +16,7 @@
 /*********************************************************************
 """
 
-from source.dynamic_elements.moveables.Moveable import Moveable
+from source.dynamic_elements.moveables import Moveable
 from source.dynamic_elements.Direction import Direction
 from source.map.MapData import MapData
 
