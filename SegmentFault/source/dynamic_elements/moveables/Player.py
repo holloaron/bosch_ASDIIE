@@ -20,9 +20,8 @@ from source.dynamic_elements.moveables import Moveable
 from source.dynamic_elements import Direction
 from source.map import MapData
 
-class Player(Moveable):
+class Player(Moveable.Movable):
     def __init__(self, mapdata: MapData, start_position: tuple[int, int], start_direction: Direction):
-        super().___init__()
         self.mapdata = mapdata
         self.position = start_position
         self.direction = start_direction
