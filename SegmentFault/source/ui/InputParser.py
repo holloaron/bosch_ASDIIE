@@ -15,7 +15,7 @@
 /*********************************************************************
 """
 
-from source.ui import Inputs
+from source.ui.Inputs import Inputs
 
 class InputParser():
 
@@ -59,18 +59,19 @@ class InputParser():
 
 
     @staticmethod
-    def parse(input: str, whitelist: list[str]) -> str:
+    def parse(input: str, *whitelist: list[str]) -> str:
         """ Parses the input from the console
         
         @args:
             input [str] - user input from the console
-            whitelist [list(str)] - 
+            whitelist [list(str)] - chooseable menuitems
         @returns:
             parsed_input [str]
         """        
         if input.isdigit() == True:
-            if int(input) in range(whitelist):
-                return whitelist[int(input)]
+            #print(whitelist)
+            if 0 <= int(input) <= len(whitelist[1]):
+                return whitelist[1][int(input)]
 
         if input in whitelist:
             return input

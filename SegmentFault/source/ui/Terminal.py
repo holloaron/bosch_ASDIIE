@@ -57,7 +57,7 @@ class Terminal():
         for item in menuitems:
             #item = os.path.split(index)[1]
             #print(f"\t{index}. {item[:-7]}")
-            print(f"\t{index}. {item}")
+            print(f"  {index}. {item}")
             index += 1
 
 
@@ -78,7 +78,6 @@ class Terminal():
         current_dir = os.path.dirname(__file__)
         parent_dir = Path(current_dir).parent.parent.absolute()
         title_source_path = os.path.join(parent_dir, "data/assets/TerminalTitle.txt")
-        #title_source_path = os.path("SegmentFault/data/assets/TerminalTitle.txt", current_dir)
         title_source = open(title_source_path, 'r')
         title = []
 
@@ -117,7 +116,7 @@ class Terminal():
         os.system(command)
 
 
-    def get_menu_input(massage: str, menuitems: list[str]) -> str:
+    def get_menu_input(massage: str, *menuitems: list[str]) -> str:
         """ Returns the parsed input from the user for menu contol
 
         @args:
@@ -126,7 +125,7 @@ class Terminal():
         @return:
             parsed_input [str] - response from user
         """
-        parsed_input = InputParser.parse(input(f"{massage}\n"), menuitems)
+        parsed_input = InputParser.parse(input(f"{massage}\n"), *menuitems)
 
         return parsed_input
 

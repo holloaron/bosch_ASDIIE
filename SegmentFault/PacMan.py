@@ -50,7 +50,7 @@ class PacMan:
         while menuinput != "exit":
 
             self.terminal.show_menu("Main Menu", self.terminal.main_menuitems)
-            menuinput = self.terminal.get_menu_input(massage="", menuitems=(self.terminal.main_menuitems))
+            menuinput = self.terminal.get_menu_input("", self.terminal.main_menuitems)
 
             # START GAME
             if menuinput == "start game":
