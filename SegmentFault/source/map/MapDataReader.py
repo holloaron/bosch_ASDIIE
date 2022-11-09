@@ -19,7 +19,8 @@
 import os
 from pathlib import Path
 
-from source.map import MapData, MapElements
+from source.map.MapData import MapData
+from source.map.MapElements import MapElements
 
 class MapDataReader:
 

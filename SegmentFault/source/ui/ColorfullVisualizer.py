@@ -17,7 +17,7 @@
 """
 import cv2
 import numpy as np
-from source.map import MapData
+from source.map.MapData import MapData
 
 class ColorfullVisualizer:
     def __init__(self, mapdata: MapData) -> None:

@@ -16,8 +16,8 @@ Superclass for moving object in the game
 ********************************************************************
 """
 
-from source.dynamic_elements import Direction
-from source.map import MapData
+from source.dynamic_elements.Direction import Direction
+from source.map.MapData import MapData
 from source.map.MapElements import MapElements
 
 

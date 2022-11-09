@@ -16,8 +16,6 @@
 /*********************************************************************
 """
 
-from source.map import MapElements
-
 class MapData():
     def __init__(self) -> None:
         self.size = (0,0)
