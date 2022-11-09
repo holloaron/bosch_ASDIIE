@@ -20,13 +20,10 @@ import os
 import threading
 import time
 from source import TimerThread, Config
-from source.dynamic_elements.Direction import Direction
-from source.dynamic_elements.moveables.Player import Player
-from source.map.MapData import MapData
-from source.map.MapDataReader import MapDataReader
-from source.map.MapGenerator import MapGenerator
-from source.ui import Terminal, Inputs
-from source.ui.GrayScaleVisualizer import GrayScaleVisualizer
+from source.dynamic_elements import Direction
+from source.dynamic_elements.moveables import Player
+from source.map import MapData, MapDataReader, MapGenerator
+from source.ui import Terminal, Inputs, GrayScaleVisualizer
 
 class PacMan:
     def __init__(self):
