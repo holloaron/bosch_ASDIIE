@@ -17,7 +17,7 @@
 
 from enum import Enum
 
-class Imputs(str, Enum):
+class Inputs(str, Enum):
 
     SetDirection_Up = 'w'
     SetDirection_Right = 'd'
