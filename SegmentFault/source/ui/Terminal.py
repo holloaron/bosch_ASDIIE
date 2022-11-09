@@ -17,11 +17,13 @@
 """
 
 import os
-from source.ui import InputParser
-from source.map import MapDataReader
+from pathlib import Path
+
+from source.ui.InputParser import InputParser
+from source.map.MapDataReader import MapDataReader
 
 class Terminal():
-    def __init__(self) -> None:
+    def __init__(self):
         self.main_menuitems = [
             "start game",
             "game mode",
@@ -36,7 +38,7 @@ class Terminal():
         ]
 
         self.changemap_menuitems = MapDataReader.list_mapdatas()
-        self.changemap_menuitems.add("back")
+        self.changemap_menuitems.append("back")
 
         self.title = self.get_title()
 
@@ -53,8 +55,9 @@ class Terminal():
         print(menutitle)
         index = 0
         for item in menuitems:
-            item = os.path.split(index)[1]
-            print(f"\t{index}. {item[:-7]}")
+            #item = os.path.split(index)[1]
+            #print(f"\t{index}. {item[:-7]}")
+            print(f"\t{index}. {item}")
             index += 1
 
 
@@ -73,7 +76,9 @@ class Terminal():
         """ Loads the title from local file
         """
         current_dir = os.path.dirname(__file__)
-        title_source_path = os.path.relpath("..\\data\\assets\\TerminalTitle.txt", current_dir)
+        parent_dir = Path(current_dir).parent.parent.absolute()
+        title_source_path = os.path.join(parent_dir, "data/assets/TerminalTitle.txt")
+        #title_source_path = os.path("SegmentFault/data/assets/TerminalTitle.txt", current_dir)
         title_source = open(title_source_path, 'r')
         title = []
 
@@ -98,7 +103,9 @@ class Terminal():
         """ Displayes the gametitle
         """
         for line in self.title:
-            print(line)      
+            for char in line:
+                print(char, end='')
+            print()
 
 
     def clear(self) -> None:
