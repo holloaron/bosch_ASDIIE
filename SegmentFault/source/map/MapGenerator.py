@@ -52,11 +52,13 @@ class MapGenerator:
         @returns:
             result [list(list(str))] - the empty dataset
         """
+
         result = []
-        
-        for i in range(width):
-            for j in range(height):
-                result[i,j] = MapElements.Place
+
+        for x in range(0, width - 1):
+            result.append([])
+            for y in range(0, height - 1):
+                result[x].append(MapElements.Place)
         
         return result
     
