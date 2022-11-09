@@ -19,18 +19,24 @@ Driver class and main script for our program
 import os
 import threading
 import time
-from source import TimerThread, Config
-from source.dynamic_elements import Direction
-from source.dynamic_elements.moveables import Player
-from source.map import MapData, MapDataReader, MapGenerator
-from source.ui import Terminal, Inputs, GrayScaleVisualizer
+from source.TimerThread import TimeCounter
+from source.Config import Config
+from source.dynamic_elements.Direction import Direction
+from source.dynamic_elements.moveables.Player import Player
+from source.map.MapData import MapData
+from source.map.MapDataReader import MapDataReader
+from source.map.MapGenerator import MapGenerator
+from source.ui.Terminal import Terminal
+from source.ui.Inputs import Inputs
+from source.ui.GrayScaleVisualizer import GrayScaleVisualizer
 
 class PacMan:
     def __init__(self):
         self.terminal = Terminal()
         self.config = Config()
-        self.GAMEMODE, self.TIMEOUTLIMIT, self.MAP, self.GAMESPEED = Config.Getsettings()
-        self.timer = TimerThread.TimeCounter(self.TIMEOUTLIMIT)
+        #self.GAMEMODE, self.TIMEOUTLIMIT, self.MAP, self.GAMESPEED = Config.Getsettings()
+        self.GAMEMODE, self.TIMEOUTLIMIT, self.MAP, self.GAMESPEED = self.config.Getsettings()
+        self.timer = TimeCounter(self.TIMEOUTLIMIT)
 
         # init empty mapdata
         self.mapdata = MapData()
@@ -44,7 +50,7 @@ class PacMan:
         while menuinput != "exit":
 
             self.terminal.show_menu("Main Menu", self.terminal.main_menuitems)
-            menuinput = self.terminal.get_menu_input("", self.terminal.main_menuitems)
+            menuinput = self.terminal.get_menu_input(massage="", menuitems=(self.terminal.main_menuitems))
 
             # START GAME
             if menuinput == "start game":
