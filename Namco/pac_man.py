@@ -29,4 +29,8 @@ class PacMan:
 
     @property
     def position(self):
+        """
+        Returns PacMan's current x and y coordinate
+        :return: x and y coordinate of PacMan
+        """
         return self.x, self.y
