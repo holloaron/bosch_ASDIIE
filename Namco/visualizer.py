@@ -5,7 +5,7 @@ import numpy as np
 
 class Visualizer:
     @staticmethod
-    def clear_console():
+    def _clear_console():
         """
         Clearing the console
         :return:
@@ -14,7 +14,7 @@ class Visualizer:
         os.system('cls' if os.name == 'nt' else 'clear')
 
     @staticmethod
-    def show_map(observation: np.ndarray):
+    def _show_map(observation: np.ndarray):
         """
         Visualizing the current state of the game to the player
         :param observation: Array containing the map (np.ndarray)
@@ -24,7 +24,7 @@ class Visualizer:
             print(*line, sep='  ')
 
     @staticmethod
-    def show_score(curr_score: int):
+    def _show_score(curr_score: int):
         """
         Informing the user about the current score
         :param curr_score: Current score of the player (int)
@@ -33,7 +33,7 @@ class Visualizer:
         print("\nCurrent score: ", curr_score)
 
     @staticmethod
-    def game_over(done: bool):
+    def _game_over(done: bool):
         """
         Informing the user that the game is over
         :param done: Game over flag
@@ -50,7 +50,7 @@ class Visualizer:
         :param done: Game over flag (bool)
         :return:
         """
-        self.clear_console()
-        self.show_map(observation)
-        self.show_score(curr_score)
-        self.game_over(done)
+        self._clear_console()
+        self._show_map(observation)
+        self._show_score(curr_score)
+        self._game_over(done)
