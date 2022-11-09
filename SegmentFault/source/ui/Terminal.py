@@ -17,8 +17,8 @@
 """
 
 import os
-import InputParser
-from source.map.MapDataReader import MapDataReader
+from source.ui import InputParser
+from source.map import MapDataReader
 
 class Terminal():
     def __init__(self) -> None:
