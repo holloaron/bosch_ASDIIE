@@ -35,7 +35,7 @@ class GameRunner:
         """
         Steps the environment
         :param done: Whether the running should be terminated or not
-        :return:
+        :return: Game terminating flag (bool)
         """
         action = input("Select your next action (w, a, s, d): ")
 

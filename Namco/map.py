@@ -5,7 +5,7 @@ class Map:
     def __init__(self, map_source: str = "map.txt"):
         """
         :param map_source: name of the map file (str)
-        Map class: initializing the map with walls and dots
+        Map class: Initializing the map with walls and dots
         """
         # Loading map from the .txt file
         self.map = np.loadtxt(map_source, dtype=str, delimiter=',')
@@ -16,8 +16,8 @@ class Map:
         """
         Updates the map based on PacMan's position
         :param agent_pos: x and y coordinate of the agent (int, int)
-        :param done: game over flag (bool)
-        :return: updated map (np.ndarray)
+        :param done: Game over flag (bool)
+        :return: Updated map (np.ndarray)
         """
         x = agent_pos[0]
         y = agent_pos[1]
@@ -35,7 +35,7 @@ class Map:
     def check_collision(self, agent_pos: [int, int]) -> [bool, bool]:
         """
         Checks whether Pacman interacted with any objects on the map
-        :return: wall collision flag (bool), dot collision flag (bool)
+        :return: Wall collision flag (bool), dot collision flag (bool)
         """
         dot_collision = False
         wall_collision = False
