@@ -8,7 +8,7 @@ class PacMan:
         self.x = x
         self.y = y
 
-    def process_action(self, action: str) -> [int, int]:
+    def process_action(self, action: str):
         """
         Moves PacMan in the desired direction
         :param action: current user input (w, a, s or d) (str)
@@ -27,4 +27,6 @@ class PacMan:
         elif action == 'd':
             self.y += 1
 
+    @property
+    def position(self):
         return self.x, self.y
