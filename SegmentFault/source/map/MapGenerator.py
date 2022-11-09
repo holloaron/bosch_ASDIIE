@@ -17,9 +17,7 @@
 """
 import random
 
-from MapElements import MapElements
-from source.map.MapData import MapData
-from source.map.MapDataReader import MapDataReader
+from source.map import MapData, MapDataReader, MapElements
 
 class MapGenerator:
     def __init__(self):

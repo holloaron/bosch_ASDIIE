@@ -18,8 +18,7 @@
 
 import os
 
-from MapElements import MapElements
-from MapData import MapData
+from source.map import MapData, MapElements
 
 class MapDataReader:
 
