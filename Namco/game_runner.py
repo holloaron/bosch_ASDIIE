@@ -1,23 +1,19 @@
 from map import Map
 from pac_man import PacMan
-from position_comparison import PositionComparison
 from visualizer import Visualizer
 
 
 class GameRunner:
-    def __init__(self, agent: PacMan, world: Map, eval_situation: PositionComparison, visualizer: Visualizer,
-                 max_step_num: int = 100):
+    def __init__(self, agent: PacMan, world: Map, visualizer: Visualizer, max_step_num: int = 100):
         """
         Runs the game
         :param agent: Agent that interacts the game
         :param world: The environment where the game takes place
-        :param eval_situation: Evaluates the current state of the game
         :param visualizer: Visualize the game to the user
         :param max_step_num: Maximum number of possible interactions (int)
         """
         self.agent = agent
         self.world = world
-        self.eval_situation = eval_situation
         self.visualizer = visualizer
 
         self.score = 0
@@ -33,28 +29,39 @@ class GameRunner:
         self.visualizer.render(self.world.map, self.score, done)
 
         while not done:
-            action = input("Select your next action (w, a, s, d): ")
+            done = self._step(done)
 
-            # Processing current input and evaluating the situation
-            pacman_x, pacman_y = self.agent.process_action(action)
-            wall, dot = self.eval_situation.check_collision(self.world.map, pacman_x, pacman_y)
+    def _step(self, done):
+        """
+        Steps the environment
+        :param done: Whether the running should be terminated or not
+        :return:
+        """
+        action = input("Select your next action (w, a, s, d): ")
 
-            # Increasing the score and the step number or terminating the game according to the situation
-            self.step_num += 1
-            if dot:
-                self.score += 1
-            if wall or (self.step_num == self.max_step_num):
-                done = True
+        # Processing current input and evaluating the situation
+        self.agent.process_action(action)
+        dot, wall = self.world.check_collision(self.agent.position)
 
-            # Updating the map and visualizing the current state
-            self.world.update_map(pacman_x, pacman_y, done)
-            self.visualizer.render(self.world.map, self.score, done)
+        # Increasing the step number
+        self.step_num += 1
+
+        # Terminating the game or increasing the score according to the situation
+        if dot:
+            self.score += 1
+        if wall or (self.step_num == self.max_step_num):
+            done = True
+
+        # Updating the map and visualizing the current state
+        self.world.update_map(self.agent.position, done)
+        self.visualizer.render(self.world.map, self.score, done)
+
+        return done
 
 
 def main():
     game_runner = GameRunner(agent=PacMan(x=6, y=6),
                              world=Map("map.txt"),
-                             eval_situation=PositionComparison(),
                              visualizer=Visualizer(),
                              max_step_num=100)
 
