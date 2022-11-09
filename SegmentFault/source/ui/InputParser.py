@@ -15,7 +15,7 @@
 /*********************************************************************
 """
 
-import Inputs
+from source.ui import Inputs
 
 class InputParser():
 
