@@ -48,7 +48,8 @@ class Config():
                 None
         """
 
-        self.Arguments.add_argument("--gamemode", "-gm", action='store',
+        self.Arguments.add_argument("--gamemode", "-gm",
+                                    action='store',
                                     help="Determins game type, standard/sandbox ", 
                                     default="sandbox")
         self.Arguments.add_argument("--timeout", "-to", '--int',
@@ -99,7 +100,7 @@ class Config():
                     Mapdatafile[str]
         """
 
-        Mapdatafile = self.GivenArguments.mapdata
+        Mapdatafile = self.GivenArguments.map
         return Mapdatafile
 
 
