@@ -17,6 +17,7 @@
 """
 
 import os
+from pathlib import Path
 
 from source.map import MapData, MapElements
 
@@ -26,7 +27,7 @@ class MapDataReader:
         self.data_set = None
 
     @staticmethod
-    def list_mapdatas(self) -> list[str]:
+    def list_mapdatas() -> list[str]:
         """ Gathers the available .mapdat filenames
 
         @returns:
@@ -35,7 +36,8 @@ class MapDataReader:
         mapdata_files = []
 
         current_dir = os.path.dirname(__file__)
-        mapdata_dir = os.path.join(current_dir, "data/maps")
+        parent_dir = Path(current_dir).parent.parent.absolute()
+        mapdata_dir = os.path.join(parent_dir, "data/maps")
         for mapdat in os.listdir(mapdata_dir):
             mapdata_files.append(mapdat)
         
