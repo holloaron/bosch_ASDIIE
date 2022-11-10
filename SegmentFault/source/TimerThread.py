@@ -92,6 +92,16 @@ class TimeCounter(threading.Thread):
         self._seconds_passed = 0
 
     def StartStopperAdvanced(self):
+
+        """ Starts the timer thread considering, wether it is the first start for it
+            or not based on IsFirstRun constant
+
+        @args:
+                self
+        @return:
+                -
+        """
+
         if self.IsFirstRun == False:
             self.reset()
         if self.IsFirstRun == True:
