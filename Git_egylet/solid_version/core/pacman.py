@@ -34,4 +34,4 @@ class Pacman(GameElement, Visualizable):
         return True
 
     def draw(self, canvas: Canvas):
-        canvas.draw_dots(self.body_parts)
+        canvas.draw_dots(self.position, 'pacman')
