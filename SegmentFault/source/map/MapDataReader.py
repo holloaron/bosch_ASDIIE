@@ -25,7 +25,7 @@ from source.map.MapElements import MapElements
 class MapDataReader:
 
     def __init__(self) -> None:
-        self.data_set = None
+        self.data_set = []
 
     @staticmethod
     def list_mapdatas() -> list[str]:
@@ -40,7 +40,7 @@ class MapDataReader:
         parent_dir = Path(current_dir).parent.parent.absolute()
         mapdata_dir = os.path.join(parent_dir, "data/maps")
         for mapdat in os.listdir(mapdata_dir):
-            mapdata_files.append(mapdat)
+            mapdata_files.append(os.path.join(mapdata_dir, mapdat))
         
         return mapdata_files
 
@@ -51,19 +51,19 @@ class MapDataReader:
             self
             mapdatafile_path [str] - path for the mapdata file
         @return:
-            lines [List[List[str]]] - list of list containing the mapdata
+            dataset [List[List[str]]] - list of list containing the mapdata
         """
 
+        index = 0
         if not map is None:
             mapdata_paths = self.list_mapdatas()
             for item in mapdata_paths:
                 # if the path contains the map string
                 if item.find(map) != -1:
-                    mapdatafile_path = item
+                    mapdatafile_path = mapdata_paths[index]
+                index += 1
 
         mapdata = open(mapdatafile_path, 'r')
-
-        lines = []
 
         while True:
             line = mapdata.readline()
@@ -73,16 +73,16 @@ class MapDataReader:
                 break
 
             if list(line)[-1] == '\n':
-                lines.append(list(line)[:-1])
+                self.data_set.append(list(line)[:-1])
             else:
-                lines.append(list(line))
+                self.data_set.append(list(line))
 
         mapdata.close()
 
-        return lines
+        return self.data_set
 
 
-    def fill_mapdata(self, map: str) -> MapData:
+    def fill_mapdata(self) -> MapData:
         """ Fills a MapData member with mapdata
 
         
@@ -95,28 +95,40 @@ class MapDataReader:
         mapdata.size = self.get_size()
 
         # get obsticles start pozition
-        mapdata.obstacles.walls = self.get_coords_of(MapElements.Wall)
-        mapdata.obstacles.door = self.get_first_coord_of(MapElements.Door)
+        if self.contains(MapElements.Wall):
+            mapdata.obstacles.walls = self.get_coords_of(MapElements.Wall)
+        
+        if self.contains(MapElements.Door):
+            mapdata.obstacles.door = self.get_first_coord_of(MapElements.Door)
 
         # get collectables start pozition
-        mapdata.collectables.coins = self.get_coords_of(MapElements.Coin)
-        mapdata.collectables.points = self.get_coords_of(MapElements.Point)
+        if self.contains(MapElements.Coin):
+            mapdata.collectables.coins = self.get_coords_of(MapElements.Coin)
+
+        if self.contains(MapElements.Point):
+            mapdata.collectables.points = self.get_coords_of(MapElements.Point)
+        
         #TODO: add cherry
 
         # get enemies start pozition
-        mapdata.enemies.Blinky = self.get_first_coord_of(MapElements.Blinky)
-        mapdata.enemies.Clyde = self.get_first_coord_of(MapElements.Clyde)
-        mapdata.enemies.Inky = self.get_first_coord_of(MapElements.Inky)
-        mapdata.enemies.Pinky = self.get_first_coord_of(MapElements.Pinky)
+        if self.contains(MapElements.Blinky):
+            mapdata.enemies.Blinky = self.get_first_coord_of(MapElements.Blinky)
+        
+        if self.contains(MapElements.Clyde):
+            mapdata.enemies.Clyde = self.get_first_coord_of(MapElements.Clyde)
+        
+        if self.contains(MapElements.Inky):
+            mapdata.enemies.Inky = self.get_first_coord_of(MapElements.Inky)
+
+        if self.contains(MapElements.Pinky):
+            mapdata.enemies.Pinky = self.get_first_coord_of(MapElements.Pinky)
 
         # get player start pozition
-        mapdata.Player = self.get_first_coord_of(MapElements.PacMan)
+        if self.contains(MapElements.PacMan):
+            mapdata.Player = self.get_first_coord_of(MapElements.PacMan)
 
         return mapdata
         
-
-
-
 
     def get_size(self) -> tuple[(int, int)]:
         """ Determines the loaded mapsize
@@ -127,19 +139,15 @@ class MapDataReader:
             size [tuple(int, int)] - [0] - width of the map
                                      [1] - height of the map
         """
-        map_height = len(self.data_set)
-        map_width = 0
-
-        for i in range(len(self.data_set)):
-            if len(self.data_set[i]) > map_width:
-                map_width = len(self.data_set[i])
+        map_height = len(self.data_set[0])
+        map_width = len(self.data_set[1])
 
         return (map_width, map_height)
 
 
 
     def contains(self, element: MapElements) -> bool:
-        """ Determines if the map contains the given MapElement
+        """ Determines if the dataset contains the given MapElement
         
         @args:
             self,

@@ -40,7 +40,7 @@ class MapGenerator:
         self.dataset = self.generate_border_of_walls()
 
         Player = self.get_random_coord()
-        self.dataset[Player[0], Player[1]] = MapElements.PacMan
+        self.dataset[Player[0]][Player[1]] = MapElements.PacMan
 
 
     def generate_empty_dataset(self, width: int, height: int) -> list[list[str]]:
@@ -72,9 +72,9 @@ class MapGenerator:
         for i in range(len(self.dataset[0])):
             for j in range(len(self.dataset[1])):
                 if i == 0 or i == len(self.dataset[0]):
-                    self.dataset[i,j] = MapElements.Wall
+                    self.dataset[i][j] = MapElements.Wall
                 if j == 0 or j == len(self.dataset[1]):
-                    self.dataset[i,j] = MapElements.Wall
+                    self.dataset[i][j] = MapElements.Wall
 
         return self.dataset
 
@@ -89,10 +89,10 @@ class MapGenerator:
 
         for i in range(len(self.dataset[0])):
             for j in range(len(self.dataset[1])):
-                if self.dataset[i,j] == MapElements.Place:
+                if self.dataset[i][j] == MapElements.Place:
                     white_list.append((i,j))
 
-        random_index = random.randint(0, len(white_list))
+        random_index = random.randint(0, (len(white_list) - 1))
         random_coord = white_list[random_index]
 
         return random_coord
