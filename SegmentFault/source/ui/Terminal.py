@@ -147,6 +147,6 @@ class Terminal():
         """
         print(massage)
         raw_input = input()
-        parsed_input = InputParser.parse(raw_input)
+        parsed_input = InputParser.parse_single_input(raw_input)
 
         return parsed_input

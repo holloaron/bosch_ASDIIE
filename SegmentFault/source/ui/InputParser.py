@@ -20,7 +20,7 @@ from source.ui.Inputs import Inputs
 class InputParser():
 
     @staticmethod
-    def parse(input: str) -> str:
+    def parse_single_input(input: str) -> str:
         """ Parses the input from the console
         
         @args:
@@ -71,6 +71,8 @@ class InputParser():
         if input.isdigit() == True:
             if 0 <= int(input) <= (len(whitelist[0]) - 1):
                 return whitelist[0][int(input)]
+
+        print(whitelist)
 
         if input in whitelist[0]:
             return input
