@@ -4,6 +4,7 @@ from typing import Deque
 from bosch_ASDIIE.Git_egylet.solid_version.core.canvas import Canvas
 from bosch_ASDIIE.Git_egylet.solid_version.core.map import Coordinates, MapSize
 from bosch_ASDIIE.Git_egylet.solid_version.core.game_element import GameElement
+from bosch_ASDIIE.Git_egylet.solid_version.core.key_event import KeyEvent
 from bosch_ASDIIE.Git_egylet.solid_version.core.visualizable import Visualizable
 
 
@@ -25,3 +26,9 @@ class Wallgenerator(GameElement, Visualizable):
 
     def draw(self, canvas: Canvas):
         canvas.draw_walls(self.body_parts)
+
+    def take_action(self, key_event: KeyEvent):
+        pass
+
+    def tick(self) -> bool:
+        return True
