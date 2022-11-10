@@ -29,5 +29,9 @@ class Pacman(GameElement, Visualizable):
     def take_action(self, key_event: KeyEvent):
         self.moving_transformation.direction = key_event
 
+    def tick(self) -> bool:
+        self.position = [self.moving_transformation(self.position[0])]
+        return True
+
     def draw(self, canvas: Canvas):
         canvas.draw_dots(self.body_parts)
