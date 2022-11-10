@@ -34,7 +34,7 @@ class Pellets(GameElement, Visualizable):
         return pellet_positions
 
     def draw(self, canvas: Canvas):
-        canvas.draw_dots(self.positions)
+        canvas.draw_dots(self.positions, 'pellets')
 
     def take_action(self, key_event: KeyEvent):
         pass
