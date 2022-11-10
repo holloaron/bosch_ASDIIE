@@ -39,6 +39,7 @@ class TimeCounter(threading.Thread):
         self._running.set()  # set running to True
         self._seconds_passed = 0  # value to track passed seconds
         self.TimeoutLimit = timelimit
+        self.IsFirstRun = True
 
 
     def run(self):
@@ -90,6 +91,12 @@ class TimeCounter(threading.Thread):
         """
         self._seconds_passed = 0
 
+    def StartStopperAdvanced(self):
+        if self.IsFirstRun == False:
+            self.reset()
+        if self.IsFirstRun == True:
+            self.IsFirstRun = False
+            self.start()
 
     @property
     def seconds_passed(self):
