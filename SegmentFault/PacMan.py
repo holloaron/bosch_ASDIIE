@@ -32,6 +32,8 @@ from source.ui.GrayScaleVisualizer import GrayScaleVisualizer
 
 class PacMan:
     def __init__(self):
+        self.game_over = False
+
         self.terminal = Terminal()
         self.config = Config()
         #self.GAMEMODE, self.TIMEOUTLIMIT, self.MAP, self.GAMESPEED = Config.Getsettings()
@@ -50,11 +52,12 @@ class PacMan:
         while menuinput != "exit":
 
             self.terminal.show_menu("Main Menu", self.terminal.main_menuitems)
-            menuinput = self.terminal.get_menu_input("", self.terminal.main_menuitems)
+            menuinput = self.terminal.get_menu_input("Choose menu option!", self.terminal.main_menuitems)
 
             # START GAME
             if menuinput == "start game":
                 self.start_game_session()
+                menuinput = Inputs.Nothing
 
             # GAMEMODE SETTINGS
             if menuinput == "game mode":
@@ -95,6 +98,8 @@ class PacMan:
                     self.GAMEMODE = "standard"
 
                     #TODO: MAPDATA change based on the files contained in the "maps" directory
+        
+        self.terminal.clear()
 
 
     def start_game_session(self):
@@ -111,21 +116,22 @@ class PacMan:
             map_generator.generate_mapdata(map_width=25, map_height=25)
             self.mapdata = map_generator.fill_mapdata()
             
-        self.timer.reset()
-        self.timer.run()
+
+        #self.timer.reset()
+        #self.timer.run()
 
         # start game
         player_input_thread = threading.Thread(target=self.get_user_input())
-        player_input_thread.start()
-
         game_state = threading.Thread(target=self.render_game_state())
+
+        player_input_thread.start()
         game_state.start()
 
         # gameover
         player_input_thread.join()
         game_state.join()
 
-        self.timer.stop()
+        #self.timer.stop()
 
 
     def get_user_input(self):
@@ -134,18 +140,18 @@ class PacMan:
         #TODO: init Ghosts based on config
 
         # init Player (PacMan)
-        player = Player(self.mapdata.Player, Direction.Down)
+        player = Player(self.mapdata, self.mapdata.Player, Direction.Down)
 
         # prevent for instant gameover for sandbox mode
         if self.GAMEMODE == "sandbox":
             for safe_direction in Direction.__members__.values():
-                if not player.is_wall_ahead(self.mapdata, player.position, safe_direction):
+                if not player.is_wall_infront(self.mapdata, player.position, safe_direction):
                     player.direction = safe_direction
 
         #TODO: init enemies and collectables
 
-        while not game_over:
-            self.termial.clear()
+        while not self.game_over or not self.timer.is_timeout:
+            self.terminal.clear()
             self.terminal.show_title()
 
             player_input = self.terminal.get_gameplay_input("Set new direction!")
@@ -156,6 +162,7 @@ class PacMan:
                 break
 
             if player_input == Inputs.Exit:
+                self.game_over = True
                 break
 
             # direction changing
@@ -185,22 +192,18 @@ class PacMan:
             if self.timer.is_timeout():
                 break
 
-        self.terminal.clear()
-        self.terminal.show_title()
-        print("GAME OVER")
-        print(f"Game Time: {self.timer.seconds_passed()}")
-        print(f"Score: {player.score}")
-        input("Press any key to continue...")
+        game_time = 2#self.timer.seconds_passed()
+        self.terminal.show_gameplayresult(game_time, player.score)
 
 
     def render_game_state(self):
-        visualiser = GrayScaleVisualizer(self.mapdata)
+        visualiser = GrayScaleVisualizer(size_ratio=10)
 
-        while not game_over or not self.timer.is_timeout:
-            visualiser.refresh_game_state()
-            visualiser.render_game_state()
+        while not self.game_over or not self.timer.is_timeout:
+            visualiser.refresh_game_state(self.mapdata)
+            visualiser.render_game_state(self.mapdata.size)
 
-            time.sleep(self.GAMESPEED / 1000)
+            time.sleep(self.GAMESPEED)
 
 
     def restart_game_session(self):
@@ -216,4 +219,3 @@ class PacMan:
 # program entry point
 if __name__ == "__main__":
     Game = PacMan()
-    game_over = False
