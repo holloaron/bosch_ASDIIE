@@ -6,7 +6,7 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.map import Coordinates
 
 class Canvas(ABC):
     @abstractmethod
-    def draw_dots(self, coordinates: List[Coordinates]):
+    def draw_dots(self, coordinates: List[Coordinates], object_type: str):
         pass
 
     @abstractmethod
