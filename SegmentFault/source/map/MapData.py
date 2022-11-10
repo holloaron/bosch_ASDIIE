@@ -19,8 +19,8 @@
 class MapData():
     def __init__(self) -> None:
         self.size = (0,0)
-        self.width = self.size[0]
-        self.height = self.size[1]
+        self.height = 0
+        self.width = 0
 
         self.obstacles = Obstacles()
 

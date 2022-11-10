@@ -93,6 +93,8 @@ class MapDataReader:
         # init MapData
         mapdata = MapData()
         mapdata.size = self.get_size()
+        mapdata.width = mapdata.size[0]
+        mapdata.height = mapdata.size[1]
 
         # get obsticles start pozition
         if self.contains(MapElements.Wall):
@@ -139,8 +141,11 @@ class MapDataReader:
             size [tuple(int, int)] - [0] - width of the map
                                      [1] - height of the map
         """
-        map_height = len(self.data_set[0])
-        map_width = len(self.data_set[1])
+        map_height = len(self.data_set)
+        map_width = 0
+
+        for i in self.data_set:
+            map_width = len(i)
 
         return (map_width, map_height)
 

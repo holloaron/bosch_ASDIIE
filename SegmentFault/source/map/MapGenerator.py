@@ -55,9 +55,9 @@ class MapGenerator:
 
         result = []
 
-        for x in range(0, width - 1):
+        for x in range(0, width):
             result.append([])
-            for y in range(0, height - 1):
+            for y in range(0, height):
                 result[x].append(MapElements.Place)
         
         return result
