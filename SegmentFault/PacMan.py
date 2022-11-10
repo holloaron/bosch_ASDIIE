@@ -210,12 +210,6 @@ class PacMan:
         #TODO: implement session restart
         pass
 
-
-    def terminate(self):
-        """ Forces the program to shut down
-        """
-        os._exit(0)
-
 # program entry point
 if __name__ == "__main__":
     Game = PacMan()
