@@ -1,12 +1,13 @@
 from collections import deque
 from typing import Deque
 
-from bosch_ASDIIE.solid_version.core.canvas import Canvas
-from bosch_ASDIIE.solid_version.core.map import Coordinates, MapSize
-from bosch_ASDIIE.solid_version.core.visualizable import Visualizable
+from bosch_ASDIIE.Git_egylet.solid_version.core.canvas import Canvas
+from bosch_ASDIIE.Git_egylet.solid_version.core.map import Coordinates, MapSize
+from bosch_ASDIIE.Git_egylet.solid_version.core.game_element import GameElement
+from bosch_ASDIIE.Git_egylet.solid_version.core.visualizable import Visualizable
 
 
-class Wallgenerator(Visualizable):
+class Wallgenerator(GameElement, Visualizable):
     """
     A visualizable class for generating walls and handling collision
     """
