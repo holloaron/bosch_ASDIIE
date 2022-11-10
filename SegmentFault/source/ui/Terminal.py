@@ -59,9 +59,11 @@ class Terminal():
             #print(f"\t{index}. {item[:-7]}")
             print(f"  {index}. {item}")
             index += 1
+        
+        print("----------")
 
 
-    def show_gameplayresult(self) -> None:
+    def show_gameplayresult(self, time: int, score: int) -> None:
         """ Displayes the gameplay results
         @args:
 
@@ -69,7 +71,10 @@ class Terminal():
         self.clear()
         self.show_title()
 
-        pass
+        print("GAME OVER")
+        print(f"Game Time: {time}")
+        print(f"Score: {score}")
+        input("Press any key to continue...")
 
 
     def get_title(self):
@@ -116,7 +121,7 @@ class Terminal():
         os.system(command)
 
 
-    def get_menu_input(massage: str, *menuitems: list[str]) -> str:
+    def get_menu_input(self, massage: str, *menuitems: list[str]) -> str:
         """ Returns the parsed input from the user for menu contol
 
         @args:
@@ -125,12 +130,14 @@ class Terminal():
         @return:
             parsed_input [str] - response from user
         """
-        parsed_input = InputParser.parse(input(f"{massage}\n"), *menuitems)
+        print(massage)
+        raw_input =  input()
+        parsed_input = InputParser.parse(raw_input, *menuitems)
 
         return parsed_input
 
 
-    def get_gameplay_input(massage: str) -> str:
+    def get_gameplay_input(self, massage: str) -> str:
         """ Returns the parsed input from the user for gameplay control
 
         @args:
@@ -138,6 +145,8 @@ class Terminal():
         @return:
             parsed_input [str] - response from user
         """
-        parsed_input = InputParser.parse(input(f"{massage}\n"))
+        print(massage)
+        raw_input = input()
+        parsed_input = InputParser.parse(raw_input)
 
         return parsed_input

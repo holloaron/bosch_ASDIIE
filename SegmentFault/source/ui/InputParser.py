@@ -69,11 +69,10 @@ class InputParser():
             parsed_input [str]
         """        
         if input.isdigit() == True:
-            #print(whitelist)
-            if 0 <= int(input) <= len(whitelist[1]):
-                return whitelist[1][int(input)]
+            if 0 <= int(input) <= (len(whitelist[0]) - 1):
+                return whitelist[0][int(input)]
 
-        if input in whitelist:
+        if input in whitelist[0]:
             return input
 
         return Inputs.Nothing
