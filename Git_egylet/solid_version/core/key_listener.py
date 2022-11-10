@@ -1,6 +1,6 @@
 import threading
 
-from bosch_ASDIIE_Git_egylet.Git_egylet.solid_version.core.key_event import KeyEvent
+from bosch_ASDIIE.Git_egylet.solid_version.core.key_event import KeyEvent
 
 
 class KeyListener:
