@@ -116,7 +116,7 @@ class PacMan:
             map_generator.generate_mapdata(map_width=25, map_height=25)
             self.mapdata = map_generator.fill_mapdata()
             
-
+        self.timer.StartStopperAdvanced()
         #self.timer.reset()
         #self.timer.run()
 
