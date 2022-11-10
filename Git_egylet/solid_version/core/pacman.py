@@ -8,6 +8,7 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.map import Coordinates, MapSize
 from bosch_ASDIIE.Git_egylet.solid_version.core.visualizable import Visualizable
 from bosch_ASDIIE.Git_egylet.solid_version.core.moving_transformation import MovingTransformation
 
+
 class Pacman(GameElement, Visualizable):
     """
     A game element and visualizable class, for handling Pacman movement mainly,
@@ -18,18 +19,15 @@ class Pacman(GameElement, Visualizable):
                  starting_direction: KeyEvent = KeyEvent.RIGHT,
                  map_size: MapSize = None):
         if body is None:
-            self.body_parts = deque([
-                Coordinates(0, 1)
-            ])
+            self.position = Coordinates(0, 1)
         else:
-            self.body_parts = body
+            self.position = body
         if map_size is None:
             map_size = MapSize(10, 10)
         self.moving_transformation = MovingTransformation(starting_direction, map_size)
 
     def take_action(self, key_event: KeyEvent):
-        if self._is_not_opposite_direction(key_event):
-            self.moving_transformation.direction = key_event
+        self.moving_transformation.direction = key_event
 
     def draw(self, canvas: Canvas):
         canvas.draw_dots(self.body_parts)
