@@ -34,7 +34,7 @@ class Wallgenerator(GameElement, Visualizable):
         return wall_positions
 
     def draw(self, canvas: Canvas):
-        canvas.draw_walls(self.positions)
+        canvas.draw_dots(self.positions, 'walls')
 
     def take_action(self, key_event: KeyEvent):
         pass
