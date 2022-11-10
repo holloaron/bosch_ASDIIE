@@ -41,7 +41,7 @@ class Player(Moveable.Movable):
         # change the direction, if turning is available
         if self.next_direction != None:
             test_position = super().next_position(self.position, self.next_direction)
-            if not super().is_wall_ahead(self.mapdata, test_position, self.direction):
+            if not super().is_wall_infront(self.mapdata, test_position, self.direction):
                 self.direction = self.next_direction
                 self.next_direction = None
         
@@ -49,7 +49,7 @@ class Player(Moveable.Movable):
         self.position = super().next_position(self.position, self.direction)
 
         # reset position if obstacle ahead
-        if super().is_wall_ahead(self.mapdata, self.position, self.direction):
+        if super().is_wall_infront(self.mapdata, self.position, self.direction):
             pos_x, pos_y = super().last_position(self.position, self.direction)
 
         # jump to the other side

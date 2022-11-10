@@ -116,10 +116,10 @@ class Movable():
             element ahead [MapElement]
         """
         pos_x, pos_y = self.next_position(cur_position, direction)
-        return mapdata[pos_x, pos_y]
+        return mapdata[pos_x][pos_y]
 
         
-    def is_wall_ahead(self, mapdata: MapData, cur_position: tuple[int, int], direction: Direction) -> bool:
+    def is_wall_infront(self, mapdata: MapData, cur_position: tuple[int, int], direction: Direction) -> bool:
         """ Determines if there is an obstacle (wall) on the next coordinate based on
             the given coordinates and direction
 
@@ -130,7 +130,10 @@ class Movable():
         @return:
             True, if ther is an obstacle on the given coordinates
         """
-        if self.what_is_ahead(mapdata, cur_position, direction) == MapElements.Wall:
-            return True
+        next_position = self.next_position(cur_position, direction)
+
+        for coord in mapdata.obstacles.walls:
+            if next_position == coord:
+                return True
         
         return False
