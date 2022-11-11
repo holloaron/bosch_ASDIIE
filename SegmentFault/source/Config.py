@@ -116,8 +116,8 @@ class Config():
                 GameSpeed[float]
         """
 
-        GameSpeed = self.GivenArguments.gamespeed
-        return int(GameSpeed)
+        Gamespeed = self.ScaleUpGamespeed()
+        return Gamespeed
 
 
     def Getsettings(self) -> tuple:
