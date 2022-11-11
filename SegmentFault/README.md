@@ -59,7 +59,7 @@ Every words listed in the Commands table are valid command. Except "Commands", "
 
 </details>
 
-## Testing
+## :toolbox: Testing
 
 **Use the unittest command line interface to run tests**
 
