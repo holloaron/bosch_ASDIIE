@@ -36,18 +36,34 @@ class test_Config(unittest.TestCase):
     def test_GetTimeout(self):
         """ Returned type check for GetTimeout function
         """
-        pass
+
+        config = Config
+
+        TimeoutLimit = config.GetTimeout()
+        self.assertIs(type(TimeoutLimit), int)
 
     def test_GetMapdata(self):
         """
         """
         pass
 
-    def test_GetGameSpeed(self):
-        """ Returned type and value check for GetTimeout function
+    def test_fortype_GetGameSpeed(self):
+        """ Returned type check for GetGameSpeed function
         """
         
-        pass
+        config = Config()
+
+        Gamespeed = config.GetGamespeed()
+        self.assertIs(type(Gamespeed), float)
+
+    def test_GetGameSpeed(self):
+        """ Returned value check for GetGameSpeed function by default the rate must be 1
+        """
+
+        config = Config()
+
+        Gamespeed = config.GetGamespeed()
+        self.assertEqual(Gamespeed, 1.0)
 
 if __name__ == "__main__":
     unittest.main()
