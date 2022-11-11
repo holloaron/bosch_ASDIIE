@@ -22,7 +22,8 @@ optional arguments:
   --map MAPDATA, -m MAPDATA, --str MAPDATA
                         The path of the mapdata container file, but generated can be used
   --gamespeed GAMESPEED, -gs GAMESPEED
-                        Value of the gamespeed
+                        Value of the gamespeed in step rate can be 1,2,3. If user gives invalid value
+                        gamespeed will be 1.
 
 /*********************************************************************
 /*********************************************************************
