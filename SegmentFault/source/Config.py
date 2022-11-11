@@ -135,3 +135,32 @@ class Config():
         Mapdatafile = self.GetMapdata()
         GameSpeed = self.GetGamespeed()
         return gamemode, Timeout, Mapdatafile, GameSpeed
+
+    def CheckGamespeed(self) -> int:
+        """ Checks if the given gamespeed flag has the correct value,
+            if it is not corrects it
+        @args:
+            self
+
+        @return:
+                GameSpeed[int]
+        """
+
+        GameSpeed = int(self.GivenArguments.gamespeed)
+        if (GameSpeed > 3) or (GameSpeed <= 0):
+            GameSpeed = 1
+        return GameSpeed
+
+    def ScaleUpGamespeed(self, rate = 1.5) -> float:
+        """ Returns the scaled gamespeed
+        @args:
+            self
+            rate[float]: rate of conversion
+        @return:
+                GameSpeed
+        """
+
+        GameSpeed = float(self.CheckGamespeed())
+        if GameSpeed == 1.0:
+            return GameSpeed
+        else: return GameSpeed * rate
