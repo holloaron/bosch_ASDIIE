@@ -106,14 +106,14 @@ class Config():
         return Mapdatafile
 
 
-    def GetGamespeed(self) -> int:
+    def GetGamespeed(self) -> float:
 
         """ Returns the value of the given GameSpeed flag
         @args:
             self
 
         @return:
-                GameSpeed[int]
+                GameSpeed[float]
         """
 
         GameSpeed = self.GivenArguments.gamespeed
