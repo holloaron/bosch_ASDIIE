@@ -6,7 +6,6 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.game_element import GameElement
 from bosch_ASDIIE.Git_egylet.solid_version.core.key_event import KeyEvent
 from bosch_ASDIIE.Git_egylet.solid_version.core.map import Coordinates, MapSize
 from bosch_ASDIIE.Git_egylet.solid_version.core.visualizable import Visualizable
-from bosch_ASDIIE.Git_egylet.solid_version.core.screen import Screen
 
 
 class Pellets(GameElement, Visualizable):
@@ -22,7 +21,7 @@ class Pellets(GameElement, Visualizable):
 
         self.positions = self.make_pellets(number=number_pellets, map_size=map_size)
 
-    def make_pellets(self, number: int, map_size: MapSize, screen: Screen) -> List[Coordinates]:
+    def make_pellets(self, number: int, map_size: MapSize) -> List[Coordinates]:
         pellet_positions = []
         for _ in range(number):
             position = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
