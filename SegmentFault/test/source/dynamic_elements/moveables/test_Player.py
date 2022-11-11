@@ -3,14 +3,14 @@
 *********************************************************************
 PROJECT_NAME : PacMan
 FILENAME     : test_Moveable.py
-AUTHOR       : 
+AUTHOR       : Bozsóki Márk
 UNIVERSITY   : BME
 TEAM         : SegmentFault
 *********************************************************************
 *********************************************************************
 Short description
 --------------------------------------------------------------------
-source/dynamic_elements/moveables/Moveable.py testing module
+source/dynamic_elements/moveables/Player.py testing module
 
 To run this module:
 python3 -m unittest test.source.dynamic_elements.moveables.test_Player
@@ -29,7 +29,7 @@ from source.dynamic_elements.Direction import Direction
 class test_Moveable(unittest.TestCase):
 
     def test_set_score(self):
-        """
+        """ Testing the correct resived score on different collectables
         """
         mapdata = MapData()
         mapdata.collectables.points = [(1,1)]
@@ -42,6 +42,7 @@ class test_Moveable(unittest.TestCase):
         # point
         player.position = (1,1)
         self.assertEqual(player.set_score(), 10)
+
         # coin
         player.position = (2,2)
         self.assertEqual(player.set_score(), 20)

@@ -3,7 +3,7 @@
 *********************************************************************
 PROJECT_NAME : PacMan
 FILENAME     : test_Moveable.py
-AUTHOR       : 
+AUTHOR       : Bozsóki Márk
 UNIVERSITY   : BME
 TEAM         : SegmentFault
 *********************************************************************
