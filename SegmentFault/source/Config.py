@@ -60,7 +60,8 @@ class Config():
                                     help="The path of the mapdata container file, but generated can be used",
                                     default="Basic.mapdat")
         self.Arguments.add_argument("--gamespeed", "-gs", 
-                                    help="Value of the gamespeed", 
+                                    help="Value of the gamespeed in step rate can be 1,2,3. If user gives invalid "
+                                         "value gamespeed will be 1",
                                     default=1)
 
 
