@@ -52,12 +52,29 @@ Every words listed in the Commands table are valid command. Except "Commands", "
 
 <details><summary><h3> Phase 2 </h3></summary>
 
-- [ ] Implement wall features on the sides
-- [ ] Extend to in-map walls (walls inside the map)
-- [ ] Game Over feature (hits wall = die)
+- [x] Implement wall features on the sides
+- [x] Extend to in-map walls (walls inside the map)
+- [x] Game Over feature (hits wall = die)
 - [ ] Implement 3 unit tests
 
 </details>
+
+## Testing
+
+**Use the unittest command line interface to run tests**
+
+To run all unit tests named "test_ModuleName.py":
+```
+$ cd ../SegmentFault/test
+$ python3 -m unittest discover
+```
+
+
+To run single unit test modules or cases:
+```
+$ cd ../SegmentFault/test
+$ python3 -m unittest <parent_directory>.<testmodule_name>.<testcase_name>
+```
 
 ## :muscle: Collaborators
   
