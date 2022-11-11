@@ -10,4 +10,4 @@ Team members:
 
 To start the game, simply run the *pacman.py* file that contains both the class and main loop function.
 
-The game rules are that of the classic pacman: move with the arrows, avoid ghosts, collect points and dont die.
+The game rules are that of the classic pacman: move with the arrows, avoid walls, collect dots.
