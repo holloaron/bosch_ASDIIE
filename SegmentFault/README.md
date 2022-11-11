@@ -6,6 +6,11 @@ This repository is for student work at the class of **Agile Software Development
 
 This project is develped by a group of four students, as an assignment for the class.
 
+
+```
+git clone https://github.com/markbozsoki/bosch_ASDIIE.git
+```
+
 ## :mortar_board: About the game
 
 Pac-Man is an action maze chase video game.
@@ -59,7 +64,7 @@ Every words listed in the Commands table are valid command. Except "Commands", "
 
 </details>
 
-## Testing
+## :toolbox: Testing
 
 **Use the unittest command line interface to run tests**
 
