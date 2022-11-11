@@ -2,7 +2,7 @@
 *********************************************************************
 *********************************************************************
 PROJECT_NAME : PacMan
-FILENAME     : test_Config.py
+FILENAME     : test_MapdataReader.py
 AUTHOR       : 
 UNIVERSITY   : BME
 TEAM         : SegmentFault
@@ -10,10 +10,10 @@ TEAM         : SegmentFault
 *********************************************************************
 Short description
 --------------------------------------------------------------------
-source/Config.py testing module
+source/map/MapDataReader.py testing module
 
 To run this module:
-python3 -m unittest test.source.test_Config
+python3 -m unittest test.source.map.test_MapDataReader
 
 see README for help
 ********************************************************************
@@ -22,32 +22,16 @@ see README for help
 
 import unittest
 
-from source.Config import Config
+from source.map.MapDataReader import MapDataReader
 
-class test_Config(unittest.TestCase):
+class test_MapDataReader(unittest.TestCase):
 
-    def test_GetGamemode(self):
-        """ Returned type check for GetGamemode function
+    def test_list_mapdatas(self):
+        """ Testing that the list_mapdatas function returns the expected format
         """
-        config = Config()
-
-        self.assertEqual(config.GetGamemode(), "sandbox")
-
-    def test_GetTimeout(self):
-        """ Returned type check for GetTimeout function
-        """
+        # itt regex legyen használva: elvárt formátum [MapName.mapdat]
         pass
 
-    def test_GetMapdata(self):
-        """
-        """
-        pass
-
-    def test_GetGameSpeed(self):
-        """ Returned type and value check for GetTimeout function
-        """
-        
-        pass
 
 if __name__ == "__main__":
     unittest.main()

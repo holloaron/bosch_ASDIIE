@@ -33,10 +33,10 @@ class test_Moveable(unittest.TestCase):
         moveable = Movable()
         current_position = (0,0)
 
-        self.assertEqual(moveable.next_position(current_position, Direction.Right), (0,1))
-        self.assertEqual(moveable.next_position(current_position, Direction.Down), (1,0))
-        self.assertEqual(moveable.next_position(current_position, Direction.Left), (0,-1))
-        self.assertEqual(moveable.next_position(current_position, Direction.Up), (-1,0))
+        self.assertTupleEqual(moveable.next_position(current_position, Direction.Right), (0,1))
+        self.assertTupleEqual(moveable.next_position(current_position, Direction.Down), (1,0))
+        self.assertTupleEqual(moveable.next_position(current_position, Direction.Left), (0,-1))
+        self.assertTupleEqual(moveable.next_position(current_position, Direction.Up), (-1,0))
 
 
     def test_last_position(self):
@@ -45,10 +45,10 @@ class test_Moveable(unittest.TestCase):
         moveable = Movable()
         current_position = (0,0)
 
-        self.assertEqual(moveable.last_position(current_position, Direction.Right), (0,-1))
-        self.assertEqual(moveable.last_position(current_position, Direction.Down), (-1,0))
-        self.assertEqual(moveable.last_position(current_position, Direction.Left), (0,1))
-        self.assertEqual(moveable.last_position(current_position, Direction.Up), (1,0))
+        self.assertTupleEqual(moveable.last_position(current_position, Direction.Right), (0,-1))
+        self.assertTupleEqual(moveable.last_position(current_position, Direction.Down), (-1,0))
+        self.assertTupleEqual(moveable.last_position(current_position, Direction.Left), (0,1))
+        self.assertTupleEqual(moveable.last_position(current_position, Direction.Up), (1,0))
 
 
 if __name__ == "__main__":

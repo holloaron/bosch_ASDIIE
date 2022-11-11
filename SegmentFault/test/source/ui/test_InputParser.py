@@ -2,7 +2,7 @@
 *********************************************************************
 *********************************************************************
 PROJECT_NAME : PacMan
-FILENAME     : test_Config.py
+FILENAME     : test_InputParser.py
 AUTHOR       : 
 UNIVERSITY   : BME
 TEAM         : SegmentFault
@@ -10,10 +10,10 @@ TEAM         : SegmentFault
 *********************************************************************
 Short description
 --------------------------------------------------------------------
-source/Config.py testing module
+source/ui/InputParser.py testing module
 
 To run this module:
-python3 -m unittest test.source.test_Config
+python3 -m unittest test.source.ui.test_InputParser
 
 see README for help
 ********************************************************************
@@ -22,31 +22,20 @@ see README for help
 
 import unittest
 
-from source.Config import Config
+from source.ui.InputParser import InputParser
+from source.ui.Inputs import Inputs
 
-class test_Config(unittest.TestCase):
+class test_InputParser(unittest.TestCase):
 
-    def test_GetGamemode(self):
-        """ Returned type check for GetGamemode function
+    def test_parse_single_input(self):
+        """ Testing that the parse_single_input function returns the valid input
         """
-        config = Config()
 
-        self.assertEqual(config.GetGamemode(), "sandbox")
-
-    def test_GetTimeout(self):
-        """ Returned type check for GetTimeout function
-        """
         pass
 
-    def test_GetMapdata(self):
+    def test_parse(self):
+        """ Testing that the parse_single_input function returns the valid input
         """
-        """
-        pass
-
-    def test_GetGameSpeed(self):
-        """ Returned type and value check for GetTimeout function
-        """
-        
         pass
 
 if __name__ == "__main__":
