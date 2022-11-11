@@ -27,10 +27,10 @@ class Dot(pygame.sprite.Sprite):
         self.rect.y = random.randint(self.frame_min, self.frame_max)
 
 
-class Dot_Creator:
+class DotCreator:
     def __init__(self) -> None:
         self.collide = Collide()
-        self.bool = List_to_bool()
+        self.bool = ListToBool()
 
     def dot_creator(self, sprite_number: int, sprite_group: pygame.sprite.Group,
                     every_group: pygame.sprite.Group) -> None:
@@ -62,9 +62,9 @@ class Dot_Creator:
                 self.every_group.add(self.sprite)
 
 
-class Dot_Creation:
+class DotCreation:
     def __init__(self) -> None:
-        self.creation = Dot_Creator()
+        self.creation = DotCreator()
         self.dot_number = 60
 
     def dot_creation(self) -> None:
@@ -83,7 +83,7 @@ class PacMan(pygame.sprite.Sprite):
         self.pos_y = 520
         self.size = (50, 50)
         self.collide = Collide()
-        self.bool = List_to_bool()
+        self.bool = ListToBool()
 
         super().__init__()
         self.image = pygame.image.load("Pacman.png")
@@ -95,7 +95,7 @@ class PacMan(pygame.sprite.Sprite):
 class Move:
     def __init__(self) -> None:
         self.speed = 5
-        self.border_checking = Screen_border_Checking()
+        self.border_checking = ScreenBorderChecking()
 
     def move(self, sprite: pygame.sprite.Sprite, screen_height: int, screen_width: int) -> None:
         """
@@ -123,7 +123,7 @@ class Move:
         self.border_checking.border_checking(self.sprite, self.screen_height, self.screen_width)
 
 
-class Screen_border_Checking:
+class ScreenBorderChecking:
 
     def border_checking(self, sprite: pygame.sprite.Sprite, screen_height: int, screen_width: int) -> None:
         """
@@ -216,11 +216,11 @@ class Font:
         self.font_small = pygame.font.SysFont("Verdana", self.font_size_small)
 
 
-class Game_Scene:
+class GameScene:
     def __init__(self) -> None:
         self.screen = Screen()
         self.score = Score()
-        self.time = Game_Time()
+        self.time = GameTime()
         self.dots = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
         self.every_sprites = pygame.sprite.Group()
@@ -240,7 +240,7 @@ class Game_Scene:
         self.screen.surface.DISPLAYSURF.blit(self.current_time, (self.time.time_pos_x, self.time.time_pos_y))
 
 
-class Game_Over_Scene:
+class GameOverScene:
     def __init__(self) -> None:
         self.screen = Screen()
         self.game_over_pos_x = 320
@@ -256,7 +256,7 @@ class Game_Over_Scene:
         self.screen.surface.DISPLAYSURF.blit(self.game_over, (self.game_over_pos_x, self.game_over_pos_y))
 
 
-class Sprite_Draw:
+class SpriteDraw:
     def __init__(self) -> None:
         self.screen = Screen()
 
@@ -292,7 +292,7 @@ class Score:
         return self.score
 
 
-class Game_Time:
+class GameTime:
     def __init__(self) -> None:
         self.time_pos_x = 930
         self.time_pos_y = 20
@@ -327,7 +327,7 @@ class Collide:
         return hit_list
 
 
-class List_to_bool:
+class ListToBool:
 
     def list_checker(self, hit_list: list) -> bool:
         """
@@ -345,11 +345,11 @@ class List_to_bool:
             return False
 
 
-class Inner_Wall:
+class InnerWall:
     def __init__(self) -> None:
         self.pos_list = ((150, 100), (150, 200), (550, 200), (850, 100), (100, 700), (250, 700), (600, 700), (750, 700))
         self.size_list = ((10, 200), (300, 10), (300, 10), (10, 200), (300, 10), (10, 200), (300, 10), (10, 200))
-        self.wall = Create_wall()
+        self.wall = CreateWall()
 
     def create_wall(self):
         """
@@ -359,7 +359,7 @@ class Inner_Wall:
                               Game_Run.game_scene.every_sprites)
 
 
-class Border_Wall:
+class BorderWall:
     def __init__(self) -> None:
         self.pos_list = (
         (0, 0), (0, 0), (0, 990), (990, 0), (0, 550), (990, 550), (550, 0), (550, 990), (0, 450), (0, 550), (890, 450),
@@ -367,7 +367,7 @@ class Border_Wall:
         self.size_list = (
         (10, 450), (450, 10), (450, 10), (10, 450), (10, 450), (10, 450), (450, 10), (450, 10), (100, 10), (100, 10),
         (110, 10), (100, 10), (10, 100), (10, 100), (10, 110), (10, 100))
-        self.wall = Create_wall()
+        self.wall = CreateWall()
 
     def create_wall(self):
         """
@@ -377,7 +377,7 @@ class Border_Wall:
                               Game_Run.game_scene.every_sprites)
 
 
-class Create_wall:
+class CreateWall:
     def create_wall(self, list_pos: tuple, list_size: tuple, wall_group: pygame.sprite.Group,
                     every_group: pygame.sprite.Group) -> None:
         """
@@ -404,11 +404,11 @@ class Create_wall:
             self.every_group.add(self.walls)
 
 
-class Map_Creation:
+class MapCreation:
     def __init__(self) -> None:
-        self.inner_wall = Inner_Wall()
-        self.border = Border_Wall()
-        self.dot = Dot_Creation()
+        self.inner_wall = InnerWall()
+        self.border = BorderWall()
+        self.dot = DotCreation()
         self.screen = Screen()
         self.game = Game()
 
@@ -424,10 +424,10 @@ class Map_Creation:
 
 class Game:
     def __init__(self) -> None:
-        self.game_scene = Game_Scene()
+        self.game_scene = GameScene()
         self.pacman = PacMan()
         self.move = Move()
-        self.draw = Sprite_Draw()
+        self.draw = SpriteDraw()
         self.pacman_wall_collision_list = self.pacman.collide.sprite_group_collision(self.pacman, self.game_scene.walls,
                                                                                      False)
         self.pacman_wall_collision = self.pacman.bool.list_checker(self.pacman_wall_collision_list)
@@ -450,9 +450,9 @@ class Game:
         self.draw.sprite_draw(self.game_scene.every_sprites)
 
 
-class Is_It_Over:
+class IsItOver:
     def __init__(self) -> None:
-        self.game_over_scene = Game_Over_Scene()
+        self.game_over_scene = GameOverScene()
 
     def is_it_over(self, score: int, dot_number: int, game_time: float, collision: bool) -> bool:
         """
@@ -469,9 +469,9 @@ class Is_It_Over:
             return False
 
 
-class Game_Over:
+class GameOver:
     def __init__(self) -> None:
-        self.over = Is_It_Over()
+        self.over = IsItOver()
 
     def game_over(self):
         self.is_it_over = self.over.is_it_over(Game_Run.game_scene.score.score, Starting_Map.dot.dot_number,
@@ -488,9 +488,9 @@ class Game_Over:
 
 
 if __name__ == "__main__":
-    Starting_Map = Map_Creation()
+    Starting_Map = MapCreation()
     Game_Run = Game()
-    Over = Game_Over()
+    Over = GameOver()
 
     Starting_Map.starting_map()
 
