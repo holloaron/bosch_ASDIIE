@@ -33,6 +33,14 @@ class test_Config(unittest.TestCase):
 
         self.assertEqual(config.GetGamemode(), "sandbox")
 
+    def test_GetGamemodetype(self):
+        """ Returned type check for GetGamemode function
+        """
+        config = Config()
+
+        Gamemode = config.GetGamemode()
+        self.assertIs(type(Gamemode), str)
+
     def test_GetTimeout(self):
         """ Returned type check for GetTimeout function
         """
