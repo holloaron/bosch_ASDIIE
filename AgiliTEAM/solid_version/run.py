@@ -2,17 +2,17 @@ import curses
 from argparse import ArgumentParser
 
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game import Game
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_listener import KeyListener
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_listener import KeyListener
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman_game_state import PacmanGameState
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman import Pacman
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.pellets import Pellets
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.ghosts import Ghosts
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.visualizer import Visualizer
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pacman import Pacman
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pellets import Pellets
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.ghosts import Ghosts
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.display.visualizer import Visualizer
 from bosch_ASDIIE.AgiliTEAM.solid_version.gui.console_canvas import ConsoleCanvas
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.screen import Screen
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.score_counter import ScoreCounter
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.defeat_checker import DefeatChecker
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.display.screen import Screen
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.score_counter import ScoreCounter
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.defeat_checker import DefeatChecker
 
 # Defaults
 WIDTH = 10
@@ -25,7 +25,11 @@ BASE_SCORE = 10
 STEP_CONFIDENCE = 0.95
 
 
-def main():
+def main() -> None:
+    """
+
+    :return: None
+    """
     arg_parser = ArgumentParser()
     arg_parser.add_argument("--gui", type=str, default=GUI)
     arg_parser.add_argument("--map_width", type=int, default=WIDTH)
