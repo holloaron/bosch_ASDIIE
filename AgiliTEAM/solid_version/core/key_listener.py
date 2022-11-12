@@ -28,7 +28,7 @@ class KeyListener:
                 key = self.screen.getkey()
                 if key in self.KEY_PRESS_TO_KEY_EVENT:
                     self.last_key = key
-            except:
+            finally:
                 pass
 
     def stop(self):

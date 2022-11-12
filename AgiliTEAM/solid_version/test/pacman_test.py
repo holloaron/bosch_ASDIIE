@@ -19,7 +19,7 @@ def test_PacmanStepFunction():
     test_game_state = PacmanGameState([pacman])
     test_game_state.take_action(KeyEvent.UP)
     test_game_state.step()
-    assert not (pacman.get_pacman_position() == [Coordinates(5,6)]), \
+    assert not (pacman.get_pacman_position() == [Coordinates(5, 6)]), \
         "Error during step, value mismatch"
 
 def test_DefeatCheckingBy_IsTerminatedTrue():
@@ -28,7 +28,7 @@ def test_DefeatCheckingBy_IsTerminatedTrue():
     num_ghosts = 99
     pacman = Pacman(map_size=map_size)
     pellets = Pellets(map_size=map_size, num_pellets=num_pellets, known_pos=[pacman.pos])
-    ghosts = Ghosts(map_size=map_size, num_ghosts=num_ghosts, known_pos=[pacman.pos, pellets.pos],step_confidence=1.0)
+    ghosts = Ghosts(map_size=map_size, num_ghosts=num_ghosts, known_pos=[pacman.pos, pellets.pos], step_confidence=1.0)
     defeat_checker = DefeatChecker(pacman=pacman, ghosts=ghosts)
     test_game_state = PacmanGameState([pacman, pellets, ghosts, defeat_checker])
     test_game_state.step()
