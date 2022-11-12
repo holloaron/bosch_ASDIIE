@@ -1,5 +1,4 @@
-from collections import deque
-from typing import Deque
+from typing import List
 
 from bosch_ASDIIE.Git_egylet.solid_version.core.canvas import Canvas
 from bosch_ASDIIE.Git_egylet.solid_version.core.game_element import GameElement
@@ -15,7 +14,7 @@ class Pacman(GameElement, Visualizable):
     but visualizing is also represented here
     """
     def __init__(self,
-                 body: Deque[Coordinates] = None,
+                 body: List[Coordinates] = None,
                  starting_direction: KeyEvent = KeyEvent.RIGHT,
                  map_size: MapSize = None):
         if body is None:
