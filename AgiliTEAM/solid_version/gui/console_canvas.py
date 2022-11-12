@@ -3,7 +3,7 @@ from typing import List
 
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import Coordinates, MapSize
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.canvas import Canvas
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.screen import Screen
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.display.screen import Screen
 
 
 class ConsoleCanvas(Canvas):
