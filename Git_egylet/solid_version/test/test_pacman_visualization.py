@@ -65,7 +65,7 @@ def testCanvas_whenPacmanMoving_thenOppositeKeyEventDoesNotDoAnything():
         "Pacman should not be displayed on the previous coordinates after moving."
     assert Coordinates(0, 4) not in dots_before_moving and \
            Coordinates(0, 4) in dots_after_moving, \
-        "Pacman should be moved to forward the original direction " \
+        "Pacman should be moved towards the original direction " \
         "after pacman got opposite KeyEvent."
 
 def testCanvas_whenPacmanHitTheEndOfCanvas_thenAppearsOnOppositeSide():
