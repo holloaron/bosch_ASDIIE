@@ -25,7 +25,11 @@ BASE_SCORE = 10
 STEP_CONFIDENCE = 0.95
 
 
-def main():
+def main() -> None:
+    """
+
+    :return: None
+    """
     arg_parser = ArgumentParser()
     arg_parser.add_argument("--gui", type=str, default=GUI)
     arg_parser.add_argument("--map_width", type=int, default=WIDTH)
