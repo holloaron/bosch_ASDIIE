@@ -5,7 +5,7 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_event import 
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.game_element import GameElement
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.visualizable import Visualizable
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.canvas import Canvas
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize, Coordinates
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize, Coordinates
 
 
 class Pellets(GameElement, Visualizable):

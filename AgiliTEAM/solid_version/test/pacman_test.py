@@ -4,8 +4,8 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pacman import Pacman
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.ghosts import Ghosts
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.defeat_checker import DefeatChecker
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pellets import Pellets
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import Coordinates
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import Coordinates
 
 
 def test_WhenOneStep_IsTerminatedFalse() -> None:

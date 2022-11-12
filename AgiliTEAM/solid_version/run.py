@@ -9,7 +9,7 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pellets import Pelle
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.ghosts import Ghosts
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.display.visualizer import Visualizer
 from bosch_ASDIIE.AgiliTEAM.solid_version.gui.console_canvas import ConsoleCanvas
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.display.screen import Screen
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.score_counter import ScoreCounter
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.defeat_checker import DefeatChecker
