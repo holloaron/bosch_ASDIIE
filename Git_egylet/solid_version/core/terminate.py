@@ -6,10 +6,10 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.wallgenerator import Wallgenerat
 
 class Terminate(GameElement):
 
-    def __int__(self,
-                pacman: Pacman,
-                walls: Wallgenerator,
-                ):
+    def __init__(self,
+                 pacman: Pacman,
+                 walls: Wallgenerator,
+                 ):
         self.pacman = pacman
         self.walls = walls
 
