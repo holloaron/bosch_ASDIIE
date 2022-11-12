@@ -4,11 +4,21 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize, Coordinates
 
 class MovingTransformation:
 
-    def __init__(self, direction: KeyEvent, map_size: MapSize):
+    def __init__(self, direction: KeyEvent, map_size: MapSize) -> None:
+        """
+
+        :param direction:
+        :param map_size:
+        """
         self.direction = direction
         self.map_size = map_size
 
     def __call__(self, coordinates: Coordinates) -> Coordinates:
+        """
+
+        :param coordinates:
+        :return:
+        """
         if self.direction == KeyEvent.UP:
             new_row = coordinates.row if coordinates.row - 1 < 0 else coordinates.row - 1
             return Coordinates(new_row, coordinates.col)
