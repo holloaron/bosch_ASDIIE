@@ -23,7 +23,8 @@ see README for help
 import unittest
 import re
 
-from source.Config import Config
+#from source.Config import Config
+from bosch_ASDIIE.SegmentFault.source.Config import *
 
 class test_Config(unittest.TestCase):
 
