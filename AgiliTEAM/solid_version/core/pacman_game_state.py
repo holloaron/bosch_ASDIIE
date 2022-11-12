@@ -3,8 +3,8 @@ from typing import List
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.game_element import GameElement
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_event import KeyEvent
 
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.ghosts import Ghosts
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman import Pacman
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.ghosts import Ghosts
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pacman import Pacman
 
 
 class PacmanGameState:
