@@ -12,16 +12,28 @@ class MovingTransformation:
 
     def __call__(self, coordinates: Coordinates) -> Coordinates:
         if self.direction == KeyEvent.UP:
-            new_row = (coordinates.row - 1) % self.map_size.row_num
+            if coordinates.row - 1 < 0:
+                new_row = self.map_size.row_num
+            else:
+                new_row = coordinates.row - 1
             return Coordinates(new_row, coordinates.col)
         elif self.direction == KeyEvent.LEFT:
-            new_col = (coordinates.col - 1) % self.map_size.col_num
+            if coordinates.col - 1 < 0:
+                new_col = self.map_size.col_num
+            else:
+                new_col = coordinates.col - 1
             return Coordinates(coordinates.row, new_col)
         elif self.direction == KeyEvent.DOWN:
-            new_row = (coordinates.row + 1) % self.map_size.row_num
+            if coordinates.row + 1 == self.map_size.row_num:
+                new_row = 0
+            else:
+                new_row = coordinates.row + 1
             return Coordinates(new_row, coordinates.col)
         elif self.direction == KeyEvent.RIGHT:
-            new_col = (coordinates.col + 1) % self.map_size.col_num
+            if coordinates.col + 1 == self.map_size.col_num:
+                new_col = 0
+            else:
+                new_col = coordinates.col + 1
             return Coordinates(coordinates.row, new_col)
         else:
             raise ValueError(f"There is no moving forward {self.direction} direction.")
