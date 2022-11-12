@@ -21,6 +21,13 @@ class Ghosts(GameElement, Visualizable):
                  known_pos: List[List[Coordinates]] = None,
                  step_confidence: float = 0.8,
                  ):
+        """
+
+        :param map_size:
+        :param num_ghosts:
+        :param known_pos:
+        :param step_confidence:
+        """
         if known_pos is not None:
             self.known_pos = [item for sublist in known_pos for item in sublist]
         else:
@@ -34,6 +41,12 @@ class Ghosts(GameElement, Visualizable):
         self.moving_transformation_ghost = MovingTransformation(self.event, map_size)
 
     def generate_pos(self, num_of_pos: int, map_size: MapSize) -> List[Coordinates]:
+        """
+
+        :param num_of_pos:
+        :param map_size:
+        :return:
+        """
         pos_list = []
         for _ in range(num_of_pos):
             pos = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
@@ -45,6 +58,12 @@ class Ghosts(GameElement, Visualizable):
         return pos_list
 
     def __take_best_action__(self, pacman_position: Coordinates, ghost_index: int):
+        """
+
+        :param pacman_position:
+        :param ghost_index:
+        :return:
+        """
         current_ghost_pos = self.pos[ghost_index]
         ghost_pacman_angle = math.atan2((pacman_position.row - current_ghost_pos.row),
                                         (pacman_position.col - current_ghost_pos.col))
@@ -66,11 +85,21 @@ class Ghosts(GameElement, Visualizable):
         self.moving_transformation_ghost.direction = self.event
         self.pos[ghost_index] = self.moving_transformation_ghost(self.pos[ghost_index])
 
-    def __take_random_action__(self,ghost_index: int):
+    def __take_random_action__(self, ghost_index: int) -> None:
+        """
+
+        :param ghost_index:
+        :return:
+        """
         self.event = random.randrange(1, 4)
         self.pos[ghost_index] = self.moving_transformation_ghost(self.pos[ghost_index])
 
-    def take_action(self, pacman_position: Coordinates):
+    def take_action(self, pacman_position: Coordinates) -> None:
+        """
+
+        :param pacman_position:
+        :return: None
+        """
         for idx in range(len(self.pos)):
             if random.uniform(0, 1) >= self.step_confidence:
                 self.__take_best_action__(pacman_position, idx)
@@ -78,8 +107,18 @@ class Ghosts(GameElement, Visualizable):
                 self.__take_random_action__(idx)
 
     def tick(self, pacman_position: Coordinates) -> bool:
+        """
+
+        :param pacman_position:
+        :return:
+        """
         self.take_action(pacman_position)
         return True
 
-    def draw(self, canvas: Canvas):
+    def draw(self, canvas: Canvas) -> None:
+        """
+
+        :param canvas:
+        :return: None
+        """
         canvas.draw_dots(self.pos, 'ghosts')
