@@ -9,11 +9,19 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman import Pacman
 
 class PacmanGameState:
 
-    def __init__(self, game_elements: List[GameElement]):
+    def __init__(self, game_elements: List[GameElement]) -> None:
+        """
+
+        :param game_elements:
+        """
         self.game_elements = game_elements
         self._can_game_continue = True
 
-    def step(self):
+    def step(self) -> None:
+        """
+
+        :return: None
+        """
         current_pacman_pos = None
         for game_element in self.game_elements:
             if isinstance(game_element,Pacman):
@@ -26,10 +34,15 @@ class PacmanGameState:
             else:
                 self._can_game_continue = self._can_game_continue and game_element.tick()
 
-    def is_terminated(self):
+    def is_terminated(self) -> bool:
         return not self._can_game_continue
 
-    def take_action(self, key_event: KeyEvent):
+    def take_action(self, key_event: KeyEvent) -> None:
+        """
+
+        :param key_event:
+        :return: None
+        """
         for game_element in self.game_elements:
             if isinstance(game_element, Ghosts):
                 continue
