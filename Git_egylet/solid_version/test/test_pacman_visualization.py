@@ -41,7 +41,7 @@ def testCanvas_whenPacmanMoving_itAppearsOnNewCoordinates():
     dots_after_moving = spy_canvas.dots_on_canvas
     assert Coordinates(0, 1) in dots_before_moving and \
            Coordinates(0, 1) not in dots_after_moving, \
-        "PacMan should not be on the canvas after moving."
+        "Pacman should not be displayed on the previous coordinates after moving."
     assert Coordinates(0, 4) in dots_before_moving and \
            Coordinates(0, 4) not in dots_after_moving, \
         "PacMan should be moved on canvas after moving."
