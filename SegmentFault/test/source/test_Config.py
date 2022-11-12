@@ -21,6 +21,7 @@ see README for help
 """
 
 import unittest
+import re
 
 from source.Config import Config
 
@@ -44,21 +45,21 @@ class test_Config(unittest.TestCase):
     def test_GetTimeout(self):
         """ Returned type check for GetTimeout function
         """
-
-        config = Config
+        config = Config()
 
         TimeoutLimit = config.GetTimeout()
         self.assertIs(type(TimeoutLimit), int)
 
     def test_GetMapdata(self):
-        """
-        """
-        pass
+        """ Checks the returned filename extension
+        """ 
+        config = Config()
+
+        self.assertRegex(config.GetMapdata(), ".*\.mapdat$")
 
     def test_fortype_GetGameSpeed(self):
         """ Returned type check for GetGameSpeed function
         """
-        
         config = Config()
 
         Gamespeed = config.GetGamespeed()
