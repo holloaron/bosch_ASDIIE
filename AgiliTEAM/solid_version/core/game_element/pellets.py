@@ -1,7 +1,7 @@
 from typing import List
 import numpy as np
 
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_event import KeyEvent
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_event import KeyEvent
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.game_element import GameElement
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.visualizable import Visualizable
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.canvas import Canvas

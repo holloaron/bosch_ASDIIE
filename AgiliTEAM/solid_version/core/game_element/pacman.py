@@ -2,8 +2,8 @@ import numpy as np
 from typing import List
 
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.game_element import GameElement
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_event import KeyEvent
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.move import MovingTransformation
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_event import KeyEvent
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.move import MovingTransformation
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.visualizable import Visualizable
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.canvas import Canvas
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize, Coordinates
