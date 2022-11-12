@@ -37,7 +37,7 @@ def main():
     walls = Wallgenerator(map_size=MapSize(HEIGHT, WIDTH), number_walls=WALLS)
 
     score = Score(score_per_pellet=SCORE_PER_PELLET, pacman=pacman, pellets=pellets)
-    terminate = Terminate(pacman=pacman, walls=walls)
+    terminate = Terminate()
 
     visualizer = Visualizer([pacman, pellets, walls], ConsoleCanvas(MapSize(HEIGHT, WIDTH), screen))
     start_game_state = PacmanGameState([pacman, pellets, walls, score, terminate])
