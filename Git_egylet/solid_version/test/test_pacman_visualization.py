@@ -25,3 +25,23 @@ class SpyCanvas(Canvas):
 
     def render(self):
         pass
+
+def testCanvas_whenPacmanMoving_itAppearsOnNewCoordinates():
+    canvas = ConsoleCanvas(10, 10)
+    spy_canvas = SpyCanvas(canvas)
+    pacman = Pacman(
+        deque([Coordinates(0, 1), Coordinates(0, 2), Coordinates(0, 3)]),
+        starting_direction=KeyEvent.RIGHT
+    )
+    pacman.draw(spy_canvas)
+    dots_before_moving = spy_canvas.dots_on_canvas
+    spy_canvas.clear()
+    pacman.tick()
+    pacman.draw(spy_canvas)
+    dots_after_moving = spy_canvas.dots_on_canvas
+    assert Coordinates(0, 1) in dots_before_moving and \
+           Coordinates(0, 1) not in dots_after_moving, \
+        "PacMan should not be on the canvas after moving."
+    assert Coordinates(0, 4) in dots_before_moving and \
+           Coordinates(0, 4) not in dots_after_moving, \
+        "PacMan should be moved on canvas after moving."
