@@ -15,7 +15,7 @@ class Pacman(GameElement, Visualizable):
     def __init__(self,
                  body: List[Coordinates] = None,
                  starting_direction: KeyEvent = KeyEvent.RIGHT,
-                 map_size: MapSize = None,
+                 map_size: MapSize = MapSize(10, 10),
                  known_pos: List[List[Coordinates]] = None,
                  ):
         """
@@ -29,9 +29,6 @@ class Pacman(GameElement, Visualizable):
             self.known_pos = [item for sublist in known_pos for item in sublist]
         else:
             self.known_pos = []
-
-        if map_size is None:
-            map_size = MapSize(10, 10)
 
         if body is None:
             pos_generator = PositionGenerator(map_size, self.known_pos)
