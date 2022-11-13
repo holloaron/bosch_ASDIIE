@@ -12,6 +12,13 @@ class ScoreCounter(GameElement):
                  pacman: Pacman,
                  pellets: Pellets,
                  ):
+        """
+
+        :param base_score:
+        :param difficulty:
+        :param pacman:
+        :param pellets:
+        """
         self.score_pellet = base_score * difficulty
         self.pacman = pacman
         self.pellets = pellets
@@ -22,8 +29,12 @@ class ScoreCounter(GameElement):
         pass
 
     def tick(self) -> bool:
-        for i in range(len(self.pellets.pos)):
-            if self.pacman.pos[0] == self.pellets.pos[i]:
+        """
+
+        :return:
+        """
+        for pos in range(len(self.pellets.pos)):
+            if self.pacman.pos[0] == self.pellets.pos[pos]:
                 self.score += self.score_pellet
                 self.pellets.pos.pop(i)
                 break
