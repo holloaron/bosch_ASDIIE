@@ -19,6 +19,10 @@ class Terminate(GameElement):
         pass
 
     def tick(self) -> bool:
+        """
+        This function terminates the game if the PacMan interacts with a wall
+        :return: A bool value which determines if the game can continue
+        """
         for i in range(len(self.walls.positions)):
             if self.pacman.position[0] == self.walls.positions[i]:
                 return False
