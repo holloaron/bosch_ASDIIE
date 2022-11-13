@@ -89,9 +89,9 @@ class Ghosts(GameElement, Visualizable):
         """
         for pos_idx in range(len(self.pos)):
             if random.uniform(0, 1) >= self.step_confidence:
-                self.__take_best_action__(pacman_position,idx)
+                self.__take_best_action__(pacman_position, pos_idx)
             else:
-                self.__take_random_action__(idx)
+                self.__take_random_action__(pos_idx)
 
     def tick(self, pacman_position: Coordinates) -> bool:
         """
