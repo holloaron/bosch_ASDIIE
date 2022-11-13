@@ -3,7 +3,7 @@ from enum import Enum
 
 class KeyEvent(Enum):
 
-    UP = 1
-    RIGHT = 2
-    DOWN = 3
-    LEFT = 4
+    UP = "KEY_UP"
+    RIGHT = "KEY_RIGHT"
+    DOWN = "KEY_DOWN"
+    LEFT = "KEY_LEFT"

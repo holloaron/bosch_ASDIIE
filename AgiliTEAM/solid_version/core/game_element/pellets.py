@@ -6,6 +6,7 @@ from core.interface.visualizable import Visualizable
 from core.interface.canvas import Canvas
 from core.misc.map import MapSize, Coordinates
 from core.misc.pos_generator import PositionGenerator
+from core.display.object_markers import ObjectMarkers
 
 
 class Pellets(GameElement, Visualizable):
@@ -48,4 +49,4 @@ class Pellets(GameElement, Visualizable):
         :param canvas:
         :return: None
         """
-        canvas.draw_dots(coordinates=self.pos, obj_type='pellets')
+        canvas.draw_dots(coordinates=self.pos, obj_type=ObjectMarkers.PELLETS)
