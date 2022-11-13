@@ -5,7 +5,9 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.game_elements.wallgenerator impo
 
 
 class Terminate(GameElement):
-
+    """
+    This class is responsible for terminating the game if the PacMan interacts with a wall
+    """
     def __init__(self,
                  pacman: Pacman,
                  walls: Wallgenerator,
