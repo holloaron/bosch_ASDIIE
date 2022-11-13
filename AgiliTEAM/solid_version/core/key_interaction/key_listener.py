@@ -1,6 +1,6 @@
 import threading
 
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_event import KeyEvent
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_event import KeyEvent
 
 
 class KeyListener:
