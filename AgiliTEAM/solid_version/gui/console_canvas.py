@@ -28,7 +28,11 @@ class ConsoleCanvas(Canvas):
         self.crs_screen = curses_screen
         self.map = self._get_empty_map()
 
-    def clear(self):
+    def clear(self) -> None:
+        """
+
+        :return: None
+        """
         command = 'clear'
         if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
             command = 'cls'
