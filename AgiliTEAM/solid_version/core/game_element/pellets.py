@@ -15,6 +15,12 @@ class Pellets(GameElement, Visualizable):
                  num_pellets: int = 10,
                  known_pos: List[List[Coordinates]] = None,
                  ):
+        """
+
+        :param map_size:
+        :param num_pellets:
+        :param known_pos:
+        """
         if known_pos is not None:
             self.known_pos = [item for sublist in known_pos for item in sublist]
         else:
@@ -40,7 +46,15 @@ class Pellets(GameElement, Visualizable):
         pass
 
     def tick(self) -> bool:
+        """
+
+        """
         return True
 
-    def draw(self, canvas: Canvas):
+    def draw(self, canvas: Canvas) -> None:
+        """
+
+        :param canvas:
+        :return: None
+        """
         canvas.draw_dots(coordinates=self.pos, obj_type='pellets')
