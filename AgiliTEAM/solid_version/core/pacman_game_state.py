@@ -31,6 +31,9 @@ class PacmanGameState:
             elif isinstance(game_element, Ghosts):
                 self._can_game_continue = self._can_game_continue and game_element.tick(current_pacman_pos)
                 continue
+            elif isinstance(game_element, Walls):
+                self._can_game_continue = self._can_game_continue and game_element.tick(current_pacman_pos)
+                continue
             else:
                 self._can_game_continue = self._can_game_continue and game_element.tick()
 
