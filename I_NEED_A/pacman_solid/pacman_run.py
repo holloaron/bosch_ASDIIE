@@ -42,6 +42,7 @@ def main():
     screen.keypad(0)
     curses.echo()
     curses.endwin()
+    print("Game Over :(")
 
 if __name__ == "__main__":
     main()
