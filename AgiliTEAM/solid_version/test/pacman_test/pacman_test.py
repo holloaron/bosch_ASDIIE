@@ -1,8 +1,7 @@
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_event import KeyEvent
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_event import KeyEvent
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman_game_state import PacmanGameState
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman import Pacman
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import MapSize
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.map import Coordinates
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pacman import Pacman
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import Coordinates, MapSize
 
 import unittest
 

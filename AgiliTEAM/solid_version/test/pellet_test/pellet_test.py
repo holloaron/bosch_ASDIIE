@@ -1,6 +1,5 @@
-from solid_version.core.map import Coordinates
-from solid_version.core.map import MapSize
-from solid_version.core.pellets import Pellets
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize, Coordinates
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pellets import Pellets
 import unittest
 
 class PelletTest(unittest.TestCase):
