@@ -1,5 +1,5 @@
-from bosch_ASDIIE.Git_egylet.solid_version.core.key_event import KeyEvent
-from bosch_ASDIIE.Git_egylet.solid_version.core.map import Coordinates, MapSize
+from bosch_ASDIIE.Git_egylet.solid_version.core.enum.key_event import KeyEvent
+from bosch_ASDIIE.Git_egylet.solid_version.core.enum.map import Coordinates, MapSize
 
 
 class MovingTransformation:

@@ -1,7 +1,7 @@
 from typing import List
 
-from bosch_ASDIIE.Git_egylet.solid_version.core.canvas import Canvas
-from bosch_ASDIIE.Git_egylet.solid_version.core.visualizable import Visualizable
+from bosch_ASDIIE.Git_egylet.solid_version.core.interfaces.canvas import Canvas
+from bosch_ASDIIE.Git_egylet.solid_version.core.interfaces.visualizable import Visualizable
 
 
 class Visualizer:
