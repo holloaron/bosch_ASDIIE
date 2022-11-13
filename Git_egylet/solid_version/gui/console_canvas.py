@@ -7,6 +7,9 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.enum.screen import Screen
 
 
 class ConsoleCanvas(Canvas):
+    """
+    This class makes a graphical user interface (GUI) for the game
+    """
     def __init__(self, map_size: MapSize, curses_screen: Screen):
         self.width = map_size.col_num + 1
         self.height = map_size.col_num + 1
