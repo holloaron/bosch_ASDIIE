@@ -18,7 +18,11 @@ class ConsoleCanvas(Canvas):
     def __init__(self,
                  map_size: MapSize,
                  curses_screen: Screen):
+        """
 
+        :param map_size:
+        :param curses_screen:
+        """
         self.width = map_size.col_num + 1
         self.height = map_size.col_num + 1
         self.crs_screen = curses_screen
