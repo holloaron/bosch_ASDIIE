@@ -18,16 +18,12 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.custom_argument_parser impor
 
 
 def main():
-    arg_parser = ArgumentParser()
-    arg_parser.add_argument("--gui", type=str, default=GUI)
-    arg_parser.add_argument("--map_width", type=int, default=WIDTH)
-    arg_parser.add_argument("--map_height", type=int, default=HEIGHT)
-    arg_parser.add_argument("--difficulty", type=float, default=DIFFICULTY)
-    arg_parser.add_argument("--num_pellets", type=int, default=PELLETS)
-    arg_parser.add_argument("--num_ghosts", type=int, default=GHOSTS)
-    arg_parser.add_argument("--base_score", type=int, default=BASE_SCORE)
-    arg_parser.add_argument("--ghost_step_confidence", type=float, default=STEP_CONFIDENCE)
-    args = arg_parser.parse_args()
+
+    config_loader = ConfigLoader('default_config.yaml')
+    default_config = config_loader.load_config()
+
+    arg_parser = CustomArgParser(default_config)
+    parsed_config = arg_parser.get_parsed_config()
 
     screen = Screen()
     curses.cbreak()
