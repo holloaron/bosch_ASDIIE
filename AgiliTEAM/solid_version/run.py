@@ -9,12 +9,12 @@ from core.game_element.ghosts import Ghosts
 from core.game_element.walls import Walls
 from core.display.visualizer import Visualizer
 from gui.console_canvas import ConsoleCanvas
-from core.misc.map import MapSize
-from core.misc.config_loader import ConfigLoader
-from core.display.screen import Screen
-from core.game_element.score_counter import ScoreCounter
-from core.game_element.defeat_checker import DefeatChecker
-from core.misc.custom_argument_parser import CustomArgParser
+from solid_version.core.misc.map import MapSize
+from solid_version.core.misc.config_loader import ConfigLoader
+from solid_version.core.display.screen import Screen
+from solid_version.core.game_element.score_counter import ScoreCounter
+from solid_version.core.game_element.defeat_checker import DefeatChecker
+from solid_version.core.misc.custom_argument_parser import CustomArgParser
 
 
 def main():

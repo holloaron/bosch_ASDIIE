@@ -20,9 +20,9 @@ class ConsoleCanvas(Canvas):
                  map_size: MapSize,
                  curses_screen: Screen):
         """
-
-        :param map_size:
-        :param curses_screen:
+        The canvas class for the console version
+        :param map_size: the size of the pitch where the game is played
+        :param curses_screen: input screen.
         """
         self.width = map_size.col_num + 1
         self.height = map_size.col_num + 1
@@ -31,7 +31,7 @@ class ConsoleCanvas(Canvas):
 
     def clear(self) -> None:
         """
-
+        Clears everything from the screen.
         :return: None
         """
         command = 'clear'
@@ -43,9 +43,9 @@ class ConsoleCanvas(Canvas):
 
     def draw_dots(self, coordinates: List[Coordinates], obj_type: str = None) -> None:
         """
-
-        :param coordinates:
-        :param obj_type:
+        Draw the objects on the canvas.
+        :param coordinates: the coordinates to be drawn
+        :param obj_type: the type of the object mark.
         :return: None
         """
         for dot in coordinates:
@@ -53,7 +53,7 @@ class ConsoleCanvas(Canvas):
 
     def render(self) -> None:
         """
-
+        Responsible for rendering the objects on the screen and refreshing it.
         :return: None
         """
         for num_row, row in enumerate(self.map):
@@ -62,8 +62,8 @@ class ConsoleCanvas(Canvas):
 
     def _get_empty_map(self) -> list:
         """
-
-        :return:
+        Returns an empty map.
+        :return: Empty map.
         """
         screen = []
         for height_pos in range(self.height):
@@ -72,14 +72,12 @@ class ConsoleCanvas(Canvas):
 
     def get_height(self) -> int:
         """
-
-        :return:
+        :return: The height of a pitch
         """
         return self.height
 
     def get_width(self) -> int:
         """
-
-        :return:
+        :return: The width of a pitch
         """
         return self.width

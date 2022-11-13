@@ -13,11 +13,11 @@ class ScoreCounter(GameElement):
                  pellets: Pellets,
                  ):
         """
-
-        :param base_score:
-        :param difficulty:
-        :param pacman:
-        :param pellets:
+        The constructor of the score counter class which is responsible for counting the score(eaten pellets number).
+        :param base_score: sets the score number for a pellet.
+        :param difficulty: the difficulty decides that how the score calculation will happen(more the difficult, less the score)
+        :param pacman: constructed pacman object.
+        :param pellets: pellets object.
         """
         self.score_pellet = base_score * difficulty
         self.pacman = pacman
@@ -30,8 +30,8 @@ class ScoreCounter(GameElement):
 
     def tick(self) -> bool:
         """
-
-        :return:
+        Calculates the score if pacman eats a chocolate.
+        :return: return True
         """
         for pos in range(len(self.pellets.pos)):
             if self.pacman.pos[0] == self.pellets.pos[pos]:

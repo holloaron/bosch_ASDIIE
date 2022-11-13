@@ -7,8 +7,8 @@ class GameElement(ABC):
     @abstractmethod
     def take_action(self, key_event: KeyEvent) -> None:
         """
-
-        :param key_event:
+        In each descendant, it will take the action according to the event.
+        :param key_event: input from the user.
         :return: None
         """
         pass
@@ -16,7 +16,7 @@ class GameElement(ABC):
     @abstractmethod
     def tick(self) -> bool:
         """
-
-        :return:
+        For every tick itt will check the game state.
+        :return: Returns a boolean variable during each timestep.
         """
         pass

@@ -10,18 +10,18 @@ class PositionGenerator:
                  map_size: MapSize,
                  known_pos: List[Coordinates]):
         """
-
-        :param map_size:
-        :param known_pos:
+        Constructor of the PositionGenerator
+        :param map_size: the size of the pitch where the game is played
+        :param known_pos: list of the actually placed item's coordinates in the pitch
         """
         self.map_size = map_size
         self.known_pos = known_pos
 
     def generate_pos(self, num_of_pos: int) -> Tuple[List[Coordinates], List[Coordinates]]:
         """
-
-        :param num_of_pos:
-        :return:
+        Generate positions of an object.
+        :param num_of_pos: The number of the generated positions.
+        :return: Return a tuple of coordinates of the generated positions.
         """
         pos_list = []
         for pos_num in range(num_of_pos):

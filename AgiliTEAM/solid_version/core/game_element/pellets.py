@@ -1,11 +1,11 @@
 from typing import List
 
-from core.key_interaction.key_event import KeyEvent
-from core.interface.game_element import GameElement
-from core.interface.visualizable import Visualizable
-from core.interface.canvas import Canvas
-from core.misc.map import MapSize, Coordinates
-from core.misc.pos_generator import PositionGenerator
+from solid_version.core.key_interaction.key_event import KeyEvent
+from solid_version.core.interface.game_element import GameElement
+from solid_version.core.interface.visualizable import Visualizable
+from solid_version.core.interface.canvas import Canvas
+from solid_version.core.misc.map import MapSize, Coordinates
+from solid_version.core.misc.pos_generator import PositionGenerator
 
 
 class Pellets(GameElement, Visualizable):
@@ -16,10 +16,10 @@ class Pellets(GameElement, Visualizable):
                  known_pos: List[List[Coordinates]] = None,
                  ):
         """
-
-        :param map_size:
-        :param num_pellets:
-        :param known_pos:
+        Constructor of the pellets.
+        :param map_size: the size of the pitch where the game is played
+        :param num_pellets: the number of the pellets in the game
+        :param known_pos: list of the actually placed item's coordinates in the pitch
         """
         if known_pos is not None:
             self.known_pos = [item for sublist in known_pos for item in sublist]
@@ -32,19 +32,17 @@ class Pellets(GameElement, Visualizable):
 
     def take_action(self, key_event: KeyEvent) -> None:
         """
-
         """
         pass
 
     def tick(self) -> bool:
         """
-
         """
         return True
 
     def draw(self, canvas: Canvas) -> None:
         """
-
+        Draws all the pellets on the canvas.
         :param canvas:
         :return: None
         """

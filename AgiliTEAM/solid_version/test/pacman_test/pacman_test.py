@@ -18,7 +18,7 @@ class GameStateTest(unittest.TestCase):
         test_game_state = PacmanGameState([pacman])
         test_game_state.take_action(KeyEvent.UP)
         test_game_state.step()
-        self.assertFalse(pacman.get_pacman_position() == [Coordinates(5, 6)], "Error during step, value mismatch")
+        self.assertTrue(pacman.get_pacman_position() == Coordinates(4, 5), "Error during step, value mismatch")
 
     def test_PacmanCanNotLeaveThePitch_TopLeftCornerPos(self):
         pacman = Pacman(body=[Coordinates(1, 1)], map_size=MapSize(3, 3))
@@ -27,5 +27,16 @@ class GameStateTest(unittest.TestCase):
         test_game_state.step()
         test_game_state.take_action(KeyEvent.LEFT)
         test_game_state.step()
-        self.assertFalse(pacman.get_pacman_position() == [Coordinates(0, 0)],
+        ret = pacman.get_pacman_position();
+        self.assertTrue(pacman.get_pacman_position() == Coordinates(0, 0),
                          "Error during step, value mismatch")
+
+    def test_PacmanWithWalls(self):
+        map_size = MapSize(2, 2)
+        pacman = Pacman(body=[Coordinates(1, 1)], map_size=map_size)
+        walls = Walls(map_size=map_size)
+        test_game_state = PacmanGameState([pacman,walls])
+        test_game_state.take_action(KeyEvent.UP)
+        test_game_state.step()
+        self.assertTrue(test_game_state.is_terminated(),"The game should have ended")
+

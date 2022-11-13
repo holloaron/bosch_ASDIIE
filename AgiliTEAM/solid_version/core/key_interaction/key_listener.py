@@ -4,7 +4,9 @@ from core.key_interaction.key_event import KeyEvent
 
 
 class KeyListener:
-
+    """
+     Keyboard listener class for the keyboard events, usable in remote environments, in a side-thread
+    """
     KEY_PRESS_TO_KEY_EVENT = {
         "KEY_UP": KeyEvent.UP,
         "KEY_DOWN": KeyEvent.DOWN,
@@ -33,7 +35,7 @@ class KeyListener:
 
     def stop(self) -> None:
         """
-
+        Stop the thread for scanning the keyboard actions
         :return: None
         """
         self.stopped = True
@@ -44,8 +46,8 @@ class KeyListener:
 
     def start(self, screen) -> None:
         """
-
-        :param screen:
+        Starts the thread for scanning the keyboard actions
+        :param screen: Screen object.
         :return: None
         """
         self.screen = screen
@@ -55,15 +57,15 @@ class KeyListener:
 
     def has_happened(self) -> bool:
         """
-
-        :return:
+        Checks that a valid keyboard event has happened.
+        :return: return True if it is valid, False otherwise.
         """
         return self.last_key is not None
 
     def read_last_key_event(self) -> KeyEvent:
         """
-
-        :return:
+        Read the last keyevent from the keyboard
+        :return: Returns the last read keyevent.
         """
         if self.last_key is None:
             raise ValueError("KeyBoardListener has not noticed "

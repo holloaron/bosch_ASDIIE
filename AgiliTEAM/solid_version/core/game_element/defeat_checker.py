@@ -11,23 +11,22 @@ class DefeatChecker(GameElement):
                  ghosts: Ghosts,
                  ):
         """
-
-        :param pacman:
-        :param ghosts:
+        Constructs the DefeatChecker class which is responsible for checking whether the ghosts managed to catch the pacman
+        :param pacman: Pacman class which holds the components of the pacman
+        :param ghosts: Ghosts class which holds the components of the ghosts
         """
         self.pacman = pacman
         self.ghosts = ghosts
 
     def take_action(self, key_event: KeyEvent) -> None:
         """
-
         """
         pass
 
     def tick(self) -> bool:
         """
-
-        :return:
+        It checks whether the ghosts managed to catch the pacman.
+        :return: Returns True in case of the ghosts managed to catch the pacman otherwise return False
         """
         for pos_actual_ghost in range(len(self.ghosts.pos)):
             if self.pacman.pos[0] == self.ghosts.pos[pos_actual_ghost]:
