@@ -4,7 +4,7 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.enum.map import Coordinates, Map
 
 class MovingTransformation:
     """
-    This class is for handling keyboard events during playing
+    This class is responsible for handling keyboard events during playing
     """
     def __init__(self, direction: KeyEvent, map_size: MapSize):
         self.direction = direction
