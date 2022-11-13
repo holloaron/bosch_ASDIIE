@@ -1,5 +1,4 @@
 import curses
-from argparse import ArgumentParser
 
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game import Game
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_listener import KeyListener
