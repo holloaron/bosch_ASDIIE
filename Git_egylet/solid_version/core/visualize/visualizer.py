@@ -13,6 +13,10 @@ class Visualizer:
         self.canvas = canvas
 
     def render(self):
+        """
+        This function is responsible for visualizing the visualizable objects
+        :return:
+        """
         self.canvas.clear()
         for obj in self.visualizable_objects:
             obj.draw(self.canvas)
