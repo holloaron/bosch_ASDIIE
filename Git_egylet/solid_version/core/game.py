@@ -6,6 +6,9 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.visualize.visualizer import Visu
 
 
 class Game:
+    """
+    This class is responsible for managing the game
+    """
     
     GAME_SPEED = 0.4
 
