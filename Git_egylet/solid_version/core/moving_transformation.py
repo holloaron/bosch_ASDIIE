@@ -1,5 +1,6 @@
-from bosch_ASDIIE_Git_egylet.solid_version.core.key_event import KeyEvent
-from bosch_ASDIIE_Git_egylet.solid_version.core.map import Coordinates, MapSize
+from bosch_ASDIIE.Git_egylet.solid_version.core.key_event import KeyEvent
+from bosch_ASDIIE.Git_egylet.solid_version.core.map import Coordinates, MapSize
+
 
 class MovingTransformation:
     """
@@ -11,16 +12,28 @@ class MovingTransformation:
 
     def __call__(self, coordinates: Coordinates) -> Coordinates:
         if self.direction == KeyEvent.UP:
-            new_row = (coordinates.row - 1) % self.map_size.row_num
+            if coordinates.row - 1 < 0:
+                new_row = coordinates.row
+            else:
+                new_row = coordinates.row - 1
             return Coordinates(new_row, coordinates.col)
         elif self.direction == KeyEvent.LEFT:
-            new_col = (coordinates.col - 1) % self.map_size.col_num
+            if coordinates.col - 1 < 0:
+                new_col = coordinates.col
+            else:
+                new_col = coordinates.col - 1
             return Coordinates(coordinates.row, new_col)
         elif self.direction == KeyEvent.DOWN:
-            new_row = (coordinates.row + 1) % self.map_size.row_num
+            if coordinates.row + 1 == self.map_size.row_num:
+                new_row = coordinates.row
+            else:
+                new_row = coordinates.row + 1
             return Coordinates(new_row, coordinates.col)
         elif self.direction == KeyEvent.RIGHT:
-            new_col = (coordinates.col + 1) % self.map_size.col_num
+            if coordinates.col + 1 == self.map_size.col_num:
+                new_col = coordinates.col
+            else:
+                new_col = coordinates.col + 1
             return Coordinates(coordinates.row, new_col)
         else:
             raise ValueError(f"There is no moving forward {self.direction} direction.")

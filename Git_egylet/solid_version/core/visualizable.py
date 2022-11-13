@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from bosch_ASDIIE_Git_egylet.Git_egylet.solid_version.core.canvas import Canvas
+from bosch_ASDIIE.Git_egylet.solid_version.core.canvas import Canvas
 
 
 class Visualizable(ABC):

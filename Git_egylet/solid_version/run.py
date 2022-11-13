@@ -1,0 +1,55 @@
+import curses
+from argparse import ArgumentParser
+
+from bosch_ASDIIE.Git_egylet.solid_version.core.game import Game
+from bosch_ASDIIE.Git_egylet.solid_version.core.key_listener import KeyListener
+from bosch_ASDIIE.Git_egylet.solid_version.core.pacman_game_state import PacmanGameState
+from bosch_ASDIIE.Git_egylet.solid_version.core.pacman import Pacman
+from bosch_ASDIIE.Git_egylet.solid_version.core.pellets import Pellets
+from bosch_ASDIIE.Git_egylet.solid_version.core.wallgenerator import Wallgenerator
+from bosch_ASDIIE.Git_egylet.solid_version.core.visualizer import Visualizer
+from bosch_ASDIIE.Git_egylet.solid_version.gui.console_canvas import ConsoleCanvas
+from bosch_ASDIIE.Git_egylet.solid_version.core.map import MapSize
+from bosch_ASDIIE.Git_egylet.solid_version.core.screen import Screen
+from bosch_ASDIIE.Git_egylet.solid_version.core.score import Score
+from bosch_ASDIIE.Git_egylet.solid_version.core.terminate import Terminate
+
+WIDTH = 10
+HEIGHT = 10
+PELLETS = 10
+WALLS = 10
+SCORE_PER_PELLET = 1
+
+
+def main():
+    arg_parser = ArgumentParser()
+    arg_parser.add_argument("--gui", type=str, default="console")
+    args = arg_parser.parse_args()
+
+    screen = Screen()
+    curses.cbreak()
+
+    key_listener = KeyListener()
+    key_listener.start(screen)
+
+    pacman = Pacman(map_size=MapSize(HEIGHT, WIDTH))
+    pellets = Pellets(map_size=MapSize(HEIGHT, WIDTH), number_pellets=PELLETS)
+    walls = Wallgenerator(map_size=MapSize(HEIGHT, WIDTH), number_walls=WALLS)
+
+    score = Score(score_per_pellet=SCORE_PER_PELLET, pacman=pacman, pellets=pellets)
+    terminate = Terminate(pacman=pacman, walls=walls)
+
+    visualizer = Visualizer([pacman, pellets, walls], ConsoleCanvas(MapSize(HEIGHT, WIDTH), screen))
+    start_game_state = PacmanGameState([pacman, pellets, walls, score, terminate])
+    game = Game(key_listener, start_game_state, visualizer)
+    game.run()
+
+    # stop the screen
+    curses.nocbreak()
+    screen.keypad(0)
+    curses.echo()
+    curses.endwin()
+
+
+if __name__ == "__main__":
+    main()

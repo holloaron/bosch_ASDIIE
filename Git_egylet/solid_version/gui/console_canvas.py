@@ -1,9 +1,9 @@
 import os
 from typing import List
 
-from bosch_ASDIIE_Git_egylet.Git_egylet.solid_version.core.map import Coordinates, MapSize
-from bosch_ASDIIE_Git_egylet.Git_egylet.solid_version.core.canvas import Canvas
-from bosch_ASDIIE_Git_egylet.Git_egylet.solid_version.core.screen import Screen
+from bosch_ASDIIE.Git_egylet.solid_version.core.map import Coordinates, MapSize
+from bosch_ASDIIE.Git_egylet.solid_version.core.canvas import Canvas
+from bosch_ASDIIE.Git_egylet.solid_version.core.screen import Screen
 
 
 class ConsoleCanvas(Canvas):
@@ -21,9 +21,14 @@ class ConsoleCanvas(Canvas):
         self.map = self._get_empty_map()
         self.crs_screen.clear()
 
-    def draw_dots(self, coordinates: List[Coordinates]):
+    def draw_dots(self, coordinates: List[Coordinates], object_type: str):
         for dot in coordinates:
-            self.map[dot.row][dot.col] = "x"
+            if object_type == 'pacman':
+                self.map[dot.row][dot.col] = "x"
+            elif object_type == 'pellets':
+                self.map[dot.row][dot.col] = "O"
+            elif object_type == 'walls':
+                self.map[dot.row][dot.col] = "|"
 
     def render(self):
         for num_row, row in enumerate(self.map):
