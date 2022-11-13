@@ -1,3 +1,5 @@
+from typing import List
+
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_event import KeyEvent
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize, Coordinates
 
@@ -12,6 +14,10 @@ class MovingTransformation:
         """
         self.direction = direction
         self.map_size = map_size
+        if prohibited_pos is not None:
+            self.prohibited_pos = prohibited_pos
+        else:
+            self.prohibited_pos = []
 
     def __call__(self, coordinates: Coordinates) -> Coordinates:
         """
