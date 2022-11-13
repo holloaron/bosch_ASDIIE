@@ -6,7 +6,7 @@ from core.misc.map import Coordinates
 
 class Canvas(ABC):
     @abstractmethod
-    def draw_dots(self, coordinates: List[Coordinates], obj_type: str = None) -> None:
+    def draw_dots(self, coordinates: List[Coordinates], obj_type) -> None:
         """
 
         :param coordinates:
