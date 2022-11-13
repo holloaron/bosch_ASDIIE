@@ -18,6 +18,13 @@ class Pacman(GameElement, Visualizable):
                  map_size: MapSize = None,
                  known_pos: List[List[Coordinates]] = None,
                  ):
+        """
+
+        :param body:
+        :param starting_direction:
+        :param map_size:
+        :param known_pos:
+        """
         if known_pos is not None:
             self.known_pos = [item for sublist in known_pos for item in sublist]
         else:
@@ -40,15 +47,30 @@ class Pacman(GameElement, Visualizable):
             pos = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
         return [pos]
 
-    def take_action(self, key_event: KeyEvent):
+        :param key_event:
+        :return: None
+        """
         self.moving_transformation.direction = key_event
 
-    def get_pacman_position(self):
+    def get_pacman_position(self) -> Coordinates:
+        """
+
+        :return:
+        """
         return self.pos[0]
 
-    def tick(self):
+    def tick(self) -> bool:
+        """
+
+        :return:
+        """
         self.pos = [self.moving_transformation(self.pos[0])]
         return True
 
-    def draw(self, canvas: Canvas):
+    def draw(self, canvas: Canvas) -> None:
+        """
+
+        :param canvas:
+        :return: None
+        """
         canvas.draw_dots(self.pos, 'pacman')
