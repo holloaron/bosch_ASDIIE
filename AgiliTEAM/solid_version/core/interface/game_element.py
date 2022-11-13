@@ -5,9 +5,18 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_event import 
 
 class GameElement(ABC):
     @abstractmethod
-    def take_action(self, key_event: KeyEvent):
+    def take_action(self, key_event: KeyEvent) -> None:
+        """
+
+        :param key_event:
+        :return: None
+        """
         pass
 
     @abstractmethod
     def tick(self) -> bool:
+        """
+
+        :return:
+        """
         pass
