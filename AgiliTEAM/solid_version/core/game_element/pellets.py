@@ -6,6 +6,7 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.game_element import Gam
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.visualizable import Visualizable
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.canvas import Canvas
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize, Coordinates
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.pos_generator import PositionGenerator
 
 
 class Pellets(GameElement, Visualizable):
