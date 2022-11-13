@@ -65,7 +65,7 @@ class ConsoleCanvas(Canvas):
         :return:
         """
         screen = []
-        for _ in range(self.height):
+        for height_pos in range(self.height):
             screen.append([" "] * self.width)
         return screen
 
