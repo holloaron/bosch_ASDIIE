@@ -31,18 +31,23 @@ def main():
     key_listener = KeyListener()
     key_listener.start(screen)
 
-    pacman = Pacman(map_size=MapSize(HEIGHT, WIDTH))
-    pellets = Pellets(map_size=MapSize(HEIGHT, WIDTH), num_pellets=args.num_pellets, known_pos=[pacman.pos])
-    ghosts = Ghosts(map_size=MapSize(HEIGHT, WIDTH), num_ghosts=args.num_ghosts, known_pos=[pacman.pos, pellets.pos],
-                    step_confidence=args.ghost_step_confidence)
-    score_counter = ScoreCounter(base_score=args.base_score, difficulty=args.difficulty, pacman=pacman, pellets=pellets)
+    map_size = MapSize(parsed_config.map_height, parsed_config.map_width)
+
+    walls = Walls(map_size=map_size, internal_walls=parsed_config.internal_walls)
+    pacman = Pacman(map_size=map_size, known_pos=[walls.pos])
+    pellets = Pellets(map_size=map_size, num_pellets=parsed_config.num_pellets, known_pos=[pacman.pos, walls.pos])
+    ghosts = Ghosts(map_size=map_size, num_ghosts=parsed_config.num_ghosts, walls_pos=walls.pos,
+                    known_pos=[pacman.pos, pellets.pos, walls.pos], step_confidence=parsed_config.step_confidence)
+    score_counter = ScoreCounter(base_score=parsed_config.base_score, difficulty=parsed_config.difficulty,
+                                 pacman=pacman, pellets=pellets)
     defeat_checker = DefeatChecker(pacman=pacman, ghosts=ghosts)
 
     canvas = ConsoleCanvas(map_size, screen)
 
-    visualizer = Visualizer([ghosts, pellets, pacman], canvas)
-    start_game_state = PacmanGameState([pacman, pellets, ghosts, score_counter, defeat_checker])
-    game = Game(key_listener, start_game_state, visualizer, args.difficulty)
+    visualizer = Visualizer([walls, ghosts, pellets, pacman], canvas)
+    start_game_state = PacmanGameState([pacman, pellets, ghosts, walls, score_counter, defeat_checker])
+
+    game = Game(key_listener, start_game_state, visualizer, parsed_config.difficulty)
     game.run()
 
     curses.nocbreak()
