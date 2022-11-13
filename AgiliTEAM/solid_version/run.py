@@ -38,10 +38,7 @@ def main():
     score_counter = ScoreCounter(base_score=args.base_score, difficulty=args.difficulty, pacman=pacman, pellets=pellets)
     defeat_checker = DefeatChecker(pacman=pacman, ghosts=ghosts)
 
-    if args.gui == 'console':
-        canvas = ConsoleCanvas(MapSize(args.map_width, args.map_height), screen)
-    else:
-        raise NotImplementedError
+    canvas = ConsoleCanvas(map_size, screen)
 
     visualizer = Visualizer([ghosts, pellets, pacman], canvas)
     start_game_state = PacmanGameState([pacman, pellets, ghosts, score_counter, defeat_checker])
