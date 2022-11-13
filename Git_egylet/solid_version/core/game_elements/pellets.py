@@ -22,6 +22,12 @@ class Pellets(GameElement, Visualizable):
         self.positions = self.make_pellets(number=number_pellets, map_size=map_size)
 
     def make_pellets(self, number: int, map_size: MapSize) -> List[Coordinates]:
+        """
+        This class creates pellets across the map
+        :param number: The number of pellets to make
+        :param map_size: The size of the map
+        :return: A list of the coordinates of the pellets
+        """
         pellet_positions = []
         for _ in range(number):
             position = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
@@ -33,6 +39,11 @@ class Pellets(GameElement, Visualizable):
         return pellet_positions
 
     def draw(self, canvas: Canvas):
+        """
+        This function is responsible for the visualization of the pellets
+        :param canvas: The interface for visualization
+        :return:
+        """
         canvas.draw_dots(self.positions, 'pellets')
 
     def take_action(self, key_event: KeyEvent):
