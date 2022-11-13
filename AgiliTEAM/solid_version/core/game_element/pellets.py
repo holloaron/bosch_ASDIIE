@@ -12,7 +12,7 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.pos_generator import Positio
 class Pellets(GameElement, Visualizable):
 
     def __init__(self,
-                 map_size: MapSize = None,
+                 map_size: MapSize = MapSize(10, 10),
                  num_pellets: int = 10,
                  known_pos: List[List[Coordinates]] = None,
                  ):
@@ -27,8 +27,7 @@ class Pellets(GameElement, Visualizable):
         else:
             self.known_pos = []
 
-        if map_size is None:
-            map_size = MapSize(10, 10)
+        pos_generator = PositionGenerator(map_size, self.known_pos)
 
         self.pos = self.generate_pos(num_of_pos=num_pellets, map_size=map_size)
 
