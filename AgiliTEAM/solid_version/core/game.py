@@ -1,8 +1,8 @@
 import time
 
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_listener import KeyListener
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman_game_state import PacmanGameState
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.visualizer import Visualizer
+from core.key_interaction.key_listener import KeyListener
+from core.pacman_game_state import PacmanGameState
+from core.display.visualizer import Visualizer
 
 
 class Game:
@@ -13,13 +13,23 @@ class Game:
                  visualizer: Visualizer,
                  game_speed: float,
                  ):
+        """
 
+        :param keyboard_listener:
+        :param game_state:
+        :param visualizer:
+        :param game_speed:
+        """
         self.keyboard_listener = keyboard_listener
         self.game_state = game_state
         self.visualizer = visualizer
         self.game_speed = game_speed
 
-    def run(self):
+    def run(self) -> None:
+        """
+
+        :return: None
+        """
         can_continue = True
 
         while can_continue:
