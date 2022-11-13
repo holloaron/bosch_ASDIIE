@@ -23,7 +23,7 @@ class Pellets(GameElement, Visualizable):
 
     def make_pellets(self, number: int, map_size: MapSize) -> List[Coordinates]:
         """
-        This class creates pellets across the map
+        This function creates pellets across the map
         :param number: The number of pellets to make
         :param map_size: The size of the map
         :return: A list of the coordinates of the pellets
