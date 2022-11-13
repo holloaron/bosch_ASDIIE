@@ -40,23 +40,45 @@ class ConsoleCanvas(Canvas):
         self.map = self._get_empty_map()
         self.crs_screen.clear()
 
-    def draw_dots(self, coordinates: List[Coordinates], obj_type: str = None):
+    def draw_dots(self, coordinates: List[Coordinates], obj_type: str = None) -> None:
+        """
+
+        :param coordinates:
+        :param obj_type:
+        :return: None
+        """
         for dot in coordinates:
             self.map[dot.row][dot.col] = self.OBJECT_MARKERS[obj_type]
 
-    def render(self):
+    def render(self) -> None:
+        """
+
+        :return: None
+        """
         for num_row, row in enumerate(self.map):
             self.crs_screen.addstr(num_row, 0, "".join(row) + "\n")
         self.crs_screen.refresh()
 
-    def _get_empty_map(self):
+    def _get_empty_map(self) -> list:
+        """
+
+        :return:
+        """
         screen = []
         for _ in range(self.height):
             screen.append([" "] * self.width)
         return screen
 
-    def get_height(self):
+    def get_height(self) -> int:
+        """
+
+        :return:
+        """
         return self.height
 
-    def get_width(self):
+    def get_width(self) -> int:
+        """
+
+        :return:
+        """
         return self.width
