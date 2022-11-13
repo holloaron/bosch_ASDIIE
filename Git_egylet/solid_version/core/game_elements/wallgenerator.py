@@ -10,7 +10,7 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.interfaces.visualizable import V
 
 class Wallgenerator(GameElement, Visualizable):
     """
-    A visualizable class for generating walls and handling collision
+    This class is responsible for the creation and visualization of the walls
     """
     def __init__(self,
                  map_size: MapSize = None,
