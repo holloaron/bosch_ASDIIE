@@ -11,7 +11,8 @@ class ConsoleCanvas(Canvas):
     OBJECT_MARKERS = {
         "pacman": '@',
         "ghosts": 'x',
-        "pellets": 'o'
+        "pellets": 'o',
+        "walls": '#'
     }
 
     def __init__(self,
