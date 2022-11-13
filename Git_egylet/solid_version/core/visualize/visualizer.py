@@ -5,6 +5,9 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.interfaces.visualizable import V
 
 
 class Visualizer:
+    """
+    This class handles the visualization of the objects of the game
+    """
     def __init__(self, visualizable_objects: List[Visualizable], canvas: Canvas):
         self.visualizable_objects = visualizable_objects
         self.canvas = canvas
