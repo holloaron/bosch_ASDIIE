@@ -21,6 +21,7 @@ class Ghosts(GameElement, Visualizable):
                  num_ghosts: int = 4,
                  known_pos: List[List[Coordinates]] = None,
                  step_confidence: float = 0.8,
+                 walls_pos: List[Coordinates] = None
                  ):
         """
 
@@ -40,7 +41,8 @@ class Ghosts(GameElement, Visualizable):
         pos_generator = PositionGenerator(map_size, self.known_pos)
         self.pos, self.known_pos = pos_generator.generate_pos(num_of_pos=num_ghosts)
 
-        return pos_list
+        self.walls_pos = walls_pos
+        self.moving_transformation_ghost = MovingTransformation(self.event, map_size, self.walls_pos)
 
     def __take_best_action__(self, pacman_position: Coordinates, ghost_index: int) -> None:
         """
