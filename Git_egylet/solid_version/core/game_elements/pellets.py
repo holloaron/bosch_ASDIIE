@@ -10,7 +10,7 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.interfaces.visualizable import V
 
 class Pellets(GameElement, Visualizable):
     """
-    A visualizable class, for handling Pellets
+    This class handles the creation and visualization of the pellets
     """
     def __init__(self,
                  map_size: MapSize = None,
