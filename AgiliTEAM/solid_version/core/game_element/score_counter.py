@@ -25,7 +25,7 @@ class ScoreCounter(GameElement):
 
         self.score = 0
 
-    def take_action(self, key_event: KeyEvent):
+    def take_action(self, key_event: KeyEvent) -> None:
         pass
 
     def tick(self) -> bool:
