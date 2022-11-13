@@ -17,6 +17,10 @@ class ConsoleCanvas(Canvas):
         self.map = self._get_empty_map()
 
     def clear(self):
+        """
+        This function clears the map
+        :return:
+        """
         command = 'clear'
         if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
             command = 'cls'
@@ -25,6 +29,12 @@ class ConsoleCanvas(Canvas):
         self.crs_screen.clear()
 
     def draw_dots(self, coordinates: List[Coordinates], object_type: str):
+        """
+        This function is responsible for the visualization of different types of objects
+        :param coordinates: The coordinates of the current object
+        :param object_type: The type of the object
+        :return:
+        """
         for dot in coordinates:
             if object_type == 'pacman':
                 self.map[dot.row][dot.col] = "x"
