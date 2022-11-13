@@ -38,11 +38,8 @@ class Pacman(GameElement, Visualizable):
 
         self.moving_transformation = MovingTransformation(starting_direction, map_size)
 
-    def generate_pos(self, num_of_pos: int, map_size: MapSize) -> List[Coordinates]:
-        pos = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
-        while pos in self.known_pos:
-            pos = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
-        return [pos]
+    def take_action(self, key_event: KeyEvent) -> None:
+        """
 
         :param key_event:
         :return: None
