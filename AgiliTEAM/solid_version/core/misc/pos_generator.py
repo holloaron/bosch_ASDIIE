@@ -1,7 +1,7 @@
 from typing import List, Tuple
 import numpy as np
 
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize, Coordinates
+from core.misc.map import MapSize, Coordinates
 
 
 class PositionGenerator:

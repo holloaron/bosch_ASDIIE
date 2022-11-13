@@ -1,9 +1,9 @@
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_event import KeyEvent
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman_game_state import PacmanGameState
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pacman import Pacman
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import Coordinates, MapSize
-
 import unittest
+
+from core.key_interaction.key_event import KeyEvent
+from core.pacman_game_state import PacmanGameState
+from core.game_element.pacman import Pacman
+from core.misc.map import Coordinates, MapSize
 
 
 class GameStateTest(unittest.TestCase):

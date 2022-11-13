@@ -1,7 +1,7 @@
 from typing import List
 
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_event import KeyEvent
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize, Coordinates
+from core.key_interaction.key_event import KeyEvent
+from core.misc.map import MapSize, Coordinates
 
 
 class MovingTransformation:
