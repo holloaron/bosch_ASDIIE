@@ -5,6 +5,9 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.enum.key_event import KeyEvent
 
 
 class PacmanGameState:
+    """
+    This class is responsible for determining the current state of the game and handling the actions
+    """
     def __init__(self, game_elements: List[GameElement]):
         self.game_elements = game_elements
         self._can_game_continue = True
