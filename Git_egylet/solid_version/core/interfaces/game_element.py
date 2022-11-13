@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from bosch_ASDIIE.Git_egylet.solid_version.core.key_event import KeyEvent
+from bosch_ASDIIE.Git_egylet.solid_version.core.enum.key_event import KeyEvent
 
 
 class GameElement(ABC):

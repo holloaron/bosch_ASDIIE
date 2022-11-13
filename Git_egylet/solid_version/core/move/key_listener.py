@@ -1,9 +1,12 @@
 import threading
 
-from bosch_ASDIIE.Git_egylet.solid_version.core.key_event import KeyEvent
+from bosch_ASDIIE.Git_egylet.solid_version.core.enum.key_event import KeyEvent
 
 
 class KeyListener:
+    """
+    This class handles the keyboard events in remote environments in a side-thread
+    """
     KEYPRESS_TO_KEY_EVENT = {
         "KEY_UP": KeyEvent.UP,
         "KEY_DOWN": KeyEvent.DOWN,

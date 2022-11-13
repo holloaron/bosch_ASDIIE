@@ -2,6 +2,9 @@ import curses
 
 
 class Screen:
+    """
+    This class is for visualizing the game in the Terminal
+    """
     def __init__(self):
         self.screen = curses.initscr()
 

@@ -1,16 +1,21 @@
-from bosch_ASDIIE.Git_egylet.solid_version.core.key_event import KeyEvent
-from bosch_ASDIIE.Git_egylet.solid_version.core.map import Coordinates, MapSize
+from bosch_ASDIIE.Git_egylet.solid_version.core.enum.key_event import KeyEvent
+from bosch_ASDIIE.Git_egylet.solid_version.core.enum.map import Coordinates, MapSize
 
 
 class MovingTransformation:
     """
-    This class is for handling keyboard events during playing
+    This class is responsible for handling keyboard events during playing
     """
     def __init__(self, direction: KeyEvent, map_size: MapSize):
         self.direction = direction
         self.map_size = map_size
 
     def __call__(self, coordinates: Coordinates) -> Coordinates:
+        """
+        This function updates the coordinates according to the current input key action
+        :param coordinates: The coordinates of the current object
+        :return: The updated coordinates
+        """
         if self.direction == KeyEvent.UP:
             if coordinates.row - 1 < 0:
                 new_row = coordinates.row

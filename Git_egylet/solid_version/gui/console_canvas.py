@@ -1,12 +1,15 @@
 import os
 from typing import List
 
-from bosch_ASDIIE.Git_egylet.solid_version.core.map import Coordinates, MapSize
-from bosch_ASDIIE.Git_egylet.solid_version.core.canvas import Canvas
-from bosch_ASDIIE.Git_egylet.solid_version.core.screen import Screen
+from bosch_ASDIIE.Git_egylet.solid_version.core.enum.map import Coordinates, MapSize
+from bosch_ASDIIE.Git_egylet.solid_version.core.interfaces.canvas import Canvas
+from bosch_ASDIIE.Git_egylet.solid_version.core.enum.screen import Screen
 
 
 class ConsoleCanvas(Canvas):
+    """
+    This class makes a graphical user interface (GUI) for the game
+    """
     def __init__(self, map_size: MapSize, curses_screen: Screen):
         self.width = map_size.col_num + 1
         self.height = map_size.col_num + 1
@@ -14,6 +17,10 @@ class ConsoleCanvas(Canvas):
         self.map = self._get_empty_map()
 
     def clear(self):
+        """
+        This function clears the map
+        :return:
+        """
         command = 'clear'
         if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
             command = 'cls'
@@ -22,6 +29,12 @@ class ConsoleCanvas(Canvas):
         self.crs_screen.clear()
 
     def draw_dots(self, coordinates: List[Coordinates], object_type: str):
+        """
+        This function is responsible for the visualization of different types of objects
+        :param coordinates: The coordinates of the current object
+        :param object_type: The type of the object
+        :return:
+        """
         for dot in coordinates:
             if object_type == 'pacman':
                 self.map[dot.row][dot.col] = "x"
