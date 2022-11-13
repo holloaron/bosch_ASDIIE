@@ -22,6 +22,12 @@ class Wallgenerator(GameElement, Visualizable):
         self.positions = self.make_walls(number=number_walls, map_size=map_size)
 
     def make_walls(self, number: int, map_size: MapSize) -> List[Coordinates]:
+        """
+        This function is responsible for creating walls across the map
+        :param number: The number of walls to create
+        :param map_size: The size of the map
+        :return: A list of the coordinates of the walls
+        """
         wall_positions = []
         for _ in range(number):
             position = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
@@ -33,6 +39,11 @@ class Wallgenerator(GameElement, Visualizable):
         return wall_positions
 
     def draw(self, canvas: Canvas):
+        """
+        This class is responsible for the visualization of the walls
+        :param canvas: The interface for visualization
+        :return:
+        """
         canvas.draw_dots(self.positions, 'walls')
 
     def take_action(self, key_event: KeyEvent):
