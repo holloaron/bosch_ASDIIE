@@ -1,7 +1,7 @@
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.game_element import GameElement
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_event import KeyEvent
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pellets import Pellets
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pacman import Pacman
+from core.interface.game_element import GameElement
+from core.key_interaction.key_event import KeyEvent
+from core.game_element.pellets import Pellets
+from core.game_element.pacman import Pacman
 
 
 class ScoreCounter(GameElement):

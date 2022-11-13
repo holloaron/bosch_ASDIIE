@@ -1,10 +1,10 @@
 from typing import List
 
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.canvas import Canvas
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.game_element import GameElement
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.visualizable import Visualizable
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_event import KeyEvent
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize, Coordinates
+from core.interface.canvas import Canvas
+from core.interface.game_element import GameElement
+from core.interface.visualizable import Visualizable
+from core.key_interaction.key_event import KeyEvent
+from core.misc.map import MapSize, Coordinates
 
 
 class Walls(GameElement, Visualizable):

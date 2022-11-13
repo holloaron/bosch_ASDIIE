@@ -1,20 +1,20 @@
 import curses
 
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.game import Game
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_listener import KeyListener
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman_game_state import PacmanGameState
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pacman import Pacman
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pellets import Pellets
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.ghosts import Ghosts
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.walls import Walls
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.display.visualizer import Visualizer
-from bosch_ASDIIE.AgiliTEAM.solid_version.gui.console_canvas import ConsoleCanvas
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.config_loader import ConfigLoader
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.display.screen import Screen
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.score_counter import ScoreCounter
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.defeat_checker import DefeatChecker
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.custom_argument_parser import CustomArgParser
+from core.game import Game
+from core.key_interaction.key_listener import KeyListener
+from core.pacman_game_state import PacmanGameState
+from core.game_element.pacman import Pacman
+from core.game_element.pellets import Pellets
+from core.game_element.ghosts import Ghosts
+from core.game_element.walls import Walls
+from core.display.visualizer import Visualizer
+from gui.console_canvas import ConsoleCanvas
+from core.misc.map import MapSize
+from core.misc.config_loader import ConfigLoader
+from core.display.screen import Screen
+from core.game_element.score_counter import ScoreCounter
+from core.game_element.defeat_checker import DefeatChecker
+from core.misc.custom_argument_parser import CustomArgParser
 
 
 def main():
