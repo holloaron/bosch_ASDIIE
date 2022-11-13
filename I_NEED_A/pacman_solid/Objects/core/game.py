@@ -20,15 +20,13 @@ class Game:
         self.keyboard_listener = keyboard_listener
         self.game_state = game_state
         self.visualizer = visualizer
-        self.counter = 1000
+        self.counter = 100
 
     def run(self):
-        if self.counter !=0:
-            can_continue = True
-        else :
-            can_continue = False
-
+        can_continue = True
         while can_continue:
+            if self.counter != 0:
+                break
             if self.keyboard_listener.has_happened():
                 key_event = self.keyboard_listener.read_last_key_event()
                 self.game_state.take_action(key_event)
