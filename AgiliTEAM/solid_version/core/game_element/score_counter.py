@@ -36,7 +36,7 @@ class ScoreCounter(GameElement):
         for pos in range(len(self.pellets.pos)):
             if self.pacman.pos[0] == self.pellets.pos[pos]:
                 self.score += self.score_pellet
-                self.pellets.pos.pop(i)
+                self.pellets.pos.pop(pos)
                 break
 
         return True
