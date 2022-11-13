@@ -5,12 +5,6 @@ from core.key_interaction.key_event import KeyEvent
 
 class KeyListener:
 
-    KEY_PRESS_TO_KEY_EVENT = {
-        "KEY_UP": KeyEvent.UP,
-        "KEY_DOWN": KeyEvent.DOWN,
-        "KEY_LEFT": KeyEvent.LEFT,
-        "KEY_RIGHT": KeyEvent.RIGHT,
-    }
     MILLISECONDS = 1000
 
     def __init__(self):
@@ -26,7 +20,7 @@ class KeyListener:
         while not self.stopped:
             try:
                 key = self.screen.getkey()
-                if key in self.KEY_PRESS_TO_KEY_EVENT:
+                if key in KeyEvent._value2member_map_:
                     self.last_key = key
             except:
                 pass
@@ -68,7 +62,15 @@ class KeyListener:
         if self.last_key is None:
             raise ValueError("KeyBoardListener has not noticed "
                              "any key event that could be read.")
-        key_event = self.KEY_PRESS_TO_KEY_EVENT[self.last_key]
+
+        if self.last_key == KeyEvent.UP.value:
+            key_event = KeyEvent.UP
+        elif self.last_key == KeyEvent.RIGHT.value:
+            key_event = KeyEvent.RIGHT
+        elif self.last_key == KeyEvent.DOWN.value:
+            key_event = KeyEvent.DOWN
+        elif self.last_key == KeyEvent.LEFT.value:
+            key_event = KeyEvent.LEFT
         self.last_key = None
 
         return key_event
