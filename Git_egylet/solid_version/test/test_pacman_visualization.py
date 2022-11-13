@@ -67,27 +67,3 @@ def testCanvas_whenPacmanMoving_thenOppositeKeyEventDoesNotDoAnything():
            Coordinates(0, 4) in dots_after_moving, \
         "Pacman should be moved towards the original direction " \
         "after pacman got opposite KeyEvent."
-
-def testCanvas_whenPacmanHitTheEndOfCanvas_thenAppearsOnOppositeSide():
-    canvas = ConsoleCanvas(5, 5)
-    spy_canvas = SpyCanvas(canvas)
-    pacman = Pacman(
-        deque([Coordinates(0, 3), Coordinates(0, 2), Coordinates(0,1)]),
-        starting_direction=KeyEvent.LEFT,
-        map_size=MapSize(5, 5)
-    )
-    pacman.tick()
-    pacman.tick()
-    pacman.take_action(KeyEvent.UP)
-    pacman.tick()
-    pacman.take_action(KeyEvent.RIGHT)
-    pacman.tick()
-    pacman.take_action(KeyEvent.DOWN)
-    pacman.tick()
-    pacman.draw(spy_canvas)
-    body_on_canvas = spy_canvas.dots_on_canvas
-    assert Coordinates(0, 0) in body_on_canvas and \
-           Coordinates(4, 0) in body_on_canvas and \
-           Coordinates(4, 4) in body_on_canvas, \
-        "Pacman should reappear on the opposite side of the screen " \
-        "when it hits the end of the screen."
