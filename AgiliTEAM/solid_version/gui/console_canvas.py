@@ -8,12 +8,14 @@ from core.display.object_markers import ObjectMarkers
 
 
 class ConsoleCanvas(Canvas):
+
     OBJECT_MARKERS = {
         "walls": ObjectMarkers.WALLS,
         "pacman": ObjectMarkers.PACMAN,
         "ghosts": ObjectMarkers.GHOSTS,
         "pellets": ObjectMarkers.PELLETS,
     }
+
     def __init__(self,
                  map_size: MapSize,
                  curses_screen: Screen):
@@ -47,7 +49,7 @@ class ConsoleCanvas(Canvas):
         :return: None
         """
         for dot in coordinates:
-            self.map[dot.row][dot.col] = self.OBJECT_MARKERS[obj_type]
+            self.map[dot.row][dot.col] = self.OBJECT_MARKERS[obj_type].value
 
     def render(self) -> None:
         """
