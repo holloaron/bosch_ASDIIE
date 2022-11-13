@@ -25,11 +25,25 @@ class Pacman(GameElement, Visualizable):
         self.moving_transformation = MovingTransformation(starting_direction, map_size)
 
     def take_action(self, key_event: KeyEvent):
+        """
+        This function is for changing PacMans direction according to the input
+        :param key_event: The input key action
+        :return:
+        """
         self.moving_transformation.direction = key_event
 
     def tick(self) -> bool:
+        """
+        This function updates PacMans position every timestep
+        :return: A bool value, which determines if the game can continue
+        """
         self.position = [self.moving_transformation(self.position[0])]
         return True
 
     def draw(self, canvas: Canvas):
+        """
+        This function is responsible for visualizing the PacMan
+        :param canvas: The interface for visualization
+        :return:
+        """
         canvas.draw_dots(self.position, 'pacman')
