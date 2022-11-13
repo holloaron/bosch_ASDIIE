@@ -50,6 +50,8 @@ def main():
     curses.echo()
     curses.endwin()
 
+    print(f"Game over, score:{score.get_score()}")
+
 
 if __name__ == "__main__":
     main()

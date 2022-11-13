@@ -17,7 +17,7 @@ class Pacman(GameElement, Visualizable):
                  starting_direction: KeyEvent = KeyEvent.RIGHT,
                  map_size: MapSize = None):
         if body is None:
-            self.position = Coordinates(0, 1)
+            self.position = [Coordinates(0, 1)]
         else:
             self.position = body
         if map_size is None:
