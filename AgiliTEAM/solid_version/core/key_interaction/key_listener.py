@@ -28,7 +28,7 @@ class KeyListener:
                 key = self.screen.getkey()
                 if key in self.KEY_PRESS_TO_KEY_EVENT:
                     self.last_key = key
-            finally:
+            except:
                 pass
 
     def stop(self) -> None:
@@ -56,7 +56,7 @@ class KeyListener:
     def has_happened(self) -> bool:
         """
 
-        :return: None
+        :return:
         """
         return self.last_key is not None
 

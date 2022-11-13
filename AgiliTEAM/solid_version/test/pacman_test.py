@@ -9,10 +9,6 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import Coordinates
 
 
 def test_WhenOneStep_IsTerminatedFalse() -> None:
-    """
-
-    :return: None
-    """
     pacman_game_state = PacmanGameState([])
     pacman_game_state.step()
     assert not pacman_game_state.is_terminated(), \
@@ -20,10 +16,6 @@ def test_WhenOneStep_IsTerminatedFalse() -> None:
 
 
 def test_PacmanStepFunction() -> None:
-    """
-
-    :return: None
-    """
     pacman = Pacman(body=[Coordinates(5, 5)], map_size=MapSize(10, 10))
     test_game_state = PacmanGameState([pacman])
     test_game_state.take_action(KeyEvent.UP)
@@ -33,10 +25,6 @@ def test_PacmanStepFunction() -> None:
 
 
 def test_DefeatCheckingBy_IsTerminatedTrue() -> None:
-    """
-
-    :return: None
-    """
     map_size = MapSize(10, 10)
     num_pellets = 0
     num_ghosts = 99
@@ -51,10 +39,6 @@ def test_DefeatCheckingBy_IsTerminatedTrue() -> None:
 
 
 def test_PacmanCanNotLeaveThePitch_TopLeftCornerPos() -> None:
-    """
-
-    :return: None
-    """
     pacman = Pacman(body=[Coordinates(1, 1)], map_size=MapSize(3, 3))
     test_game_state = PacmanGameState([pacman])
     test_game_state.take_action(KeyEvent.UP)
@@ -70,20 +54,12 @@ def test_PacmanCanNotLeaveThePitch_TopLeftCornerPos() -> None:
 
 
 def test_NumberOfThePellets() -> None:
-    """
-
-    :return: None
-    """
     pellets = Pellets(map_size=MapSize(2, 2), num_pellets=3, known_pos=[[Coordinates(0, 0)]])
     assert not (len(pellets.known_pos) - 1 == 3), \
         "Error during step, value mismatch"
 
 
 def test_PelletGeneration() -> None:
-    """
-
-    :return: None
-    """
     pellets = Pellets(map_size=MapSize(2, 2), num_pellets=3, known_pos=[[Coordinates(0, 0)]])
     assert not (pellets.pos.count([Coordinates(0, 0)]) == 0), \
         "Error during step, value mismatch"
