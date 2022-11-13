@@ -34,3 +34,11 @@ class Score(GameElement):
                 break
 
         return True
+
+    def get_score(self):
+        """
+        This function is responsible for getting the score of the game
+        :return: The score collected through the game
+        """
+        score = self.score
+        return score
