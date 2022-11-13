@@ -24,11 +24,11 @@ class PacmanGameState:
         """
         current_pacman_pos = None
         for game_element in self.game_elements:
-            if isinstance(game_element,Pacman):
+            if isinstance(game_element, Pacman):
                 self._can_game_continue = self._can_game_continue and game_element.tick()
                 current_pacman_pos = game_element.get_pacman_position()
                 continue
-            elif isinstance(game_element,Ghosts):
+            elif isinstance(game_element, Ghosts):
                 self._can_game_continue = self._can_game_continue and game_element.tick(current_pacman_pos)
                 continue
             else:
