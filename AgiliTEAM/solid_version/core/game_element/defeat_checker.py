@@ -21,8 +21,6 @@ class DefeatChecker(GameElement):
     def take_action(self, key_event: KeyEvent) -> None:
         """
 
-        :param key_event:
-        :return: None
         """
         pass
 
@@ -31,8 +29,8 @@ class DefeatChecker(GameElement):
 
         :return:
         """
-        for i in range(len(self.ghosts.pos)):
-            if self.pacman.pos[0] == self.ghosts.pos[i]:
+        for pos_actual_ghost in range(len(self.ghosts.pos)):
+            if self.pacman.pos[0] == self.ghosts.pos[pos_actual_ghost]:
                 return False
 
         return True

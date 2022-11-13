@@ -1,5 +1,4 @@
 import curses
-from argparse import ArgumentParser
 
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game import Game
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.key_listener import KeyListener
@@ -7,39 +6,24 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman_game_state import PacmanGa
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pacman import Pacman
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pellets import Pellets
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.ghosts import Ghosts
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.walls import Walls
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.display.visualizer import Visualizer
 from bosch_ASDIIE.AgiliTEAM.solid_version.gui.console_canvas import ConsoleCanvas
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.config_loader import ConfigLoader
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.display.screen import Screen
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.score_counter import ScoreCounter
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.defeat_checker import DefeatChecker
-
-# Defaults
-WIDTH = 10
-HEIGHT = 10
-GUI = 'console'
-DIFFICULTY = 0.5
-PELLETS = 10
-GHOSTS = 4
-BASE_SCORE = 10
-STEP_CONFIDENCE = 0.95
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.custom_argument_parser import CustomArgParser
 
 
-def main() -> None:
-    """
+def main():
 
-    :return: None
-    """
-    arg_parser = ArgumentParser()
-    arg_parser.add_argument("--gui", type=str, default=GUI)
-    arg_parser.add_argument("--map_width", type=int, default=WIDTH)
-    arg_parser.add_argument("--map_height", type=int, default=HEIGHT)
-    arg_parser.add_argument("--difficulty", type=float, default=DIFFICULTY)
-    arg_parser.add_argument("--num_pellets", type=int, default=PELLETS)
-    arg_parser.add_argument("--num_ghosts", type=int, default=GHOSTS)
-    arg_parser.add_argument("--base_score", type=int, default=BASE_SCORE)
-    arg_parser.add_argument("--ghost_step_confidence", type=float, default=STEP_CONFIDENCE)
-    args = arg_parser.parse_args()
+    config_loader = ConfigLoader('default_config.yaml')
+    default_config = config_loader.load_config()
+
+    arg_parser = CustomArgParser(default_config)
+    parsed_config = arg_parser.get_parsed_config()
 
     screen = Screen()
     curses.cbreak()
@@ -47,21 +31,23 @@ def main() -> None:
     key_listener = KeyListener()
     key_listener.start(screen)
 
-    pacman = Pacman(map_size=MapSize(HEIGHT, WIDTH))
-    pellets = Pellets(map_size=MapSize(HEIGHT, WIDTH), num_pellets=args.num_pellets, known_pos=[pacman.pos])
-    ghosts = Ghosts(map_size=MapSize(HEIGHT, WIDTH), num_ghosts=args.num_ghosts, known_pos=[pacman.pos, pellets.pos],
-                    step_confidence=args.ghost_step_confidence)
-    score_counter = ScoreCounter(base_score=args.base_score, difficulty=args.difficulty, pacman=pacman, pellets=pellets)
+    map_size = MapSize(parsed_config.map_height, parsed_config.map_width)
+
+    walls = Walls(map_size=map_size, internal_walls=parsed_config.internal_walls)
+    pacman = Pacman(map_size=map_size, known_pos=[walls.pos])
+    pellets = Pellets(map_size=map_size, num_pellets=parsed_config.num_pellets, known_pos=[pacman.pos, walls.pos])
+    ghosts = Ghosts(map_size=map_size, num_ghosts=parsed_config.num_ghosts, walls_pos=walls.pos,
+                    known_pos=[pacman.pos, pellets.pos, walls.pos], step_confidence=parsed_config.step_confidence)
+    score_counter = ScoreCounter(base_score=parsed_config.base_score, difficulty=parsed_config.difficulty,
+                                 pacman=pacman, pellets=pellets)
     defeat_checker = DefeatChecker(pacman=pacman, ghosts=ghosts)
 
-    if args.gui == 'console':
-        canvas = ConsoleCanvas(MapSize(args.map_width, args.map_height), screen)
-    else:
-        raise NotImplementedError
+    canvas = ConsoleCanvas(map_size, screen)
 
-    visualizer = Visualizer([ghosts, pellets, pacman], canvas)
-    start_game_state = PacmanGameState([pacman, pellets, ghosts, score_counter, defeat_checker])
-    game = Game(key_listener, start_game_state, visualizer, args.difficulty)
+    visualizer = Visualizer([walls, ghosts, pellets, pacman], canvas)
+    start_game_state = PacmanGameState([pacman, pellets, ghosts, walls, score_counter, defeat_checker])
+
+    game = Game(key_listener, start_game_state, visualizer, parsed_config.difficulty)
     game.run()
 
     curses.nocbreak()

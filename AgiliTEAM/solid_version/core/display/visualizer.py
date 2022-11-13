@@ -6,7 +6,7 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.visualizable import Vis
 class Visualizer:
     def __init__(self,
                  visualizable_objects: List[Visualizable],
-                 canvas: Canvas) -> None:
+                 canvas: Canvas):
         """
 
         :param visualizable_objects:

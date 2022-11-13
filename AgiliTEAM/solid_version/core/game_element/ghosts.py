@@ -9,6 +9,7 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.visualizable import Vis
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.move import MovingTransformation
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.canvas import Canvas
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize, Coordinates
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.pos_generator import PositionGenerator
 
 
 class Ghosts(GameElement, Visualizable):
@@ -16,10 +17,11 @@ class Ghosts(GameElement, Visualizable):
     GHOST_START_DIRECTION = KeyEvent.RIGHT
 
     def __init__(self,
-                 map_size: MapSize = None,
+                 map_size: MapSize = MapSize(10, 10),
                  num_ghosts: int = 4,
                  known_pos: List[List[Coordinates]] = None,
                  step_confidence: float = 0.8,
+                 walls_pos: List[Coordinates] = None
                  ):
         """
 
@@ -33,36 +35,21 @@ class Ghosts(GameElement, Visualizable):
         else:
             self.known_pos = []
 
-        if map_size is None:
-            map_size = MapSize(10, 10)
         self.step_confidence = step_confidence
         self.event = self.GHOST_START_DIRECTION
-        self.pos = self.generate_pos(num_of_pos=num_ghosts, map_size=map_size)
-        self.moving_transformation_ghost = MovingTransformation(self.event, map_size)
 
-    def generate_pos(self, num_of_pos: int, map_size: MapSize) -> List[Coordinates]:
-        """
+        pos_generator = PositionGenerator(map_size, self.known_pos)
+        self.pos, self.known_pos = pos_generator.generate_pos(num_of_pos=num_ghosts)
 
-        :param num_of_pos:
-        :param map_size:
-        :return:
-        """
-        pos_list = []
-        for _ in range(num_of_pos):
-            pos = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
-            while pos in self.known_pos:
-                pos = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
-            pos_list.append(pos)
-            self.known_pos.append(pos)
+        self.walls_pos = walls_pos
+        self.moving_transformation_ghost = MovingTransformation(self.event, map_size, self.walls_pos)
 
-        return pos_list
-
-    def __take_best_action__(self, pacman_position: Coordinates, ghost_index: int):
+    def __take_best_action__(self, pacman_position: Coordinates, ghost_index: int) -> None:
         """
 
         :param pacman_position:
         :param ghost_index:
-        :return:
+        :return: None
         """
         current_ghost_pos = self.pos[ghost_index]
         ghost_pacman_angle = math.atan2((pacman_position.row - current_ghost_pos.row),
@@ -89,7 +76,7 @@ class Ghosts(GameElement, Visualizable):
         """
 
         :param ghost_index:
-        :return:
+        :return: None
         """
         self.event = random.randrange(1, 4)
         self.pos[ghost_index] = self.moving_transformation_ghost(self.pos[ghost_index])
@@ -100,11 +87,11 @@ class Ghosts(GameElement, Visualizable):
         :param pacman_position:
         :return: None
         """
-        for idx in range(len(self.pos)):
+        for pos_idx in range(len(self.pos)):
             if random.uniform(0, 1) >= self.step_confidence:
-                self.__take_best_action__(pacman_position, idx)
+                self.__take_best_action__(pacman_position, pos_idx)
             else:
-                self.__take_random_action__(idx)
+                self.__take_random_action__(pos_idx)
 
     def tick(self, pacman_position: Coordinates) -> bool:
         """
@@ -113,6 +100,7 @@ class Ghosts(GameElement, Visualizable):
         :return:
         """
         self.take_action(pacman_position)
+
         return True
 
     def draw(self, canvas: Canvas) -> None:

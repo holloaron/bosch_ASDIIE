@@ -17,7 +17,7 @@ class ConsoleCanvas(Canvas):
 
     def __init__(self,
                  map_size: MapSize,
-                 curses_screen: Screen) -> None:
+                 curses_screen: Screen):
         """
 
         :param map_size:
@@ -51,6 +51,10 @@ class ConsoleCanvas(Canvas):
             self.map[dot.row][dot.col] = self.OBJECT_MARKERS[obj_type]
 
     def render(self) -> None:
+        """
+
+        :return: None
+        """
         for num_row, row in enumerate(self.map):
             self.crs_screen.addstr(num_row, 0, "".join(row) + "\n")
         self.crs_screen.refresh()
@@ -61,12 +65,20 @@ class ConsoleCanvas(Canvas):
         :return:
         """
         screen = []
-        for _ in range(self.height):
+        for height_pos in range(self.height):
             screen.append([" "] * self.width)
         return screen
 
     def get_height(self) -> int:
+        """
+
+        :return:
+        """
         return self.height
 
     def get_width(self) -> int:
+        """
+
+        :return:
+        """
         return self.width
