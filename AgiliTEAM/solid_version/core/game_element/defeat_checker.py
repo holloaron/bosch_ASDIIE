@@ -10,15 +10,27 @@ class DefeatChecker(GameElement):
                  pacman: Pacman,
                  ghosts: Ghosts,
                  ):
+        """
+
+        :param pacman:
+        :param ghosts:
+        """
         self.pacman = pacman
         self.ghosts = ghosts
 
-    def take_action(self, key_event: KeyEvent):
+    def take_action(self, key_event: KeyEvent) -> None:
+        """
+
+        """
         pass
 
     def tick(self) -> bool:
-        for i in range(len(self.ghosts.pos)):
-            if self.pacman.pos[0] == self.ghosts.pos[i]:
+        """
+
+        :return:
+        """
+        for pos_actual_ghost in range(len(self.ghosts.pos)):
+            if self.pacman.pos[0] == self.ghosts.pos[pos_actual_ghost]:
                 return False
 
         return True
