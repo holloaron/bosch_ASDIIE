@@ -11,6 +11,11 @@ class MovingTransformation:
         self.map_size = map_size
 
     def __call__(self, coordinates: Coordinates) -> Coordinates:
+        """
+        This function updates the coordinates according to the current input key action
+        :param coordinates: The coordinates of the current object
+        :return: The updated coordinates
+        """
         if self.direction == KeyEvent.UP:
             if coordinates.row - 1 < 0:
                 new_row = coordinates.row
