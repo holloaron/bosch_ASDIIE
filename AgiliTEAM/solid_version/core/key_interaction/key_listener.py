@@ -4,15 +4,7 @@ from core.key_interaction.key_event import KeyEvent
 
 
 class KeyListener:
-    """
-     Keyboard listener class for the keyboard events, usable in remote environments, in a side-thread
-    """
-    KEY_PRESS_TO_KEY_EVENT = {
-        "KEY_UP": KeyEvent.UP,
-        "KEY_DOWN": KeyEvent.DOWN,
-        "KEY_LEFT": KeyEvent.LEFT,
-        "KEY_RIGHT": KeyEvent.RIGHT,
-    }
+
     MILLISECONDS = 1000
 
     def __init__(self):
@@ -28,14 +20,14 @@ class KeyListener:
         while not self.stopped:
             try:
                 key = self.screen.getkey()
-                if key in self.KEY_PRESS_TO_KEY_EVENT:
+                if key in KeyEvent._value2member_map_:
                     self.last_key = key
             except:
                 pass
 
     def stop(self) -> None:
         """
-        Stop the thread for scanning the keyboard actions
+
         :return: None
         """
         self.stopped = True
@@ -46,8 +38,8 @@ class KeyListener:
 
     def start(self, screen) -> None:
         """
-        Starts the thread for scanning the keyboard actions
-        :param screen: Screen object.
+
+        :param screen:
         :return: None
         """
         self.screen = screen
@@ -57,20 +49,28 @@ class KeyListener:
 
     def has_happened(self) -> bool:
         """
-        Checks that a valid keyboard event has happened.
-        :return: return True if it is valid, False otherwise.
+
+        :return:
         """
         return self.last_key is not None
 
     def read_last_key_event(self) -> KeyEvent:
         """
-        Read the last keyevent from the keyboard
-        :return: Returns the last read keyevent.
+
+        :return:
         """
         if self.last_key is None:
             raise ValueError("KeyBoardListener has not noticed "
                              "any key event that could be read.")
-        key_event = self.KEY_PRESS_TO_KEY_EVENT[self.last_key]
+
+        if self.last_key == KeyEvent.UP.value:
+            key_event = KeyEvent.UP
+        elif self.last_key == KeyEvent.RIGHT.value:
+            key_event = KeyEvent.RIGHT
+        elif self.last_key == KeyEvent.DOWN.value:
+            key_event = KeyEvent.DOWN
+        elif self.last_key == KeyEvent.LEFT.value:
+            key_event = KeyEvent.LEFT
         self.last_key = None
 
         return key_event

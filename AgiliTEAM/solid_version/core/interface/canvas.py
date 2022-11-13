@@ -6,7 +6,7 @@ from solid_version.core.misc.map import Coordinates
 
 class Canvas(ABC):
     @abstractmethod
-    def draw_dots(self, coordinates: List[Coordinates], obj_type: str = None) -> None:
+    def draw_dots(self, coordinates: List[Coordinates], obj_type) -> None:
         """
         Abstract method. In each descendant it will draw them on the canvas.
         :param coordinates: coordinates which is wanted to be drawn.

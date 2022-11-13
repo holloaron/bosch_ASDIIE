@@ -1,11 +1,12 @@
 from typing import List
 
-from solid_version.core.key_interaction.key_event import KeyEvent
-from solid_version.core.interface.game_element import GameElement
-from solid_version.core.interface.visualizable import Visualizable
-from solid_version.core.interface.canvas import Canvas
-from solid_version.core.misc.map import MapSize, Coordinates
-from solid_version.core.misc.pos_generator import PositionGenerator
+from core.key_interaction.key_event import KeyEvent
+from core.interface.game_element import GameElement
+from core.interface.visualizable import Visualizable
+from core.interface.canvas import Canvas
+from core.misc.map import MapSize, Coordinates
+from core.misc.pos_generator import PositionGenerator
+from core.display.object_markers import ObjectMarkers
 
 
 class Pellets(GameElement, Visualizable):
@@ -32,11 +33,13 @@ class Pellets(GameElement, Visualizable):
 
     def take_action(self, key_event: KeyEvent) -> None:
         """
+
         """
         pass
 
     def tick(self) -> bool:
         """
+
         """
         return True
 

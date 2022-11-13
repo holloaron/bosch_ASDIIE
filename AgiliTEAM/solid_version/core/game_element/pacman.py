@@ -7,6 +7,7 @@ from core.interface.visualizable import Visualizable
 from core.interface.canvas import Canvas
 from core.misc.map import MapSize, Coordinates
 from core.misc.pos_generator import PositionGenerator
+from core.display.object_markers import ObjectMarkers
 
 
 class Pacman(GameElement, Visualizable):
@@ -66,4 +67,4 @@ class Pacman(GameElement, Visualizable):
         :param canvas:
         :return: None
         """
-        canvas.draw_dots(self.pos, 'pacman')
+        canvas.draw_dots(self.pos, ObjectMarkers.PACMAN)

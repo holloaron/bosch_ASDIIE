@@ -5,6 +5,7 @@ from core.interface.game_element import GameElement
 from core.interface.visualizable import Visualizable
 from core.key_interaction.key_event import KeyEvent
 from core.misc.map import MapSize, Coordinates
+from core.display.object_markers import ObjectMarkers
 
 
 class Walls(GameElement, Visualizable):
@@ -52,7 +53,7 @@ class Walls(GameElement, Visualizable):
         :param canvas:
         :return: None
         """
-        canvas.draw_dots(self.pos, 'walls')
+        canvas.draw_dots(self.pos, ObjectMarkers.WALLS)
 
     @staticmethod
     def generate_pos(map_size: MapSize) -> List[Coordinates]:

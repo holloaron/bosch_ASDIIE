@@ -9,6 +9,7 @@ from core.key_interaction.move import MovingTransformation
 from core.interface.canvas import Canvas
 from core.misc.map import MapSize, Coordinates
 from core.misc.pos_generator import PositionGenerator
+from core.display.object_markers import ObjectMarkers
 
 
 class Ghosts(GameElement, Visualizable):
@@ -108,4 +109,4 @@ class Ghosts(GameElement, Visualizable):
         :param canvas: canvas where we would like to draw.
         :return: None
         """
-        canvas.draw_dots(self.pos, 'ghosts')
+        canvas.draw_dots(self.pos, ObjectMarkers.GHOSTS)
