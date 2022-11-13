@@ -5,6 +5,9 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.game_elements.pellets import Pel
 
 
 class Score(GameElement):
+    """
+    This class is responsible for counting the score during the game
+    """
     def __init__(self,
                  score_per_pellet: int,
                  pacman: Pacman,
