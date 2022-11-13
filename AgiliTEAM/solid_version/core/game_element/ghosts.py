@@ -17,7 +17,7 @@ class Ghosts(GameElement, Visualizable):
     GHOST_START_DIRECTION = KeyEvent.RIGHT
 
     def __init__(self,
-                 map_size: MapSize = None,
+                 map_size: MapSize = MapSize(10, 10),
                  num_ghosts: int = 4,
                  known_pos: List[List[Coordinates]] = None,
                  step_confidence: float = 0.8,
@@ -34,8 +34,6 @@ class Ghosts(GameElement, Visualizable):
         else:
             self.known_pos = []
 
-        if map_size is None:
-            map_size = MapSize(10, 10)
         self.step_confidence = step_confidence
         self.event = self.GHOST_START_DIRECTION
 
