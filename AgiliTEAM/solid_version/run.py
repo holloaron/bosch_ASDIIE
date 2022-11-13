@@ -7,22 +7,15 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.pacman_game_state import PacmanGa
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pacman import Pacman
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.pellets import Pellets
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.ghosts import Ghosts
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.walls import Walls
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.display.visualizer import Visualizer
 from bosch_ASDIIE.AgiliTEAM.solid_version.gui.console_canvas import ConsoleCanvas
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.config_loader import ConfigLoader
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.display.screen import Screen
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.score_counter import ScoreCounter
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.game_element.defeat_checker import DefeatChecker
-
-# Defaults
-WIDTH = 10
-HEIGHT = 10
-GUI = 'console'
-DIFFICULTY = 0.5
-PELLETS = 10
-GHOSTS = 4
-BASE_SCORE = 10
-STEP_CONFIDENCE = 0.95
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.custom_argument_parser import CustomArgParser
 
 
 def main():
