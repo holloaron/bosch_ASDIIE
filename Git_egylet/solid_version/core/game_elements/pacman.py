@@ -10,8 +10,7 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.move.moving_transformation impor
 
 class Pacman(GameElement, Visualizable):
     """
-    A game element and visualizable class, for handling Pacman movement mainly,
-    but visualizing is also represented here
+    This class handles the visualization of the PacMan and its movement
     """
     def __init__(self,
                  body: List[Coordinates] = None,
