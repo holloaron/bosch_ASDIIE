@@ -3,7 +3,7 @@ from argparse import Namespace
 import yaml
 from typing import List
 
-from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import Coordinates
+from core.misc.map import Coordinates
 
 
 class ConfigLoader:
