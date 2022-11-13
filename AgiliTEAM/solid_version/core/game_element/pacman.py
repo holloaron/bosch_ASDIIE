@@ -7,6 +7,7 @@ from bosch_ASDIIE.AgiliTEAM.solid_version.core.key_interaction.move import Movin
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.visualizable import Visualizable
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.interface.canvas import Canvas
 from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.map import MapSize, Coordinates
+from bosch_ASDIIE.AgiliTEAM.solid_version.core.misc.pos_generator import PositionGenerator
 
 
 class Pacman(GameElement, Visualizable):
@@ -26,7 +27,8 @@ class Pacman(GameElement, Visualizable):
             map_size = MapSize(10, 10)
 
         if body is None:
-            self.pos = self.generate_pos(1, map_size)
+            pos_generator = PositionGenerator(map_size, self.known_pos)
+            self.pos, self.known_pos = pos_generator.generate_pos(1)
         else:
             self.pos = body
 
