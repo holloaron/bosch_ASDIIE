@@ -22,6 +22,11 @@ class Score(GameElement):
         pass
 
     def tick(self) -> bool:
+        """
+        This function updates the score every timestep. It gives a point if the PacMan interacts with a pellet,
+        then removing that pellet from the map.
+        :return: A bool value which determines if the game can continue
+        """
         for i in range(len(self.pellets.positions)):
             if self.pacman.position[0] == self.pellets.positions[i]:
                 self.score += self.score_per_pellet
