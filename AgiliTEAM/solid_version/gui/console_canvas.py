@@ -4,17 +4,16 @@ from typing import List
 from core.misc.map import Coordinates, MapSize
 from core.interface.canvas import Canvas
 from core.display.screen import Screen
+from core.display.object_markers import ObjectMarkers
 
 
 class ConsoleCanvas(Canvas):
-
     OBJECT_MARKERS = {
-        "pacman": '@',
-        "ghosts": 'x',
-        "pellets": 'o',
-        "walls": '#'
+        "walls": ObjectMarkers.WALLS,
+        "pacman": ObjectMarkers.PACMAN,
+        "ghosts": ObjectMarkers.GHOSTS,
+        "pellets": ObjectMarkers.PELLETS,
     }
-
     def __init__(self,
                  map_size: MapSize,
                  curses_screen: Screen):
