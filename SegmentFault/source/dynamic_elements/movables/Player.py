@@ -22,6 +22,7 @@ from source.map.MapData import MapData
 
 class Player(Movable.Movable):
     def __init__(self, mapdata: MapData, start_position: tuple[int, int], start_direction: Direction):
+        super().__init__()
         self.mapdata = mapdata
         self.position = start_position
         self.direction = start_direction
@@ -41,20 +42,20 @@ class Player(Movable.Movable):
 
         # change the direction, if turning is available
         if self.next_direction != None:
-            test_position = super().next_position(self.position, self.next_direction)
-            if not super().is_wall_infront(self.mapdata, test_position, self.direction):
+            test_position = self.next_position(self.position, self.next_direction)
+            if not self.is_wall_infront(self.mapdata, test_position, self.direction):
                 self.direction = self.next_direction
                 self.next_direction = None
         
         # calculate the next position
-        self.position = super().next_position(self.position, self.direction)
+        self.position = self.next_position(self.position, self.direction)
 
         # reset position if obstacle ahead
-        if super().is_wall_infront(self.mapdata, self.position, self.direction):
-            pos_x, pos_y = super().last_position(self.position, self.direction)
+        if self.is_wall_infront(self.mapdata, self.position, self.direction):
+            pos_x, pos_y = self.last_position(self.position, self.direction)
 
         # jump to the other side
-        pos_x, pos_y = super().jump_border(self.mapdata, self.position)
+        pos_x, pos_y = self.jump_border(self.mapdata, self.position)
 
         return (pos_x, pos_y)
 

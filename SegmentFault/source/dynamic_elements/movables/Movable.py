@@ -22,6 +22,8 @@ from source.map.MapElements import MapElements
 
 
 class Movable():
+    def __init__(self) -> None:
+        pass
         
     def next_position(self, cur_position: tuple[int, int], direction: Direction) -> tuple[int, int]:
         """
