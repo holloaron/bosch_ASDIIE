@@ -32,21 +32,24 @@ class Ghost(Movable):
         self.path = []
 
     def get_safehouse_position(self):
-        """ Calculates the first position on the map next to the Door
-            where the Player can't reach the Ghost
+        """
+        Calculates the first position on the map next to the Door
+        where the Player can't reach the Ghost
         """
         pass
 
 
     def generate_new_direction(self):
-        """ Generates a random direction for the Ghost member based on mapdata
+        """
+        Generates a random direction for the Ghost member based on mapdata
         """
         pass
         
 
 
     def set_next_position(self):
-        """ Calculates the Ghost next position based on the GhostMode
+        """
+        Calculates the Ghost next position based on the GhostMode
         """
         # goes around the map with no bad intention
         if self.mode == GhostMode.Roam:
@@ -79,7 +82,8 @@ class Ghost(Movable):
 
     
     def is_PacMan_visible(self) -> bool:
-        """ Determines if PacMan is visible for the Ghost
+        """
+        Determines if PacMan is visible for the Ghost
 
         @return:
             True, if PacMan is in the way of the Ghost
@@ -97,7 +101,8 @@ class Ghost(Movable):
         return False
 
     def calculate_path_to(self, destination: tuple[int, int]) -> list[tuple[int, int]]:
-        """ Calculates the shortest path from the current position to the destination
+        """
+        Calculates the shortest path from the current position to the destination
 
         @args:
             destination [tuple(int, int)]

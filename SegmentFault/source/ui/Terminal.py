@@ -44,7 +44,9 @@ class Terminal():
 
 
     def show_menu(self, menutitle: str, menuitems: list[str]) -> None:
-        """ Displays the given menu
+        """
+        Displays the given menu
+
         @args:
             menutitle [str] - the title of the current menu
             menuitems [list(str)] - list containing the menuitems
@@ -64,7 +66,9 @@ class Terminal():
 
 
     def show_gameplayresult(self, time: int, score: int) -> None:
-        """ Displayes the gameplay results
+        """
+        Displayes the gameplay results
+        
         @args:
 
         """
@@ -78,7 +82,8 @@ class Terminal():
 
 
     def get_title(self):
-        """ Loads the title from local file
+        """
+        Loads the title from local file
         """
         current_dir = os.path.dirname(__file__)
         parent_dir = Path(current_dir).parent.parent.absolute()
@@ -104,7 +109,8 @@ class Terminal():
 
 
     def show_title(self) -> None:
-        """ Displayes the gametitle
+        """
+        Displayes the gametitle
         """
         for line in self.title:
             for char in line:
@@ -113,7 +119,8 @@ class Terminal():
 
 
     def clear(self) -> None:
-        """ Clears the console
+        """
+        Clears the console
         """
         command = 'clear'
         if os.name in ('nt', 'dos'):
@@ -122,7 +129,8 @@ class Terminal():
 
 
     def get_menu_input(self, massage: str, *menuitems: list[str]) -> str:
-        """ Returns the parsed input from the user for menu contol
+        """
+        Returns the parsed input from the user for menu contol
 
         @args:
             massage [str] - displayed massage for user
@@ -138,7 +146,8 @@ class Terminal():
 
 
     def get_gameplay_input(self, massage: str) -> str:
-        """ Returns the parsed input from the user for gameplay control
+        """
+        Returns the parsed input from the user for gameplay control
 
         @args:
             massage [str] - displayed massage for user

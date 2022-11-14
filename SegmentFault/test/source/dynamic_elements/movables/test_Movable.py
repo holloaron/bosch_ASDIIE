@@ -28,7 +28,8 @@ from source.dynamic_elements.Direction import Direction
 class test_Movable(unittest.TestCase):
 
     def test_next_position(self):
-        """ Testing next_position function in all possible directions
+        """
+        Testing next_position function in all possible directions
         """
         movable = Movable()
         current_position = (0,0)
@@ -40,7 +41,8 @@ class test_Movable(unittest.TestCase):
 
 
     def test_last_position(self):
-        """ Testing last_position function in all possible directions
+        """
+        Testing last_position function in all possible directions
         """
         movable = Movable()
         current_position = (0,0)

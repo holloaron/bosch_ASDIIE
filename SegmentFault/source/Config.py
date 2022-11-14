@@ -41,8 +41,9 @@ class Config():
 
 
     def AddArguments(self) -> None:
+        """
+        Initializes the flag with the help of argparse module
 
-        """ Initializes the flag with the help of argparse module
         @args:
             self
         @return:
@@ -67,7 +68,9 @@ class Config():
 
 
     def GetGamemode(self) -> str:
-        """ Returns the value of the given gamemode flag
+        """
+        Returns the value of the given gamemode flag
+        
         @args:
             self
 
@@ -79,8 +82,9 @@ class Config():
 
 
     def GetTimeout(self) -> int:
-
-        """ Returns the value of the given timeout flag
+        """
+        Returns the value of the given timeout flag
+        
          @args:
              self
 
@@ -93,13 +97,14 @@ class Config():
 
 
     def GetMapdata(self) -> str:
+        """
+        Returns the value of the given mapdata flag
+        
+        @args:
+            self
 
-        """ Returns the value of the given mapdata flag
-            @args:
-                self
-
-            @return:
-                    Mapdatafile[str]
+        @return:
+            Mapdatafile[str]
         """
 
         Mapdatafile = self.GivenArguments.map
@@ -107,8 +112,9 @@ class Config():
 
 
     def GetGamespeed(self) -> float:
-
-        """ Returns the value of the given GameSpeed flag
+        """
+        Returns the value of the given GameSpeed flag
+        
         @args:
             self
 
@@ -121,8 +127,9 @@ class Config():
 
 
     def Getsettings(self) -> tuple:
-
-        """ Returns the value of the flags given to the program upon starting it
+        """
+        Returns the value of the flags given to the program upon starting it
+        
         @args:
             self
 
@@ -137,8 +144,10 @@ class Config():
         return gamemode, Timeout, Mapdatafile, GameSpeed
 
     def CheckGamespeed(self) -> int:
-        """ Checks if the given gamespeed flag has the correct value,
-            if it is not corrects it
+        """ 
+        Checks if the given gamespeed flag has the correct value,
+        if it is not corrects it
+        
         @args:
             self
 
@@ -152,7 +161,9 @@ class Config():
         return GameSpeed
 
     def ScaleUpGamespeed(self, rate = 1.5) -> float:
-        """ Returns the scaled gamespeed
+        """ 
+        Returns the scaled gamespeed
+        
         @args:
             self
             rate[float]: rate of conversion

@@ -24,7 +24,8 @@ from source.map.MapElements import MapElements
 class Movable():
         
     def next_position(self, cur_position: tuple[int, int], direction: Direction) -> tuple[int, int]:
-        """ Calculates the next position based on the current position and the direction
+        """
+        Calculates the next position based on the current position and the direction
 
         @args:
             cur_position [tuple(int, int)] - the current position
@@ -48,7 +49,8 @@ class Movable():
 
     
     def last_position(self, cur_position: tuple[int, int], direction: Direction) -> tuple[int, int]:
-        """ Calculates the movalble object position last position based on thier direction
+        """
+        Calculates the movalble object position last position based on thier direction
         
         @args:
             cur_position [tuple(int, int)] - the current position
@@ -72,9 +74,9 @@ class Movable():
     
 
     def jump_border(self, mapdata: MapData, cur_position: tuple[int, int]) -> tuple[int, int]:
-        """ Checks if the movable object reached the end of the map
-            on any direction
-            If the movable reaches the border, returns the moveables new position
+        """
+        Checks if the movable object reached the end of the map on any direction
+        If the movable reaches the border, returns the moveables new position
 
         @args:
             mapdata [MapData]
@@ -106,7 +108,8 @@ class Movable():
 
 
     def what_is_ahead(self, mapdata: MapData, cur_position: tuple[int, int], direction: Direction) -> MapElements:
-        """ Returns the type of elemet is on the next position base on the current position and direction
+        """
+        Returns the type of elemet is on the next position base on the current position and direction
 
         @args:
             mapdata [MapData]
@@ -120,8 +123,9 @@ class Movable():
 
         
     def is_wall_infront(self, mapdata: MapData, cur_position: tuple[int, int], direction: Direction) -> bool:
-        """ Determines if there is an obstacle (wall) on the next coordinate based on
-            the given coordinates and direction
+        """
+        Determines if there is an obstacle (wall) on the next coordinate based on
+        the given coordinates and direction
 
         @args:
             mapdata [MapData]

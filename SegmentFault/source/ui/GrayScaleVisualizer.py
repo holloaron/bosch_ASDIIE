@@ -34,7 +34,8 @@ class GrayScaleVisualizer():
         self.coin_color = 0.35
 
     def refresh_game_state(self, mapdata: MapData) -> None:
-        """ Creates a matrix with the current game state
+        """
+        Creates a matrix with the current game state
         """
         self.game_state = np.zeros((mapdata.size[1], mapdata.size[0], 1))
 

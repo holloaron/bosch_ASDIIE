@@ -32,7 +32,8 @@ class Player(Movable.Movable):
 
 
     def get_next_position(self) -> tuple[int, int]:
-        """ Sets the players new position based on the mapdata, current position and direction
+        """
+        Sets the players new position based on the mapdata, current position and direction
         
         @return:
             (pos_x, pos_y) [int, int] - the player new position
@@ -59,7 +60,8 @@ class Player(Movable.Movable):
 
 
     def set_score(self):
-        """ Returns the score value on the player current position
+        """
+        Returns the score value on the player current position
 
         @return:
             score [int] - the value of the reward on the given coordinates

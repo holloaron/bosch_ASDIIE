@@ -31,12 +31,14 @@ class ColorfulVisualizer:
         self.rendered_image = None
 
     def refresh_game_state(self):
-        """ Creates a matrix with the current game state
+        """
+        Creates a matrix with the current game state
         """
         pass
 
     def render_game_state(self):
-        """ Creates and displays a window with the current game state
+        """
+        Creates and displays a window with the current game state
         """
         pass
 

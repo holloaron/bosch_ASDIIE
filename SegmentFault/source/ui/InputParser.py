@@ -21,7 +21,8 @@ class InputParser():
 
     @staticmethod
     def parse_single_input(input: str) -> str:
-        """ Parses the input from the console
+        """
+        Parses the input from the console
         
         @args:
             input [str] - user input from the console
@@ -60,7 +61,8 @@ class InputParser():
 
     @staticmethod
     def parse(input: str, *whitelist: list[str]) -> str:
-        """ Parses the input from the console
+        """
+        Parses the input from the console
         
         @args:
             input [str] - user input from the console

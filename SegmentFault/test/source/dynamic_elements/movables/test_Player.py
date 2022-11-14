@@ -29,7 +29,8 @@ from source.dynamic_elements.Direction import Direction
 class test_Player(unittest.TestCase):
 
     def test_set_score(self):
-        """ Testing the correct resived score on different collectables
+        """
+        Testing the correct resived score on different collectables
         """
         mapdata = MapData()
         mapdata.collectables.points = [(1,1)]

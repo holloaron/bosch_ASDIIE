@@ -19,13 +19,15 @@ import time
 import threading
 
 class TimeCounter(threading.Thread):
-    """ inherits from python thread class
+    """
+    inherits from python thread class
     
     @args:
         threading.Thread
     """
     def __init__(self, timelimit, *args, **kwargs):
-        """ Inits the timer variables
+        """
+        Inits the timer variables
         
         @args:
             self,
@@ -43,7 +45,8 @@ class TimeCounter(threading.Thread):
 
 
     def run(self):
-        """ Starts the Timer Thread, increase the value of _seconds_passed by 1 in each iteration (-> 1s passed)
+        """
+        Starts the Timer Thread, increase the value of _seconds_passed by 1 in each iteration (-> 1s passed)
         
         @args:
             self
@@ -55,7 +58,8 @@ class TimeCounter(threading.Thread):
 
 
     def pause(self):
-        """ Pauses the timer by blocking the Thread
+        """
+        Pauses the timer by blocking the Thread
         
         @args:
             self
@@ -64,7 +68,8 @@ class TimeCounter(threading.Thread):
 
 
     def resume(self):
-        """ Resumes the timer by stop blocking  the Thread
+        """
+        Resumes the timer by stop blocking  the Thread
         
         @args:
             self
@@ -73,7 +78,8 @@ class TimeCounter(threading.Thread):
 
 
     def stop(self):
-        """ Stops the timer
+        """
+        Stops the timer
 
         @args:
             self
@@ -84,7 +90,8 @@ class TimeCounter(threading.Thread):
 
 
     def reset(self):
-        """ Resets the _seconds_passed variable
+        """
+        Resets the _seconds_passed variable
 
         @args:
             self
@@ -92,9 +99,9 @@ class TimeCounter(threading.Thread):
         self._seconds_passed = 0
 
     def StartStopperAdvanced(self):
-
-        """ Starts the timer thread considering, wether it is the first start for it
-            or not based on IsFirstRun constant
+        """
+        Starts the timer thread considering, wether it is the first start for it
+        or not based on IsFirstRun constant
 
         @args:
                 self
@@ -113,7 +120,8 @@ class TimeCounter(threading.Thread):
         return self._seconds_passed
 
     def is_timeout(self) -> bool:
-        """ Determines if the timelimit for the game is passed or not
+        """
+        Determines if the timelimit for the game is passed or not
 
         @args:
                 self

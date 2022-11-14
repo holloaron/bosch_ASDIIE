@@ -16,13 +16,12 @@ Driver class and main script for our program
 ********************************************************************
 """
 
-import os
 import threading
 import time
 from source.TimerThread import TimeCounter
 from source.Config import Config
 from source.dynamic_elements.Direction import Direction
-from source.dynamic_elements.moveables.Player import Player
+from source.dynamic_elements.movables.Player import Player
 from source.map.MapData import MapData
 from source.map.MapDataReader import MapDataReader
 from source.map.MapGenerator import MapGenerator
@@ -105,7 +104,8 @@ class PacMan:
 
 
     def start_game_session(self):
-        """ Configure session based on the settings and starts the game
+        """
+        Configure session based on the settings and starts the game
         """
 
         # init mapdata
@@ -132,7 +132,8 @@ class PacMan:
 
 
     def get_user_input(self):
-        """ Resives the user input during the game session
+        """
+        Resives the user input during the game session
         """
         while not self.game_over or not self.timer.is_timeout:
 
@@ -148,7 +149,8 @@ class PacMan:
 
 
     def calculate_game_state(self):
-        """ Implements the gameplay logic
+        """
+        Implements the gameplay logic
         """
 
         # init Player (PacMan)

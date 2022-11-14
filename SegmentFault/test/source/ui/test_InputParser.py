@@ -28,13 +28,15 @@ from source.ui.Inputs import Inputs
 class test_InputParser(unittest.TestCase):
 
     def test_parse_single_input(self):
-        """ Testing that the parse_single_input function returns the valid input
+        """
+        Testing that the parse_single_input function returns the valid input
         """
 
         pass
 
     def test_parse(self):
-        """ Testing that the parse_single_input function returns the valid input
+        """
+        Testing that the parse_single_input function returns the valid input
         """
         pass
 
