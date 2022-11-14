@@ -2,7 +2,7 @@
 //*********************************************************************
 //*********************************************************************
 / PROJECT_NAME : PacMan
-/ FILENAME     : ColorfullVisualizer.py
+/ FILENAME     : ColorfulVisualizer.py
 / AUTHOR       : Márk Bozsóki
 / UNIVERSITY   : BME
 / TEAM         : SegmentFault
