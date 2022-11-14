@@ -37,7 +37,8 @@ class Pellets(GameElement, Visualizable):
         """
         pass
 
-    def tick(self) -> bool:
+    @staticmethod
+    def tick() -> bool:
         """
 
         """
