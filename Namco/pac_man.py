@@ -1,5 +1,7 @@
+import numpy as np
+
 class PacMan:
-    def __init__(self, x: int = 6, y: int = 6):
+    def __init__(self, x: int = 0, y: int = 0):
         """
         Implements PacMan
         :param x: row that PacMan starts the game at
@@ -26,6 +28,15 @@ class PacMan:
         # Moving right
         elif action == 'd':
             self.y += 1
+
+    def generate_init_pos(self, _map: np.ndarray, map_size: int, restricted_slot: str):
+        """
+        Determining the agent's initial position to a non-restricted area
+        :return: -
+        """
+        while _map[self.x][self.y] == restricted_slot:
+            self.x = np.random.randint(map_size)
+            self.y = np.random.randint(map_size)
 
     @property
     def position(self):
