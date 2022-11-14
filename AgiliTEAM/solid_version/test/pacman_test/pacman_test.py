@@ -32,16 +32,13 @@ class GameStateTest(unittest.TestCase):
         test_game_state.step()
         test_game_state.take_action(KeyEvent.LEFT)
         test_game_state.step()
-        ret = pacman.get_pacman_position();
-        self.assertTrue(pacman.get_pacman_position() == Coordinates(0, 0),
-                         "Error during step, value mismatch")
+        self.assertTrue(pacman.get_pacman_position() == Coordinates(0, 0), "Error during step, value mismatch")
 
     def test_PacmanWithWalls(self):
         map_size = MapSize(2, 2)
         pacman = Pacman(body=[Coordinates(1, 1)], map_size=map_size)
         walls = Walls(map_size=map_size)
-        test_game_state = PacmanGameState([pacman,walls])
+        test_game_state = PacmanGameState([pacman, walls])
         test_game_state.take_action(KeyEvent.UP)
         test_game_state.step()
-        self.assertTrue(test_game_state.is_terminated(),"The game should have ended")
-
+        self.assertTrue(test_game_state.is_terminated(), "The game should have ended")
