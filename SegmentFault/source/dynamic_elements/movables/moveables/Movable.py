@@ -2,7 +2,7 @@
 *********************************************************************
 *********************************************************************
 PROJECT_NAME : PacMan
-FILENAME     : PacMan.py
+FILENAME     : Movable.py
 AUTHOR       : Juhász Pál Lóránd; Őri Gergely László; Seregi Bálint Leon; Bozsóki Márk
 UNIVERSITY   : BME
 TEAM         : SegmentFault

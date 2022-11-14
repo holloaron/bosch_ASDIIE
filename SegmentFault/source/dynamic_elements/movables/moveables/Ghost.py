@@ -35,18 +35,18 @@ class Ghost(Moveable):
         """ Calculates the first position on the map next to the Door
             where the Player can't reach the Ghost
         """
+        pass
 
 
     def generate_new_direction(self):
         """ Generates a random direction for the Ghost member based on mapdata
-        
         """
+        pass
         
 
 
     def set_next_position(self):
         """ Calculates the Ghost next position based on the GhostMode
-        
         """
         # goes around the map with no bad intention
         if self.mode == GhostMode.Roam:
