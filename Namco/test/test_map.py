@@ -1,31 +1,41 @@
 import unittest
-from bosch_ASDIIE.Namco.map import Map
-from bosch_ASDIIE.Namco.pac_man import PacMan
-
-class TestCase(unittest.TestCase):
-    def test_whenTheGameBegins_PacmanIsAtTheRightPosition(self):
-        agent = PacMan(6,6)
-        test_world = Map("map.txt")
-        test_world.update_map([agent.x,agent.y],False)
-        self.assertEqual(test_world.map[agent.x, agent.y], '0')
-        "When the game begins, Pacman should be at [6,6] on the map"
+from bosch_ASDIIE_Namco.Namco.map import Map
 
 
-    def test_whenWallIsHit_PacmanDies(self):
-        agent = PacMan(6,6)
-        test_world = Map("map.txt")
-        agent.process_action('w')
-        test_dot_coll, test_wall_coll = test_world.check_collision([agent.x,agent.y])
-        self.assertTrue(test_wall_coll,msg="Wall hit")
-        "When a wall is hit, Pacman should die"
+class MyTestCase(unittest.TestCase):
+    # Unit testing for the _create_map_borders method
+    def test_create_map_borders_whenMapIsGenerated_BorderOfMapIsWall(self):
+        env = Map(map_size=10, agent_slot='0', restricted_slot='#',
+                  award_slot='×', terminating_slot='X', empty_slot=' ')
+        env._generate_map()
+        self.assertTrue((env.map[0, :] == env.restricted_slot).all())
+        self.assertTrue((env.map[-1, :] == env.restricted_slot).all())
+        self.assertTrue((env.map[:, 0] == env.restricted_slot).all())
+        self.assertTrue((env.map[:, -1] == env.restricted_slot).all())
+        "When the map is generated all bordering tiles should be wall tiles"
 
-    def test_whenDotIsHit_DotCounterIncreases(self):
-        agent = PacMan(6,6)
-        test_world = Map("map.txt")
-        agent.process_action('a')
-        test_dot_coll, test_wall_coll = test_world.check_collision([agent.x,agent.y])
-        self.assertTrue(test_dot_coll,msg="Dot hit")
-        "When a dot is hit, the score counter flag should be active"
+    def test_create_map_borders_whenMapIsGenerated_BorderOfMapIsWallWithDifferentMarkings(self):
+        env = Map(map_size=10, agent_slot='0', restricted_slot='¤',
+                  award_slot='×', terminating_slot='X', empty_slot=' ')
+        env._generate_map()
+        self.assertTrue((env.map[0, :] == env.restricted_slot).all())
+        self.assertTrue((env.map[-1, :] == env.restricted_slot).all())
+        self.assertTrue((env.map[:, 0] == env.restricted_slot).all())
+        self.assertTrue((env.map[:, -1] == env.restricted_slot).all())
+        "When the map is generated all bordering tiles should be wall tiles" \
+        "with the given symbol"
+
+    def test_create_map_borders_whenMapIsGenerated_BorderOfMapIsWallWithDifferentMapSize(self):
+        env = Map(map_size=15, agent_slot='0', restricted_slot='#',
+                  award_slot='×', terminating_slot='X', empty_slot=' ')
+        env._generate_map()
+        self.assertTrue((env.map[0, :] == env.restricted_slot).all())
+        self.assertTrue((env.map[-1, :] == env.restricted_slot).all())
+        self.assertTrue((env.map[:, 0] == env.restricted_slot).all())
+        self.assertTrue((env.map[:, -1] == env.restricted_slot).all())
+        "When the map is generated all bordering tiles should be wall tiles" \
+        "independent of the map size"
+
 
 if __name__ == '__main__':
     unittest.main()
