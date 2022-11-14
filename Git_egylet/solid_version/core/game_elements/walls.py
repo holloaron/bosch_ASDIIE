@@ -8,7 +8,7 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.enum.key_event import KeyEvent
 from bosch_ASDIIE.Git_egylet.solid_version.core.interfaces.visualizable import Visualizable
 
 
-class Wallgenerator(GameElement, Visualizable):
+class Walls(GameElement, Visualizable):
     """
     This class is responsible for the creation and visualization of the walls
     """

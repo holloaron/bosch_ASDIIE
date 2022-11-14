@@ -6,7 +6,7 @@ from bosch_ASDIIE.Git_egylet.solid_version.core.move.key_listener import KeyList
 from bosch_ASDIIE.Git_egylet.solid_version.core.pacman_game_state import PacmanGameState
 from bosch_ASDIIE.Git_egylet.solid_version.core.game_elements.pacman import Pacman
 from bosch_ASDIIE.Git_egylet.solid_version.core.game_elements.pellets import Pellets
-from bosch_ASDIIE.Git_egylet.solid_version.core.game_elements.wallgenerator import Wallgenerator
+from bosch_ASDIIE.Git_egylet.solid_version.core.game_elements.walls import Walls
 from bosch_ASDIIE.Git_egylet.solid_version.core.visualize.visualizer import Visualizer
 from bosch_ASDIIE.Git_egylet.solid_version.gui.console_canvas import ConsoleCanvas
 from bosch_ASDIIE.Git_egylet.solid_version.core.enum.map import MapSize
@@ -34,7 +34,7 @@ def main():
 
     pacman = Pacman(map_size=MapSize(HEIGHT, WIDTH))
     pellets = Pellets(map_size=MapSize(HEIGHT, WIDTH), number_pellets=PELLETS)
-    walls = Wallgenerator(map_size=MapSize(HEIGHT, WIDTH), number_walls=WALLS)
+    walls = Walls(map_size=MapSize(HEIGHT, WIDTH), number_walls=WALLS)
 
     score = Score(score_per_pellet=SCORE_PER_PELLET, pacman=pacman, pellets=pellets)
     terminate = Terminate(pacman=pacman, walls=walls)
