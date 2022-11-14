@@ -6,6 +6,11 @@ class Map:
                  terminating_slot: str = 'X', empty_slot: str = ' '):
         """
         :param map_size: size of the map (int)
+        :param: agent_slot: marker for agent position (str)
+        :param: restricted_slot: marker for restricted slots (str)
+        :param: award_slot: marker for award slots (str)
+        :param: terminating_slot: marker for terminating slot (str)
+        :param: empty_slot: marker for empty slot (str)
         Map class: Initializing the map with restricted areas and award slots
         """
         # Markers for different objects
