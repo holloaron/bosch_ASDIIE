@@ -16,11 +16,11 @@
 /*********************************************************************
 """
 
-from source.dynamic_elements.moveables import Moveable
+from source.dynamic_elements.movables import Movable
 from source.dynamic_elements.Direction import Direction
 from source.map.MapData import MapData
 
-class Player(Moveable.Movable):
+class Player(Movable.Movable):
     def __init__(self, mapdata: MapData, start_position: tuple[int, int], start_direction: Direction):
         self.mapdata = mapdata
         self.position = start_position

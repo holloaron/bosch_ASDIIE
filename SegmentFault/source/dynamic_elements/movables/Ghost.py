@@ -16,10 +16,10 @@ Ghosts object definitions, movement and modes
 ********************************************************************
 """
 
-import Moveable, Direction, GhostMode
+import Movable, Direction, GhostMode
 from source.map.MapData import MapData
 
-class Ghost(Moveable):
+class Ghost(Movable):
     def __init__(self, mapdata: MapData, start_position: tuple[int, int]) -> None:
         super().__init_()
         self.mapdata = mapdata

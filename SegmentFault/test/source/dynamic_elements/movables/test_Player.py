@@ -2,7 +2,7 @@
 *********************************************************************
 *********************************************************************
 PROJECT_NAME : PacMan
-FILENAME     : test_Moveable.py
+FILENAME     : test_Player.py
 AUTHOR       : Bozsóki Márk
 UNIVERSITY   : BME
 TEAM         : SegmentFault
@@ -10,10 +10,10 @@ TEAM         : SegmentFault
 *********************************************************************
 Short description
 --------------------------------------------------------------------
-source/dynamic_elements/moveables/Player.py testing module
+source/dynamic_elements/movables/Player.py testing module
 
 To run this module:
-python3 -m unittest test.source.dynamic_elements.moveables.test_Player
+python3 -m unittest test.source.dynamic_elements.movables.test_Player
 
 see README for help
 ********************************************************************
@@ -22,11 +22,11 @@ see README for help
 
 import unittest
 
-from source.dynamic_elements.moveables.Player import Player
+from source.dynamic_elements.movables.Player import Player
 from source.map.MapData import MapData
 from source.dynamic_elements.Direction import Direction
 
-class test_Moveable(unittest.TestCase):
+class test_Player(unittest.TestCase):
 
     def test_set_score(self):
         """ Testing the correct resived score on different collectables
