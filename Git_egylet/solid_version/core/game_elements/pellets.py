@@ -31,9 +31,6 @@ class Pellets(GameElement, Visualizable):
         pellet_positions = []
         for _ in range(number):
             position = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
-            #TODO: if there's another object in the map, generate a new position
-            #while screen(position) != " ":
-                #position = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
             pellet_positions.append(position)
 
         return pellet_positions
