@@ -10,7 +10,7 @@
 **********************************************************************
 / Short description
 / --------------------------------------------------------------------
-/ Module for rendering colorfull map
+/ Module for rendering colorful map
 
 /*********************************************************************
 /*********************************************************************
@@ -19,7 +19,7 @@ import cv2
 import numpy as np
 from source.map.MapData import MapData
 
-class ColorfullVisualizer:
+class ColorfulVisualizer:
     def __init__(self, mapdata: MapData) -> None:
         self.mapdata = mapdata
 
