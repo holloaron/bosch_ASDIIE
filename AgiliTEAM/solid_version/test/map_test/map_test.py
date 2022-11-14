@@ -1,4 +1,10 @@
 import unittest
+import os
+import sys
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath("../../core/game.py"))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 from core.game_element.walls import Walls
 from core.misc.map import Coordinates, MapSize
 

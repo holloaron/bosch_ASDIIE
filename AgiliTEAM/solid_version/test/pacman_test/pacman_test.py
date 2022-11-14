@@ -1,4 +1,9 @@
 import unittest
+import os
+import sys
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath("../../core/game.py"))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 from core.key_interaction.key_event import KeyEvent
 from core.pacman_game_state import PacmanGameState
