@@ -40,7 +40,7 @@ def main():
     terminate = Terminate(pacman=pacman, walls=walls)
 
     visualizer = Visualizer([pacman, pellets, walls], ConsoleCanvas(MapSize(HEIGHT, WIDTH), screen))
-    start_game_state = PacmanGameState([pacman, pellets, walls, score, terminate])
+    start_game_state = PacmanGameState([pacman, pellets, score, terminate])
     game = Game(key_listener, start_game_state, visualizer)
     game.run()
 

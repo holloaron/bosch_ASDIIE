@@ -3,12 +3,10 @@ import numpy as np
 
 from bosch_ASDIIE.Git_egylet.solid_version.core.interfaces.canvas import Canvas
 from bosch_ASDIIE.Git_egylet.solid_version.core.enum.map import Coordinates, MapSize
-from bosch_ASDIIE.Git_egylet.solid_version.core.interfaces.game_element import GameElement
-from bosch_ASDIIE.Git_egylet.solid_version.core.enum.key_event import KeyEvent
 from bosch_ASDIIE.Git_egylet.solid_version.core.interfaces.visualizable import Visualizable
 
 
-class Walls(GameElement, Visualizable):
+class Walls(Visualizable):
     """
     This class is responsible for the creation and visualization of the walls
     """
@@ -42,9 +40,3 @@ class Walls(GameElement, Visualizable):
         :return:
         """
         canvas.draw_dots(self.positions, 'walls')
-
-    def take_action(self, key_event: KeyEvent):
-        pass
-
-    def tick(self) -> bool:
-        return True
