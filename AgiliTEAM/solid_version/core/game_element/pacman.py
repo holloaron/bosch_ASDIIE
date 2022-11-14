@@ -19,11 +19,11 @@ class Pacman(GameElement, Visualizable):
                  known_pos: List[List[Coordinates]] = None,
                  ):
         """
-
-        :param body:
-        :param starting_direction:
-        :param map_size:
-        :param known_pos:
+        Constructor of the pacman class.
+        :param body: body position of the pacman
+        :param starting_direction: the direction where the pacman starts to move in the 0th timestep
+        :param map_size: the size of the pitch where the game is played
+        :param known_pos: list of the actually placed item's coordinates in the pitch
         """
         if known_pos is not None:
             self.known_pos = [item for sublist in known_pos for item in sublist]
@@ -40,30 +40,30 @@ class Pacman(GameElement, Visualizable):
 
     def take_action(self, key_event: KeyEvent) -> None:
         """
-
-        :param key_event:
+        Take action of the pacman given the key_event from the user.
+        :param key_event: key_event from the user.
         :return: None
         """
         self.moving_transformation.direction = key_event
 
     def get_pacman_position(self) -> Coordinates:
         """
-
+        Returns the position of the pacman
         :return:
         """
         return self.pos[0]
 
     def tick(self) -> bool:
         """
-
-        :return:
+        Performs the moving transformation in the current time step
+        :return: returns True
         """
         self.pos = [self.moving_transformation(self.pos[0])]
         return True
 
     def draw(self, canvas: Canvas) -> None:
         """
-
+        Draws the pacman on the canvas.
         :param canvas:
         :return: None
         """

@@ -17,10 +17,10 @@ class Pellets(GameElement, Visualizable):
                  known_pos: List[List[Coordinates]] = None,
                  ):
         """
-
-        :param map_size:
-        :param num_pellets:
-        :param known_pos:
+        Constructor of the pellets.
+        :param map_size: the size of the pitch where the game is played
+        :param num_pellets: the number of the pellets in the game
+        :param known_pos: list of the actually placed item's coordinates in the pitch
         """
         if known_pos is not None:
             self.known_pos = [item for sublist in known_pos for item in sublist]
@@ -45,8 +45,8 @@ class Pellets(GameElement, Visualizable):
 
     def draw(self, canvas: Canvas) -> None:
         """
-
+        Draws all the pellets on the canvas.
         :param canvas:
         :return: None
         """
-        canvas.draw_dots(coordinates=self.pos, obj_type=ObjectMarkers.PELLETS)
+        canvas.draw_dots(coordinates=self.pos, obj_type='pellets')

@@ -24,11 +24,11 @@ class Ghosts(GameElement, Visualizable):
                  walls_pos: List[Coordinates] = None
                  ):
         """
-
-        :param map_size:
-        :param num_ghosts:
-        :param known_pos:
-        :param step_confidence:
+        Constructor of the ghost class.
+        :param map_size: the size of the pitch where the game is played
+        :param num_ghosts: Number of the ghost in the game
+        :param known_pos: List of the actually placed item's coordinates in the pitch
+        :param step_confidence: number between 0 and 1. Sets how good the step should be
         """
         if known_pos is not None:
             self.known_pos = [item for sublist in known_pos for item in sublist]
@@ -46,9 +46,9 @@ class Ghosts(GameElement, Visualizable):
 
     def __take_best_action__(self, pacman_position: Coordinates, ghost_index: int) -> None:
         """
-
-        :param pacman_position:
-        :param ghost_index:
+        It takes the best action to catch pacman
+        :param pacman_position: position of the pacman
+        :param ghost_index: index of the current ghost
         :return: None
         """
         current_ghost_pos = self.pos[ghost_index]
@@ -74,8 +74,8 @@ class Ghosts(GameElement, Visualizable):
 
     def __take_random_action__(self, ghost_index: int) -> None:
         """
-
-        :param ghost_index:
+        Takes a random action
+        :param ghost_index: index of the ghost
         :return: None
         """
         self.event = random.randrange(1, 4)
@@ -83,20 +83,20 @@ class Ghosts(GameElement, Visualizable):
 
     def take_action(self, pacman_position: Coordinates) -> None:
         """
-
-        :param pacman_position:
+        Take action of all ghosts.
+        :param pacman_position: position of the pacman
         :return: None
         """
-        for pos_idx in range(len(self.pos)):
+        for current_ghost_index in range(len(self.pos)):
             if random.uniform(0, 1) >= self.step_confidence:
-                self.__take_best_action__(pacman_position, pos_idx)
+                self.__take_best_action__(pacman_position, current_ghost_index)
             else:
-                self.__take_random_action__(pos_idx)
+                self.__take_random_action__(current_ghost_index)
 
     def tick(self, pacman_position: Coordinates) -> bool:
         """
-
-        :param pacman_position:
+        Performs the action in the current time step
+        :param pacman_position: position of the pacman.
         :return:
         """
         self.take_action(pacman_position)
@@ -105,8 +105,8 @@ class Ghosts(GameElement, Visualizable):
 
     def draw(self, canvas: Canvas) -> None:
         """
-
-        :param canvas:
+        Draws the ghosts on the canvas.
+        :param canvas: canvas where we would like to draw.
         :return: None
         """
         canvas.draw_dots(self.pos, ObjectMarkers.GHOSTS)

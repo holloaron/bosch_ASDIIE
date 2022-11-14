@@ -8,9 +8,9 @@ class MovingTransformation:
 
     def __init__(self, direction: KeyEvent, map_size: MapSize, prohibited_pos: List[Coordinates] = None):
         """
-
-        :param direction:
-        :param map_size:
+        Constructor of the MovingTransformation class. This class is responsible for moving the ghost and pacman around the pitch.
+        :param direction: the direction of the move. It can be up/down/left/right.
+        :param map_size: the size of the pitch
         """
         self.direction = direction
         self.map_size = map_size
@@ -21,9 +21,9 @@ class MovingTransformation:
 
     def __call__(self, coordinates: Coordinates) -> Coordinates:
         """
-
-        :param coordinates:
-        :return:
+        Calculates the new position according to a direction.
+        :param coordinates: input coordinates of the object.
+        :return: Returns the new position of the object according to the current direction.
         """
         if self.direction == KeyEvent.UP:
             new_row = coordinates.row if coordinates.row - 1 < 0 else coordinates.row - 1

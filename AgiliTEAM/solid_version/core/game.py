@@ -14,11 +14,11 @@ class Game:
                  game_speed: float,
                  ):
         """
-
-        :param keyboard_listener:
-        :param game_state:
-        :param visualizer:
-        :param game_speed:
+        Class for the game, managing it from start to end
+        :param keyboard_listener: Keyboard listener object for keyboard scanning.
+        :param game_state: PacmanGameState object for game elements
+        :param visualizer: Visualizer object for rendering game elements.
+        :param game_speed: speed of the game.
         """
         self.keyboard_listener = keyboard_listener
         self.game_state = game_state
@@ -27,7 +27,7 @@ class Game:
 
     def run(self) -> None:
         """
-
+        Runs the game loop.
         :return: None
         """
         can_continue = True

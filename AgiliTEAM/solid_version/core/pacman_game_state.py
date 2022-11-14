@@ -11,15 +11,15 @@ class PacmanGameState:
 
     def __init__(self, game_elements: List[GameElement]):
         """
-
-        :param game_elements:
+        Constructor of the game elements. Creates a configuration for a game given the elements.
+        :param game_elements: list of the given game elements.
         """
         self.game_elements = game_elements
         self._can_game_continue = True
 
     def step(self) -> None:
         """
-
+        Execute every step function for every game element object.
         :return: None
         """
         current_pacman_pos = None
@@ -39,15 +39,15 @@ class PacmanGameState:
 
     def is_terminated(self) -> bool:
         """
-
-        :return:
+        Checks that the game is terminated or not.
+        :return: True if it is. Otherwise False.
         """
         return not self._can_game_continue
 
     def take_action(self, key_event: KeyEvent) -> None:
         """
-
-        :param key_event:
+        Take action in every element.
+        :param key_event: Keyboard event for action taking.
         :return: None
         """
         for game_element in self.game_elements:

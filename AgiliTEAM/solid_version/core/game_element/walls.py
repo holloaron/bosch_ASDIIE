@@ -16,10 +16,10 @@ class Walls(GameElement, Visualizable):
                  known_pos: List[List[Coordinates]] = None,
                  ):
         """
-
-        :param map_size:
-        :param internal_walls:
-        :param known_pos:
+        Constructor of the walls
+        :param map_size: the size of the pitch where the game is played
+        :param internal_walls: the list of the walls inside the pitch
+        :param known_pos: list of the actually placed item's coordinates in the pitch
         """
         if known_pos is not None:
             self.known_pos = [item for sublist in known_pos for item in sublist]
@@ -39,8 +39,8 @@ class Walls(GameElement, Visualizable):
 
     def tick(self, pacman_position: Coordinates) -> bool:
         """
-
-        :return:
+        Performs the check for pacman touching the wall
+        :return: True if the pacman hit the wall, otherwise False
         """
         if pacman_position in self.pos:
             return False
@@ -49,7 +49,7 @@ class Walls(GameElement, Visualizable):
 
     def draw(self, canvas: Canvas) -> None:
         """
-
+        Draws the wall on the canvas
         :param canvas:
         :return: None
         """
@@ -58,9 +58,9 @@ class Walls(GameElement, Visualizable):
     @staticmethod
     def generate_pos(map_size: MapSize) -> List[Coordinates]:
         """
-
-        :param map_size:
-        :return:
+        Generate the positions of the borders in a given map
+        :param map_size: size of the map
+        :return: returns the coordinates of the borders
         """
         pos_list = []
         for num_row in range(map_size.row_num):
@@ -74,6 +74,11 @@ class Walls(GameElement, Visualizable):
         return pos_list
 
     def append_internal_pos(self, pos: List[Coordinates]) -> List[Coordinates]:
+        """
+        Append additional wall inside the pitch
+        :param map_size: size of the map
+        :return: returns the coordinates of the borders
+        """
         pos_list = self.pos
 
         for coordinate in pos:

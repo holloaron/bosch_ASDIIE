@@ -195,8 +195,8 @@ class Pacman:
         This function modifies PacMan's position according to its facing direction.
         :return: None
         """
-        # if facing of the pacman == _direction_:
-        #     if pacman is at the end of the map:
+        # if facing of the game_state_test == _direction_:
+        #     if game_state_test is at the end of the map:
         #         move to the opposite side
         #     else:
         #         move a unit in the _direction_
