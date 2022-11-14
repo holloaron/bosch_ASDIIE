@@ -62,7 +62,7 @@ class GameRunner:
 
 
 def main():
-    game_runner = GameRunner(agent=PacMan(x=6, y=6),
+    game_runner = GameRunner(agent=PacMan(),
                              world=Map(map_size=10),
                              visualizer=Visualizer(),
                              max_step_num=100)
