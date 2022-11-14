@@ -50,4 +50,4 @@ class Pellets(GameElement, Visualizable):
         :param canvas:
         :return: None
         """
-        canvas.draw_dots(coordinates=self.pos, obj_type='pellets')
+        canvas.draw_dots(coordinates=self.pos, obj_type=ObjectMarkers.PELLETS)
