@@ -1,12 +1,10 @@
-from typing import List
-import numpy as np
-
 from bosch_ASDIIE.Git_egylet.solid_version.core.interfaces.canvas import Canvas
-from bosch_ASDIIE.Git_egylet.solid_version.core.enum.map import Coordinates, MapSize
+from bosch_ASDIIE.Git_egylet.solid_version.core.enum.map import MapSize
 from bosch_ASDIIE.Git_egylet.solid_version.core.interfaces.visualizable import Visualizable
+from bosch_ASDIIE.Git_egylet.solid_version.core.interfaces.objects import Objects
 
 
-class Walls(Visualizable):
+class Walls(Objects, Visualizable):
     """
     This class is responsible for the creation and visualization of the walls
     """
@@ -17,21 +15,7 @@ class Walls(Visualizable):
         if map_size is None:
             map_size = MapSize(10, 10)
 
-        self.positions = self.make_walls(number=number_walls, map_size=map_size)
-
-    def make_walls(self, number: int, map_size: MapSize) -> List[Coordinates]:
-        """
-        This function is responsible for creating walls across the map
-        :param number: The number of walls to create
-        :param map_size: The size of the map
-        :return: A list of the coordinates of the walls
-        """
-        wall_positions = []
-        for _ in range(number):
-            position = Coordinates(np.random.randint(map_size[0]), np.random.randint(map_size[1]))
-            wall_positions.append(position)
-
-        return wall_positions
+        self.positions = self.make_objects(number=number_walls, map_size=map_size)
 
     def draw(self, canvas: Canvas):
         """
