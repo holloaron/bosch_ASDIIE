@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from solid_version.core.misc.map import Coordinates
+from core.misc.map import Coordinates
 
 
 class Canvas(ABC):
