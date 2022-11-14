@@ -96,14 +96,14 @@ class MapDataReader:
         mapdata.width = mapdata.size[0]
         mapdata.height = mapdata.size[1]
 
-        # get obsticles start pozition
+        # get obstacles start position
         if self.contains(MapElements.Wall):
             mapdata.obstacles.walls = self.get_coords_of(MapElements.Wall)
         
         if self.contains(MapElements.Door):
             mapdata.obstacles.door = self.get_first_coord_of(MapElements.Door)
 
-        # get collectables start pozition
+        # get collectables start position
         if self.contains(MapElements.Coin):
             mapdata.collectables.coins = self.get_coords_of(MapElements.Coin)
 
@@ -112,7 +112,7 @@ class MapDataReader:
         
         #TODO: add cherry
 
-        # get enemies start pozition
+        # get enemies start position
         if self.contains(MapElements.Blinky):
             mapdata.enemies.Blinky = self.get_first_coord_of(MapElements.Blinky)
         
@@ -125,7 +125,7 @@ class MapDataReader:
         if self.contains(MapElements.Pinky):
             mapdata.enemies.Pinky = self.get_first_coord_of(MapElements.Pinky)
 
-        # get player start pozition
+        # get player start position
         if self.contains(MapElements.PacMan):
             mapdata.Player = self.get_first_coord_of(MapElements.PacMan)
 
