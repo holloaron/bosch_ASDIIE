@@ -132,8 +132,4 @@ class Movable():
         """
         next_position = self.next_position(cur_position, direction)
 
-        for coord in mapdata.obstacles.walls:
-            if next_position == coord:
-                return True
-        
-        return False
+        return next_position in mapdata.obstacles.walls
