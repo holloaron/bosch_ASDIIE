@@ -26,6 +26,8 @@ class GameRunner:
         :return: -
         """
         done = False
+        self.agent.generate_init_pos(self.world.map, self.world.map_size, self.world.restricted_slot)
+        self.world.update_map(self.agent.position, done)
         self.visualizer.render(self.world.map, self.score, done)
 
         while not done:
@@ -41,7 +43,7 @@ class GameRunner:
 
         # Processing current input and evaluating the situation
         self.agent.process_action(action)
-        dot, wall = self.world.check_collision(self.agent.position)
+        dot, wall = self.world.check_interaction(self.agent.position)
 
         # Increasing the step number
         self.step_num += 1
@@ -60,8 +62,8 @@ class GameRunner:
 
 
 def main():
-    game_runner = GameRunner(agent=PacMan(x=6, y=6),
-                             world=Map("map.txt"),
+    game_runner = GameRunner(agent=PacMan(),
+                             world=Map(map_size=10),
                              visualizer=Visualizer(),
                              max_step_num=100)
 
