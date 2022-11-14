@@ -33,6 +33,8 @@ class Maze(Drawable, Steppable):
         # other tiles are empty or walls
         for x in range(1, Constants.MAZE_SIZE_X.value - 1):
             for y in range(1, Constants.MAZE_SIZE_Y.value - 1):
+                if (x is 1 and y is 1) or (x is 2 and y  is 1):
+                    self.fields[x][y] = Coin_holder(x, y)
                 # 10% chance of placing a wall, others are empty or have a coin with 30% chance
                 chance_wall = random.randint(0, 9)
                 if chance_wall == 0:
