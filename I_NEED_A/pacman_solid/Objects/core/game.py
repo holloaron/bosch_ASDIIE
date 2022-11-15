@@ -25,7 +25,7 @@ class Game:
     def run(self):
         can_continue = True
         while can_continue:
-            if self.counter != 0:
+            if self.counter == 0:
                 break
             if self.keyboard_listener.has_happened():
                 key_event = self.keyboard_listener.read_last_key_event()
