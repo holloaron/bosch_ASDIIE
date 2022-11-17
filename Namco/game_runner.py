@@ -43,15 +43,15 @@ class GameRunner:
 
         # Processing current input and evaluating the situation
         self.agent.process_action(action)
-        dot, wall = self.world.check_interaction(self.agent.position)
+        dot_hit, wall_hit = self.world.check_interaction(self.agent.position)
 
         # Increasing the step number
         self.step_num += 1
 
         # Terminating the game or increasing the score according to the situation
-        if dot:
+        if dot_hit:
             self.score += 1
-        if wall or (self.step_num == self.max_step_num):
+        if wall_hit or (self.step_num == self.max_step_num):
             done = True
 
         # Updating the map and visualizing the current state
