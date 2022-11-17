@@ -1,5 +1,5 @@
 import numpy as np
-
+from constants import Constants
 
 class PacMan:
     def __init__(self, x: int = 0, y: int = 0):
@@ -18,16 +18,16 @@ class PacMan:
         :return: Current x and y coordinate of PacMan [int, int]
         """
         # Moving up
-        if action == 'w':
+        if action == Constants.UP.value:
             self.x -= 1
         # Moving left
-        elif action == 'a':
+        elif action == Constants.LEFT.value:
             self.y -= 1
         # Moving down
-        elif action == 's':
+        elif action == Constants.DOWN.value:
             self.x += 1
         # Moving right
-        elif action == 'd':
+        elif action == Constants.RIGHT.value:
             self.y += 1
 
     def generate_init_pos(self, _map: np.ndarray, map_size: int, restricted_slot: str):
