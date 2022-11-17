@@ -2,14 +2,14 @@ import numpy as np
 from constants import Constants
 
 class PacMan:
-    def __init__(self, x: int = 0, y: int = 0):
+    def __init__(self, pos_x: int = 0, pos_y: int = 0):
         """
         Implements PacMan
-        :param x: row that PacMan starts the game at
-        :param y: col that PacMan starts the game at
+        :param pos_x: row that PacMan starts the game at
+        :param pos_y: col that PacMan starts the game at
         """
-        self.x = x
-        self.y = y
+        self.pos_x = pos_x
+        self.pos_y = pos_y
 
     def process_action(self, action: str):
         """
@@ -19,25 +19,25 @@ class PacMan:
         """
         # Moving up
         if action == Constants.UP.value:
-            self.x -= 1
+            self.pos_x -= 1
         # Moving left
         elif action == Constants.LEFT.value:
-            self.y -= 1
+            self.pos_y -= 1
         # Moving down
         elif action == Constants.DOWN.value:
-            self.x += 1
+            self.pos_x += 1
         # Moving right
         elif action == Constants.RIGHT.value:
-            self.y += 1
+            self.pos_y += 1
 
     def generate_init_pos(self, _map: np.ndarray, map_size: int, restricted_slot: str):
         """
         Determining the agent's initial position to a non-restricted area
         :return: -
         """
-        while _map[self.x][self.y] == restricted_slot:
-            self.x = np.random.randint(map_size)
-            self.y = np.random.randint(map_size)
+        while _map[self.pos_x][self.pos_y] == restricted_slot:
+            self.pos_x = np.random.randint(map_size)
+            self.pos_y = np.random.randint(map_size)
 
     @property
     def position(self):
@@ -45,4 +45,4 @@ class PacMan:
         Returns PacMan's current x and y coordinate
         :return: x and y coordinate of PacMan
         """
-        return self.x, self.y
+        return self.pos_x, self.pos_y
