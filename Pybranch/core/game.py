@@ -8,11 +8,11 @@ from Pybranch.core.sprite_draw import SpriteDraw
 
 
 class Game:
-    def __init__(self) -> None:
-        self.game_scene = GameScene()
-        self.pacman = PacMan()
-        self.move = Move()
-        self.draw = SpriteDraw()
+    def __init__(self, game_scene: GameScene, pacman: PacMan, move: Move, draw: SpriteDraw) -> None:
+        self.game_scene = game_scene
+        self.pacman = pacman
+        self.move = move
+        self.draw = draw
         self.over = bool
         self.pacman_wall_collision_list = self.pacman.collide.sprite_group_collision(
             self.pacman, self.game_scene.walls, False)
@@ -37,6 +37,11 @@ class Game:
     def is_it_over(self, score: int, dot_number: int, game_time: [float], collision: bool) -> bool:
         """
             Checks if the game is not over
+        @args:
+            score [int] - the game score
+            dot_number [int] - the number of dots
+            game_time [float] - the time available to play
+            collision [bool] - whether there was a collision
         """
 
         if score == dot_number or game_time <= 0.0 or collision is True:

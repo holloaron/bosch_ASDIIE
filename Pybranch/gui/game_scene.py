@@ -9,19 +9,19 @@ from Pybranch.core.dot_creation import DotCreation
 
 
 class GameScene:
-    def __init__(self) -> None:
+    def __init__(self, pacman: PacMan, score: Score, game_time: GameTime, screen: Screen, inner_wall: InnerWall,
+                 border: BorderWall, dot: DotCreation) -> None:
         self.current_time = float
         self.current_score = int
         self.game_time = float
-        self.pacman = PacMan()
-        self.screen = Screen()
-        self.score = Score()
-        self.time = GameTime()
-        self.inner_wall = InnerWall()
-        self.border = BorderWall()
-        self.dot = DotCreation()
-        self.pacman_dot_collision_list = self.pacman.collide.sprite_group_collision(self.pacman, self.screen.dots,
-                                                                                    True)
+        self.pacman = pacman
+        self.screen = screen
+        self.score = score
+        self.time = game_time
+        self.inner_wall = inner_wall
+        self.border = border
+        self.dot = dot
+        self.pacman_dot_collision_list = self.pacman.collide.sprite_group_collision(self.pacman, self.screen.dots, True)
         self.dots = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
         self.every_sprites = pygame.sprite.Group()
@@ -41,8 +41,6 @@ class GameScene:
     def game_scene(self) -> None:
         """
             Show the game scene
-        @args:
-            game_time [float]-the remaining game time
         """
         self.game_time = self.time.game_time_counting()
         self.score.score = self.score.score_increase(self.screen.dots, self.pacman_dot_collision_list)

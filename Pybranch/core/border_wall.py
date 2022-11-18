@@ -4,7 +4,7 @@ from Pybranch.core.create_wall import CreateWall
 
 
 class BorderWall:
-    def __init__(self) -> None:
+    def __init__(self, create_wall: CreateWall) -> None:
         self.pos_list = (
             (0, 0), (0, 0), (0, 990), (990, 0), (0, 550), (990, 550), (550, 0), (550, 990), (0, 450), (0, 550),
             (890, 450),
@@ -13,7 +13,7 @@ class BorderWall:
             (10, 450), (450, 10), (450, 10), (10, 450), (10, 450), (10, 450), (450, 10), (450, 10), (100, 10),
             (100, 10),
             (110, 10), (100, 10), (10, 100), (10, 100), (10, 110), (10, 100))
-        self.wall = CreateWall()
+        self.wall = create_wall
 
     def create_wall(self, wall_sprites,  every_sprites):
         """

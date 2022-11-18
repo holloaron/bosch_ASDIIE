@@ -6,12 +6,12 @@ from Pybranch.core.surface import Surface
 
 
 class Screen:
-    def __init__(self) -> None:
-        self.screen_size = 1000
+    def __init__(self, colors: Colors, font: Font, surface: Surface) -> None:
         self.time_pos = 930
-        self.color = Colors()
-        self.surface = Surface(self.screen_size, self.screen_size)
-        self.font = Font()
+        self.color = colors
+        self.surface = surface
+        self.screen_size = self.surface.screen_size_width
+        self.font = font
         self.dots = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
         self.every_sprites = pygame.sprite.Group()

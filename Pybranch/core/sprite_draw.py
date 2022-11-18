@@ -3,9 +3,9 @@ from Pybranch.gui.screen import Screen
 
 
 class SpriteDraw:
-    def __init__(self) -> None:
+    def __init__(self, screen: Screen) -> None:
         self.any_sprite = pygame.sprite.Sprite
-        self.screen = Screen()
+        self.screen = screen
 
     def sprite_draw(self, any_sprite: pygame.sprite.Group) -> None:
         """

@@ -4,15 +4,15 @@ from Pybranch.core.collide import Collide
 
 
 class PacMan(pygame.sprite.Sprite):
-    def __init__(self) -> None:
+    def __init__(self, collide: Collide, list_to_bool: ListToBool) -> None:
         """
             Create a PacMan sprite of the given size and location
         """
         self.pos_x = 160
         self.pos_y = 520
         self.size = (50, 50)
-        self.collide = Collide()
-        self.bool = ListToBool()
+        self.collide = collide
+        self.bool = list_to_bool
 
         super().__init__()
         self.image = pygame.image.load("Pacman.png")

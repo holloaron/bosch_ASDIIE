@@ -5,9 +5,9 @@ from Pybranch.core.screen_border_checking import ScreenBorderChecking
 
 
 class Move:
-    def __init__(self) -> None:
+    def __init__(self, border_checking: ScreenBorderChecking) -> None:
         self.speed = 5
-        self.border_checking = ScreenBorderChecking()
+        self.border_checking = border_checking
         self.screen_height = int
         self.screen_width = int
         self.sprite = pygame.sprite.Sprite

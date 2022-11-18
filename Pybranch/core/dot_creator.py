@@ -7,10 +7,10 @@ from Pybranch.gui.screen import Screen
 
 
 class DotCreator:
-    def __init__(self) -> None:
-        self.collide = Collide()
-        self.bool = ListToBool()
-        self.screen = Screen()
+    def __init__(self, collide: Collide, list_to_bool: ListToBool, screen: Screen) -> None:
+        self.collide = collide
+        self.bool = list_to_bool
+        self.screen = screen
         self.sprite_number = int
         self.sprite = pygame.sprite.Sprite
         self.sprite_wall_collide_list = list
@@ -18,12 +18,16 @@ class DotCreator:
         self.sprite_dot_collide_list = list
         self.sprite_dot_collide = bool
 
-    def dot_creator(self, sprite_number: int, wall_sprite,  dots_sprite, every_sprite) -> None:
+    def dot_creator(self, sprite_number: int, wall_sprite: pygame.sprite.Group,  dots_sprite: pygame.sprite.Group,
+                    every_sprite: pygame.sprite.Group) -> None:
         """
             Create an appropriate number of dots so that they do not conflict with the walls and other dots
 
         @args:
             sprite_number [int] - the number of dots to create
+            wall_sprite [pygame.sprite.Group] - the group of Wall sprites
+            dots_sprite [pygame.sprite.Group] - the group of Dot sprites
+            every_sprite [pygame.sprite.Group] - the group of every sprite
         """
 
         self.sprite_number = sprite_number
