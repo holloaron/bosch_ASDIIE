@@ -1,24 +1,20 @@
 import numpy as np
+from bosch_ASDIIE_Namco.Namco.constants import MapEnum
 
 
 class Map:
-    def __init__(self, map_size: int = 10, agent_slot: str = '0', restricted_slot: str = '#', award_slot: str = '-',
-                 terminating_slot: str = 'X', empty_slot: str = ' '):
+    def __init__(self, map_enum = MapEnum, map_size: int = 10):
         """
+        :param map_enum: constants for map tiles (enum)
         :param map_size: size of the map (int)
-        :param: agent_slot: marker for agent position (str)
-        :param: restricted_slot: marker for restricted slots (str)
-        :param: award_slot: marker for award slots (str)
-        :param: terminating_slot: marker for terminating slot (str)
-        :param: empty_slot: marker for empty slot (str)
         Map class: Initializing the map with restricted areas and award slots
         """
         # Markers for different objects
-        self.agent_slot = agent_slot
-        self.restricted_slot = restricted_slot
-        self.award_slot = award_slot
-        self.terminating_slot = terminating_slot
-        self.empty_slot = empty_slot
+        self.agent_slot = map_enum.AGENT_SLOT.value
+        self.restricted_slot = map_enum.RESTRICTED_SLOT.value
+        self.award_slot = map_enum.AWARD_SLOT.value
+        self.terminating_slot = map_enum.TERMINATING_SLOT.value
+        self.empty_slot = map_enum.EMPTY_SLOT.value
 
         # Generating the map
         self.map_size = map_size
@@ -46,7 +42,7 @@ class Map:
             area_start = np.random.randint(2, self.map_size - 2)
             area_length = np.random.randint(self.map_size - 1 - area_start)
             # Placing restricted area on the map
-            self.map[row, area_start:(area_start+area_length)] = self.restricted_slot
+            self.map[row, area_start:(area_start + area_length)] = self.restricted_slot
 
     def _create_award_slots(self):
         """

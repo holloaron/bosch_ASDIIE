@@ -1,6 +1,7 @@
 from map import Map
 from pac_man import PacMan
 from visualizer import Visualizer
+from constants import ActionEnum, MapEnum
 
 
 class GameRunner:
@@ -43,15 +44,15 @@ class GameRunner:
 
         # Processing current input and evaluating the situation
         self.agent.process_action(action)
-        dot, wall = self.world.check_interaction(self.agent.position)
+        dot_hit, wall_hit = self.world.check_interaction(self.agent.position)
 
         # Increasing the step number
         self.step_num += 1
 
         # Terminating the game or increasing the score according to the situation
-        if dot:
+        if dot_hit:
             self.score += 1
-        if wall or (self.step_num == self.max_step_num):
+        if wall_hit or (self.step_num == self.max_step_num):
             done = True
 
         # Updating the map and visualizing the current state
@@ -62,8 +63,8 @@ class GameRunner:
 
 
 def main():
-    game_runner = GameRunner(agent=PacMan(),
-                             world=Map(map_size=10),
+    game_runner = GameRunner(agent=PacMan(action_enum=ActionEnum),
+                             world=Map(map_enum=MapEnum,map_size=10),
                              visualizer=Visualizer(),
                              max_step_num=100)
 
