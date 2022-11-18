@@ -33,7 +33,7 @@ Screen_Size = 1000
 if __name__ == "__main__":
     surface = Surface(Screen_Size, Screen_Size)
     screen = Screen(Colors(), Font(), surface)
-    dot_creator = DotCreator(Collide(), ListToBool(), screen)
+    dot_creator = DotCreator(Collide(), ListToBool())
     inner_wall = InnerWall(CreateWall(Colors()))
     border = BorderWall(CreateWall(Colors()))
     dot_creation = DotCreation(dot_creator)
