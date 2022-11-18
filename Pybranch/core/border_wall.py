@@ -15,7 +15,7 @@ class BorderWall:
             (110, 10), (100, 10), (10, 100), (10, 100), (10, 110), (10, 100))
         self.wall = create_wall
 
-    def create_wall(self, wall_sprites,  every_sprites):
+    def create_wall(self, wall_sprites: pygame.sprite.Group,  every_sprites: pygame.sprite.Group):
         """
             Create the border walls based on the lists of positions and dimensions by calling the create_wall function
         """

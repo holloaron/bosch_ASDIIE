@@ -3,14 +3,13 @@ import pygame
 from Pybranch.core.collide import Collide
 from Pybranch.core.list import ListToBool
 from Pybranch.core.dot_sprite import Dot
-from Pybranch.gui.screen import Screen
 
 
 class DotCreator:
-    def __init__(self, collide: Collide, list_to_bool: ListToBool, screen: Screen) -> None:
+    def __init__(self, collide: Collide, list_to_bool: ListToBool) -> None:
         self.collide = collide
         self.bool = list_to_bool
-        self.screen = screen
+
         self.sprite_number = int
         self.sprite = pygame.sprite.Sprite
         self.sprite_wall_collide_list = list

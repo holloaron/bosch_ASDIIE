@@ -1,3 +1,5 @@
+import pygame.sprite
+
 from Pybranch.core.create_wall import CreateWall
 
 
@@ -7,7 +9,7 @@ class InnerWall:
         self.size_list = ((10, 200), (300, 10), (300, 10), (10, 200), (300, 10), (10, 200), (300, 10), (10, 200))
         self.wall = wall
 
-    def create_wall(self, wall_sprites,  every_sprites):
+    def create_wall(self, wall_sprites: pygame.sprite.Group,  every_sprites: pygame.sprite.Group):
         """
             Create the inner walls based on the lists of positions and dimensions by calling the create_wall function
         """
