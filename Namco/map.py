@@ -3,7 +3,7 @@ from bosch_ASDIIE_Namco.Namco.constants import MapEnum
 
 
 class Map:
-    def __init__(self, map_enum: MapEnum = MapEnum, map_size: int = 10):
+    def __init__(self, map_enum = MapEnum, map_size: int = 10):
         """
         :param map_enum: constants for map tiles (enum)
         :param map_size: size of the map (int)

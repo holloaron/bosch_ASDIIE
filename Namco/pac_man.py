@@ -3,7 +3,7 @@ from constants import ActionEnum
 
 
 class PacMan:
-    def __init__(self, action_enum: ActionEnum = ActionEnum, pos_x: int = 0, pos_y: int = 0):
+    def __init__(self, action_enum = ActionEnum, pos_x: int = 0, pos_y: int = 0):
         """
         Implements PacMan
         :param action_enum: constants for action selection (enum)
@@ -36,7 +36,7 @@ class PacMan:
         elif action == self.RIGHT:
             self.pos_y += 1
 
-    def generate_init_pos(self, _map: np.ndarray, map_size: int, restricted_slot: str):
+    def generate_init_pos(self, _map: np.ndarray, map_size: int, restricted_slot):
         """
         Determining the agent's initial position to a non-restricted area
         :return: -
