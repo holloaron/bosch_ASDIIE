@@ -1,15 +1,21 @@
 import numpy as np
-from constants import Constants
+from constants import ActionEnum
+
 
 class PacMan:
-    def __init__(self, pos_x: int = 0, pos_y: int = 0):
+    def __init__(self, action_enum: ActionEnum = ActionEnum, pos_x: int = 0, pos_y: int = 0):
         """
         Implements PacMan
+        :param action_enum: constants for action selection (enum)
         :param pos_x: row that PacMan starts the game at
         :param pos_y: col that PacMan starts the game at
         """
         self.pos_x = pos_x
         self.pos_y = pos_y
+        self.UP = action_enum.UP.value
+        self.LEFT = action_enum.LEFT.value
+        self.DOWN = action_enum.DOWN.value
+        self.RIGHT = action_enum.RIGHT.value
 
     def process_action(self, action: str):
         """
@@ -18,16 +24,16 @@ class PacMan:
         :return: Current x and y coordinate of PacMan [int, int]
         """
         # Moving up
-        if action == Constants.UP.value:
+        if action == self.UP:
             self.pos_x -= 1
         # Moving left
-        elif action == Constants.LEFT.value:
+        elif action == self.LEFT:
             self.pos_y -= 1
         # Moving down
-        elif action == Constants.DOWN.value:
+        elif action == self.DOWN:
             self.pos_x += 1
         # Moving right
-        elif action == Constants.RIGHT.value:
+        elif action == self.RIGHT:
             self.pos_y += 1
 
     def generate_init_pos(self, _map: np.ndarray, map_size: int, restricted_slot: str):

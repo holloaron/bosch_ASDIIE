@@ -1,14 +1,20 @@
 from enum import Enum
 
 
-class Constants(Enum):
+class ActionEnum(Enum):
     """
-    Constants for action selection and tile symbols
+    Constants for action selection.
     """
     UP = 'w'
     RIGHT = 'd'
     DOWN = 's'
     LEFT = 'a'
+
+
+class MapEnum(Enum):
+    """
+    Constants for the map tiles.
+    """
     AGENT_SLOT = '0'
     RESTRICTED_SLOT = '#'
     AWARD_SLOT = '-'

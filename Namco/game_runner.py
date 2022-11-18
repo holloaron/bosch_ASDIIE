@@ -1,6 +1,7 @@
 from map import Map
 from pac_man import PacMan
 from visualizer import Visualizer
+from constants import ActionEnum, MapEnum
 
 
 class GameRunner:
@@ -62,8 +63,8 @@ class GameRunner:
 
 
 def main():
-    game_runner = GameRunner(agent=PacMan(),
-                             world=Map(map_size=10),
+    game_runner = GameRunner(agent=PacMan(action_enum=ActionEnum),
+                             world=Map(map_enum=MapEnum,map_size=10),
                              visualizer=Visualizer(),
                              max_step_num=100)
 
