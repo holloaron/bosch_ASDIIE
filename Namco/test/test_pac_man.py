@@ -1,12 +1,13 @@
 import unittest
 from bosch_ASDIIE_Namco.Namco.solid_version.pac_man import PacMan
+from bosch_ASDIIE_Namco.Namco.solid_version.constants import ActionEnum
 
 
 class MyTestCase(unittest.TestCase):
     # Unit test for the process_action method
     def test_whenTheInputIsString_PacmansPositionChanges(self):
         x, y = 0, 0
-        agent = PacMan(x, y)
+        agent = PacMan(ActionEnum, x, y)
         agent.process_action('w')
         agent.x, agent.y = agent.position
         self.assertListEqual([x - 1, y], [agent.x, agent.y])
@@ -27,12 +28,12 @@ class MyTestCase(unittest.TestCase):
 
     def test_whenTheInputIsNotString_NothingChanges(self):
         x, y = 0, 0
-        agent = PacMan(x, y)
+        agent = PacMan(ActionEnum, x, y)
         agent.process_action(True)
         agent.x, agent.y = agent.position
         self.assertListEqual([x, y], [agent.y, agent.y])
 
-        agent = PacMan(x, y)
+        agent = PacMan(ActionEnum, x, y)
         agent.process_action(1)
         agent.x, agent.y = agent.position
         self.assertListEqual([x, y], [agent.y, agent.y])

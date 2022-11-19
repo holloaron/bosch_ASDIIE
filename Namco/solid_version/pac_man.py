@@ -1,9 +1,9 @@
 import numpy as np
-from constants import ActionEnum
+from bosch_ASDIIE_Namco.Namco.solid_version.constants import ActionEnum
 
 
 class PacMan:
-    def __init__(self, action_enum = ActionEnum, pos_x: int = 0, pos_y: int = 0):
+    def __init__(self, action_enum=ActionEnum, pos_x: int = 0, pos_y: int = 0):
         """
         Implements PacMan
         :param action_enum: constants for action selection (enum)
