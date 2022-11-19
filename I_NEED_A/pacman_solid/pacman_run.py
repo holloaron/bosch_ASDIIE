@@ -1,12 +1,11 @@
 import curses
-from argparse import ArgumentParser
 
 from Objects.core.game import Game
 from Objects.core.step import  KeyboardListener
 from Objects.core.map import MapSize
 from Objects.core.screen import Screen
 from Objects.core.visualizer import Visualizer
-#TODO
+
 from Objects.core.pacman_game_state import PacmanGameState
 from Objects.core.pacman import Pacman
 from Objects.gui.console_canvas import ConsoleCanvas
@@ -18,10 +17,6 @@ HEIGHT = 5
 
 
 def main():
-    # arg parser
-    arg_parser = ArgumentParser()
-    arg_parser.add_argument("--gui", type=str, default="console")
-    args = arg_parser.parse_args()
 
     # using curses lib for proper keyboard-canvas interaction through SSH
     screen = Screen()
