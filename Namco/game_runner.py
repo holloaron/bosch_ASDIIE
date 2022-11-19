@@ -5,16 +5,16 @@ from constants import ActionEnum, MapEnum
 
 
 class GameRunner:
-    def __init__(self, agent: PacMan, world: Map, visualizer: Visualizer, max_step_num: int = 100):
+    def __init__(self, agent: PacMan, env: Map, visualizer: Visualizer, max_step_num: int = 100):
         """
         Runs the game
         :param agent: Agent that interacts the game
-        :param world: The environment where the game takes place
+        :param env: The environment where the game takes place
         :param visualizer: Visualize the game to the user
         :param max_step_num: Maximum number of possible interactions (int)
         """
         self.agent = agent
-        self.world = world
+        self.env = env
         self.visualizer = visualizer
 
         self.score = 0
@@ -27,9 +27,9 @@ class GameRunner:
         :return: -
         """
         done = False
-        self.agent.generate_init_pos(self.world.map, self.world.map_size, self.world.restricted_slot)
-        self.world.update_map(self.agent.position, done)
-        self.visualizer.render(self.world.map, self.score, done)
+        self.agent.generate_init_pos(self.env.map, self.env.map_size, self.env.restricted_slot)
+        self.env.update_map(self.agent.position, done)
+        self.visualizer.render(self.env.map, self.score, done)
 
         while not done:
             done = self._step(done)
@@ -44,7 +44,7 @@ class GameRunner:
 
         # Processing current input and evaluating the situation
         self.agent.process_action(action)
-        dot_hit, wall_hit = self.world.check_interaction(self.agent.position)
+        dot_hit, wall_hit = self.env.check_interaction(self.agent.position)
 
         # Increasing the step number
         self.step_num += 1
@@ -56,15 +56,15 @@ class GameRunner:
             done = True
 
         # Updating the map and visualizing the current state
-        self.world.update_map(self.agent.position, done)
-        self.visualizer.render(self.world.map, self.score, done)
+        self.env.update_map(self.agent.position, done)
+        self.visualizer.render(self.env.map, self.score, done)
 
         return done
 
 
 def main():
     game_runner = GameRunner(agent=PacMan(action_enum=ActionEnum),
-                             world=Map(map_enum=MapEnum,map_size=10),
+                             env=Map(map_enum=MapEnum, map_size=10),
                              visualizer=Visualizer(),
                              max_step_num=100)
 
