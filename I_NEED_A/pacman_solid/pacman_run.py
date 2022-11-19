@@ -2,7 +2,6 @@ import curses
 from argparse import ArgumentParser
 
 from Objects.core.game import Game
-from Objects.core.get_action import KeyEvent
 from Objects.core.step import  KeyboardListener
 from Objects.core.map import MapSize
 from Objects.core.screen import Screen
