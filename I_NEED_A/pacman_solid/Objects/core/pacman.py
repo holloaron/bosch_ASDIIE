@@ -63,7 +63,7 @@ class Pacman(GameElement, Visualizable):
         if map_size is None:
             map_size = MapSize(10, 10)
         self.moving_transformation = MovingTransformation(starting_direction, map_size)
-        self.life_counter = 1000
+        self.life_counter = 100
 
 
     def take_action(self, key_event: KeyEvent):
