@@ -76,6 +76,7 @@ class Pacman(GameElement, Visualizable):
         if self.life_counter != 0:
             return True
         else:
+            print("Game over")
             return False
 
 
