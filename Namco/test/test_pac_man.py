@@ -1,5 +1,5 @@
 import unittest
-from bosch_ASDIIE_Namco.Namco.pac_man import PacMan
+from bosch_ASDIIE_Namco.Namco.solid_version.pac_man import PacMan
 
 
 class MyTestCase(unittest.TestCase):

@@ -1,5 +1,5 @@
 import unittest
-from bosch_ASDIIE_Namco.Namco.map import Map
+from bosch_ASDIIE_Namco.Namco.solid_version.map import Map
 
 
 class MyTestCase(unittest.TestCase):
