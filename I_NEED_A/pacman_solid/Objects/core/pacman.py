@@ -63,15 +63,21 @@ class Pacman(GameElement, Visualizable):
         if map_size is None:
             map_size = MapSize(10, 10)
         self.moving_transformation = MovingTransformation(starting_direction, map_size)
+        self.life_counter = 1000
 
 
     def take_action(self, key_event: KeyEvent):
         self.moving_transformation.direction = key_event
 
     def tick(self):
+        self.life_counter = self.life_counter -1
         desired_action = self.moving_transformation(self.body)
         self.body = self.moving_transformation.wall_limit(desired_action)
-        return True
+        if self.life_counter != 0:
+            return True
+        else:
+            return False
+
 
     def draw(self, canvas: Canvas):
         canvas.draw_dots(self.body)
