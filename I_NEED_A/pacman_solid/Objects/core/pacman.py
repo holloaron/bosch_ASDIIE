@@ -67,7 +67,7 @@ class Pacman(GameElement, Visualizable):
 
         self.moving_transformation = MovingTransformation(starting_direction, map_variation)
         self.life_counter = 100
-        self.score = 0
+
 
 
     def take_action(self, key_event: KeyEvent):
@@ -83,7 +83,7 @@ class Pacman(GameElement, Visualizable):
         # eat food
         if self.body in self.map_variation.food_positions:
             self.map_variation._remove_element_from_map(self.body)
-            self.score += 1
+            self.life_counter += 10
         
         # life counter
         self.life_counter = self.life_counter -1
@@ -96,3 +96,4 @@ class Pacman(GameElement, Visualizable):
 
     def draw(self, canvas: Canvas):
         canvas.draw_pacman(self.body)
+        canvas.draw_info(self.life_counter)

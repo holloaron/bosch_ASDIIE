@@ -41,6 +41,9 @@ class ConsoleCanvas(Canvas):
         for coordinate in coordinates:
             self.map[coordinate.row][coordinate.col] = \
             self.map_variation.get_annotation("food")
+    
+    def draw_info(self, life: int):
+        self.map[-1] = [char for char in f"score: {life}"]
 
     def render(self):
         for num_row, row in enumerate(self.map):
@@ -56,4 +59,5 @@ class ConsoleCanvas(Canvas):
             line = [char if (char == self.map_variation.get_annotation("wall") or
                 char == " ") else " " for char in line]
             screen.append(line)
+        screen.append([]) # for life
         return screen

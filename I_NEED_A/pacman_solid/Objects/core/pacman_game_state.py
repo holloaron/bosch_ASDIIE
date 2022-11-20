@@ -11,10 +11,13 @@ class PacmanGameState:
     def __init__(self, game_elements: List[GameElement]):
         self.game_elements = game_elements
         self._can_game_continue = True
+        self.life = 100
 
     def step(self):
         for game_element in self.game_elements:
             self._can_game_continue = self._can_game_continue and game_element.tick()
+        
+        self.life -= 1
 
     def is_terminated(self):
         return not self._can_game_continue
