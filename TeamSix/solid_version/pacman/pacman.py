@@ -2,11 +2,11 @@ from __future__ import annotations
 import abc
 from abc import ABC
 
-from direction import Direction
-from field import Field
-from interactable import Interactable
-from drawingService import DrawingService
-from direction import Direction
+from TeamSix.solid_version.enums.direction import Direction
+from TeamSix.solid_version.interfaces.field import Field
+from TeamSix.solid_version.interfaces.interactable import Interactable
+from TeamSix.solid_version.display.drawingService import DrawingService
+from TeamSix.solid_version.enums.direction import Direction
 
 
 class Pacman(Interactable, ABC):

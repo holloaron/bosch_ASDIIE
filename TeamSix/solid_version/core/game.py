@@ -1,9 +1,10 @@
-from direction import Direction
-from constans import Constants
+from TeamSix.solid_version.enums.direction import Direction
+from TeamSix.solid_version.enums.constans import Constants
 from maze import Maze
 import pygame
-from drawingService import DrawingService
+from TeamSix.solid_version.display.drawingService import DrawingService
 from time import sleep
+import sys
 
 
 class Game:
@@ -13,7 +14,8 @@ class Game:
         pygame.display.init()
         pygame.font.init()
         pygame.display.set_caption('TeamSix Pacman')
-        screen = pygame.display.set_mode((Constants['WINDOW_WIDTH'].value, Constants['WINDOW_HEIGHT'].value))
+        screen = pygame.display.set_mode(
+            (Constants['WINDOW_WIDTH'].value, Constants['WINDOW_HEIGHT'].value))
         screen.fill(Constants['COLOR_BLACK'].value)
         fps = pygame.time.Clock()
         self.start_game()
@@ -50,6 +52,7 @@ class Game:
 
 
 if __name__ == '__main__':
+    sys.path.insert(0, '')
     game = Game()
     # game.start_game()
     # print(game.maze)

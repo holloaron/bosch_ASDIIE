@@ -1,12 +1,12 @@
 import random
 import numpy as np
-from steppable import Steppable
-from pacman import Pacman
-from drawable import Drawable
-from constans import Constants
-from wall import Wall
-from coin_holder import Coin_holder
-from coin import Coin
+from TeamSix.solid_version.interfaces.steppable import Steppable
+from TeamSix.solid_version.pacman.pacman import Pacman
+from TeamSix.solid_version.interfaces.drawable import Drawable
+from TeamSix.solid_version.enums.constans import Constants
+from TeamSix.solid_version.maze_elements.wall import Wall
+from TeamSix.solid_version.maze_elements.coin_holder import Coin_holder
+from TeamSix.solid_version.maze_elements.coin import Coin
 
 
 class Maze(Drawable, Steppable):

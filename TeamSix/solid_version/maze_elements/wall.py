@@ -1,7 +1,7 @@
-from drawingService import DrawingService
-from field import Field
-from pacman import Pacman
-from interactable import Interactable
+from TeamSix.solid_version.display.drawingService import DrawingService
+from TeamSix.solid_version.interfaces.field import Field
+from TeamSix.solid_version.pacman.pacman import Pacman
+from TeamSix.solid_version.interfaces.interactable import Interactable
 
 
 class Wall(Field):

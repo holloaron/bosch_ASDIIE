@@ -1,6 +1,6 @@
-from drawingService import DrawingService
-from pacman import Pacman
-from interactable import Interactable
+from TeamSix.solid_version.display.drawingService import DrawingService
+from TeamSix.solid_version.pacman.pacman import Pacman
+from TeamSix.solid_version.interfaces.interactable import Interactable
 
 
 class Coin(Interactable):

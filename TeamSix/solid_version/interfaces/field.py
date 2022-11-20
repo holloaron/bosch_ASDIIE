@@ -1,9 +1,9 @@
 from __future__ import annotations
-from drawable import Drawable
-from direction import Direction
-from steppable import Steppable
-from interactable import Interactable
-from drawingService import DrawingService
+from TeamSix.solid_version.interfaces.drawable import Drawable
+from TeamSix.solid_version.enums.direction import Direction
+from TeamSix.solid_version.interfaces.steppable import Steppable
+from TeamSix.solid_version.interfaces.interactable import Interactable
+from TeamSix.solid_version.display.drawingService import DrawingService
 import abc
 
 

@@ -1,9 +1,9 @@
 from __future__ import annotations
 import abc
 
-from steppable import Steppable
-from drawingService import DrawingService
-from drawable import Drawable
+from TeamSix.solid_version.interfaces.steppable import Steppable
+from TeamSix.solid_version.display.drawingService import DrawingService
+from TeamSix.solid_version.interfaces.drawable import Drawable
 
 
 class Interactable(Drawable, Steppable):

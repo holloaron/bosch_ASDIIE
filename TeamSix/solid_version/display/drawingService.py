@@ -1,5 +1,5 @@
 import pygame
-from constans import Constants
+from TeamSix.solid_version.enums.constans import Constants
 
 
 class DrawingService:

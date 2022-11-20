@@ -1,6 +1,6 @@
-from field import Field
-from interactable import Interactable
-from drawingService import DrawingService
+from TeamSix.solid_version.interfaces.field import Field
+from TeamSix.solid_version.interfaces.interactable import Interactable
+from TeamSix.solid_version.display.drawingService import DrawingService
 
 
 class Coin_holder(Field):

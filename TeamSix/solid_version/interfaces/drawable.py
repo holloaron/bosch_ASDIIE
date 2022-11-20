@@ -1,5 +1,5 @@
 import abc
-from drawingService import DrawingService
+from TeamSix.solid_version.display.drawingService import DrawingService
 
 
 class Drawable(abc.ABC):
