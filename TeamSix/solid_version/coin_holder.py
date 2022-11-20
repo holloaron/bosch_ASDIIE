@@ -1,5 +1,5 @@
 from field import Field
-from thing import Thing
+from interactable import Interactable
 from drawingService import DrawingService
 
 
@@ -14,14 +14,14 @@ class Coin_holder(Field):
             'LEFT': None,
         }
 
-    def accept(self, t: Thing):
+    def accept(self, i: Interactable):
         for thing in self.things:
-            t.collide_with(thing)
-        self.things.append(t)
-        t.field = self
+            i.collide_with(thing)
+        self.things.append(i)
+        i.field = self
 
-    def remove(self, t: Thing):
-        self.things.remove(t)
+    def remove(self, i: Interactable):
+        self.things.remove(i)
 
     def draw(self, service: DrawingService):
         service.draw_field(self.position_x, self.position_y, 'blank')

@@ -1,9 +1,9 @@
 from drawingService import DrawingService
 from pacman import Pacman
-from thing import Thing
+from interactable import Interactable
 
 
-class Coin(Thing):
+class Coin(Interactable):
     POINT_VALUE = 1
 
     def __init__(self, field):
@@ -13,7 +13,7 @@ class Coin(Thing):
         p.add_points(self.POINT_VALUE)
         self.field.remove(self)
 
-    def collide_with(self, t: Thing):
+    def collide_with(self, i: Interactable):
         return
 
     def draw(self, service: DrawingService):

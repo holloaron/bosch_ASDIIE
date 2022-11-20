@@ -2,13 +2,13 @@ from __future__ import annotations
 from drawable import Drawable
 from direction import Direction
 from steppable import Steppable
-from thing import Thing
+from interactable import Interactable
 from drawingService import DrawingService
 import abc
 
 
 class Field(Steppable, Drawable):
-    things: list[Thing]
+    things: list[Interactable]
     neighbors = {
         'DOWN': None,
         'UP': None,
@@ -34,11 +34,11 @@ class Field(Steppable, Drawable):
             t.step()
 
     @abc.abstractmethod
-    def accept(self, t: Thing):
+    def accept(self, i: Interactable):
         pass
 
     @abc.abstractmethod
-    def remove(self, t: Thing):
+    def remove(self, i: Interactable):
         pass
 
     def get_neighbor(self, d: Direction) -> Field:

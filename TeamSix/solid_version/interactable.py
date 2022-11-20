@@ -6,17 +6,17 @@ from drawingService import DrawingService
 from drawable import Drawable
 
 
-class Thing(Drawable, Steppable):
+class Interactable(Drawable, Steppable):
 
     def __init__(self, field):
         self.field = field
 
     @abc.abstractmethod
-    def collide_with(self, t: Thing):
+    def collide_with(self, t: Interactable):
         pass
 
     @abc.abstractmethod
-    def hit_by(self, p: Thing):
+    def hit_by(self, p: Interactable):
         pass
 
     @abc.abstractmethod

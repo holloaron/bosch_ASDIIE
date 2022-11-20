@@ -1,7 +1,7 @@
 from drawingService import DrawingService
 from field import Field
 from pacman import Pacman
-from thing import Thing
+from interactable import Interactable
 
 
 class Wall(Field):
@@ -9,14 +9,14 @@ class Wall(Field):
         super().__init__(x, y)
         self.things = []
 
-    def accept(self, t: Thing):
-        if type(t) is Pacman:
-            t.die()
-        self.things.append(t)
-        t.field = self
+    def accept(self, i: Interactable):
+        if type(i) is Pacman:
+            i.die()
+        self.things.append(i)
+        i.field = self
 
-    def remove(self, t: Thing):
-        self.things.remove(t)
+    def remove(self, i: Interactable):
+        self.things.remove(i)
 
     def draw(self, service: DrawingService):
         service.draw_field(self.position_x, self.position_y, 'WALL')

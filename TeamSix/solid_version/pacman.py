@@ -4,12 +4,12 @@ from abc import ABC
 
 from direction import Direction
 from field import Field
-from thing import Thing
+from interactable import Interactable
 from drawingService import DrawingService
 from direction import Direction
 
 
-class Pacman(Thing, ABC):
+class Pacman(Interactable, ABC):
     has_moved = False
 
     def __init__(self, field: Field, direction: Direction = Direction.RIGHT.value):
@@ -18,8 +18,8 @@ class Pacman(Thing, ABC):
         self.points = 0
         self.dead = False
 
-    def collide_with(self, t: Thing):
-        t.hit_by(self)
+    def collide_with(self, i: Interactable):
+        i.hit_by(self)
 
     def move(self, d: Direction):
         if self.field and not self.has_moved:
@@ -34,7 +34,7 @@ class Pacman(Thing, ABC):
     def add_points(self, p):
         self.points = self.points + p
 
-    def hit_by(self, p: Thing):
+    def hit_by(self, i: Interactable):
         return
 
     def draw(self, service: DrawingService):
