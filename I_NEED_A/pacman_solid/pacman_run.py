@@ -8,6 +8,7 @@ from Objects.core.visualizer import Visualizer
 
 from Objects.core.pacman_game_state import PacmanGameState
 from Objects.core.pacman import Pacman
+from Objects.core.foods import Foods
 from Objects.gui.console_canvas import ConsoleCanvas
 
 
@@ -22,7 +23,8 @@ def main():
 
     map = MapVariation()
     pacman = Pacman(map_variation=map)
-    visualizer = Visualizer([pacman], ConsoleCanvas(map, screen))
+    foods = Foods(map_variation=map)
+    visualizer = Visualizer([pacman, foods], ConsoleCanvas(map, screen))
     start_game_state = PacmanGameState([pacman])
     game = Game(key_listener, start_game_state, visualizer)
     game.run()

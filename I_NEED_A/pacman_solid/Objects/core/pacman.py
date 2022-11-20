@@ -62,20 +62,31 @@ class Pacman(GameElement, Visualizable):
                 raise f"The {body} starting position is on wall, choose other position."
             else:
                 self.body = body
+        
+        self.map_variation = map_variation
 
         self.moving_transformation = MovingTransformation(starting_direction, map_variation)
         self.life_counter = 100
+        self.score = 0
 
 
     def take_action(self, key_event: KeyEvent):
         self.moving_transformation.direction = key_event
 
     def tick(self):
-        self.life_counter = self.life_counter -1
+        
+        # navigate between walls
         desired_action = self.moving_transformation(self.body)
         if not self.moving_transformation._wall_limit(desired_action):
             self.body = desired_action
         
+        # eat food
+        if self.body in self.map_variation.food_positions:
+            self.map_variation._remove_element_from_map(self.body)
+            self.score += 1
+        
+        # life counter
+        self.life_counter = self.life_counter -1
         if self.life_counter != 0:
             return True
         else:

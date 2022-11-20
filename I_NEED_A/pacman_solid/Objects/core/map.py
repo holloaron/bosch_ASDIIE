@@ -38,13 +38,28 @@ class MapVariation:
     @property
     def pacman_start_position(self):
         """Returns pacman start position."""
-        coords = self._get_coordinates_of_objects("pacman")
+        coords = self._get_coordinates_of_objects("pacman")[0]
         return Coordinates(coords[0], coords[1])
         
     @property
     def wall_positions(self):
         """Returns the wall positions."""
         return self._get_coordinates_of_objects("wall")
+
+    @property
+    def ghost_positions(self):
+        """Returns the ghost positions."""
+        ghost_positions = [Coordinates(coord[0], coord[1]) 
+            for coord in self._get_coordinates_of_objects("ghost")]
+        return ghost_positions
+    
+    @property
+    def food_positions(self):
+        """Returns the food positions."""
+        food_positions = [Coordinates(coord[0], coord[1]) 
+            for coord in self._get_coordinates_of_objects("food")]
+        return food_positions
+
 
     def _indexlist(self, list_or_string: Union[list, str], item2find: Any):
         "Returns all indexes of an item in a list or a string"
@@ -57,5 +72,12 @@ class MapVariation:
             line_pos = self._indexlist(map_line, self.get_annotation(object_type))
             if len(line_pos) > 0:
                 found_positions += [(row, col) for col in line_pos]
+        return found_positions
 
-        return found_positions if len(found_positions) > 1 else found_positions[0]
+    def _remove_element_from_map(self, coordiante: Coordinates):
+        """Removes element form map."""
+        line = list(self.map[coordiante.row])
+        line[coordiante.col] = " "
+        self.map[coordiante.row] = "".join(line)
+        
+        

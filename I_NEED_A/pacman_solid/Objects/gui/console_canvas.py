@@ -36,6 +36,11 @@ class ConsoleCanvas(Canvas):
         for coordinate in coordinates:
             self.map[coordinate.row][coordinate.col] = \
             self.map_variation.get_annotation("wall")
+    
+    def draw_foods(self, coordinates: List[Coordinates]):
+        for coordinate in coordinates:
+            self.map[coordinate.row][coordinate.col] = \
+            self.map_variation.get_annotation("food")
 
     def render(self):
         for num_row, row in enumerate(self.map):

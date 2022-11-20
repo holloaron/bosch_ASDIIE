@@ -13,6 +13,10 @@ class Canvas(ABC):
         pass
 
     @abstractmethod
+    def draw_foods(self, coordinates: List[Coordinates]):
+        pass
+    
+    @abstractmethod
     def render(self):
         pass
 
