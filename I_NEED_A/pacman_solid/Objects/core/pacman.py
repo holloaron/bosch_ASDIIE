@@ -1,10 +1,9 @@
-from collections import deque
 from typing import Deque
 
 from Objects.core.canvas import Canvas
 from Objects.core.game_element import GameElement
 from Objects.core.get_action import KeyEvent
-from Objects.core.map import Coordinates, MapSize
+from Objects.core.map import Coordinates, MapVariation
 from Objects.core.visualizable import Visualizable
 
 
@@ -13,9 +12,9 @@ class MovingTransformation:
        A class for handling keyboard events during playing
        """
 
-    def __init__(self, direction: KeyEvent, map_size: MapSize):
+    def __init__(self, direction: KeyEvent, map_variation: MapVariation):
         self.direction = direction
-        self.map_size = map_size
+        self.map_variation = map_variation
 
     def __call__(self, coordinates: Coordinates) -> Coordinates:
         if self.direction == KeyEvent.UP:
@@ -34,35 +33,37 @@ class MovingTransformation:
             raise ValueError(f"There is no moving forward {self.direction} direction.")
 
 
-    def wall_limit(self, coordinates: Coordinates):
-            """
-            Limit pac-man to step outside the map.
-            :param coordinates(Coordinates): pacman's desired position to step
-            :return (Coordinates): allowed position
-            """
-            
-            limited_x = max(1, min(coordinates.row, self.map_size.row_num))
-            limited_y = max(1, min(coordinates.col, self.map_size.col_num))
-            
-            return Coordinates(limited_x,limited_y)    
+    def _wall_limit(self, coordinates: Coordinates) -> bool:
+        """
+        Limit pac-man to step outside the map.
+        :param coordinates(Coordinates): pacman's desired position to step
+        :return (Coordinates): allowed position
+        """
+        desired_coordinates = (coordinates.row, coordinates.col)
+        return desired_coordinates in self.map_variation.wall_positions
+
+
 
 class Pacman(GameElement, Visualizable):
-
     """
-      A game element and visualizable class, for handling snake movement mainly,
+      A game element and visualizable class, for handling pacman movement mainly,
       but visualizing is also represented here
     """
     def __init__(self,
                  body: Coordinates = None,
                  starting_direction: KeyEvent = KeyEvent.RIGHT,
-                 map_size: MapSize = None):
+                 map_variation: MapVariation = None):
+
+        
         if body is None:
-            self.body = Coordinates(0, 1)
+            self.body = map_variation.pacman_start_position
         else:
-            self.body = body
-        if map_size is None:
-            map_size = MapSize(10, 10)
-        self.moving_transformation = MovingTransformation(starting_direction, map_size)
+            if body in map_variation.wall_positions:
+                raise f"The {body} starting position is on wall, choose other position."
+            else:
+                self.body = body
+
+        self.moving_transformation = MovingTransformation(starting_direction, map_variation)
         self.life_counter = 100
 
 
@@ -72,7 +73,9 @@ class Pacman(GameElement, Visualizable):
     def tick(self):
         self.life_counter = self.life_counter -1
         desired_action = self.moving_transformation(self.body)
-        self.body = self.moving_transformation.wall_limit(desired_action)
+        if not self.moving_transformation._wall_limit(desired_action):
+            self.body = desired_action
+        
         if self.life_counter != 0:
             return True
         else:
@@ -81,4 +84,4 @@ class Pacman(GameElement, Visualizable):
 
 
     def draw(self, canvas: Canvas):
-        canvas.draw_dots(self.body)
+        canvas.draw_pacman(self.body)

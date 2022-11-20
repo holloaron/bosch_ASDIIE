@@ -1,7 +1,7 @@
 import os
 from typing import List
 
-from Objects.core.map import Coordinates, MapSize
+from Objects.core.map import Coordinates, MapVariation
 from Objects.core.canvas import Canvas
 from Objects.core.screen import Screen
 
@@ -12,12 +12,12 @@ class ConsoleCanvas(Canvas):
     """
 
     def __init__(self,
-                 map_size: MapSize,
+                 map_variation: MapVariation,
                  curses_screen: Screen):
 
-        self.width = map_size.col_num + 1
-        self.height = map_size.row_num + 1
         self.crs_screen = curses_screen
+        self.map_variation = map_variation
+        self.raw_map = map_variation.get_map()
         self.map = self._get_empty_map()
 
     def clear(self):
@@ -28,8 +28,14 @@ class ConsoleCanvas(Canvas):
         self.map = self._get_empty_map()
         self.crs_screen.clear()
 
-    def draw_dots(self, coordinates: List[Coordinates]):
-        self.map[coordinates.row][coordinates.col] = "x"
+    def draw_pacman(self, coordinates: List[Coordinates]):
+        self.map[coordinates.row][coordinates.col] = \
+            self.map_variation.get_annotation("pacman")
+    
+    def draw_walls(self, coordinates: List[Coordinates]):
+        for coordinate in coordinates:
+            self.map[coordinate.row][coordinate.col] = \
+            self.map_variation.get_annotation("wall")
 
     def render(self):
         for num_row, row in enumerate(self.map):
@@ -41,12 +47,8 @@ class ConsoleCanvas(Canvas):
 
     def _get_empty_map(self):
         screen = []
-        for _ in range(self.height):
-            screen.append([" "] * self.width)
+        for line in self.raw_map:
+            line = [char if (char == self.map_variation.get_annotation("wall") or
+                char == " ") else " " for char in line]
+            screen.append(line)
         return screen
-
-    def get_height(self):
-        return self.height
-
-    def get_width(self):
-        return self.width
