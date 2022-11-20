@@ -17,7 +17,7 @@ class Canvas(ABC):
         pass
 
     @abstractmethod
-    def draw_info(self, score: int, life: int):
+    def draw_info(self, life: int):
         pass
 
     @abstractmethod
